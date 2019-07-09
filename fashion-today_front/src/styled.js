@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 export const Pages = styled.div`
   width: 700px;
   margin: 0 auto;
+  padding: 5px;
+  padding-top: 10px;
   border: 1px solid black;
   margin-top: 3em;
   color: black;
@@ -37,8 +39,13 @@ export const CalTable = styled.div`
   grid-template-columns: repeat(7, 1fr);
 `
 
-export const LWindow = styled.div`
+export const LItem = styled.div`
   margin: 3px;
   border: 1px solid black;
   text-decoration: none;
+`
+
+export const CItem = styled.div`
+  margin: 3px;
+  border: 1px solid gray;
 `

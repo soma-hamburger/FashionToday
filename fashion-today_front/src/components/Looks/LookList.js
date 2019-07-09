@@ -1,18 +1,15 @@
 import React from 'react';
-import LookWindow from '../Common/LookWindow';
-import { A } from '../../styled';
+import LookItem from '../Common/LookItem';
+import { LookArray } from '../../dummyAPI';
 
 const LookList = () => {
-  const LookArray = [{"key": 1},{"key": 2},{"key": 3}];
-
   const LookView = LookArray.map((item, index)=>(
-    <A to={`/look/${item.key}`} key={index}>
-      <LookWindow item={item}/>
-    </A>
+    <LookItem item={item} key={index}/>
   ));
+
   return (
     <>
-      LookList
+      Look List
       {LookView}
     </>
   );

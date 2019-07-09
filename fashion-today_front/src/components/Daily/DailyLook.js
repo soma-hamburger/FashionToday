@@ -7,6 +7,7 @@ const DailyLook = () => {
   const ClothesView = ClothesArray.map((item, index)=>(
     <Link to={`/daily/${item.key}`} key={index}><p>{item.key}</p></Link>
   ));
+  
   return (
     <>
       Daily Look

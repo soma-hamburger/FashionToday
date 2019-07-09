@@ -1,12 +1,11 @@
 import React from 'react';
+import { CItem } from '../../styled';
 
 const ClothesItem = ({match}) => {
-  console.log("ClothesItem");
-  console.log(match);
   return (
-    <>
+    <CItem>
       Clothes Item : {match.params.clothesid}
-    </>
+    </CItem>
   );
 }
 
