@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Pages } from "./styled";
+
+//7 Core Pages
+import Calendar from "./pages/Calendar";
+import Closet from "./pages/Closet";
+import Daily from "./pages/Daily";
+import Looks from "./pages/Looks";
+import Main from "./pages/Main";
+import MyPage from "./pages/MyPage";
+import Recommend from "./pages/Recommend";
+import MainBar from "./components/Common/MainBar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <>
+        <MainBar />
+        <Pages>
+          <Route path="/" exact component={Main} />
+          <Route path="/calendar/" component={Calendar} />
+          <Route path="/look/" component={Looks} />
+          <Route path="/closet/" component={Closet} />
+          <Route path="/daily/" component={Daily} />
+          <Route path="/recommend/" component={Recommend} />
+          <Route path="/mypage/" component={MyPage} />
+        </Pages>
+      </>
+    </Router>
   );
 }
 
