@@ -1,18 +1,24 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import { LItem, Title } from '../../styled';
+import ClothesItem from '../Common/ClothesItem';
+import Character from '../Common/Character';
 
-const DailyLook = () => {
-  const ClothesArray = [{"key": 1},{"key": 2},{"key": 3}];
+const DailyLook = ({item}) => {
+  const [clothesItem, setClothesItem] = useState(false);
 
-  const ClothesView = ClothesArray.map((item, index)=>(
-    <Link to={`/daily/${item.key}`} key={index}><p>{item.key}</p></Link>
-  ));
+  const reset = ()=>setClothesItem(false);
+
+  useEffect(()=>{
+    reset();
+  }, [item]);
   
   return (
-    <>
-      Daily Look
-      {ClothesView}
-    </>
+    <LItem>
+      <Title onClick={reset}>{item.recommend_user}가 추천하는 룩</Title>
+      <Character item={item} setClothesItem={setClothesItem}/>
+      {clothesItem &&  <ClothesItem item={clothesItem} />}
+    </LItem>
   );
 }
 

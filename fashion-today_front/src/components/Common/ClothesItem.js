@@ -1,10 +1,10 @@
 import React from 'react';
 import { CItem } from '../../styled';
 
-const ClothesItem = ({match}) => {
+const ClothesItem = ({item}) => {
   return (
     <CItem>
-      Clothes Item : {match.params.clothesid}
+      Clothes Item : {item.id} {item.color}
     </CItem>
   );
 }

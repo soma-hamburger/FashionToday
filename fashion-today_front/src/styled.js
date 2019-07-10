@@ -11,6 +11,11 @@ export const Pages = styled.div`
   color: black;
 `
 
+export const Title = styled.h1`
+  font-size: 1.1em;
+  cursor: pointer;
+`
+
 export const Bar = styled.div`
   width: 100%;
   background-color: gray;
@@ -23,6 +28,14 @@ export const Bar = styled.div`
 `
 
 export const SLink = styled(Link)`
+  display: block;
+  margin-bottom: 0.5em;
+  color: ${props => props.color || "blue"};
+  text-decoration: none;
+  font-size: ${props => props.small ? "0.8em" : "1.2em"};
+`
+
+export const Button = styled.button`
   display: block;
   margin-bottom: 0.5em;
   color: ${props => props.color || "blue"};

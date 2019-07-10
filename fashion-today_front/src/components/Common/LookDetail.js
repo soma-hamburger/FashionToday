@@ -1,18 +1,23 @@
-import React from 'react';
-import { LItem, A } from '../../styled';
+import React, {useState, useEffect} from 'react';
+import { LItem, Title } from '../../styled';
 import { Switch,Route} from 'react-router-dom';
 import ClothesItem from './ClothesItem';
 import Character from './Character';
 
-const LookDetail = ({item, match}) => {
+const LookDetail = ({item}) => {
+  const [clothesItem, setClothesItem] = useState(false);
+
+  const reset = ()=>setClothesItem(false);
+
+  useEffect(()=>{
+    reset();
+  }, [item]);
+  
   return (
     <LItem>
-      <A to={match.url}>{item.user}의 {item.weather && `${item.weather} 날씨에 어울리는`} 룩<br/></A>
-      {item.id}<br/>
-      <Switch>
-        <Route exact path={match.url} render={(props)=><Character {...props} item={item}/>} />
-        <Route path={`${match.url}/:clothesid`} component={ClothesItem} />
-      </Switch>
+      <Title onClick={reset}>{item.user}의 {item.weather && `${item.weather} 날씨에 어울리는`} 룩</Title>
+      <Character item={item} setClothesItem={setClothesItem}/>
+      {clothesItem &&  <ClothesItem item={clothesItem} />}
     </LItem>
   );
 }

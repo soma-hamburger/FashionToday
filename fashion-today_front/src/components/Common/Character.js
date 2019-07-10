@@ -1,11 +1,15 @@
 import React from 'react';
-import { SLink } from '../../styled';
+import { Button } from '../../styled';
 
-const Character = ({item, match}) => {
+const Character = ({item, setClothesItem}) => {
+
+  const setTop = () => setClothesItem(item.top);
+  const setBottom = () => setClothesItem(item.bottom);
+
   return (
     <>
-      <SLink to={`${match.url}/${item.top.id}`} color={item.top.color}>{item.top.id}</SLink>
-      <SLink to={`${match.url}/${item.bottom.id}`} color={item.bottom.color}>{item.bottom.id}</SLink>
+      <Button color={item.top.color} onClick={setTop}>top: {item.top.id}</Button>
+      <Button color={item.bottom.color} onClick={setBottom}>bottom: {item.bottom.id}</Button>
     </>
   )
 }
