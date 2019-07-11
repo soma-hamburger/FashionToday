@@ -153,3 +153,61 @@ export const LookInfo = {
   }],
   "look_picture": "http://imageurl/look/1"
 }
+
+export const TopArray = [{
+  "id": 21,
+  "type": "t-shirts",
+  "money": 10000,
+  "color": "blue",
+  "picture": "http://imageurl/4"
+},
+{
+  "id": 24,
+  "type": "shirts",
+  "money": 30000,
+  "color": "white",
+  "picture": "http://imageurl/4"
+},
+{
+  "id": 31,
+  "type": "hood",
+  "money": 20000,
+  "color": "orange",
+  "picture": "http://imageurl/4"
+},
+{
+  "id": 32,
+  "type": "t-shirts",
+  "money": 10000,
+  "color": "gray",
+  "picture": "http://imageurl/4"
+}];
+
+export const BottomArray = [{
+  "id": 121,
+  "type": "jean",
+  "money": 19000,
+  "color": "blue",
+  "picture": "http://imageurl/4"
+},
+{
+  "id": 124,
+  "type": "pants",
+  "money": 32000,
+  "color": "green",
+  "picture": "http://imageurl/4"
+},
+{
+  "id": 131,
+  "type": "short",
+  "money": 40000,
+  "color": "black",
+  "picture": "http://imageurl/4"
+},
+{
+  "id": 132,
+  "type": "jean",
+  "money": 20000,
+  "color": "blue",
+  "picture": "http://imageurl/4"
+}];

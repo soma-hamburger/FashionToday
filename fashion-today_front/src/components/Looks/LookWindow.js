@@ -1,6 +1,7 @@
 import React from 'react';
 import LookDetail from '../Common/LookDetail';
 import { LookArray } from '../../dummyAPI';
+import LookItem from './LookItem';
 
 const LookWindow = ({match}) => {
   const LookInfo = LookArray[match.params.lookid-1];

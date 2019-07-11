@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { SLink } from '../styled';
 import {Switch, Route} from 'react-router-dom';
 import DailyLook from '../components/Daily/DailyLook';
-import DClothes from '../components/Daily/DClothes';
 import LookDetail from '../components/Common/LookDetail';
 import { LookArray } from '../dummyAPI';
 
@@ -13,12 +12,16 @@ const Daily = ({match}) => {
   const prevLook = (e) => {
     if(LookNum > 0) {
       setLookNum(LookNum-1);
-    } 
+    } else {
+      setLookNum(LookArray.length - 1);
+    }
   }
   
   const nextLook = (e) => {
     if(LookNum < LookArray.length - 1) {
       setLookNum(LookNum+1);
+    } else {
+      setLookNum(0);
     }
   }
 

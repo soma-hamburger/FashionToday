@@ -1,5 +1,5 @@
 import React from 'react';
-import LookItem from '../Common/LookItem';
+import LookItem from './LookItem';
 import { LookArray } from '../../dummyAPI';
 
 const LookList = () => {

@@ -12,6 +12,7 @@ export const Pages = styled.div`
 `
 
 export const Title = styled.h1`
+  margin-bottom: 0.5em;
   font-size: 1.1em;
   cursor: pointer;
 `
@@ -36,7 +37,7 @@ export const SLink = styled(Link)`
 `
 
 export const Button = styled.button`
-  display: block;
+  display: ${props => props.small ? "inline" : "block"};
   margin-bottom: 0.5em;
   color: ${props => props.color || "blue"};
   text-decoration: none;
@@ -54,6 +55,7 @@ export const CalTable = styled.div`
 
 export const LItem = styled.div`
   margin: 3px;
+  padding: 1em;
   border: 1px solid black;
   text-decoration: none;
 `
@@ -61,4 +63,13 @@ export const LItem = styled.div`
 export const CItem = styled.div`
   margin: 3px;
   border: 1px solid gray;
+`
+
+export const ClothesPicture = styled.div`
+  cursor: pointer;
+  width: 10em;
+  height: 10em;
+  border: 1px solid black;
+  display: inline;
+  margin: 0.5em;
 `

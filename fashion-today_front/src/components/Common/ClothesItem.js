@@ -3,8 +3,9 @@ import { CItem } from '../../styled';
 
 const ClothesItem = ({item}) => {
   return (
-    <CItem>
-      Clothes Item : {item.id} {item.color}
+    <CItem color={item.color}>
+      Clothes Item : {item.id} {item.color}<br/>
+      {item.type}
     </CItem>
   );
 }
