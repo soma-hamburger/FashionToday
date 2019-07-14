@@ -15,7 +15,7 @@ const LookItem = ({item}) => {
   return (
     <LItem>
       <A to={`looks/${item.id}`} ><Title>{item.user}의 {item.weather && `${item.weather} 날씨에 어울리는`} 룩</Title></A>
-      <Character item={item} setClothesItem={setClothesItem}/>
+      <Character item={item} setClothesItem={setClothesItem} isSet={true}/>
       {clothesItem &&  <ClothesItem item={clothesItem} />}
     </LItem>
   );

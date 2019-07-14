@@ -1,15 +1,20 @@
 import React from 'react';
-import { Button } from '../../styled';
+import { Class } from '../../styled';
 
-const Character = ({item, setClothesItem}) => {
+const Character = ({item, setClothesItem, isSet}) => {
+  const setClothes = (e) => {
+    if(isSet) setClothesItem(item.look[e.target.getAttribute("id")]);
+  }
 
-  const setTop = () => setClothesItem(item.top);
-  const setBottom = () => setClothesItem(item.bottom);
+  const ClothesView = item.look.map((clothes, index)=>
+    <Class id={index} color={clothes.color} onClick={isSet ? setClothes : null} key={index} small={!isSet}>
+      {clothes.class} : {clothes.id}
+    </Class>
+  )
 
   return (
     <>
-      <Button color={item.top.color} onClick={setTop}>top: {item.top.id}</Button>
-      <Button color={item.bottom.color} onClick={setBottom}>bottom: {item.bottom.id}</Button>
+      {ClothesView}
     </>
   )
 }

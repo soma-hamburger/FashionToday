@@ -36,6 +36,17 @@ export const SLink = styled(Link)`
   font-size: ${props => props.small ? "0.8em" : "1.2em"};
 `
 
+export const Class = styled.div`
+  cursor: pointer;
+  border: 1px solid black;
+  color: ${props => props.color || "blue"};
+  text-decoration: none;
+  padding-left: 0.5em;
+  margin: ${props => props.small ? "0" : "0.3em"};
+  font-size: ${props => props.small ? "0.5em" : "1.2em"};
+`
+
+
 export const Button = styled.button`
   display: ${props => props.small ? "inline" : "block"};
   margin-bottom: 0.5em;
@@ -61,15 +72,20 @@ export const LItem = styled.div`
 `
 
 export const CItem = styled.div`
-  margin: 3px;
+  margin-top: 10px;
+  padding: 3px;
   border: 1px solid gray;
 `
 
-export const ClothesPicture = styled.div`
-  cursor: pointer;
-  width: 10em;
-  height: 10em;
+export const ClosetTable = styled.div`
   border: 1px solid black;
-  display: inline;
-  margin: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+`
+
+export const ClothesPicture = styled.img`
+  cursor: pointer;
+  border: 1px solid black;
+  margin: 5px;
+  height: 150px;
 `

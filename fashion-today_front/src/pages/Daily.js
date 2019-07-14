@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import { SLink } from '../styled';
-import {Switch, Route} from 'react-router-dom';
 import DailyLook from '../components/Daily/DailyLook';
-import LookDetail from '../components/Common/LookDetail';
-import { LookArray } from '../dummyAPI';
+import { DailyLookArray } from '../dummyAPI';
 
 const Daily = ({match}) => {
 
@@ -13,12 +11,12 @@ const Daily = ({match}) => {
     if(LookNum > 0) {
       setLookNum(LookNum-1);
     } else {
-      setLookNum(LookArray.length - 1);
+      setLookNum(DailyLookArray.length - 1);
     }
   }
   
   const nextLook = (e) => {
-    if(LookNum < LookArray.length - 1) {
+    if(LookNum < DailyLookArray.length - 1) {
       setLookNum(LookNum+1);
     } else {
       setLookNum(0);
@@ -30,7 +28,7 @@ const Daily = ({match}) => {
       <SLink to ={match.url}>Daily Look</SLink>
       <button onClick ={prevLook}>prev</button>
       <button onClick ={nextLook}>next</button>
-      <DailyLook item={LookArray[LookNum]} />
+      <DailyLook item={DailyLookArray[LookNum]} />
     </>
   );
 }

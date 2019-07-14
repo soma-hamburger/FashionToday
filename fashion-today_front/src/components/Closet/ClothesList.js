@@ -1,29 +1,25 @@
 import React, {useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { SLink, Button, ClothesPicture } from '../../styled';
-import { TopArray, BottomArray } from '../../dummyAPI';
+import { SLink, Button, ClothesPicture, ClosetTable } from '../../styled';
+import { ClothesArray } from '../../dummyAPI';
 import ClothesItem from '../Common/ClothesItem';
 
 const ClothesList = () => {
   const [clothesType, setClothesType] = useState("Top");
   const [clothesItem, setClothesItem] = useState(false);
   
-  let ClothesArray;
+  let RecentArray;
   let ClothesView;
 
   const setClothes = () => {
     if(clothesType === "Top") {
-      ClothesArray = TopArray;
+      RecentArray = ClothesArray.filter(Clothes => Clothes.class === "top");
     } else if(clothesType === "Bottom") {
-      ClothesArray = BottomArray;
+      RecentArray = ClothesArray.filter(Clothes => Clothes.class === "bottom");
     }
 
-    ClothesView = ClothesArray.map((item, index)=>{
+    ClothesView = RecentArray.map((item, index)=>{
       return (
-        <ClothesPicture onClick={()=>setClothesItem(item)} key={index}>
-          {item.picture}
-          {item.id}
-        </ClothesPicture>
+        <ClothesPicture onClick={()=>setClothesItem(item)} key={index} src={item.picture} alt={item.id}/>
       )
     });
   }
@@ -45,9 +41,9 @@ const ClothesList = () => {
       {clothesType} : 
       <Button onClick={setTop} small="true">Top</Button>
       <Button onClick={setBottom} small="true">Bottom</Button>
-      <div>
+      <ClosetTable>
         {ClothesView}
-      </div>
+      </ClosetTable>
       {clothesItem && <ClothesItem item={clothesItem}/>}
       <SLink small="true" color="gray" to ={`/closet/add`}>Add Clothes</SLink>
     </>

@@ -1,6 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import { LItem, Title } from '../../styled';
+import { LItem, Title, Button } from '../../styled';
 import ClothesItem from '../Common/ClothesItem';
 import Character from '../Common/Character';
 
@@ -13,9 +12,12 @@ const DailyLook = ({item}) => {
 
   return (
     <LItem>
-      <Title onClick={reset}>{item.recommend_user}가 추천하는 룩</Title>
-      <Character item={item} setClothesItem={setClothesItem}/>
+      <Title onClick={reset}>{item.recommend.recommender}가 추천하는 룩</Title>
+      <Character item={item} setClothesItem={setClothesItem} isSet={true}/>
       {clothesItem &&  <ClothesItem item={clothesItem} />}
+      <p>
+        <Button color="gray" small="true">Look 선택</Button>
+      </p>
     </LItem>
   );
 }
