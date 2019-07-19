@@ -1,10 +1,12 @@
 package hamburger.fashiontoday.domain;
 
+import org.hibernate.annotations.Where;
 import support.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
@@ -21,20 +23,30 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private Boolean editor;
 
     @Column(nullable = false)
-    private int credit;
+    private int credit = 0;
 
-    public User(String userId, String password, String name) {
-        this(0L, userId, password, name);
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OrderBy("date desc")
+    List<Clothes> closet = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OrderBy("date desc")
+    List<LookInfo> dailyLooks = new ArrayList<>();
+
+    public User(String userId, String password, String name, Boolean editor) {
+        this(0L, userId, password, name, editor);
     }
 
-    public User(long id, String userId, String password, String name) {
+    public User(long id, String userId, String password, String name, Boolean editor) {
         super(id);
         this.userId = userId;
         this.password = password;
         this.name = name;
+        this.editor = editor;
     }
 
 
