@@ -1,6 +1,5 @@
 package hamburger.fashiontoday.domain;
 
-import org.hibernate.annotations.Where;
 import support.AbstractEntity;
 
 import javax.persistence.*;
