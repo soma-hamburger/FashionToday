@@ -1,7 +1,7 @@
 import React from 'react';
-import { SLink, CalTable } from '../../styled';
-import Character from '../Common/Character';
+import { SLink } from '../../styled';
 import { LookInfo } from '../../dummyAPI';
+import { CalFrame, CalDay, DayNum, DateName } from '../../styled/calendar';
 
 const makeDayId = (dateObj) => {
   const mm = dateObj.getMonth() + 1; // getMonth() is zero-based
@@ -13,12 +13,27 @@ const makeDayId = (dateObj) => {
          ].join('');
 }
 
-const makeDay = (dayId, date, color) => (
-  <SLink to ={`/calendar/${dayId}`} key={dayId} color={color ? color : "black"}>
-    {date} <br/>
-    <Character item={LookInfo} isSet={false}/>
-  </SLink>
-);
+const makeDay = (dayId, date, color) => {
+  let look;
+  let schedule;
+
+  if (dayId==="20190728" || dayId==="20190726") {
+    look = LookInfo;
+  }
+  if (dayId==="20190730") {
+    schedule = "Interview"
+  }
+
+  return (
+    <SLink to ={`/calendar/${dayId}`} key={dayId} color={color ? color : "black"}>
+      <CalDay>
+        <DayNum>{date}</DayNum>
+        {look ? <img src={look.look_picture} alt={look.title}/> : ""}
+        {schedule ? `일정 : ${schedule}`: ""}
+      </CalDay>
+    </SLink>
+  )
+};
 
 const makeTable = (year, month, today) => {
   const days = ['일', '월', '화', '수', '목', '금', '토'];
@@ -29,7 +44,7 @@ const makeTable = (year, month, today) => {
   const prevDate = new Date(year, month, 0).getDate();
 
   table.forEach((week,index) => {
-    week.push(<div key = {index}>{days[index]}</div>);
+    week.push(<DateName key = {index}>{days[index]}</DateName>);
   });
 
   let pDay = startDay;
@@ -52,9 +67,7 @@ const makeTable = (year, month, today) => {
     table[dayObj.getDay()].push(makeDay(dayId, i));
   }
   
-  const showTable = table.map((week, index)=>(<div key={index}>{week}</div>));
-
-  return <CalTable>{showTable}</CalTable>;
+  return table.map((week, index)=>(<div key={index}>{week}</div>));
 }
 
 
@@ -63,10 +76,9 @@ const CalendarTable = ({year, month, today}) => {
   const table = makeTable(year, month, today);
   
   return (
-    <>
-      <h3>{year}년 {month + 1}월</h3>
+    <CalFrame>
       {table}
-    </>
+    </CalFrame>
   );
 }
 

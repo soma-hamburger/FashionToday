@@ -3,78 +3,101 @@ export const ClothesArray = [{
   "class": "top",
   "type": "t-shirts",
   "money": 10000,
-  "color": "blue",
-  "picture": "http://imageurl/4"
+  "color": ["blue", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 24,
   "class": "top",
   "type": "shirts",
   "money": 30000,
-  "color": "white",
-  "picture": "http://imageurl/4"
+  "color": ["white", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 31,
   "class": "top",
   "type": "hood",
   "money": 20000,
-  "color": "orange",
-  "picture": "http://imageurl/4"
+  "color": ["orange", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 32,
   "class": "top",
   "type": "t-shirts",
   "money": 10000,
-  "color": "gray",
-  "picture": "http://imageurl/4"
+  "color": ["gray", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 121,
   "class": "bottom",
   "type": "jean",
   "money": 19000,
-  "color": "blue",
-  "picture": "http://imageurl/4"
+  "color": ["blue", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 124,
   "class": "bottom",
   "type": "pants",
   "money": 32000,
-  "color": "green",
-  "picture": "http://imageurl/4"
+  "color": ["green", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 131,
   "class": "bottom",
   "type": "short",
   "money": 40000,
-  "color": "black",
-  "picture": "http://imageurl/4"
+  "color": ["black", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 132,
   "class": "bottom",
   "type": "jean",
   "money": 20000,
-  "color": "blue",
-  "picture": "http://imageurl/4"
+  "color": ["blue", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 },
 {
   "id": 111,
   "class": "bottom",
   "type": "skirt",
   "money": 30000,
-  "color": "red",
-  "picture": "http://imageurl/3"
+  "color": ["red", "white"],
+  "image": "http://imageurl/",
+  "sub_image": ["http://imageurl/", "http://imageurl/"]
 }];
 
+export const UserInfo = {
+  "id": 100000001,
+  "username": "donghoon",
+  "birth": 19990803,
+  "profile_image": "http://imageurl/",
+  "height": 170,
+  "weight": 70,
+  "preference": {
+    "color": ["black", "blue", "white"],
+    "schedule": "sports",
+    "weather": "sun"
+  }
+}
 
 export const LookInfo = {
   "id": 10, // unique key!
   "user": "donghoon", // userid!
+  "title": "비 오는 날의 룩",
   "recommend": { // 추천에 고려된 요소와 추천 방법!
     "type": "user", //(pattern || user || editor)!
     "recommender": "kiseong", // (user || editer)
@@ -121,7 +144,7 @@ export const LookInfo = {
     "color": "#012",
     "picture": "http://imageurl/4"
   }],
-  "look_picture": "http://imageurl/look/1" // look 입은 사진 url
+  "look_picture": "http://imageurl/" // look 입은 사진 url
 }
 
 export const DailyLookArray = [{

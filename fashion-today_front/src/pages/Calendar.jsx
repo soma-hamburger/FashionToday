@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
-import { SLink } from '../styled';
 import {Route} from 'react-router-dom';
 import Day from '../components/Calendar/Day';
 import CalendarTable from '../components/Calendar/CalendarTable';
+import { CalNav, CalTitle, Cal } from '../styled/calendar';
 
 const Calendar = ({match}) => {
   const today = new Date();
@@ -27,13 +28,15 @@ const Calendar = ({match}) => {
   }
 
   return (
-    <>
-      <SLink to={match.url}>Calendar</SLink>
-      <button onClick ={prevMonth}>prev</button>
-      <button onClick ={nextMonth}>next</button>
+    <Cal>
+      <CalNav>
+        <button onClick ={prevMonth}>이전달</button>
+        <CalTitle>{year}년 {month + 1}월</CalTitle>
+        <button onClick ={nextMonth}>다음달</button>
+      </CalNav>
       <CalendarTable year={year} month={month} today={today} />
       <Route path={`${match.url}/:dayid`} component={Day} />
-    </>
+    </Cal>
   );
 }
 

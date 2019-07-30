@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <>
-        <MainBar />
+        <Route path="/" component={MainBar} />
         <Pages>
           <Route path="/" exact component={Main} />
           <Route path="/calendar/" component={Calendar} />

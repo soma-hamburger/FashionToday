@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react';
-import { SLink, Button, ClothesPicture, ClosetTable } from '../../styled';
+import { SLink, Button } from '../../styled';
+import { ClosetTable, ClothesPicture, PictureWrapper} from '../../styled/closet';
 import { ClothesArray } from '../../dummyAPI';
 import ClothesItem from '../Common/ClothesItem';
 
@@ -19,7 +20,9 @@ const ClothesList = () => {
 
     ClothesView = RecentArray.map((item, index)=>{
       return (
-        <ClothesPicture onClick={()=>setClothesItem(item)} key={index} src={item.picture} alt={item.id}/>
+        <PictureWrapper key={index} >
+          <ClothesPicture onClick={()=>setClothesItem(item)} src={item.picture} alt={item.id}/>
+        </PictureWrapper>
       )
     });
   }

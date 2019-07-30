@@ -4,6 +4,7 @@ import Character from '../Common/Character';
 import ClothesItem from '../Common/ClothesItem';
 
 const LookItem = ({item}) => {
+  console.log(item);
   const [clothesItem, setClothesItem] = useState(false);
 
   const reset = ()=>setClothesItem(false);

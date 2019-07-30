@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { SLink } from '../styled';
 import DailyLook from '../components/Daily/DailyLook';
 import { DailyLookArray } from '../dummyAPI';
 
@@ -25,7 +24,6 @@ const Daily = ({match}) => {
 
   return (
     <>
-      <SLink to ={match.url}>Daily Look</SLink>
       <button onClick ={prevLook}>prev</button>
       <button onClick ={nextLook}>next</button>
       <DailyLook item={DailyLookArray[LookNum]} />
