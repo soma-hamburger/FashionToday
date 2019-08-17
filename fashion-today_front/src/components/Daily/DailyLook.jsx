@@ -1,7 +1,9 @@
 import React, {useState,useEffect} from 'react';
-import { LItem, Title, Button } from '../../styled';
-import ClothesItem from '../Common/ClothesItem';
-import Character from '../Common/Character';
+import { Title, Button, Image } from '../../styled';
+import LookElementWindow from '../Common/LookElementWindow';
+import LookElementTable from '../Common/LookElementTable';
+import { DailyGrid, DailyImage, DailyInfo } from '../../styled/daily';
+import { Comment } from '../../styled/looks';
 
 const DailyLook = ({item}) => {
   const [clothesItem, setClothesItem] = useState(false);
@@ -11,14 +13,21 @@ const DailyLook = ({item}) => {
   useEffect(()=>reset(), [item]);
 
   return (
-    <LItem>
-      <Title onClick={reset}>{item.recommend.recommender}가 추천하는 룩</Title>
-      <Character item={item} setClothesItem={setClothesItem} isSet={true}/>
-      {clothesItem &&  <ClothesItem item={clothesItem} />}
-      <p>
-        <Button color="gray" small="true">Look 선택</Button>
-      </p>
-    </LItem>
+    <DailyGrid>
+      <DailyImage>
+        <Image src={item.look_picture[0]}/>
+      </DailyImage>
+      <DailyInfo>
+        <Title onClick={reset}>{item.title}</Title>
+        <Comment>{item.comment}</Comment>
+        <LookElementTable item={item} setClothesItem={setClothesItem} isSet={true}/>
+        {clothesItem &&  <LookElementWindow item={clothesItem} />}
+        <p>
+          <Button color="gray" small="true">Look 선택</Button>
+          <Button color="gray" small="true">Look 킵</Button>
+        </p>
+      </DailyInfo>
+    </DailyGrid>
   );
 }
 

@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import DailyLook from '../components/Daily/DailyLook';
 import { DailyLookArray } from '../dummyAPI';
+import { DailyNav } from '../styled/daily';
+import { Button } from '../styled';
 
 const Daily = ({match}) => {
-
+  console.log(match);
+  
   const [LookNum, setLookNum] = useState(0);
 
   const prevLook = (e) => {
@@ -23,11 +26,11 @@ const Daily = ({match}) => {
   }
 
   return (
-    <>
-      <button onClick ={prevLook}>prev</button>
-      <button onClick ={nextLook}>next</button>
+    <DailyNav>
+      <Button onClick={prevLook}>{`<`}</Button>
       <DailyLook item={DailyLookArray[LookNum]} />
-    </>
+      <Button onClick={nextLook}>{`>`}</Button>
+    </DailyNav>
   );
 }
 

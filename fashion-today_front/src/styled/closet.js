@@ -11,9 +11,3 @@ export const PictureWrapper = styled.div`
   border: 1px solid black;
   margin: 5px;
 `
-
-export const ClothesPicture = styled.img`
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-`

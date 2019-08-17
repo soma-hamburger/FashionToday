@@ -1,27 +1,21 @@
 import React, {useState,useEffect} from 'react';
-import { SLink, Button } from '../../styled';
-import { ClosetTable, ClothesPicture, PictureWrapper} from '../../styled/closet';
+import { SLink, Button, Image } from '../../styled';
+import { ClosetTable, PictureWrapper} from '../../styled/closet';
 import { ClothesArray } from '../../dummyAPI';
-import ClothesItem from '../Common/ClothesItem';
+import ClothesItem from '../Common/LookElementWindow';
 
-const ClothesList = () => {
+const ClothesTable = () => {
   const [clothesType, setClothesType] = useState("Top");
   const [clothesItem, setClothesItem] = useState(false);
   
-  let RecentArray;
   let ClothesView;
 
   const setClothes = () => {
-    if(clothesType === "Top") {
-      RecentArray = ClothesArray.filter(Clothes => Clothes.class === "top");
-    } else if(clothesType === "Bottom") {
-      RecentArray = ClothesArray.filter(Clothes => Clothes.class === "bottom");
-    }
 
-    ClothesView = RecentArray.map((item, index)=>{
+    ClothesView = ClothesArray.map((item, index)=>{
       return (
         <PictureWrapper key={index} >
-          <ClothesPicture onClick={()=>setClothesItem(item)} src={item.picture} alt={item.id}/>
+          <Image onClick={()=>setClothesItem(item)} src={item.image} alt={item.id}/>
         </PictureWrapper>
       )
     });
@@ -53,4 +47,4 @@ const ClothesList = () => {
   );
 }
 
-export default ClothesList;
+export default ClothesTable;

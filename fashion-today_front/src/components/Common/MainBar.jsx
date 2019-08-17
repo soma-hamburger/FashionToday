@@ -15,10 +15,6 @@ const makeButton = (pathname) => {
     "name": "Daily Look"
   },
   {
-    "location": "/looks",
-    "name": "Looks"
-  },
-  {
     "location": "/recommend",
     "name": "Recomend"
   }];

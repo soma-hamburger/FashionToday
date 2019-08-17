@@ -8,6 +8,18 @@ export const SLink = styled(Link)`
   font-size: ${props => props.small ? "0.8em" : "1.2em"};
 `
 
+export const A = styled(Link)`
+  text-decoration: none;
+`
+
+export const Image = styled.img`
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border-radius: ${props=>props.br};
+`
+
 export const Pages = styled.div`
   width: 1000px;
   margin: 0 auto;
@@ -77,39 +89,76 @@ export const Title = styled.h1`
   font-size: 1.1em;
   cursor: pointer;
 `
-
-export const Class = styled.div`
-  cursor: pointer;
-  border: 1px solid black;
-  color: ${props => props.color || "blue"};
-  text-decoration: none;
-  padding-left: 0.5em;
-  margin: ${props => props.small ? "0" : "0.3em"};
-  font-size: ${props => props.small ? "0.5em" : "1.2em"};
-`
-
-
 export const Button = styled.button`
-  display: ${props => props.small ? "inline" : "block"};
-  margin-bottom: 0.5em;
+  margin: 0px;
+  display: ${props => props.small ? "inline-block" : "block"};
   color: ${props => props.color || "blue"};
   text-decoration: none;
   font-size: ${props => props.small ? "0.8em" : "1.2em"};
 `
-
-export const A = styled(Link)`
-  text-decoration: none;
-`
-
-export const LItem = styled.div`
-  margin: 3px;
-  padding: 1em;
-  border: 1px solid black;
-  text-decoration: none;
-`
-
-export const CItem = styled.div`
+export const Input = styled.input`
   margin-top: 10px;
+  width: ${props=> props.width};
+  font-size: 14px;
+`
+export const List = styled.div`
+  display: grid;
+  padding: 0;
+`
+export const Element = styled.div`
+  cursor: pointer;
+  border: 1px solid black;
+`
+export const Category = styled.div`
+  display: inline-block;
+  background-color: black;
+  padding: 0px 14px 0px 14px;
+  margin: 2px;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+`
+export const Keyword = styled.div`
+  display: inline-block;
+  border: 1px solid gray;
+  background-color: gray;
+  padding: 0px 5px 0px 5px;
+  margin: 2px;
+  color: white;
+  border-radius: 3px;
+  font-size: 13px;
+`
+
+export const LEWindow = styled.div`
+  display: grid;
+  grid-template-columns: 130px auto;
   padding: 3px;
   border: 1px solid gray;
+`
+export const LEImageView = styled.div`
+  text-align: center;
+  width: 128px;
+  border: 1px solid gray;
+` 
+export const LEInfoView = styled.div`
+  border: 1px solid gray;
+  padding: 10px;
+`
+export const LEImageWrapper = styled.div`
+  display: inline-block;
+  border: 1px solid gray;
+  width: 120px;
+  height: 135px;
+`
+export const ColorList = styled.div`
+  display: grid;
+  grid-template-columns: 40px 2fr ${props=> `repeat(${props.childNum}, 1fr)`}
+`
+export const ColorBox = styled.div`
+  display: inline-block;
+  margin: 2px;
+  width: 100%;
+  height: 20px;
+  border: 1px solid gray;
+  background-color: ${props => props.color || "white"};
 `
