@@ -1,8 +1,13 @@
 package hamburger.fashiontoday.domain.member;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "member")
 public class Member  {
 
@@ -38,6 +43,9 @@ public class Member  {
     @Column(name = "msocialid")
     private String mSocialId;
 
+    public Member(){
+
+    }
 
     public Member(long id, String mName, String mMail, String mBirthday, String mSocialKind, String mHashVal, String mcDateTime, String mcDate, String mcTime, String mSocialId) {
         this.mName = mName;

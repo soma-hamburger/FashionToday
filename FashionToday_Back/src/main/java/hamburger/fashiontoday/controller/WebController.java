@@ -20,5 +20,10 @@ public class WebController {
         return "Done";
     }
 
+    @GetMapping("/load")
+    public Member loadMember(){
+        Member member = memberRepository.findByMId((long)2);
+        return member;
+    }
 
 }
