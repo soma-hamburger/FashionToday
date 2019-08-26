@@ -31,6 +31,18 @@ public class Member  {
     @Column(name = "mhashval")
     private String mHashVal;
 
+    @Column(name = "msocialid")
+    private String mSocialId;
+
+    @Column(name = "mstar")
+    private int mStar;
+
+    @Column(name = "mprofileurl")
+    private String mProfileUrl;
+
+    @Column(name = "mcomment")
+    private String mComment;
+
     @Column(name = "mcdatetime")
     private String mcDateTime;
 
@@ -40,23 +52,27 @@ public class Member  {
     @Column(name = "mctime")
     private String mcTime;
 
-    @Column(name = "msocialid")
-    private String mSocialId;
+    @Column(name = "mcondatetime")
+    private String mConDateTime;
 
     public Member(){
 
     }
 
-    public Member(long id, String mName, String mMail, String mBirthday, String mSocialKind, String mHashVal, String mcDateTime, String mcDate, String mcTime, String mSocialId) {
+    public Member(String mName, String mMail, String mBirthday, String mSocialKind, String mHashVal, String mSocialId, int mStar, String mProfileUrl, String mComment, String mcDateTime, String mcDate, String mcTime, String mConDateTime) {
         this.mName = mName;
         this.mMail = mMail;
         this.mBirthday = mBirthday;
         this.mSocialKind = mSocialKind;
         this.mHashVal = mHashVal;
+        this.mSocialId = mSocialId;
+        this.mStar = mStar;
+        this.mProfileUrl = mProfileUrl;
+        this.mComment = mComment;
         this.mcDateTime = mcDateTime;
         this.mcDate = mcDate;
         this.mcTime = mcTime;
-        this.mSocialId = mSocialId;
+        this.mConDateTime = mConDateTime;
     }
 
 }

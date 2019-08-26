@@ -14,15 +14,13 @@ public class WebController {
 
     @GetMapping("/save")
     public String process(){
-
-        memberRepository.save(new Member(0L,"기성","totokisung@naver.com","19941003","kakao","12345678h","20190803","2019","0803","totokisung@naver.com"));
-
+        memberRepository.save(new Member("기성", "totokisung@naver.com", "19941105", "kakao", "123456789h", "totokisung@naver.com", 0, "http://fashiontoday.com/profile/1", "한줄 상태 매세지", "20190826090630", "20190826", "090630", "20190826"));
         return "Done";
     }
 
     @GetMapping("/load")
     public Member loadMember(){
-        Member member = memberRepository.findByMId((long)2);
+        Member member = memberRepository.findByMId((long)3);
         return member;
     }
 
