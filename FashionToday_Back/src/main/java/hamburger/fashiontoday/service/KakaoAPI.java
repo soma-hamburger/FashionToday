@@ -18,7 +18,7 @@ import com.google.gson.JsonParser;
 @Service
 public class KakaoAPI {
 
-    public String getAccessToken (String authorize_code) {
+    public String getAccessToken(String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -75,7 +75,7 @@ public class KakaoAPI {
         return access_Token;
     }
 
-    public HashMap<String, Object> getUserInfo (String access_Token) {
+    public HashMap<String, Object> getUserInfo(String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
@@ -107,11 +107,22 @@ public class KakaoAPI {
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
+            String id = element.getAsJsonObject().get("id").getAsString();
+            String profile = properties.getAsJsonObject().get("profile_image").getAsString();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+            //String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+            //String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
+            //String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
 
+            userInfo.put("id", id);
+            userInfo.put("profile", profile);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+            //userInfo.put("birthday", birthday);
+            //userInfo.put("age_range", age_range);
+            //userInfo.put("gender", gender);
+
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -120,5 +131,7 @@ public class KakaoAPI {
 
         return userInfo;
     }
+
+
 
 }
