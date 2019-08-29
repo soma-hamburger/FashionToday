@@ -4,9 +4,7 @@ import { DailyLookArray } from '../dummyAPI';
 import { DailyNav } from '../styled/daily';
 import { Button } from '../styled';
 
-const Daily = ({match}) => {
-  console.log(match);
-  
+const Daily = () => {
   const [LookNum, setLookNum] = useState(0);
 
   const prevLook = (e) => {
