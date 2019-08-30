@@ -38,11 +38,16 @@ public class LoginController {
         System.out.println("controller access_token : " + access_Token);
         HashMap<String, Object> userInfo = kakaoAPI.getUserInfo(access_Token);
 
+        // 아이디 값 할당
         int id = Integer.parseInt(userInfo.get("id").toString());
 
         // 유저 회원 가입이 안되어 있을경우 회원 가입이 되며
         // 회원 가입이 되어있다면 업데이트
         Member member = new Member(userInfo);
+        if (memberRepository.findByMId(id) != null) {
+            member = memberRepository.findByMId(id);
+            member.update(userInfo);
+        }
         memberRepository.save(member);
 
         // 유저 세션

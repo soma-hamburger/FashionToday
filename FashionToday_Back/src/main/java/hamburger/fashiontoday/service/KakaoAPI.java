@@ -108,14 +108,16 @@ public class KakaoAPI {
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
+            // json에서 각 값별로 값 가져오기
             String id = element.getAsJsonObject().get("id").getAsString();
-            String profile = getInfo(properties,"profile_image");
-            String nickname = getInfo(properties,"nickname");
-            String email = getInfo(kakao_account,"email");
-            String birthday = getInfo(kakao_account,"birthday");
-            String age_range = getInfo(kakao_account,"age_range");
-            String gender = getInfo(kakao_account,"gender");
+            String profile = getInfo(properties, "profile_image");
+            String nickname = getInfo(properties, "nickname");
+            String email = getInfo(kakao_account, "email");
+            String birthday = getInfo(kakao_account, "birthday");
+            String age_range = getInfo(kakao_account, "age_range");
+            String gender = getInfo(kakao_account, "gender");
 
+            // hashmap에 값 저장하기
             userInfo.put("id", id);
             userInfo.put("profile", profile);
             userInfo.put("nickname", nickname);
@@ -133,12 +135,15 @@ public class KakaoAPI {
         return userInfo;
     }
 
-    String getInfo(JsonObject jsonObject,String info){
+    // 널값과 아닌값 구분해서 넣어주기
+    String getInfo(JsonObject jsonObject, String info) {
 
-        if(!jsonObject.getAsJsonObject().has(info)){
+        // 널값인지 확인
+        if (!jsonObject.getAsJsonObject().has(info)) {
             return null;
         }
 
+        // 널이 아니라면 string반환
         return jsonObject.getAsJsonObject().get(info).getAsString();
     }
 
