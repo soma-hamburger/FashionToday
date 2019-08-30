@@ -10,22 +10,22 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "lookitem")
+@IdClass(LookitemId.class)
 public class Lookitem {
 
     @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitem_mid"))
     @Column(name = "mid")
-    private long mid;
+    private int mid;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kmid")
-    private long kmId;
+    private int kmId;
 
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitem_kcid"))
     @Column(name = "kcid")
-    private long kcid;
-
+    private int kcid;
 
     @Column(name = "kitempicture")
     private String kItemPicture;
@@ -33,7 +33,8 @@ public class Lookitem {
     @Column(name = "lookItemCol")
     private String lookItemCol;
 
-    @Column(name = "lookItemCol")
+    @Column(name = "kItemColSumPicture")
     private String kItemColSumPicture;
+
 
 }

@@ -9,13 +9,13 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "lookitem")
+@Table(name = "lookitemclass")
 public class LookitemClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kcid")
-    private long kcId;
+    private int kcId;
 
     @Column(name = "kitemclasscol1")
     private String kItemClassCol1;
