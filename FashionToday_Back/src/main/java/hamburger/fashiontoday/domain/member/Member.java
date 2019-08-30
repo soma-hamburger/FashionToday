@@ -1,5 +1,6 @@
 package hamburger.fashiontoday.domain.member;
 
+import jdk.nashorn.internal.runtime.options.Option;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -68,15 +69,25 @@ public class Member  {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         this.mId = Integer.parseInt(userInfo.get("id").toString());
-        this.mName = userInfo.get("nickname").toString();
-        this.mMail = userInfo.get("email").toString();
-        this.mProfileUrl = userInfo.get("profile").toString();
+        this.mName = getInfo(userInfo,"nickname");
+        this.mBirthday = getInfo(userInfo,"birthday");
+        this.mSocialId = getInfo(userInfo,"email");
+        this.mMail = getInfo(userInfo,"email");
+        this.mProfileUrl = getInfo(userInfo,"profile");
         this.mSocialKind = "kakao";
         this.mcDateTime = localDateTime.toString();
         this.mcDate = String.valueOf(localDateTime.getYear())+String.valueOf(localDateTime.getMonth())+String.valueOf(localDateTime.getDayOfMonth());
         this.mcTime = String.valueOf(localDateTime.getHour())+String.valueOf(localDateTime.getMinute())+String.valueOf(localDateTime.getSecond());
-
     }
+
+    private String getInfo(HashMap userInfo,String info){
+        if(userInfo.get(info)==null){
+            return null;
+        }
+
+        return userInfo.get(info).toString();
+    }
+
 
 //    public Member(String mName, String mMail, String mBirthday, String mSocialKind, String mHashVal, String mSocialId, int mStar, String mProfileUrl, String mComment, String mcDateTime, String mcDate, String mcTime, String mConDateTime) {
 //        this.mName = mName;

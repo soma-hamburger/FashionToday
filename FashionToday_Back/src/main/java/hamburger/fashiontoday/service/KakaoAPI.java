@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Optional;
 
 import com.google.gson.JsonObject;
 import org.springframework.stereotype.Service;
@@ -108,20 +109,20 @@ public class KakaoAPI {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
             String id = element.getAsJsonObject().get("id").getAsString();
-            String profile = properties.getAsJsonObject().get("profile_image").getAsString();
-            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
-            //String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
-            //String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
-            //String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+            String profile = getInfo(properties,"profile_image");
+            String nickname = getInfo(properties,"nickname");
+            String email = getInfo(kakao_account,"email");
+            String birthday = getInfo(kakao_account,"birthday");
+            String age_range = getInfo(kakao_account,"age_range");
+            String gender = getInfo(kakao_account,"gender");
 
             userInfo.put("id", id);
             userInfo.put("profile", profile);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
-            //userInfo.put("birthday", birthday);
-            //userInfo.put("age_range", age_range);
-            //userInfo.put("gender", gender);
+            userInfo.put("birthday", birthday);
+            userInfo.put("age_range", age_range);
+            userInfo.put("gender", gender);
 
 
         } catch (IOException e) {
@@ -132,6 +133,14 @@ public class KakaoAPI {
         return userInfo;
     }
 
+    String getInfo(JsonObject jsonObject,String info){
+
+        if(!jsonObject.getAsJsonObject().has(info)){
+            return null;
+        }
+
+        return jsonObject.getAsJsonObject().get(info).getAsString();
+    }
 
 
 }
