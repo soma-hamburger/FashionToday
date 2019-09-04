@@ -2,6 +2,7 @@ package hamburger.fashiontoday.domain.lookitem;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "lookitem")
 @IdClass(LookitemId.class)
+@NoArgsConstructor
 public class Lookitem {
 
     @Id
@@ -36,5 +38,13 @@ public class Lookitem {
     @Column(name = "kItemColSumPicture")
     private String kItemColSumPicture;
 
+
+    public Lookitem(int mid, int kcid, String kItemPicture, String lookItemCol, String kItemColSumPicture) {
+        this.mid = mid;
+        this.kcid = kcid;
+        this.kItemPicture = kItemPicture;
+        this.lookItemCol = lookItemCol;
+        this.kItemColSumPicture = kItemColSumPicture;
+    }
 
 }
