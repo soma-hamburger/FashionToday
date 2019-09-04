@@ -11,19 +11,19 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/IdText" android:hint="아이디"/>
+            android:id="@+id/Login_user_id" android:hint="아이디"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/PasswordText" android:hint="비밀번호"/>
+            android:id="@+id/Login_user_pw" android:hint="비밀번호"/>
     <Button
             android:text="로그인"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/LoginButton"/>
+            android:layout_height="wrap_content" android:id="@+id/Login_button"/>
     <Button
             android:text="회원가입"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/RegisterButton"/>
+            android:layout_height="wrap_content" android:id="@+id/Register_button"/>
 </LinearLayout>

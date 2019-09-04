@@ -1,9 +1,11 @@
 package com.example.pashion_today.Page
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.CalendarView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -11,6 +13,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.pashion_today.R
 import com.google.android.material.navigation.NavigationView
 
+
+
+/*****
+ * 프로그램 ID : HAM-PA-500
+ * 프로그램명 : CalendarActivity.kt
+ * 작성자명 : 오원석
+ * 작성일자 : 2019.09.01
+ * 버전 : v0.1
+ */
 class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -19,6 +30,12 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.calendar_activity)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+
+        var calendar=findViewById<CalendarView>(R.id.calendarView)
+
+
+
 
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -87,3 +104,4 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 }
+

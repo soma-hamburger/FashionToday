@@ -12,27 +12,27 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/idText" android:hint="아이디"/>
+            android:hint="아이디" android:id="@+id/Register_user_id"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/passwordText" android:hint="비밀번호"/>
+            android:id="@+id/Register_user_pw" android:hint="비밀번호"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/nameText" android:hint="이름"/>
+            android:id="@+id/Register_user_name" android:hint="이름"/>
     <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/ageText" android:hint="나이"/>
+            android:id="@+id/Register_user_age" android:hint="나이"/>
     <Button
             android:text="회원가입"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/registerButton"/>
+            android:layout_height="wrap_content" android:id="@+id/Register_finish_button"/>
 </LinearLayout>

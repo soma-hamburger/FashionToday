@@ -8,10 +8,9 @@
         android:id="@+id/container"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/calendar_app_bar"
-        tools:context=".Page.CalendarActivity">
-    <TextView
-            android:text="캘린더입니다"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="80dp"
-            tools:layout_editor_absoluteX="37dp" android:id="@+id/textView4"/>
+        tools:context=".Page.CalendarActivity" android:orientation="vertical">
+    <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/calendarView" android:minDate="01/01/2019"
+            android:layout_marginTop="30dp"/>
 </LinearLayout>

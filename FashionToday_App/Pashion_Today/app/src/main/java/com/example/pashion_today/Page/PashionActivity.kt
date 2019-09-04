@@ -12,6 +12,14 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import com.example.pashion_today.R
 
+
+/*****
+ * 프로그램 ID : HAM-PA-300
+ * 프로그램명 : PashionActivity.kt
+ * 작성자명 : 오원석
+ * 작성일자 : 2019.09.01
+ * 버전 : v0.1
+ */
 class PashionActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 

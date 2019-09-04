@@ -1,8 +1,14 @@
 package com.example.pashion_today.Page
 
 import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -20,15 +26,26 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.pashion_today.R
 import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.closet_camera.*
+import kotlinx.android.synthetic.main.closet_camera.view.*
 import kotlinx.android.synthetic.main.closet_content.*
 import java.io.File
 
 
-// 옷장 화면
+/*****
+ * 프로그램 ID : HAM-PA-400
+ * 프로그램명 : ClosetActivity.kt
+ * 작성자명 : 오원석
+ * 작성일자 : 2019.09.04
+ * 버전 : v0.1
+ */
 class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    val CAMERA_ACTIVITY=1
 
     // 옷 타입 분류 변수
     var clothes_type = arrayOf("전체","상의","하의","신발")
+    var color_type=arrayOf("빨","주","노","초","파","남","보")
     // 임시 변수
     var closet_list= intArrayOf(
         R.drawable.top,
@@ -48,10 +65,11 @@ class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
-    // 경로
+    // 폴더경로
     var dirPath:String?=null
-    // 파일의 전체경로
+    // 파일의 전체 uri
     var contentUri:Uri?=null
+    // 파일 전체경로
     var pic_path:String?=null
 
     // 액티비티 create 메서드
@@ -173,8 +191,6 @@ class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             }
         }
-
-
     }
 
     // back버튼 클릭 메서드
@@ -207,7 +223,7 @@ class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     requestPermissions(permission_list,0)
                 }
                 else{
-                    init()
+                    camera_capture()
                 }
             }
         }
@@ -221,7 +237,7 @@ class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 return
             }
         }
-        init()
+        camera_capture()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -255,7 +271,8 @@ class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         return true
     }
 
-    fun init(){
+    fun camera_capture(){
+
 
         var tempPath=Environment.getExternalStorageDirectory().absolutePath
         dirPath="${tempPath}/Android/data/${packageName}"
@@ -281,7 +298,57 @@ class ClosetActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             contentUri=Uri.fromFile(file2)
         }
         camera_intent.putExtra(MediaStore.EXTRA_OUTPUT,contentUri)
-        startActivityForResult(camera_intent,1)
+        startActivityForResult(camera_intent,CAMERA_ACTIVITY)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode== CAMERA_ACTIVITY){
+
+            if(resultCode== Activity.RESULT_OK){
+
+
+
+                var builder=AlertDialog.Builder(this)
+                builder.setTitle(" 옷 등록 ")
+
+                var v1=layoutInflater.inflate(R.layout.closet_camera,null)
+
+                var type_adapter=ArrayAdapter(this,android.R.layout.simple_spinner_item,clothes_type)
+                type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                v1.type_spinner.adapter=type_adapter
+
+                var color_adapter=ArrayAdapter(this,android.R.layout.simple_spinner_item,color_type)
+                color_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                v1.color_spinner.adapter=color_adapter
+
+                var bitmap=BitmapFactory.decodeFile(contentUri?.path)
+                v1.capture_img.setImageBitmap(bitmap)
+
+                builder.setView(v1)
+
+                var listener=object:DialogInterface.OnClickListener{
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                        when(p1){
+                            DialogInterface.BUTTON_POSITIVE->{
+
+                            }
+                            DialogInterface.BUTTON_NEUTRAL->{
+
+                            }
+                        }
+                    }
+                }
+
+                builder.setNeutralButton("취소",null)
+                builder.setPositiveButton("확인",null)
+
+                builder.show()
+
+
+            }
+        }
     }
 
 }

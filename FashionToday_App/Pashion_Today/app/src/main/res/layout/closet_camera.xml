@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="match_parent" android:orientation="vertical">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="207dp" app:srcCompat="@mipmap/ic_launcher"
+            tools:layout_editor_absoluteY="32dp" android:id="@+id/capture_img" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="10dp"/>
+    <TextView
+            android:text=" 옷 종류"
+            android:layout_width="80dp"
+            android:layout_height="35dp" android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp" android:layout_alignParentLeft="true"
+            android:id="@+id/textView7" android:layout_marginLeft="25dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" android:layout_below="@+id/capture_img"
+            android:layout_marginTop="28dp"/>
+    <Spinner
+            android:layout_width="150dp"
+            android:layout_height="35dp" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" android:layout_marginEnd="18dp"
+            android:id="@+id/type_spinner" android:layout_marginTop="28dp" android:layout_marginRight="18dp"
+            android:layout_below="@+id/capture_img"/>
+    <TextView
+            android:text=" 옷 색상"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content" android:layout_alignParentStart="true"
+            android:layout_marginStart="26dp" android:layout_alignParentLeft="true"
+            android:id="@+id/textView8"
+            android:layout_marginLeft="25dp" android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_marginTop="31dp"
+            android:layout_below="@+id/textView7" android:layout_marginRight="20dp"/>
+    <Spinner
+            android:layout_width="150dp"
+            android:layout_height="35dp" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" android:layout_marginEnd="11dp"
+            android:id="@+id/color_spinner" android:layout_marginRight="11dp"
+            android:layout_marginTop="31dp" android:layout_below="@+id/type_spinner"
+            android:layout_marginBottom="20dp"/>
+</RelativeLayout>
