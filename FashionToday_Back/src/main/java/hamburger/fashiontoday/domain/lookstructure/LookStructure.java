@@ -26,7 +26,6 @@ public class LookStructure {
     @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitemclass_ksid"))
     @Column(name = "ksid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int ksId;
 
 
