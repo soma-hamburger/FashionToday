@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import LogOnApp from "./LogOnApp";
 import LogOutApp from "./LogOutApp";
 
 function App() {
-  let isLogOn = false;
+  const [isLogOn, setIsLogOn] = useState(false);
 
+  const logOn = () => {
+    setIsLogOn(true);
+  }
+  
   return (
     <>
-      {isLogOn ? <LogOnApp /> : <LogOutApp />}
+      {isLogOn ? <LogOnApp /> : <LogOutApp logOn={logOn} />}
     </>
   )
 }

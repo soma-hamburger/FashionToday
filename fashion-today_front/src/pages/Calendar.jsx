@@ -18,6 +18,7 @@ const Calendar = ({match}) => {
       setMonth(11);
     }
   }
+  
   const nextMonth = (e) => {
     if(month < 11){
       setMonth(month+1);

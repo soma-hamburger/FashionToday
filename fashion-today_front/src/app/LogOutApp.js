@@ -1,8 +1,8 @@
 import React from "react";
 
-function LogOutApp() {
+function LogOutApp({logOn}) {
   return (
-    <h1>LogIn</h1>    
+    <h1 onClick={logOn}>LogIn</h1>
   )
 }
 
