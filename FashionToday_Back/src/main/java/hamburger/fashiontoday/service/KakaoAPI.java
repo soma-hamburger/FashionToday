@@ -1,20 +1,22 @@
 package hamburger.fashiontoday.service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.springframework.stereotype.Service;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Optional;
 
-import com.google.gson.JsonObject;
-import org.springframework.stereotype.Service;
+/***************************
+* Ham-PB-
+*
+ *
+ *
+*****************************/
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 @Service
 public class KakaoAPI {
