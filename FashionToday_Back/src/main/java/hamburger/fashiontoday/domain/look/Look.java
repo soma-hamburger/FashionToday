@@ -8,10 +8,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "look")
+@IdClass(LookId.class)
 public class Look {
 
     @Id

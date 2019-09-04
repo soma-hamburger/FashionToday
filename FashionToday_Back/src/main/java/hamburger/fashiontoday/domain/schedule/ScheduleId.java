@@ -1,4 +1,4 @@
-package hamburger.fashiontoday.domain.look;
+package hamburger.fashiontoday.domain.schedule;
 
 
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-public class LookId implements Serializable {
+public class ScheduleId implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
@@ -17,10 +17,6 @@ public class LookId implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private int ksId;
-
-    @Id
-    @EqualsAndHashCode.Include
-    private int kId;
+    private String ddate;
 
 }
