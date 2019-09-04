@@ -1,19 +1,22 @@
 package hamburger.fashiontoday.service;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.springframework.stereotype.Service;
+
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-import com.google.gson.JsonObject;
-import org.springframework.stereotype.Service;
+/***************************
+* Ham-PB-
+*
+ *
+ *
+*****************************/
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 @Service
 public class KakaoAPI {
@@ -107,21 +110,23 @@ public class KakaoAPI {
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
+            // json에서 각 값별로 값 가져오기
             String id = element.getAsJsonObject().get("id").getAsString();
-            String profile = properties.getAsJsonObject().get("profile_image").getAsString();
-            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakao_account.getAsJsonObject().get("email").getAsString();
-            //String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
-            //String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
-            //String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+            String profile = getInfo(properties, "profile_image");
+            String nickname = getInfo(properties, "nickname");
+            String email = getInfo(kakao_account, "email");
+            String birthday = getInfo(kakao_account, "birthday");
+            String age_range = getInfo(kakao_account, "age_range");
+            String gender = getInfo(kakao_account, "gender");
 
+            // hashmap에 값 저장하기
             userInfo.put("id", id);
             userInfo.put("profile", profile);
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
-            //userInfo.put("birthday", birthday);
-            //userInfo.put("age_range", age_range);
-            //userInfo.put("gender", gender);
+            userInfo.put("birthday", birthday);
+            userInfo.put("age_range", age_range);
+            userInfo.put("gender", gender);
 
 
         } catch (IOException e) {
@@ -132,6 +137,17 @@ public class KakaoAPI {
         return userInfo;
     }
 
+    // 널값과 아닌값 구분해서 넣어주기
+    String getInfo(JsonObject jsonObject, String info) {
+
+        // 널값인지 확인
+        if (!jsonObject.getAsJsonObject().has(info)) {
+            return null;
+        }
+
+        // 널이 아니라면 string반환
+        return jsonObject.getAsJsonObject().get(info).getAsString();
+    }
 
 
 }

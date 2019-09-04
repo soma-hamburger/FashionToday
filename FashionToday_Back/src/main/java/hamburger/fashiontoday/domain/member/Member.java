@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -12,7 +15,7 @@ import java.util.HashMap;
 @Getter
 @Setter
 @Table(name = "member")
-public class Member  {
+public class Member {
 
     @Id
     @Column(name = "mid")
@@ -59,39 +62,37 @@ public class Member  {
     @Column(name = "mcondatetime")
     private String mConDateTime;
 
-    public Member(){
+    public Member() {
 
     }
 
-    public Member(HashMap<String, Object> userInfo){
+    public Member(HashMap<String, Object> userInfo) {
 
         LocalDateTime localDateTime = LocalDateTime.now();
+        update(userInfo);
 
-        this.mId = Integer.parseInt(userInfo.get("id").toString());
-        this.mName = userInfo.get("nickname").toString();
-        this.mMail = userInfo.get("email").toString();
-        this.mProfileUrl = userInfo.get("profile").toString();
-        this.mSocialKind = "kakao";
         this.mcDateTime = localDateTime.toString();
-        this.mcDate = String.valueOf(localDateTime.getYear())+String.valueOf(localDateTime.getMonth())+String.valueOf(localDateTime.getDayOfMonth());
-        this.mcTime = String.valueOf(localDateTime.getHour())+String.valueOf(localDateTime.getMinute())+String.valueOf(localDateTime.getSecond());
-
+        this.mcDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        this.mcTime = String.valueOf(localDateTime.getHour()) + String.valueOf(localDateTime.getMinute()) + String.valueOf(localDateTime.getSecond());
     }
 
-//    public Member(String mName, String mMail, String mBirthday, String mSocialKind, String mHashVal, String mSocialId, int mStar, String mProfileUrl, String mComment, String mcDateTime, String mcDate, String mcTime, String mConDateTime) {
-//        this.mName = mName;
-//        this.mMail = mMail;
-//        this.mBirthday = mBirthday;
-//        this.mSocialKind = mSocialKind;
-//        this.mHashVal = mHashVal;
-//        this.mSocialId = mSocialId;
-//        this.mStar = mStar;
-//        this.mProfileUrl = mProfileUrl;
-//        this.mComment = mComment;
-//        this.mcDateTime = mcDateTime;
-//        this.mcDate = mcDate;
-//        this.mcTime = mcTime;
-//        this.mConDateTime = mConDateTime;
-//    }
+    public void update(HashMap<String, Object> userInfo) {
+        this.mId = Integer.parseInt(userInfo.get("id").toString());
+        this.mName = getInfo(userInfo, "nickname");
+        this.mBirthday = getInfo(userInfo, "birthday");
+        this.mSocialId = getInfo(userInfo, "email");
+        this.mMail = getInfo(userInfo, "email");
+        this.mProfileUrl = getInfo(userInfo, "profile");
+        this.mSocialKind = "kakao";
+    }
+
+    // 정보 넑값과 아닌것 구분해 내서 꺼내오기
+    private String getInfo(HashMap userInfo, String info) {
+        if (userInfo.get(info) == null) {
+            return null;
+        }
+
+        return userInfo.get(info).toString();
+    }
 
 }
