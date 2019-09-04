@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "Schedule")
 @IdClass(ScheduleId.class)
-
 public class Schedule {
 
     @Id
