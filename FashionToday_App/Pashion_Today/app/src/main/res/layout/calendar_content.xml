@@ -9,8 +9,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/calendar_app_bar"
         tools:context=".Page.CalendarActivity" android:orientation="vertical">
-    <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/calendarView" android:minDate="01/01/2019"
-            android:layout_marginTop="30dp"/>
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView android:layout_width="match_parent"
+                                                                       android:layout_height="match_parent"
+                                                                       app:mcv_showOtherDates="all"
+                                                                       android:id="@+id/calendarview"
+                                                                       app:mcv_selectionColor="#a9dbf0cb"
+    >
+        <TextView
+                android:text="날짜확인"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView9"/>
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 </LinearLayout>
