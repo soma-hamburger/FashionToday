@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.pashion_today">
+          package="com.soma.pashion_today">
 
     <application
             android:allowBackup="true"
@@ -9,28 +9,28 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Page.ClosetActivity"
+        <activity android:name="com.soma.pashion_today.Page.ClosetActivity"
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".Page.CalendarActivity"
+                android:name="com.soma.pashion_today.Page.CalendarActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".Page.PashionActivity"
+                android:name="com.soma.pashion_today.Page.PashionActivity"
                 android:label="@string/title_activity_pashion"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".Login.RegisterActivity">
+        <activity android:name="com.soma.pashion_today.Login.RegisterActivity">
         </activity>
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name="com.soma.pashion_today.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <provider android:authorities="com.example.pashion_today.httpmultipart.file_provider"
+        <provider android:authorities="com.soma.pashion_today.httpmultipart.file_provider"
                   android:name="androidx.core.content.FileProvider"
                   android:exported="false"
                   android:grantUriPermissions="true">
