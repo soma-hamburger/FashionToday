@@ -1,15 +1,15 @@
-package hamburger.fashiontoday.domain.lookitem;
+package hamburger.fashiontoday.domain.lookstructure;
 
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * @프로그램ID : HAM-PB-2008-J
- * @프로그램명 : LookitemId.java
+ * @프로그램ID : HAM-PB-2013-J
+ * @프로그램명 : LookStructureId.java
  * @author : 심기성
  * @date : 2019.09.01
  * @version : 0.5
@@ -17,14 +17,18 @@ import java.io.Serializable;
  */
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-public class LookitemId implements Serializable {
+public class LookStructureId implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private int mId;
+    private int mid;
 
     @Id
     @EqualsAndHashCode.Include
     private int kmId;
+
+    @Id
+    @EqualsAndHashCode.Include
+    private int ksId;
 
 }

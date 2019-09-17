@@ -10,14 +10,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-/***************************
-* Ham-PB-
-*
+/**
+ * @프로그램ID : HAM-PB-4001-J
+ * @프로그램명 : KaKaoAPI.java
+ * @author : 심기성
+ * @date : 2019.09.01
+ * @version : 0.5
  *
- *
-*****************************/
-
-
+ */
 @Service
 public class KakaoAPI {
 
@@ -118,6 +118,7 @@ public class KakaoAPI {
             String birthday = getInfo(kakao_account, "birthday");
             String age_range = getInfo(kakao_account, "age_range");
             String gender = getInfo(kakao_account, "gender");
+
 
             // hashmap에 값 저장하기
             userInfo.put("id", id);

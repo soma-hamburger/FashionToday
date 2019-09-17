@@ -13,11 +13,12 @@ import java.util.HashMap;
 
 
 /**
- *
+ * @프로그램ID : HAM-PB-1001-J
+ * @프로그램명 : LoginController.java
  * @author : 심기성
- * @version : PB-1000-J
  * @date : 2019.09.01
- * 
+ * @version : 0.5
+ *
  */
 @Controller
 public class LoginController {

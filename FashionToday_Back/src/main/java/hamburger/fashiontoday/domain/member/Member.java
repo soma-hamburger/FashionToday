@@ -11,6 +11,14 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+/**
+ * @프로그램ID : HAM-PB-2015-J
+ * @프로그램명 : Member.java
+ * @author : 심기성
+ * @date : 2019.09.01
+ * @version : 0.5
+ *
+ */
 @Entity
 @Getter
 @Setter
