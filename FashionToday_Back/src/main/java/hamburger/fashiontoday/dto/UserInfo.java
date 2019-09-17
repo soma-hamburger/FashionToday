@@ -3,6 +3,15 @@ package hamburger.fashiontoday.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ * @프로그램ID : HAM-PB-3001-J
+ * @프로그램명 : UserInfo.java
+ * @author : 심기성
+ * @date : 2019.09.01
+ * @version : 0.5
+ *
+ */
 @Getter
 @Setter
 public class UserInfo {

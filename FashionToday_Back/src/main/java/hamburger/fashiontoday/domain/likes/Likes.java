@@ -1,13 +1,21 @@
 package hamburger.fashiontoday.domain.likes;
 
 
-import hamburger.fashiontoday.domain.schedule.ScheduleId;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+
+/**
+ * @프로그램ID : HAM-PB-2001-J
+ * @프로그램명 : Likes.java
+ * @author : 심기성
+ * @date : 2019.09.01
+ * @version : 0.5
+ *
+ */
 @Entity
 @Getter
 @Setter

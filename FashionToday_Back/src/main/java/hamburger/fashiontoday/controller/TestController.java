@@ -9,6 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * @프로그램ID : HAM-PB-1000-J
+ * @프로그램명 : TestController.java
+ * @author : 심기성
+ * @date : 2019.09.01
+ * @version : 0.5
+ *
+ */
 @RestController
 public class TestController {
 

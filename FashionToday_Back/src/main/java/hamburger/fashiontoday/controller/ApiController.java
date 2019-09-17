@@ -8,7 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// Api 개발용 컨트롤러 입니다.
+
+/**
+ * @프로그램ID : HAM-PB-1002-J
+ * @프로그램명 : ApiController.java
+ * @author : 심기성
+ * @date : 2019.09.01
+ * @version : 0.5
+ *
+ */
 @RestController
 public class ApiController {
 
