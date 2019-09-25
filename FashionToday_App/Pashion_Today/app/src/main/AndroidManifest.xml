@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.soma.pashion_today">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -9,38 +14,42 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.soma.pashion_today.Page.ClosetActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <activity
-                android:name="com.soma.pashion_today.Page.CalendarActivity"
+                android:name=".Page.PashionDetail"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name="com.soma.pashion_today.Page.PashionActivity"
+                android:name=".Page.Closet"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".Page.CalendarActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".Page.Pashion"
                 android:label="@string/title_activity_pashion"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.soma.pashion_today.Login.RegisterActivity">
+        <activity android:name=".Login.RegisterActivity">
         </activity>
-        <activity android:name="com.soma.pashion_today.Login.LoginActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <provider android:authorities="com.soma.pashion_today.httpmultipart.file_provider"
-                  android:name="androidx.core.content.FileProvider"
-                  android:exported="false"
-                  android:grantUriPermissions="true">
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="com.soma.pashion_today.httpmultipart.file_provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
             <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_path"/>
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_path"/>
         </provider>
     </application>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 </manifest>
