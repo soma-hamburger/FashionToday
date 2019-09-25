@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.soma.pashion_today.Page.PashionActivity
+import com.soma.pashion_today.Page.Pashion
 import com.soma.pashion_today.R
 import kotlinx.android.synthetic.main.login_acitivity.*
 import okhttp3.*
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                         flag=true
                         var t1=Toast.makeText(this,"로그인 되었습니다",Toast.LENGTH_SHORT)
                         t1.show()
-                        var intent=Intent(this,PashionActivity::class.java)
+                        var intent=Intent(this,Pashion::class.java)
                         startActivity(intent)
                     }
                 }
@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                 if("ppp"==Login_user_pw.text.toString()){
                     var toast_msg= Toast.makeText(this,"로그인 되었습니다", Toast.LENGTH_SHORT)
                     toast_msg.show()
-                    var pashion_intent=Intent(this, PashionActivity::class.java)
+                    var pashion_intent=Intent(this, Pashion::class.java)
                     startActivity(pashion_intent)
 
                 }

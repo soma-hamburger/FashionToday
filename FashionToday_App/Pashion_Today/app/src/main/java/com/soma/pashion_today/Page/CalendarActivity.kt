@@ -1,6 +1,5 @@
 package com.soma.pashion_today.Page
 
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
@@ -12,7 +11,6 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.DatePicker
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -27,7 +25,6 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
 import kotlinx.android.synthetic.main.calendar_content.*
-import kotlinx.android.synthetic.main.calendar_content.view.*
 import kotlinx.android.synthetic.main.calendar_do.view.*
 import java.util.*
 import kotlin.collections.HashSet
@@ -141,7 +138,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.menu_closet -> {
-                var intent=Intent(this,ClosetActivity::class.java)
+                var intent=Intent(this,Closet::class.java)
                 startActivity(intent)
 
             }
@@ -149,7 +146,8 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             }
             R.id.menu_calendar -> {
-
+                var intent=Intent(this,CalendarActivity::class.java)
+                startActivity(intent)
             }
             R.id.menu_recommend -> {
 
