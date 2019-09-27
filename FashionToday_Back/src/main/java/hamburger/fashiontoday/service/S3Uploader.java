@@ -1,6 +1,9 @@
 package hamburger.fashiontoday.service;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.BucketAccelerateConfiguration;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,19 +18,19 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
+ * @author : 심기성
+ * @version : 0.5
  * @프로그램ID : HAM-PB-4002-J
  * @프로그램명 : S3Uploader.java
- * @author : 심기성
  * @date : 2019.09.18
- * @version : 0.5
- *
  */
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class S3Uploader {
 
-    private final AmazonS3Client amazonS3Client;
+    AWSCredentials credentials = new BasicAWSCredentials("AKIATUGOHJQ6EOP6Y7VT","UFYL3/n4oB690/MJE6/vJ8AKpe4TJWg1O2Yg3gDx");
+    private final AmazonS3Client amazonS3Client = new AmazonS3Client(credentials);
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -35,7 +38,6 @@ public class S3Uploader {
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-
         return upload(uploadFile, dirName);
     }
 
@@ -61,13 +63,11 @@ public class S3Uploader {
 
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(file.getOriginalFilename());
-        if(convertFile.createNewFile()) {
+        if (convertFile.createNewFile())
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
                 fos.write(file.getBytes());
             }
-            return Optional.of(convertFile);
-        }
+        return Optional.of(convertFile);
 
-        return Optional.empty();
     }
 }
