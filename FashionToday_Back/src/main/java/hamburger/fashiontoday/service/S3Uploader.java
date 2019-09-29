@@ -31,8 +31,8 @@ public class S3Uploader {
     private String programId = "HAM-PB-4002-J";
     private String errorCode = "";
 
-    AWSCredentials credentials = new BasicAWSCredentials("AKIATUGOHJQ6EOP6Y7VT", "UFYL3/n4oB690/MJE6/vJ8AKpe4TJWg1O2Yg3gDx");
-    private final AmazonS3Client amazonS3Client = new AmazonS3Client(credentials);
+    //AWSCredentials credentials = new BasicAWSCredentials("AKIATUGOHJQ6EOP6Y7VT", "UFYL3/n4oB690/MJE6/vJ8AKpe4TJWg1O2Yg3gDx");
+    private final AmazonS3Client amazonS3Client = new AmazonS3Client();
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
