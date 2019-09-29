@@ -3,7 +3,6 @@ package hamburger.fashiontoday.service;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.BucketAccelerateConfiguration;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
@@ -29,30 +28,90 @@ import java.util.Optional;
 @Component
 public class S3Uploader {
 
-    AWSCredentials credentials = new BasicAWSCredentials("AKIATUGOHJQ6EOP6Y7VT","UFYL3/n4oB690/MJE6/vJ8AKpe4TJWg1O2Yg3gDx");
+    private String programId = "HAM-PB-4002-J";
+    private String errorCode = "";
+
+    AWSCredentials credentials = new BasicAWSCredentials("AKIATUGOHJQ6EOP6Y7VT", "UFYL3/n4oB690/MJE6/vJ8AKpe4TJWg1O2Yg3gDx");
     private final AmazonS3Client amazonS3Client = new AmazonS3Client(credentials);
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-        File uploadFile = convert(multipartFile)
+    /**
+     * 멀티파트 파일 업로드 실행
+     *
+     * @param multipartParamFile
+     * @param s3DirParamName     : S3 저장소 Path
+     * @return
+     * @throws IOException
+     */
+    public String upload(MultipartFile multipartParamFile, String s3DirParamName) throws Exception {
+        System.out.println(programId + " : upload1 : s3DirParamName = " + s3DirParamName);
+        File uploadFile = convert(multipartParamFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-        return upload(uploadFile, dirName);
+        return upload(uploadFile, s3DirParamName);
     }
 
-    private String upload(File uploadFile, String dirName) {
-        String fileName = dirName + "/" + uploadFile.getName();
-        String uploadImageUrl = putS3(uploadFile, fileName);
-        removeNewFile(uploadFile);
+    /**
+     * 일반 파일 업로드 실행
+     *
+     * @param uploadParamFile
+     * @param s3DirParamName
+     * @return
+     */
+    private String upload(File uploadParamFile, String s3DirParamName){
+
+        // S3에 올려질 임시파일 명칭
+        String fileTmpName = new String();
+
+        // S3에 올려지고 난 이후 이미지 url 경로
+        String uploadImageUrl = new String();
+
+        try {
+
+            // S3에 올릴 파일 이름 가져오기
+            fileTmpName = s3DirParamName + "/" + uploadParamFile.getName();
+
+            // 업로드 및 업로드 이미지 불러오기
+            uploadImageUrl = putS3(uploadParamFile, fileTmpName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            errorCode = "ERR-S100";
+            System.out.println(programId + " Error code = " + errorCode);
+
+        } finally {
+
+            // ImageUrl경로가 잡힌 이후에 임시 파일을 삭제함
+            if (uploadImageUrl != null && uploadImageUrl.length() > 0) {
+                System.out.println(programId + " : upload2 - success : filename = " + fileTmpName + " uploadImageUrl = " + uploadImageUrl);
+                removeNewFile(uploadParamFile);
+            } else {
+                System.out.println(programId + " : upload2 - fail : filename = " + fileTmpName + " uploadImageUrl = " + uploadImageUrl);
+            }
+        }
+
         return uploadImageUrl;
+
     }
 
-    private String putS3(File uploadFile, String fileName) {
-        amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-        return amazonS3Client.getUrl(bucket, fileName).toString();
+    /**
+     * S3에 객체 올리기
+     *
+     * @param uploadParamFile
+     * @param s3FileParamName
+     * @return
+     */
+    private String putS3(File uploadParamFile, String s3FileParamName) {
+        amazonS3Client.putObject(new PutObjectRequest(bucket, s3FileParamName, uploadParamFile).withCannedAcl(CannedAccessControlList.PublicRead));
+        return amazonS3Client.getUrl(bucket, s3FileParamName).toString();
     }
 
+    /**
+     * 임시파일 삭제
+     *
+     * @param targetFile
+     */
     private void removeNewFile(File targetFile) {
         if (targetFile.delete()) {
             log.info("파일이 삭제되었습니다.");
@@ -61,11 +120,18 @@ public class S3Uploader {
         }
     }
 
-    private Optional<File> convert(MultipartFile file) throws IOException {
-        File convertFile = new File(file.getOriginalFilename());
+    /**
+     * multipartfile을 file로 변환
+     *
+     * @param paramFile
+     * @return
+     * @throws IOException
+     */
+    private Optional<File> convert(MultipartFile paramFile) throws IOException {
+        File convertFile = new File(paramFile.getOriginalFilename());
         if (convertFile.createNewFile())
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
-                fos.write(file.getBytes());
+                fos.write(paramFile.getBytes());
             }
         return Optional.of(convertFile);
 
