@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LookList from '../components/Looks/LookList';
-import Daily from './Daily';
+import LookPreview from '../components/Common/LookPreview';
+import { getDailyLookList } from '../defaultAPI';
+import DailyLookList from '../components/Main/DailyLookList';
 
 const Main = () => {
+  const DLlist = getDailyLookList;
   return (
     <>
-      <Daily/>
-      <br/>
-      <LookList/>
-    </> 
+      <b>main</b>
+      <DailyLookList d_l_list={DLlist} />
+      <LookPreview />
+    </>
   );
-}
+};
 
 export default Main;

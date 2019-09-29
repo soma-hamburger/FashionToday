@@ -1,9 +1,9 @@
 import React from 'react';
-import { LookInfo } from '../../dummyAPI';
-import DayLook from './DayLook';
+// import { UserScheduleDetail } from '../../defaultAPI';
+// import DayLook from './DayLook';
 import { DayGrid, Schedule } from '../../styled/calendar';
 
-const Day = ({match}) => {
+const Day = ({ match }) => {
   return (
     <>
       <DayGrid>
@@ -11,10 +11,10 @@ const Day = ({match}) => {
           Day : {match.params.dayid}
           <p>일정</p>
         </Schedule>
-        <DayLook item={LookInfo}/> 
+        {/* <DayLook item={UserScheduleDetail} /> */}
       </DayGrid>
     </>
   );
-}
+};
 
 export default Day;

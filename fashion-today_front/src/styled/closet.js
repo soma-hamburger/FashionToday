@@ -5,9 +5,9 @@ export const ClosetTable = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(150px, auto);
-`
+`;
 
 export const PictureWrapper = styled.div`
   border: 1px solid black;
   margin: 5px;
-`
+`;
