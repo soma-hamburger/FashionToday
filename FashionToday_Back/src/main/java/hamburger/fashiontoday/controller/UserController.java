@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 @RestController
-@CrossOrigin(origins = "8080")
+@CrossOrigin
 public class UserController {
 
     // 로그를 찍기 위한 Logger

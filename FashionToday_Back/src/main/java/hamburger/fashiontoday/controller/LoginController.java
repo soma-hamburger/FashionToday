@@ -34,7 +34,7 @@ public class LoginController {
     // index페이지를 내려주는 메소드
     @RequestMapping(value = "/")
     public String index() {
-        return "index";
+        return "index.html";
     }
 
     // 로그인 요청을 담당하는 메소드
