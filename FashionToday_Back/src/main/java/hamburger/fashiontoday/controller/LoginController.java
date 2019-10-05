@@ -4,6 +4,7 @@ import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.service.KakaoAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import java.util.HashMap;
  *
  */
 @RestController
+@CrossOrigin(origins="*")
 public class LoginController {
 
     //로그인 토큰을 받아주는 카카오API서비스
