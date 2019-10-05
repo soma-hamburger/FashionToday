@@ -6,7 +6,7 @@
             <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
         <!-- File Appender -->
-        <File name="File" fileName="$logs/pahsion.log">
+        <File name="File" fileName="logs/pahsion.log">
             <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n" />
         </File>
 
@@ -14,7 +14,7 @@
 
     <Loggers>
         <!-- Log everything in custom package -->
-        <Logger name="com.boraji.tutorial.springboot" level="debug" additivity="false">
+        <Logger name="hamburger.fashiontoday" level="debug" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="File" />
         </Logger>

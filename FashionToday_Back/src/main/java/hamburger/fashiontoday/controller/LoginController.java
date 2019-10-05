@@ -4,9 +4,9 @@ import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.service.KakaoAPI;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.HashMap;
  * @version : 0.5
  *
  */
-@Controller
+@RestController
 public class LoginController {
 
     //로그인 토큰을 받아주는 카카오API서비스
@@ -31,15 +31,9 @@ public class LoginController {
     @Autowired
     MemberRepository memberRepository;
 
-    // index페이지를 내려주는 메소드
-    @RequestMapping(value = "/")
-    public String index() {
-        return "index.html";
-    }
-
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/kakao/login")
     public String kakaoLogin(@RequestParam("code") String code, HttpSession session) {
         // 유저 코드로 토큰을 받아오는 작업
         String access_Token = kakaoAPI.getAccessToken(code);
