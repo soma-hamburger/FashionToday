@@ -71,4 +71,10 @@ public class LoginController {
         return access_Token;
     }
 
+    @PostMapping(value = "/login/kakaotest")
+    public String kakaoTest(@RequestBody Map<String, Object> param, HttpSession session) {
+
+        return param.get("code").toString();
+    }
+
 }
