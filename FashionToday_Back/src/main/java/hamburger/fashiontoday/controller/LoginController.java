@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -37,7 +38,9 @@ public class LoginController {
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
     @PostMapping(value = "/login/kakao")
-    public String kakaoLogin(@RequestBody String code, HttpSession session) {
+    public String kakaoLogin(@RequestBody Map<String, Object> param, HttpSession session) {
+
+        String code = param.get("code").toString();
 
         //파라미터 확인
         logger.debug(this.getClass().getName() + " param : " + code);
@@ -65,7 +68,7 @@ public class LoginController {
             session.setAttribute(this.getClass().getName() + " / kakaoLogin / access_Token", access_Token);
         }
 
-        return userInfo.get("nickname").toString();
+        return access_Token;
     }
 
 }
