@@ -21,7 +21,6 @@ import java.util.HashMap;
  *
  */
 @RestController
-@CrossOrigin(origins="*")
 public class LoginController {
 
     // 로그를 찍기 위한 Logger

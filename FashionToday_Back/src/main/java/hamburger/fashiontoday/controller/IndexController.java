@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@CrossOrigin(origins="*")
 public class IndexController {
 
     private static Logger logger = LogManager.getLogger(IndexController.class);

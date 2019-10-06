@@ -19,7 +19,6 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin(origins="*")
 public class S3Controller {
 
     private final S3Uploader s3Uploader;
