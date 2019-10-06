@@ -37,7 +37,7 @@ public class LoginController {
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
     @PostMapping(value = "/login/kakao")
-    public String kakaoLogin(@RequestParam("code") String code, HttpSession session) {
+    public String kakaoLogin(@RequestBody String code, HttpSession session) {
 
         //파라미터 확인
         logger.debug(this.getClass().getName() + " param : " + code);
