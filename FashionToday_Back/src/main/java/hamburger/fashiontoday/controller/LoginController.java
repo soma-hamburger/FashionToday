@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class LoginController {
 
     // 로그를 찍기 위한 Logger
-    private static Logger logger = LogManager.getLogger(UserController.class);
+    private static Logger logger = LogManager.getLogger(LoginController.class);
 
     //로그인 토큰을 받아주는 카카오API서비스
     @Autowired
