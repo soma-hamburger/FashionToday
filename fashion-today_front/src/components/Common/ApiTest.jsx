@@ -5,13 +5,7 @@ import axios from 'axios';
 // import axios from 'axios';
 
 const get200 = async () => {
-  const options = {
-    method: 'POST',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    data: {},
-    url: '/userInfo',
-  };
-  const res = await axios(options);
+  const res = await axios.post('https://api.pashiontoday.com/userInfo');
   console.log(res);
 };
 
