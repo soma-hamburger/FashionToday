@@ -26,8 +26,10 @@ import java.util.Map;
 @Service("jwtService")
 public class JwtServiceImpl implements JwtService{
 
-    private static final String SALT =  "pahsionTodaySecret";
+    // 패션 투데이 시크릿 키
+    private static final String pashionKey =  "pahsionTodaySecret";
 
+    //토큰을 만드는 함수
     @Override
     public <T> String create(String key, T data, String subject){
         String jwt = Jwts.builder()
@@ -40,10 +42,11 @@ public class JwtServiceImpl implements JwtService{
         return jwt;
     }
 
+    // 키값을 만들어 주는 함수
     private byte[] generateKey(){
         byte[] key = null;
         try {
-            key = SALT.getBytes("UTF-8");
+            key = pashionKey.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
             if(log.isInfoEnabled()){
                 e.printStackTrace();
@@ -54,6 +57,7 @@ public class JwtServiceImpl implements JwtService{
         return key;
     }
 
+    // 토큰의 유효성을 판단해주는 함수
     @Override
     public boolean isUsable(String jwt) {
         try{
@@ -73,6 +77,7 @@ public class JwtServiceImpl implements JwtService{
         }
     }
 
+    // 키에서 설정된 값들을 가져오는 함수
     @Override
     public Map<String, Object> get(String key) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
@@ -80,7 +85,7 @@ public class JwtServiceImpl implements JwtService{
         Jws<Claims> claims = null;
         try {
             claims = Jwts.parser()
-                    .setSigningKey(SALT.getBytes("UTF-8"))
+                    .setSigningKey(pashionKey.getBytes("UTF-8"))
                     .parseClaimsJws(jwt);
         } catch (Exception e) {
             if(log.isInfoEnabled()){
@@ -95,6 +100,7 @@ public class JwtServiceImpl implements JwtService{
         return value;
     }
 
+    // 맴버 아이디를 가져오는 함수
     @Override
     public int getMemberId() {
         return (int)this.get("member").get("mId");
