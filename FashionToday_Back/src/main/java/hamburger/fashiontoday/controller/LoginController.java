@@ -2,6 +2,7 @@ package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.dto.LoginInfo;
 import hamburger.fashiontoday.service.JwtService;
 import hamburger.fashiontoday.service.KakaoAPI;
 import org.apache.logging.log4j.LogManager;
@@ -44,7 +45,7 @@ public class LoginController {
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
     @PostMapping(value = "/login/kakao")
-    public String kakaoLogin(@RequestBody Map<String, Object> param, HttpServletResponse response) {
+    public LoginInfo kakaoLogin(@RequestBody Map<String, Object> param, HttpServletResponse response) {
 
         String code = param.get("code").toString();
 
@@ -71,15 +72,16 @@ public class LoginController {
         try {
             String token = jwtService.create("member", loginMember, "user");
             response.setHeader("Authorization", token);
+            return new LoginInfo(token);
         }catch (Exception e){
-            return "fail";
+
         }
 
-        return "login success";
+        return new LoginInfo("fail");
     }
 
     @PostMapping(value = "/login/kakaotest")
-    public String kakaoTest(HttpServletResponse response) {
+    public LoginInfo kakaoTest(HttpServletResponse response) {
 
         System.out.println("시작");
 
@@ -90,11 +92,13 @@ public class LoginController {
         try {
             String token = jwtService.create("member", loginMember, "user");
             response.setHeader("Authorization", token);
-        }catch (Exception e){
-            return "fail";
-        }
+            return new LoginInfo(token);
 
-        return "success";
+        }catch (Exception e){
+
+            return new LoginInfo("fail");
+
+        }
     }
 
 }
