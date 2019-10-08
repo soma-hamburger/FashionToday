@@ -20,6 +20,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         final String token = request.getHeader(HEADER_AUTH);
+        System.out.println("동훈이 토큰 : "+token);
 
         if(token != null && jwtService.isUsable(token)){
             return true;
