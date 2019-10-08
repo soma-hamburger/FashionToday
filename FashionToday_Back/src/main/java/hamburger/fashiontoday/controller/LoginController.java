@@ -2,6 +2,7 @@ package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.service.JwtService;
 import hamburger.fashiontoday.service.KakaoAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +37,10 @@ public class LoginController {
     @Autowired
     MemberRepository memberRepository;
 
+    //토큰 서비스
+    @Autowired
+    private JwtService jwtService;
+
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
     @PostMapping(value = "/login/kakao")
@@ -63,15 +68,33 @@ public class LoginController {
         }
         memberRepository.save(loginMember);
 
+        try {
+            String token = jwtService.create("member", loginMember, "user");
+            response.setHeader("Authorization", token);
+        }catch (Exception e){
+            return "fail";
+        }
 
-
-        return access_Token;
+        return "login success";
     }
 
     @PostMapping(value = "/login/kakaotest")
-    public String kakaoTest(@RequestBody Map<String, Object> param, HttpSession session) {
+    public String kakaoTest(HttpServletResponse response) {
 
-        return param.get("code").toString();
+        System.out.println("시작");
+
+        int userId = 3;
+        Member loginMember = new Member();
+        loginMember = memberRepository.findByMId(userId);
+
+        try {
+            String token = jwtService.create("member", loginMember, "user");
+            response.setHeader("Authorization", token);
+        }catch (Exception e){
+            return "fail";
+        }
+
+        return "success";
     }
 
 }
