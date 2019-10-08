@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +18,8 @@ import java.util.Map;
  * @프로그램ID : HAM-PB-1001-J
  * @프로그램명 : LoginController.java
  * @author : 심기성
- * @date : 2019.09.01
- * @version : 0.5
+ * @date : 2019.10.08
+ * @version : 0.6
  *
  */
 @RestController
@@ -38,7 +39,7 @@ public class LoginController {
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
     @PostMapping(value = "/login/kakao")
-    public String kakaoLogin(@RequestBody Map<String, Object> param, HttpSession session) {
+    public String kakaoLogin(@RequestBody Map<String, Object> param, HttpServletResponse response) {
 
         String code = param.get("code").toString();
 
@@ -62,11 +63,7 @@ public class LoginController {
         }
         memberRepository.save(loginMember);
 
-        // 유저 세션
-//        if (userInfo.get("email") != null) {
-//            session.setAttribute(this.getClass().getName() + " / kakaoLogin / userId", userInfo.get("email"));
-//            session.setAttribute(this.getClass().getName() + " / kakaoLogin / access_Token", access_Token);
-//        }
+
 
         return access_Token;
     }
