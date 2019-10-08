@@ -18,7 +18,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     private JwtService jwtService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler, HttpHeaders httpHeaders)
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         final String token = request.getHeader(HEADER_AUTH);
 
