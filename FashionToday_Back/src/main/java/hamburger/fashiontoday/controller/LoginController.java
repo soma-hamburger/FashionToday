@@ -63,10 +63,10 @@ public class LoginController {
         memberRepository.save(loginMember);
 
         // 유저 세션
-        if (userInfo.get("email") != null) {
-            session.setAttribute(this.getClass().getName() + " / kakaoLogin / userId", userInfo.get("email"));
-            session.setAttribute(this.getClass().getName() + " / kakaoLogin / access_Token", access_Token);
-        }
+//        if (userInfo.get("email") != null) {
+//            session.setAttribute(this.getClass().getName() + " / kakaoLogin / userId", userInfo.get("email"));
+//            session.setAttribute(this.getClass().getName() + " / kakaoLogin / access_Token", access_Token);
+//        }
 
         return access_Token;
     }
