@@ -71,7 +71,7 @@ public class LoginController {
 
         try {
             String token = jwtService.create("member", loginMember, "user");
-            response.setHeader("Authorization", token);
+            //response.setHeader("Authorization", token);
             return new LoginInfo(token);
         }catch (Exception e){
 
@@ -91,7 +91,7 @@ public class LoginController {
 
         try {
             String token = jwtService.create("member", loginMember, "user");
-            response.setHeader("Authorization", token);
+           // response.setHeader("Authorization", token);
             return new LoginInfo(token);
 
         }catch (Exception e){
