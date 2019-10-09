@@ -2,6 +2,7 @@ package hamburger.fashiontoday.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
@@ -11,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     };
 
     private static final String[] ALLOW_HEADERS = {
-            "Authorization", "content-type",
+            "authorization", "content-type",
     };
 
     @Autowired
@@ -21,7 +22,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
-                .allowedHeaders(ALLOW_HEADERS);
+                .allowedMethods(HttpMethod.POST.name())
+                .allowCredentials(false)
+                .maxAge(3600);
     }
 
     @Override
