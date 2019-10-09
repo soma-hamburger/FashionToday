@@ -10,14 +10,19 @@ public class WebConfig implements WebMvcConfigurer {
             "/login/**"
     };
 
+    private static final String[] ALLOW_HEADERS = {
+            "Authorization", "content-type",
+    };
+
     @Autowired
     private JwtInterceptor jwtInterceptor;
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("*");
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedHeaders(ALLOW_HEADERS);
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
