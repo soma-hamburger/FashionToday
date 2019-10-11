@@ -1,0 +1,104 @@
+.LayOut {
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.MainBar {
+  $margin: 10px;
+  $padding: 20px;
+  $height: 60px;
+  position: fixed;
+  top: 30px;
+  width: calc(100% - #{$margin} * 2 - #{$padding} * 2);
+  margin: 0 $margin;
+  padding: 0 $padding;
+  color: white;
+  background-color: purple;
+  height: $height;
+  border-radius: $height / 2;
+  .flexButtons {
+    height: $height;
+    justify-content: space-around;
+    justify-items: center;
+    align-items: center;
+    display: flex;
+    .MainLogo {
+      flex-grow: 3;
+      text-align: center;
+    }
+    .pageLink {
+      flex-grow: 2;
+      display: flex;
+      justify-content: left;
+      a {
+        margin: 20px;
+      }
+    }
+    .Icons {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .icon {
+        width: $height / 2;
+        height: $height / 2;
+        cursor: pointer;
+        margin: 0 10px;
+      }
+    }
+  }
+  .dropdown {
+    position: relative;
+  }
+  .PopUpProfile,
+  .PopUpAlarm {
+    position: absolute;
+    top: $height;
+    left: -15px;
+    color: black;
+    width: 80px;
+    height: 100px;
+    box-shadow: 0 0 5px 1px gray;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+    &:after {
+      content: ' ';
+      position: absolute;
+      border-bottom: 12px solid white;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      top: -10px;
+      left: 32px;
+    }
+    &:before {
+      content: ' ';
+      position: absolute;
+      border-bottom: 11px solid #ccc;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      top: -11px;
+      left: 32px;
+    }
+  }
+  .PopUpProfile {
+    left: -30px;
+    &:after,
+    &:before {
+      left: 47px;
+    }
+  }
+}
+
+.Children {
+  display: block;
+  padding-top: 100px;
+}

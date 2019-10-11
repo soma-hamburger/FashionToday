@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ApiTest from './components/Common/ApiTest';
-import LogIn from './components/Common/LogIn';
+import LogIn from './pages/LogIn';
 import { LoginContext } from './Context';
 import Main from './pages/Main';
 import Index from './pages/Index';
-// import axios from 'axios';
+import LayOut from './components/Common/LayOut';
 
 const getToken = () => {
   console.log('getToken');
-  return localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  if (token === null) return false;
+  return token;
 };
 
 function App() {
@@ -27,11 +29,15 @@ function App() {
     <LoginContext.Provider value={loginContext}>
       <Router>
         {token ? (
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/api-test" component={ApiTest} />
-          </Switch>
+          // LogIn State Components
+          <LayOut>
+            <Switch>
+              <Route exact path="/" component={Main} />
+              <Route path="/api-test" component={ApiTest} />
+            </Switch>
+          </LayOut>
         ) : (
+          // LogOut State Components
           <Switch>
             <Route exact path="/" component={Index} />
             <Route path="/login" component={LogIn} />

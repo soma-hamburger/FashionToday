@@ -1,43 +1,69 @@
-import React from 'react';
-import {
-  Bar, BarInterface, Navigation, NavButton, MainIcon,
-} from '../../styled';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ClickDiv, ClickImg } from './Components';
 
-const makeButton = (pathname) => {
-  const buttons = [{
-    'location': '/calendar',
-    'name': 'Calendar',
-  },
-  {
-    'location': '/closet',
-    'name': 'Closet',
-  },
-  {
-    'location': '/recommend',
-    'name': 'Recomend',
-  }];
+const ProfilePopUp = (
+  <div className="PopUpProfile">
+    Profile
+    <br />
+    <Link to="/mypage">mypage</Link>
+  </div>
+);
 
-  return buttons.map((info, index) => {
-    if (pathname.indexOf(info.location) === 0) {
-      return (<NavButton to={info.location} key={index} iscurrent="true">{info.name}</NavButton>);
-    }
-    return (<NavButton to={info.location} key={index}>{info.name}</NavButton>);
-  });
-};
+const AlarmPopUp = <div className="PopUpAlarm">Alarm</div>;
 
-const MainBar = ({ location }) => {
-  const buttons = makeButton(location.pathname);
+const MainBar = () => {
+  const [PopUp, setPopUp] = useState('none');
+
+  const PopUpClose = () => {
+    setPopUp('none');
+  };
+
+  const AlarmOpen = e => {
+    e.stopPropagation();
+    if (PopUp === 'alarm') setPopUp('none');
+    else setPopUp('alarm');
+  };
+
+  const ProfileOpen = e => {
+    e.stopPropagation();
+    if (PopUp === 'profile') setPopUp('none');
+    else setPopUp('profile');
+  };
 
   return (
-    <Bar>
-      <BarInterface>
-        <MainIcon to="/" color="white">오늘의 패션(ICON)</MainIcon>
-        <Navigation>
-          {buttons}
-        </Navigation>
-        <NavButton to="/mypage" linenum={2}>My Page <br />or Login</NavButton>
-      </BarInterface>
-    </Bar>
+    <ClickDiv onClick={PopUpClose} className="MainBar">
+      <div className="flexButtons">
+        <Link className="MainLogo" to="/">
+          Main
+        </Link>
+        <div className="pageLink">
+          <Link to="/calendar">Calendar</Link>
+          <Link to="/closet">Closet</Link>
+          <Link to="/recommend">Recommend</Link>
+        </div>
+        <div className="Icons">
+          <div className="dropdown">
+            <ClickImg
+              onClick={AlarmOpen}
+              className="icon"
+              alt="alarm"
+              src="https://cdn0.iconfinder.com/data/icons/mintab-outline-for-ios-4/30/alarm-clock-timer-time-ring-512.png"
+            />
+            {PopUp === 'alarm' && AlarmPopUp}
+          </div>
+          <div className="dropdown">
+            <ClickImg
+              onClick={ProfileOpen}
+              className="icon"
+              alt="profile"
+              src="https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png"
+            />
+            {PopUp === 'profile' && ProfilePopUp}
+          </div>
+        </div>
+      </div>
+    </ClickDiv>
   );
 };
 

@@ -1,21 +1,23 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 // import axios from 'axios';
+import { UserRequest } from '../../Tool';
+import { LoginContext } from '../../Context';
 
-const get200 = async () => {
-  const res = await axios.post('https://api.pashiontoday.com/userInfo');
+const get200 = async token => {
+  console.log(token);
+  const res = await UserRequest('userInfo', token, { body: 'body' });
   console.log(res);
 };
 
-const ApiTest = props => {
-  console.log(props);
+const ApiTest = () => {
+  const { token } = useContext(LoginContext);
 
   return (
-    <button type="button" className="api" onClick={get200}>
-      200
-    </button>
+    <>
+      <button type="button" className="api" onClick={() => get200(token)}>
+        200
+      </button>
+    </>
   );
 };
 
