@@ -24,8 +24,10 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
+import kotlinx.android.synthetic.main.calendar_activity.*
 import kotlinx.android.synthetic.main.calendar_content.*
 import kotlinx.android.synthetic.main.calendar_do.view.*
+import kotlinx.android.synthetic.main.daily_look.nav_view
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -46,6 +48,12 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         setContentView(R.layout.calendar_activity)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        var header_view= nav_view.getHeaderView(0)
+        header_view.setOnClickListener {
+            var intent=Intent(this,Pashion::class.java)
+            startActivity(intent)
+        }
 
         var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
         calendar_view.addDecorators(SundayDecorator(),SaturdayDecorator(),TodayDecorator())
@@ -138,15 +146,15 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.menu_closet -> {
-                var intent=Intent(this,Closet::class.java)
+                var intent = Intent(this, Closet::class.java)
                 startActivity(intent)
-
             }
             R.id.menu_daily_look -> {
-
+                var intent=Intent(this,DailyLook::class.java)
+                startActivity(intent)
             }
             R.id.menu_calendar -> {
-                var intent=Intent(this,CalendarActivity::class.java)
+                var intent = Intent(this, CalendarActivity::class.java)
                 startActivity(intent)
             }
             R.id.menu_recommend -> {

@@ -7,18 +7,18 @@
         android:layout_height="match_parent"
         android:id="@+id/container"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/pashion_app_bar"
-        tools:context=".Page.Pashion" android:orientation="vertical">
-    <TextView
-            android:text="사람들의 데일리룩입니다"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/TopicText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" android:textAllCaps="false"
-    />
+        tools:showIn="@layout/daily_look_detail_app_bar"
+        tools:context=".Page.DailyLookDetail" android:orientation="vertical">
 
-    <GridView
-            android:id="@+id/Look_list"
+    <TextView
+            android:id="@+id/textView11"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="2" />
+            android:layout_height="wrap_content"
+            android:text="데일리룩 상세페이지입니다"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/daily_clothes_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 </LinearLayout>

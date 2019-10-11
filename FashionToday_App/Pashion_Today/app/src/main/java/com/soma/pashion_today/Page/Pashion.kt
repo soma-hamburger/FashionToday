@@ -90,6 +90,8 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         var listenr=ListListener()
         Look_list.setOnItemClickListener(listenr)
 
+
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -104,6 +106,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
 
     }
+
 
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -140,14 +143,16 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
                 startActivity(intent)
             }
             R.id.menu_daily_look -> {
-
+                var intent=Intent(this,DailyLook::class.java)
+                startActivity(intent)
             }
             R.id.menu_calendar -> {
                 var intent = Intent(this, CalendarActivity::class.java)
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
-
+                var intent=Intent(this,Recommend::class.java)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 
@@ -165,7 +170,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     // 사진을 서버에서 받아 저장하여 관리하
     inner class ListAdapter:BaseAdapter(){
         override fun getCount(): Int {
-            return look_list?.size
+            return look_list.size
         }
 
         override fun getItem(p0: Int): Any {
@@ -236,7 +241,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
      // 서버에서 JSONarray 받는 클래스
      inner class NetworkThread:Thread(){
         override fun run() {
-            var site="http://172.30.1.23:8085/MobileServer/Look_list.jsp"
+            var site="http://172.16.101.126:8085/MobileServer/Look_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()
@@ -293,6 +298,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             }
         }
     }
+
 
 }
 

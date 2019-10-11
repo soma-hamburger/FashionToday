@@ -47,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
             // 요청
             var client= OkHttpClient()
             var request_builder= Request.Builder()
-            var url=request_builder.url("http://172.30.1.22:8085/SomaServer/upload.jsp")
+            var url=request_builder.url("http://172.20.10.4:8085/SomaServer/upload.jsp")
 
             // 이미지, 문자열 다른 형식이니 멀티 바디객체로 사용
             var multipart_builder= MultipartBody.Builder()
