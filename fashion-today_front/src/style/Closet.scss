@@ -1,0 +1,31 @@
+$margin: 15vw;
+
+.Closet {
+  .ClosetNavigation {
+    border: 1px solid black;
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    select {
+      margin-right: 20px;
+    }
+    button {
+    }
+  }
+  .ClosetTable {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    .Clothes {
+      .Image {
+        border: 1px solid black;
+        width: 100%;
+        min-height: 150px;
+      }
+      .Account {
+        margin-top: 0.5em;
+        text-align: center;
+      }
+    }
+  }
+}

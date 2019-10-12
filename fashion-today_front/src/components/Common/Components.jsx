@@ -72,5 +72,3 @@ LinkImg.propTypes = {
   href: PropTypes.string,
   className: PropTypes.string,
 };
-
-export const Test = () => <div className="default">default</div>;

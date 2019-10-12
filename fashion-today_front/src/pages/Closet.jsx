@@ -1,19 +1,36 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import ReactRouterPropTypes from 'react-router-prop-types';
-import AddClothes from '../components/Closet/AddClothes';
-import ClothesTable from '../components/Closet/ClothesTable';
+import React, { useContext, useState } from 'react';
+// import ReactRouterPropTypes from 'react-router-prop-types';
+import { useFetch } from '../Tool';
+import { LoginContext } from '../Context';
+import ClosetTable from '../components/Closet/ClosetTable';
+import ClosetNavigation from '../components/Closet/ClosetNavigation';
+import '../style/Closet.scss';
 
-const Closet = ({ match }) => (
-  <>
-    <Switch>
-      <Route path={`${match.url}/add`} component={AddClothes} />
-      <Route path={match.url} component={ClothesTable} />
-    </Switch>
-  </>
-);
+const Closet = () => {
+  const loginTool = useContext(LoginContext);
+  const UserCloset = useFetch('closet', loginTool.token);
+  const [color, setColor] = useState(null);
+  const [category, setCategory] = useState(null);
 
-Closet.propTypes = {
-  match: ReactRouterPropTypes.match.isRequired,
+  console.log(UserCloset);
+
+  const navTool = {
+    setColor,
+    setCategory,
+  };
+
+  return (
+    <div className="Closet">
+      MY CLOSET
+      <ClosetNavigation navTool={navTool} />
+      {UserCloset && (
+        <ClosetTable
+          category={category}
+          color={color}
+          array={UserCloset.clothes_array}
+        />
+      )}
+    </div>
+  );
 };
 export default Closet;

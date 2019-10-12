@@ -1,13 +1,17 @@
-import React from 'react';
-import { UserRequest } from '../Tool';
+import React, { useContext } from 'react';
+import { useFetch } from '../Tool';
+import { LoginContext } from '../Context';
 
 const Main = () => {
-  const getUserInfo = () => UserRequest('userInfo');
+  const loginTool = useContext(LoginContext);
 
-  console.log(getUserInfo);
+  const UserInfo = useFetch('userInfo', loginTool.token);
+
+  console.log(UserInfo);
   return (
     <>
       <b>main</b>
+      <div className="scrolltest">sdlifjsdlf</div>
     </>
   );
 };

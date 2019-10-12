@@ -6,6 +6,7 @@ import { LoginContext } from './Context';
 import Main from './pages/Main';
 import Index from './pages/Index';
 import LayOut from './components/Common/LayOut';
+import Closet from './pages/Closet';
 
 const getToken = () => {
   console.log('getToken');
@@ -16,8 +17,6 @@ const getToken = () => {
 
 function App() {
   const [token, setToken] = useState(getToken());
-
-  console.log(token);
 
   const loginContext = {
     token,
@@ -33,6 +32,7 @@ function App() {
           <LayOut>
             <Switch>
               <Route exact path="/" component={Main} />
+              <Route path="/closet" component={Closet} />
               <Route path="/api-test" component={ApiTest} />
             </Switch>
           </LayOut>

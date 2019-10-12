@@ -8,6 +8,7 @@ const Calendar = ({ match }) => {
   const today = new Date();
   const [year, setYear] = useState(today.getFullYear());
   const [month, setMonth] = useState(today.getMonth());
+
   const prevMonth = () => {
     if (month > 1) {
       setMonth(month - 1);

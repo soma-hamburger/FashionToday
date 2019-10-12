@@ -1,13 +1,22 @@
 import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { UserCloset, UserInfo } from './defaultAPI';
 
-const instance = axios.create({
-  baseURL: 'https://api.pashiontoday.com/',
-  timeout: 2000,
-});
+const findDefaultAPI = url => {
+  if (url === 'closet') return UserCloset;
+  if (url === 'userInfo') return UserInfo;
+  return null;
+};
 
 export const Request = async (url, body, header) => {
+  const instance = axios.create({
+    baseURL: 'https://api.pashiontoday.com/',
+    timeout: 2000,
+    headers: header,
+  });
+
   try {
-    return await instance.post(url, body, header);
+    return await instance.post(url, body);
   } catch (error) {
     return error;
   }
@@ -23,6 +32,20 @@ export const UserRequest = async (url, token, body) => {
   try {
     return await userInstance.post(url, body);
   } catch (error) {
-    return error;
+    console.log(error);
+    return findDefaultAPI(url);
   }
+};
+
+export const useFetch = (url, token) => {
+  const [res, setRes] = useState(null);
+  useEffect(() => {
+    const getRes = async () => {
+      const response = await UserRequest(url, token);
+      setRes(response);
+    };
+    getRes();
+  }, [url, token]);
+
+  return res;
 };
