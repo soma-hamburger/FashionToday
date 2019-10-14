@@ -26,6 +26,22 @@ ClickDiv.propTypes = {
   onKeyPress: PropTypes.func,
 };
 
+export const LinkDiv = ({ children, to, className }) => (
+  <Link to={to}>
+    <div className={className}>{children}</div>
+  </Link>
+);
+
+LinkDiv.defaultProps = {
+  className: '',
+};
+
+LinkDiv.propTypes = {
+  children: PropTypes.element.isRequired,
+  to: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
 export const ClickImg = ({ src, alt, onClick, className }) => (
   <ClickDiv onClick={onClick} className={className}>
     <img src={src} alt={alt} />

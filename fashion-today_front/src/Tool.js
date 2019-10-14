@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { UserCloset, UserInfo } from './defaultAPI';
+import { useState, useEffect, useRef } from 'react';
+import {
+  UserCloset,
+  UserInfo,
+  LookRequestorList,
+  RequestorCloset,
+} from './defaultAPI';
 
 const findDefaultAPI = url => {
   if (url === 'closet') return UserCloset;
   if (url === 'userInfo') return UserInfo;
+  if (url === 'requestor/list') return LookRequestorList;
+  if (url === 'requestor/closet') return RequestorCloset;
   return null;
 };
 
@@ -37,15 +44,31 @@ export const UserRequest = async (url, token, body) => {
   }
 };
 
-export const useFetch = (url, token) => {
+export const useFetch = (url, token, body) => {
   const [res, setRes] = useState(null);
+
   useEffect(() => {
     const getRes = async () => {
-      const response = await UserRequest(url, token);
+      const response = await UserRequest(url, token, body);
       setRes(response);
     };
     getRes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, token]);
 
   return res;
+};
+
+export const useCanvas = (draw, context = '2d') => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext(context);
+      console.log(ctx);
+      draw(ctx);
+    }
+  });
+
+  return canvasRef;
 };

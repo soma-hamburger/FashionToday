@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import Index from './pages/Index';
 import LayOut from './components/Common/LayOut';
 import Closet from './pages/Closet';
+import Recommend from './pages/Recommend';
 
 const getToken = () => {
   console.log('getToken');
@@ -33,6 +34,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Main} />
               <Route path="/closet" component={Closet} />
+              <Route path="/recommend" component={Recommend} />
               <Route path="/api-test" component={ApiTest} />
             </Switch>
           </LayOut>
