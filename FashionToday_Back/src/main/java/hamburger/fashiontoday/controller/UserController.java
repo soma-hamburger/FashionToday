@@ -3,6 +3,7 @@ package hamburger.fashiontoday.controller;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.dto.UserInfo;
+import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @version : 0.5
  *
  */
+
 @RestController
 public class UserController {
 
@@ -27,6 +29,9 @@ public class UserController {
     private String programId = "HAM-PB-4002-J";
     private String errorCode = "";
 
+    @Autowired
+    JwtService jwtService;
+
     // Member객체를 관리하는 memberrepository입니다.
     @Autowired
     MemberRepository memberRepository;
@@ -36,7 +41,19 @@ public class UserController {
      * @return
      */
     @PostMapping("/userInfo")
-    public UserInfo userInfo(){
+    public UserInfo userInfo(@RequestHeader(value = "Authorization")String authorization){
+
+        System.out.println("나의 토큰 :"+authorization);
+
+        if(jwtService.isUsable(authorization)){
+            System.out.println("유저 아이디 : "+jwtService.getMember(authorization));
+            Member member = memberRepository.findByMId(3);
+            UserInfo userInfo = new UserInfo(member.getMId(),member.getMName(),member.getMStar(),member.getMProfileUrl(),10,"200");
+            logger.debug(programId + " : userInfo - success : memberId = "+member.getMId());
+            return userInfo;
+        }
+
+        System.out.println("토큰 안됨");
         Member member = memberRepository.findByMId(3);
         UserInfo userInfo = new UserInfo(member.getMId(),member.getMName(),member.getMStar(),member.getMProfileUrl(),10,"200");
         logger.debug(programId + " : userInfo - success : memberId = "+member.getMId());
