@@ -7,10 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -79,9 +76,7 @@ public class JwtServiceImpl implements JwtService{
 
     // 키에서 설정된 값들을 가져오는 함수
     @Override
-    public Map<String, Object> get(String key) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        String jwt = request.getHeader("Authorization");
+    public Map<String, Object> get(String key,String jwt) {
         log.debug("동훈이 키값 : "+jwt);
         Jws<Claims> claims = null;
         try {
@@ -103,8 +98,8 @@ public class JwtServiceImpl implements JwtService{
 
     // 맴버 아이디를 가져오는 함수
     @Override
-    public int getMemberId() {
-        return (int)this.get("member").get("mId");
+    public Map<String, Object> getMember(String Authorization) {
+        return this.get("member",Authorization);
     }
 
 }

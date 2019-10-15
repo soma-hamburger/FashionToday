@@ -46,7 +46,7 @@ public class UserController {
         System.out.println("나의 토큰 :"+authorization);
 
         if(jwtService.isUsable(authorization)){
-            //System.out.println("유저 아이디 : "+jwtService.getMemberId());
+            System.out.println("유저 아이디 : "+jwtService.getMember(authorization));
             Member member = memberRepository.findByMId(3);
             UserInfo userInfo = new UserInfo(member.getMId(),member.getMName(),member.getMStar(),member.getMProfileUrl(),10,"200");
             logger.debug(programId + " : userInfo - success : memberId = "+member.getMId());
