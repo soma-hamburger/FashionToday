@@ -1,4 +1,4 @@
-package hamburger.fashiontoday.dto;
+package hamburger.fashiontoday.domain.member;
 
 
 import lombok.Getter;
