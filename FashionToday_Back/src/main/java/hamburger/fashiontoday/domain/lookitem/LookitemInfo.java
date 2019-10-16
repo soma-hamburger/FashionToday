@@ -2,6 +2,7 @@ package hamburger.fashiontoday.domain.lookitem;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -12,11 +13,37 @@ import lombok.Setter;
  * @version : 0.5
  *
  */
-
 @Getter
 @Setter
+@NoArgsConstructor
 public class LookitemInfo {
 
+    private String remark;
 
+    private int mid;
+
+    private int kmid;
+
+    private String kitemPicture;
+
+    private String lookItemCat1;
+
+    private String lookItemCat2;
+
+    private String kItemColSumPicture;
+
+    public LookitemInfo(Lookitem lookitem){
+        remark = "success";
+        mid = lookitem.getMId();
+        kmid = lookitem.getKmId();
+        kitemPicture = lookitem.getKItemPicture();
+        lookItemCat1 = lookitem.getLookItemCat1();
+        lookItemCat2 = lookitem.getLookItemCat2();
+        kItemColSumPicture = lookitem.getKItemColSumPicture();
+    }
+
+    public void fail(){
+        remark = "fail";
+    }
 
 }

@@ -98,8 +98,8 @@ public class JwtServiceImpl implements JwtService{
 
     // 맴버 아이디를 가져오는 함수
     @Override
-    public Map<String, Object> getMember(String Authorization) {
-        return this.get("member",Authorization);
+    public int getMember(String Authorization) {
+        return Integer.parseInt(this.get("member",Authorization).get("mid").toString());
     }
 
 }
