@@ -39,22 +39,18 @@ public class Lookitem {
     @Column(name = "kitempicture")
     private String kItemPicture;
 
-    @Column(name = "lookItemCat1")
-    private String lookItemCat1;
-
-    @Column(name = "lookItemCat2")
-    private String lookItemCat2;
+    @Column(name = "lookItemCat")
+    private String lookItemCat;
 
     @Column(name = "kItemColSumPicture")
     private String kItemColSumPicture;
 
 
-    public Lookitem(int mId, String kItemPicture, String color, String lookItemCat1, String lookItemCat2, String kItemColSumPicture) {
+    public Lookitem(int mId, String kItemPicture, String color, String lookItemCat, String kItemColSumPicture) {
         this.mId = mId;
         this.color = color;
         this.kItemPicture = kItemPicture;
-        this.lookItemCat1 = lookItemCat1;
-        this.lookItemCat2 = lookItemCat2;
+        this.lookItemCat = lookItemCat;
         this.kItemColSumPicture = kItemColSumPicture;
     }
 

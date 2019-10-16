@@ -48,8 +48,7 @@ public class LookitemController {
         int loginMemberId = 0;
         String clothesImg = new String();
         String color = new String();
-        String category1 = new String();
-        String category2 = new String();
+        String category = new String();
         LookitemInfo lookItemInfo = new LookitemInfo();
 
         // 로그인 여부 확인
@@ -67,8 +66,7 @@ public class LookitemController {
         try {
             clothesImg = param.get("clothes_img").toString();
             color = param.get("color").toString();
-            category1 = param.get("category1").toString();
-            category2 = param.get("category2").toString();
+            category = param.get("category").toString();
 
         } catch (Exception e) {
             lookItemInfo.fail();
@@ -77,7 +75,7 @@ public class LookitemController {
         }
 
 
-        return new LookitemInfo(lookitemRepository.save(new Lookitem(loginMemberId,clothesImg,color,category1,category2,clothesImg)));
+        return new LookitemInfo(lookitemRepository.save(new Lookitem(loginMemberId,clothesImg,color,category,clothesImg)));
     }
 
 

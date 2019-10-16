@@ -26,9 +26,7 @@ public class LookitemInfo {
 
     private String kitemPicture;
 
-    private String lookItemCat1;
-
-    private String lookItemCat2;
+    private String lookItemCat;
 
     private String kItemColSumPicture;
 
@@ -37,8 +35,7 @@ public class LookitemInfo {
         mid = lookitem.getMId();
         kmid = lookitem.getKmId();
         kitemPicture = lookitem.getKItemPicture();
-        lookItemCat1 = lookitem.getLookItemCat1();
-        lookItemCat2 = lookitem.getLookItemCat2();
+        lookItemCat = lookitem.getLookItemCat();
         kItemColSumPicture = lookitem.getKItemColSumPicture();
     }
 
