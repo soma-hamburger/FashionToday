@@ -1,129 +1,72 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@import './utils.scss';
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+.Index {
+  display: grid;
+  align-content: center;
+  grid-template-columns: 3fr 2fr;
+  grid-gap: 7vw;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../img/index_background.jpg');
+  background-size: cover;
+  .TitleView {
+    justify-self: end;
+    color: $white;
+    .Title {
+      font-family: $noto-sans;
+      font-weight: bolder;
+      font-size: 10vw;
+      letter-spacing: 8px;
+      line-height: 1.1;
+      margin-top: -2vw;
+    }
+    .Subtitle {
+      margin-top: 1vw;
+      padding-left: 5px;
+      font-family: $apple-gothic;
+      font-size: 3vw;
+      letter-spacing: 3px;
+      word-spacing: 4px;
+      line-height: 1.8;
+    }
+    .Describe {
+      padding-left: 5px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+  }
+  .Interface {
+    width: 290px;
+    height: 290px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: transparentize($gray2, 0.1);
+    text-align: center;
+    .Logo {
+      width: 150px;
+      height: auto;
+      margin: 0 auto;
+      margin-top: 20px;
+      margin-bottom: 35px;
+    }
+    .KakaoLogin,
+    .NaverLogin {
+      width: 160px;
+      height: 28px;
+      line-height: 28px;
+      font-size: 11px;
+      border-radius: 14px;
+      margin: 0 auto;
+      color: $v-black;
+      padding: 0px 20px;
+      margin-bottom: 15px;
+    }
+    .KakaoLogin {
+      background-color: $y-orange;
+    }
+    .NaverLogin {
+      color: $white;
+      background-color: $green2;
+    }
+  }
 }

@@ -26,20 +26,31 @@ ClickDiv.propTypes = {
   onKeyPress: PropTypes.func,
 };
 
-export const LinkDiv = ({ children, to, className }) => (
-  <Link to={to}>
-    <div className={className}>{children}</div>
-  </Link>
-);
+export const LinkDiv = ({ children, to, className, href }) => {
+  if (to)
+    return (
+      <Link to={to}>
+        <div className={className}>{children}</div>
+      </Link>
+    );
+  return (
+    <a href={href}>
+      <div className={className}>{children}</div>
+    </a>
+  );
+};
 
 LinkDiv.defaultProps = {
   className: '',
+  to: null,
+  href: null,
 };
 
 LinkDiv.propTypes = {
   children: PropTypes.element.isRequired,
-  to: PropTypes.string.isRequired,
+  to: PropTypes.string,
   className: PropTypes.string,
+  href: PropTypes.string,
 };
 
 export const ClickImg = ({ src, alt, onClick, className }) => (

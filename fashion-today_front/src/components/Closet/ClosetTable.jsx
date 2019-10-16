@@ -1,7 +1,7 @@
 import React from 'react';
 import { ClickImg } from '../Common/Components';
 
-const MakeClothes = (category, color, array) => {
+const MakeClothes = (category, color, array, onClick) => {
   let filterdArray = array;
 
   if (category) {
@@ -16,7 +16,7 @@ const MakeClothes = (category, color, array) => {
   return filterdArray.map(clothes => (
     <div className="Clothes" key={clothes.clothes_id}>
       <ClickImg
-        onClick={() => {}}
+        onClick={onClick}
         src={clothes.clothes_image}
         alt={String(clothes.clothes_id)}
         className="Image"
@@ -28,8 +28,8 @@ const MakeClothes = (category, color, array) => {
   ));
 };
 
-const ClosetTable = ({ category, color, array }) => {
-  const closetTable = MakeClothes(category, color, array);
+const ClosetTable = ({ category, color, array, onClick = () => {} }) => {
+  const closetTable = MakeClothes(category, color, array, onClick);
 
   return <div className="ClosetTable">{closetTable}</div>;
 };
