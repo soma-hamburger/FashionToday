@@ -2,6 +2,8 @@ package hamburger.fashiontoday.domain.lookitem;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * @프로그램ID : HAM-PB-2009-J
  * @프로그램명 : LookitemRepository.java
@@ -11,4 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface LookitemRepository extends CrudRepository<Lookitem, LookitemId> {
+    List<Lookitem> findLookitemsByMId(int MId);
 }

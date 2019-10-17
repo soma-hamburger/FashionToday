@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LookitemInfo {
 
-    private String remark;
+    private String remark = "fail";
 
     private int mid;
 
@@ -37,10 +37,6 @@ public class LookitemInfo {
         kitemPicture = lookitem.getKItemPicture();
         lookItemCat = lookitem.getLookItemCat();
         kItemColSumPicture = lookitem.getKItemColSumPicture();
-    }
-
-    public void fail(){
-        remark = "fail";
     }
 
 }

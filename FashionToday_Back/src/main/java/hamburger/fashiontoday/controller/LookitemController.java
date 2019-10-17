@@ -1,5 +1,6 @@
 package hamburger.fashiontoday.controller;
 
+import hamburger.fashiontoday.domain.lookitem.ClosetInfo;
 import hamburger.fashiontoday.domain.lookitem.Lookitem;
 import hamburger.fashiontoday.domain.lookitem.LookitemInfo;
 import hamburger.fashiontoday.domain.lookitem.LookitemRepository;
@@ -8,10 +9,7 @@ import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -42,7 +40,7 @@ public class LookitemController {
 
     // 302번 api
     // 룩을 저장하는 api
-    @PostMapping(value = "lookitem")
+    @PostMapping(value = "/lookitem")
     public LookitemInfo uploadLookitem(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int loginMemberId = 0;
@@ -57,7 +55,6 @@ public class LookitemController {
             System.out.println("유저 아이디 : " + loginMemberId);
 
         } else {
-            lookItemInfo.fail();
             return lookItemInfo;
 
         }
@@ -69,14 +66,39 @@ public class LookitemController {
             category = param.get("category").toString();
 
         } catch (Exception e) {
-            lookItemInfo.fail();
             return lookItemInfo;
 
         }
 
+        Lookitem lookitem2 = new Lookitem(loginMemberId,clothesImg,color,category,clothesImg);
+        System.out.println( "이거 : "+lookitem2.getMId());
 
         return new LookitemInfo(lookitemRepository.save(new Lookitem(loginMemberId,clothesImg,color,category,clothesImg)));
     }
+
+
+    // 202번 api
+    // 나만의 옷장을 불러오는 곳
+    @GetMapping(value = "/closet")
+    public ClosetInfo getCloset(@RequestHeader(value = "Authorization") String token) {
+
+        int loginMemberId = 0;
+        ClosetInfo closetInfo = new ClosetInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+        }else{
+            return closetInfo;
+        }
+
+        closetInfo.setClothesList(lookitemRepository.findLookitemsByMId(loginMemberId));
+
+
+        return closetInfo;
+    }
+
 
 
 }

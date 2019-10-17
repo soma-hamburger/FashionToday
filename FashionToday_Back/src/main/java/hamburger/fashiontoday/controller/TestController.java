@@ -36,11 +36,11 @@ public class TestController {
     @Autowired
     LookStructureRepository lookStructureRepository;
 
-    @GetMapping("/lookitem")
-    public Lookitem saveLookItem(){
-        Lookitem testLookitem = new Lookitem(2,4,"http://pashiontoday.com","하늘하늘한 블라우스","http://pashiontoday.com");
-        return lookItemRepository.save(testLookitem);
-    }
+//    @GetMapping("/lookitem")
+//    public Lookitem saveLookItem(){
+//        //Lookitem testLookitem = new Lookitem(2,4,"http://pashiontoday.com","하늘하늘한 블라우스","http://pashiontoday.com");
+//       // return lookItemRepository.save(testLookitem);
+//    }
 
     @GetMapping("/lookitemclass")
     public LookitemClass saveLookItemClass(){
