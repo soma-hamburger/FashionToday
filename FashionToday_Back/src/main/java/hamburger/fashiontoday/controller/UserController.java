@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@RequestMapping(value = "/user")
 public class UserController {
 
     // 로그를 찍기 위한 Logger
