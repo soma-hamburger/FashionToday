@@ -55,7 +55,7 @@ public class UserController {
         }
 
         System.out.println("토큰 안됨");
-        return memberInfo;
+        return new MemberInfo();
     }
 
 
