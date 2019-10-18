@@ -41,23 +41,20 @@ public class UserController {
      *
      * @return
      */
-    @PostMapping("/userInfo")
+    @PostMapping("/info")
     public MemberInfo userInfo(@RequestHeader(value = "Authorization")String authorization){
 
         System.out.println("나의 토큰 :"+authorization);
 
         if(jwtService.isUsable(authorization)){
             System.out.println("유저 아이디 : "+jwtService.getMember(authorization));
-            Member member = memberRepository.findByMId(3);
+            Member member = memberRepository.findByMId(jwtService.getMember(authorization));
             MemberInfo memberInfo = new MemberInfo(member.getMId(),member.getMName(),member.getMStar(),member.getMProfileUrl(),10,"200");
             logger.debug(programId + " : memberInfo - success : memberId = "+member.getMId());
             return memberInfo;
         }
 
         System.out.println("토큰 안됨");
-        Member member = memberRepository.findByMId(3);
-        MemberInfo memberInfo = new MemberInfo(member.getMId(),member.getMName(),member.getMStar(),member.getMProfileUrl(),10,"200");
-        logger.debug(programId + " : memberInfo - success : memberId = "+member.getMId());
         return memberInfo;
     }
 

@@ -1,6 +1,7 @@
 package hamburger.fashiontoday.domain.member;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -14,7 +15,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class MemberInfo {
+
+    private String remark = "fail";
 
     private int user_id;
 
@@ -30,6 +34,7 @@ public class MemberInfo {
 
 
     public MemberInfo(int user_id, String name, int star, String profile_image, int msec, String apiseq) {
+        remark = "success";
         this.user_id = user_id;
         this.name = name;
         this.star = star;
