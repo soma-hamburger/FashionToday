@@ -55,7 +55,6 @@
     width: $width;
     padding: $padding;
     @include center-margin($width, $padding);
-    margin-bottom: 6vh;
     grid-gap: 2vw;
     background-color: $w-violet3;
     border-radius: 10px;
@@ -91,7 +90,7 @@
 
   .SeparateLine {
     width: 6vw;
-    margin-bottom: 6vh;
+    margin: 5vh 0;
   }
 
   .LookList {
