@@ -133,3 +133,16 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  background-color: $white;
+  border: 0.1px solid $gray4;
+}
+
+select::-ms-expand {
+  display: none;
+}

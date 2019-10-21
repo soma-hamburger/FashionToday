@@ -25,9 +25,15 @@ const ClosetNavigation = ({ navTool }) => {
       <div>
         <select name="category" className="selectBox" onChange={changeCategory}>
           <option value="">Category</option>
+          <option value="pants">Pants</option>
           <option value="jean">Jean</option>
-          <option value="tee">Tee</option>
           <option value="shirts">Shirts</option>
+          <option value="tee">Tee</option>
+          <option value="dress">Dress</option>
+          <option value="shoes">Shoes</option>
+          <option value="bag">Bag</option>
+          <option value="hat">Hat</option>
+          <option value="accessory">Accessory</option>
         </select>
         <select name="color" className="selectBox" onChange={changeColor}>
           <option value="">Color</option>
@@ -36,7 +42,7 @@ const ClosetNavigation = ({ navTool }) => {
           <option value="green">Green</option>
         </select>
       </div>
-      <button onClick={chooseFilter} type="submit">
+      <button onClick={chooseFilter} type="submit" className="NavButton">
         보기
       </button>
     </div>
