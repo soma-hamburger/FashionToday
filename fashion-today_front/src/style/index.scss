@@ -54,6 +54,7 @@
     }
     .KakaoLogin,
     .NaverLogin {
+      position: relative;
       width: 14vw;
       max-width: 160px;
       height: 28px;
@@ -64,9 +65,16 @@
       color: $v-black;
       padding: 0px 20px;
       margin-bottom: 15px;
+      .icon {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 5px;
+        top: 4px;
+      }
     }
     .KakaoLogin {
-      background-color: $y-orange;
+      background-color: $yellow;
     }
     .NaverLogin {
       color: $white;
