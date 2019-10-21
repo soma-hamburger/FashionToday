@@ -5,7 +5,7 @@ import { UserContext } from '../Context';
 import ClosetTable from '../components/Closet/ClosetTable';
 import ClosetNavigation from '../components/Closet/ClosetNavigation';
 import '../style/Closet.scss';
-import ClosetBackground from '../img/closet_background.jpg';
+import ClosetBackground from '../img/background/closet_background.jpg';
 
 const Closet = () => {
   const { token } = useContext(UserContext);

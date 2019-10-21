@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useFetch } from '../Tool';
 import { UserContext } from '../Context';
-import MainBackground from '../img/main_background.jpg';
+import MainBackground from '../img/background/main_background.jpg';
 import '../style/Main.scss';
 import PinWhite from '../img/pin-white.png';
 import SlashIcon from '../img/slash_icon.png';
