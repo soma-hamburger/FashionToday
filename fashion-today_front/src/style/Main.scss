@@ -1,9 +1,11 @@
 @import './utils.scss';
 
 .Main {
+  $grid-gap: 2vw;
+  $grid-repeat: 4;
+  $items-width: ($width - $grid-gap * ($grid-repeat - 1)) / $grid-repeat;
   text-align: center;
   color: $v-black;
-  $preview-width: 69 * 0.25vw;
   .MainBackground {
     margin-top: -30px;
   }
@@ -12,7 +14,7 @@
     line-height: 1.5;
     font-family: $noto-sans;
     width: 100vw;
-    margin-top: 10vh;
+    margin: 5vh 0;
     .PinWhite {
       width: 25px;
     }
@@ -35,16 +37,17 @@
     }
   }
   .LookImage {
-    width: $preview-width;
-    height: $preview-width * $image-ratio;
+    width: $items-width;
+    height: $items-width * $image-ratio;
     border: 0px;
     border-radius: 7px;
     background-color: $gray3;
   }
   .ProfileImage {
     display: block;
-    width: $preview-width * (3.5/25);
+    width: $items-width * (3.5/25);
     height: auto;
+    justify-self: center;
   }
   .DailyLookList {
     display: grid;
@@ -63,14 +66,14 @@
         align-items: center;
         justify-items: center;
         margin-top: 3px;
-        width: $preview-width;
-        height: $preview-width * (6/25);
+        width: $items-width;
+        height: $items-width * (6/25);
         vertical-align: center;
         background-color: $w-violet4;
         border-radius: 7px;
         .GradeIcon {
           display: block;
-          width: $preview-width * (2/25);
+          width: $items-width * (2/25);
         }
         .Name,
         .Grade {
@@ -90,6 +93,7 @@
     width: 6vw;
     margin-bottom: 6vh;
   }
+
   .LookList {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -100,10 +104,10 @@
         display: grid;
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
-        justify-items: center;
+        justify-items: start;
         .LikeIcon {
           display: block;
-          width: $preview-width * (2/25);
+          width: $items-width * (2/25);
         }
       }
     }

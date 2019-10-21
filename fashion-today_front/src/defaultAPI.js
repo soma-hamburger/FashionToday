@@ -33,19 +33,22 @@ export const UserCloset = {
       clothes_id: 20000001,
       color: 'red',
       category: 'jean',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
     {
       clothes_id: 20000002,
       color: 'red',
       category: 'tee',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
     {
       clothes_id: 20000003,
       color: 'blue',
       category: 'shirts',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
   ],
   msec: 10,
@@ -339,21 +342,21 @@ export const RequestorCloset = {
       color: 'red',
       category: 'jean',
       clothes_image:
-        'https://images.houseoffraser.co.uk/images/products/29017969_3pl.jpg',
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
     {
       clothes_id: 20000002,
       color: 'red',
       category: 'tee',
       clothes_image:
-        'https://www.pinpng.com/pngs/m/197-1976292_aesthetic-tumblr-clothes-png-transparent-png.png',
+        'http://www.pngmart.com/files/8/Dress-Shirt-PNG-Image-HD.png',
     },
     {
       clothes_id: 20000003,
       color: 'blue',
       category: 'shirts',
       clothes_image:
-        'https://imgs.clipartwiki.com/clipimg/small/177-1771708_folded-clothes-png-aesthetic-boy-clothes-png.png',
+        'https://i0.codibook.net/files/thumb/big/1975070913500/efa702b4153a46/1471844906.jpg',
     },
   ],
   msec: 10,

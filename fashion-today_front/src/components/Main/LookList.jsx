@@ -26,7 +26,7 @@ const makeLookView = LookArray =>
           />
           <div className="Name">{look.user_name}</div>
           <img src={GradeIcon} alt={look.user_id} className="LikeIcon" />
-          <div className="Grade">{look.look_like_num}</div>
+          <div className="Like">{look.look_like_num}</div>
         </div>
       </div>
     );
