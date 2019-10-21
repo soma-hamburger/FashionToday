@@ -3,7 +3,7 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { Image, Stage, Layer } from 'react-konva';
 import useImage from 'use-image';
 import { useFetch } from '../../Tool';
-import { LoginContext } from '../../Context';
+import { UserContext } from '../../Context';
 import ClosetTable from '../Closet/ClosetTable';
 import ClosetNavigation from '../Closet/ClosetNavigation';
 
@@ -36,8 +36,8 @@ const CanvasImage = ({
 const RecommendSubmit = ({ match }) => {
   console.log('render!!');
   const userId = match.params.userid;
-  const loginTool = useContext(LoginContext);
-  const RequestorCloset = useFetch('requestor/closet', loginTool.token, {
+  const user = useContext(UserContext);
+  const RequestorCloset = useFetch('post', 'requestor/closet', user.token, {
     userId,
   });
 
@@ -180,13 +180,13 @@ const RecommendSubmit = ({ match }) => {
     <div>
       {RequestorCloset && (
         <>
-          {RequestorCloset.requestor_name}님의 옷장
+          {RequestorCloset.data.requestor_name}님의 옷장
           <br />
           <ClosetNavigation navTool={navTool} />
           <ClosetTable
             category={category}
             color={color}
-            array={RequestorCloset.clothes_array}
+            array={RequestorCloset.data.clothes_array}
             onClick={e => {
               e.preventDefault();
               dispatchLookImageData({ type: 'add', src: e.target.src });

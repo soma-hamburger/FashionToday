@@ -23,7 +23,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "cache-clear": "aws cloudfront create-invalidation --distribution-id=ESTBTBX0DXSHO --paths '/*'",
     "test": "react-scripts test",
+    "deploy": "yarn build && aws s3 sync build s3://pashiontoday-front/ --acl public-read && yarn cache-clear",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

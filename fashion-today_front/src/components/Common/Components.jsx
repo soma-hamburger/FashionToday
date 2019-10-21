@@ -55,7 +55,7 @@ LinkDiv.propTypes = {
 
 export const ClickImg = ({ src, alt, onClick, className }) => (
   <ClickDiv onClick={onClick} className={className}>
-    <img src={src} alt={alt} />
+    <img src={src} alt={alt} className="inheritImage" />
   </ClickDiv>
 );
 
@@ -75,12 +75,12 @@ export const LinkImg = ({ src, alt, to, className, href }) => {
   if (href)
     return (
       <a href={href} className={className}>
-        <img src={src} alt={alt} />
+        <img src={src} alt={alt} className="inheritImage" />
       </a>
     );
   return (
     <Link to={to} className={className}>
-      <img src={src} alt={alt} />
+      <img src={src} alt={alt} className="inheritImage" />
     </Link>
   );
 };

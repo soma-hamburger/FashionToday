@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 // import axios from 'axios';
-import { UserRequest } from '../../Tool';
-import { LoginContext } from '../../Context';
+import { UserPost } from '../../Tool';
+import { UserContext } from '../../Context';
 
 const get200 = async token => {
   console.log(token);
-  const res = await UserRequest('userInfo', token, { body: 'body' });
+  const res = await UserPost('userInfo', token, { body: 'body' });
   console.log(res);
 };
 
 const ApiTest = () => {
-  const { token } = useContext(LoginContext);
+  const { token } = useContext(UserContext);
 
   return (
     <>

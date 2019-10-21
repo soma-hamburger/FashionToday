@@ -1,26 +1,47 @@
-.ClosetNavigation {
-  margin: 20px 0px;
-  display: flex;
-  justify-content: space-between;
-  select {
-    margin-right: 20px;
-  }
-  button {
-  }
-}
-.ClosetTable {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  .Clothes {
-    .Image {
-      border: 1px solid black;
-      width: 100%;
-      min-height: 150px;
+@import './utils.scss';
+
+.Closet {
+  .TitleBar {
+    width: $width;
+    padding: 0 $padding;
+    color: $v-black;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 5vh;
+    padding-bottom: 1vh;
+    @include center-margin($width, $padding);
+    margin-top: 0;
+    border-bottom: 2px solid $v-black;
+    .describe {
+      font-size: 12px;
+      font-weight: normal;
+      margin-left: 3vw;
     }
-    .Account {
-      margin-top: 0.5em;
-      text-align: center;
+  }
+  .ClosetNavigation {
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    select {
+      margin-right: 20px;
+    }
+    button {
+    }
+  }
+  .ClosetTable {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    .Clothes {
+      .Image {
+        border: 1px solid black;
+        width: 100%;
+        min-height: 150px;
+      }
+      .Account {
+        margin-top: 0.5em;
+        text-align: center;
+      }
     }
   }
 }

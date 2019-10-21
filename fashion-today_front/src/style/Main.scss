@@ -1,0 +1,111 @@
+@import './utils.scss';
+
+.Main {
+  text-align: center;
+  color: $v-black;
+  $preview-width: 69 * 0.25vw;
+  .MainBackground {
+    margin-top: -30px;
+  }
+  .Introduce {
+    font-size: 12px;
+    line-height: 1.5;
+    font-family: $noto-sans;
+    width: 100vw;
+    margin-top: 10vh;
+    .PinWhite {
+      width: 25px;
+    }
+    .Title {
+      margin-top: 15px;
+      line-height: 1;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+    .SubTitle {
+      margin-top: 15px;
+      line-height: 1;
+      font-size: 20px;
+      font-weight: lighter;
+    }
+    .SlashIcon {
+      width: 30px;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+  }
+  .LookImage {
+    width: $preview-width;
+    height: $preview-width * $image-ratio;
+    border: 0px;
+    border-radius: 7px;
+    background-color: $gray3;
+  }
+  .ProfileImage {
+    display: block;
+    width: $preview-width * (3.5/25);
+    height: auto;
+  }
+  .DailyLookList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: $width;
+    padding: $padding;
+    @include center-margin($width, $padding);
+    margin-bottom: 6vh;
+    grid-gap: 2vw;
+    background-color: $w-violet3;
+    border-radius: 10px;
+    .LookPreview {
+      .UserInfo {
+        display: grid;
+        grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
+        align-items: center;
+        justify-items: center;
+        margin-top: 3px;
+        width: $preview-width;
+        height: $preview-width * (6/25);
+        vertical-align: center;
+        background-color: $w-violet4;
+        border-radius: 7px;
+        .GradeIcon {
+          display: block;
+          width: $preview-width * (2/25);
+        }
+        .Name,
+        .Grade {
+          font-size: 15px;
+          justify-self: start;
+        }
+        .Grade {
+          margin-left: 0.8vw;
+          margin-top: 3px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .SeparateLine {
+    width: 6vw;
+    margin-bottom: 6vh;
+  }
+  .LookList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: $width;
+    margin: 0 (100vw - $width) * 0.5;
+    .LookPreview {
+      .UserInfo {
+        display: grid;
+        grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
+        align-items: center;
+        justify-items: center;
+        .LikeIcon {
+          display: block;
+          width: $preview-width * (2/25);
+        }
+      }
+    }
+  }
+}

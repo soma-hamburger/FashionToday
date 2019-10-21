@@ -5,13 +5,17 @@ import {
   UserInfo,
   LookRequestorList,
   RequestorCloset,
+  getDailyLookList,
+  LookListInfo,
 } from './defaultAPI';
 
 const findDefaultAPI = url => {
-  if (url === 'closet') return UserCloset;
-  if (url === 'userInfo') return UserInfo;
-  if (url === 'requestor/list') return LookRequestorList;
-  if (url === 'requestor/closet') return RequestorCloset;
+  if (url === 'closet') return { data: UserCloset };
+  if (url === 'user/info') return { data: UserInfo };
+  if (url === 'user/dailylook') return { data: getDailyLookList };
+  if (url === 'requestor/list') return { data: LookRequestorList };
+  if (url === 'requestor/closet') return { data: RequestorCloset };
+  if (url === 'look') return { data: LookListInfo };
   return null;
 };
 
@@ -29,7 +33,7 @@ export const Request = async (url, body, header) => {
   }
 };
 
-export const UserRequest = async (url, token, body) => {
+export const UserPost = async (url, token, body) => {
   const userInstance = axios.create({
     baseURL: 'https://api.pashiontoday.com/',
     timeout: 2000,
@@ -44,15 +48,38 @@ export const UserRequest = async (url, token, body) => {
   }
 };
 
-export const useFetch = (url, token, body) => {
+export const UserGet = async (url, token, body) => {
+  const userInstance = axios.create({
+    baseURL: 'https://api.pashiontoday.com/',
+    timeout: 2000,
+    headers: { Authorization: token },
+  });
+
+  try {
+    return await userInstance.get(url, body);
+  } catch (error) {
+    console.log(error);
+    return findDefaultAPI(url);
+  }
+};
+
+export const useFetch = (method, url, token, body) => {
   const [res, setRes] = useState(null);
 
   useEffect(() => {
-    const getRes = async () => {
-      const response = await UserRequest(url, token, body);
+    const postRes = async () => {
+      const response = await UserPost(url, token, body);
       setRes(response);
     };
-    getRes();
+    const getRes = async () => {
+      const response = await UserGet(url, token, body);
+      setRes(response);
+    };
+    if (method === 'post') {
+      postRes();
+    } else {
+      getRes();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url, token]);
 
