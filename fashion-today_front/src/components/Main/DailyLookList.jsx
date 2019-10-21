@@ -1,27 +1,45 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import LookPreview from '../Common/LookPreview';
-import { LookGrid } from '../../styled/main';
+import ProfileIcon from '../../img/default_profile.png';
+import GradeIcon from '../../img/grade_icon.png';
+import { ClickImg } from '../Common/Components';
 
-const makeDailyLookView = array =>
-  array.map((look, index) => (
-    <LookPreview
-      lookimgurl={look.look_image}
-      username={look.recommender_name}
-      profileimgurl={look.recommender_profile_image}
-      key={index}
-    />
-  ));
+const makeDailyLookView = LookArray =>
+  LookArray.map(look => {
+    let ProfileImage = ProfileIcon;
 
-const DailyLookList = ({ DalyLookList }) => {
-  const array = DalyLookList.daily_look_array;
-  const DailyLookView = makeDailyLookView(array);
+    if (look.recommender_profile_image)
+      ProfileImage = look.recommender_profile_image;
 
-  return <LookGrid>{DailyLookView}</LookGrid>;
-};
+    return (
+      <div className="LookPreview" key={look.look_id}>
+        <ClickImg
+          src={look.look_image}
+          alt={String(look.look_id)}
+          onClick={() => {}}
+          className="LookImage"
+        />
+        <div className="UserInfo">
+          <img
+            src={ProfileImage}
+            alt={look.recommender_id}
+            className="ProfileImage"
+          />
+          <div className="Name">{look.recommender_name}</div>
+          <img
+            src={GradeIcon}
+            alt={look.recommender_id}
+            className="GradeIcon"
+          />
+          <div className="Grade">{look.recommender_grade}</div>
+        </div>
+      </div>
+    );
+  });
 
-DailyLookList.propTypes = {
-  DalyLookList: PropTypes.object.isRequired,
+const DailyLookList = ({ LookArray }) => {
+  const DailyLookView = makeDailyLookView(LookArray);
+
+  return <div className="DailyLookList">{DailyLookView}</div>;
 };
 
 export default DailyLookList;

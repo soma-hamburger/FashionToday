@@ -1,0 +1,135 @@
+@import './utils.scss';
+
+.MainBar {
+  .ghost {
+    color: $v-black;
+    font-size: 0;
+  }
+  $width: 85vw;
+  $margin: 7.5vw;
+  $height: 60px;
+  $popup-width: 90px;
+  $dropdown-width: 50px;
+  position: fixed;
+  top: 4vh;
+  margin: 0 $margin;
+  width: $width;
+  height: $height;
+  font-family: $apple-gothic;
+  color: $white;
+  background-color: $v-black;
+  border-radius: $height / 2;
+  .flexButtons {
+    height: $height;
+    display: grid;
+    grid-template-columns: 20fr 40fr 90fr 17fr 20fr;
+    .MainLogo {
+      align-self: center;
+      width: 150px;
+    }
+    .pageLink {
+      align-self: center;
+      padding-left: 3vw;
+      justify-self: start;
+      a {
+        margin-right: 3vw;
+        font-size: 13px;
+        font-weight: lighter;
+      }
+    }
+    .Icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-self: flex-start;
+      .AlarmIcon,
+      .ProfileIcon {
+        width: $height * 0.5;
+        height: auto;
+        cursor: pointer;
+        margin: 0 10px;
+      }
+      .ProfileIcon {
+        width: $height * 0.45;
+        margin: 0 11.5px;
+      }
+    }
+  }
+  .dropdown {
+    align-items: center;
+    width: $dropdown-width;
+    position: relative;
+  }
+  .PopUpProfile,
+  .PopUpAlarm {
+    text-align: start;
+    position: absolute;
+    top: $height;
+    left: -$popup-width/2 + $dropdown-width/2;
+    color: black;
+    width: $popup-width;
+    height: 100px;
+    box-shadow: 0 0 3px 0.6px $gray5;
+    background-color: white;
+    border-radius: 5px;
+    &:after {
+      content: ' ';
+      position: absolute;
+      border-bottom: 10px solid white;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      top: -10px;
+      left: $popup-width/2 - 10px;
+    }
+    &:before {
+      content: ' ';
+      position: absolute;
+      border-bottom: 10px solid $gray4;
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      top: -11px;
+      left: $popup-width/2 - 10px;
+    }
+    .ProfileBody {
+      font-size: 11px;
+      padding: 15px 15px 0px 20px;
+      .StarNum {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        .StarIcon {
+          width: 15px;
+          margin-right: 5px;
+        }
+        .StarNumber {
+          height: 15px;
+          padding-top: 7px;
+        }
+        color: $violet3;
+        margin-bottom: 13px;
+      }
+      .LogOutLink,
+      .MyPageLink {
+        margin-bottom: 12px;
+        padding-left: 2px;
+        cursor: pointer;
+      }
+    }
+    .AlarmBody {
+      font-size: 11px;
+      padding: 15px 15px 0px 20px;
+    }
+  }
+}
+.Footer {
+  width: 100vw;
+  height: 15vh;
+  margin-top: 5vh;
+  background-color: $v-black;
+}
+
+.inheritImage {
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+}

@@ -36,14 +36,17 @@
     }
   }
   .Interface {
-    width: 290px;
-    height: 290px;
+    width: 25vw;
+    height: 25vw;
+    max-width: 290px;
+    max-height: 290px;
     padding: 20px;
     border-radius: 10px;
     background-color: transparentize($gray2, 0.1);
     text-align: center;
     .Logo {
-      width: 150px;
+      width: 13vw;
+      max-width: 150px;
       height: auto;
       margin: 0 auto;
       margin-top: 20px;
@@ -51,7 +54,8 @@
     }
     .KakaoLogin,
     .NaverLogin {
-      width: 160px;
+      width: 14vw;
+      max-width: 160px;
       height: 28px;
       line-height: 28px;
       font-size: 11px;

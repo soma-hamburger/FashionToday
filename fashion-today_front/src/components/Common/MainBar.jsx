@@ -1,18 +1,40 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ClickDiv, ClickImg } from './Components';
+import { ClickDiv, ClickImg, LinkImg, LinkDiv } from './Components';
+import AlarmIcon from '../../img/alarm_icon.png';
+import ProfileIcon from '../../img/profile_icon.png';
+import StarIcon from '../../img/star_icon.png';
+import MainLogo from '../../img/logo/logo-width-white.png';
 
-const ProfilePopUp = (
+const logout = () => {
+  localStorage.removeItem('token');
+  window.location.replace('/');
+};
+
+const ProfilePopUp = ({ userInfo }) => (
   <div className="PopUpProfile">
-    Profile
-    <br />
-    <Link to="/mypage">mypage</Link>
+    <div className="ProfileBody">
+      <div className="StarNum">
+        <img src={StarIcon} className="StarIcon" alt="StarIcon" />
+        <div className="StarNumber">{userInfo.star}</div>
+      </div>
+      <LinkDiv to="/mypage" className="MyPageLink">
+        <>My Page</>
+      </LinkDiv>
+      <ClickDiv onClick={logout} className="LogOutLink">
+        <>Log Out</>
+      </ClickDiv>
+    </div>
   </div>
 );
 
-const AlarmPopUp = <div className="PopUpAlarm">Alarm</div>;
+const AlarmPopUp = () => (
+  <div className="PopUpAlarm">
+    <div className="AlarmBody">Alarm</div>
+  </div>
+);
 
-const MainBar = () => {
+const MainBar = ({ userInfo }) => {
   const [PopUp, setPopUp] = useState('none');
 
   const PopUpClose = () => {
@@ -34,9 +56,8 @@ const MainBar = () => {
   return (
     <ClickDiv onClick={PopUpClose} className="MainBar">
       <div className="flexButtons">
-        <Link className="MainLogo" to="/">
-          Main
-        </Link>
+        <div className="ghost">ghost</div>
+        <LinkImg className="MainLogo" to="/" src={MainLogo} />
         <div className="pageLink">
           <Link to="/calendar">Calendar</Link>
           <Link to="/closet">Closet</Link>
@@ -46,22 +67,23 @@ const MainBar = () => {
           <div className="dropdown">
             <ClickImg
               onClick={AlarmOpen}
-              className="icon"
+              className="AlarmIcon"
               alt="alarm"
-              src="https://cdn0.iconfinder.com/data/icons/mintab-outline-for-ios-4/30/alarm-clock-timer-time-ring-512.png"
+              src={AlarmIcon}
             />
-            {PopUp === 'alarm' && AlarmPopUp}
+            {PopUp === 'alarm' && <AlarmPopUp />}
           </div>
           <div className="dropdown">
             <ClickImg
               onClick={ProfileOpen}
-              className="icon"
+              className="ProfileIcon"
               alt="profile"
-              src="https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png"
+              src={ProfileIcon}
             />
-            {PopUp === 'profile' && ProfilePopUp}
+            {PopUp === 'profile' && <ProfilePopUp userInfo={userInfo} />}
           </div>
         </div>
+        <div className="ghost">ghost</div>
       </div>
     </ClickDiv>
   );

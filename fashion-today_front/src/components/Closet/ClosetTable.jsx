@@ -12,13 +12,13 @@ const MakeClothes = (category, color, array, onClick) => {
   if (color) {
     filterdArray = filterdArray.filter(clothes => clothes.color === color);
   }
-
+  console.log('render');
   return filterdArray.map(clothes => (
     <div className="Clothes" key={clothes.clothes_id}>
       <ClickImg
         onClick={onClick}
         src={clothes.clothes_image}
-        alt={String(clothes.clothes_id)}
+        alt={String(clothes.mId)}
         className="Image"
       />
       <div className="Account">

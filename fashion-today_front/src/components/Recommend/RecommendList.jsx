@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import Requestor from './Requestor';
-import { LoginContext } from '../../Context';
+import { UserContext } from '../../Context';
 import { useFetch } from '../../Tool';
 
 const MakeRequestors = RequestorList => {
   if (RequestorList)
-    return RequestorList.requestor_array.map(requestor => (
+    return RequestorList.data.requestor_array.map(requestor => (
       <Requestor requestor={requestor} key={requestor.id} />
     ));
   return null;
 };
 
 const RecommendList = () => {
-  const loginTool = useContext(LoginContext);
-  const RequestorList = useFetch('requestor/list', loginTool.token);
+  const user = useContext(UserContext);
+  const RequestorList = useFetch('post', 'requestor/list', user.token);
   console.log(RequestorList);
 
   const Requstors = MakeRequestors(RequestorList);
