@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ApiTest from './components/Common/ApiTest';
 import LogIn from './pages/LogIn';
@@ -17,7 +17,7 @@ const getToken = () => {
 };
 
 function App() {
-  const token = getToken();
+  const [token, setToken] = useState(getToken());
 
   return (
     <Router>
@@ -35,7 +35,16 @@ function App() {
         // LogOut State Components
         <Switch>
           <Route exact path="/" component={Index} />
-          <Route path="/login" component={LogIn} />
+          <Route
+            path="/login"
+            render={props => (
+              <LogIn
+                setToken={setToken}
+                history={props.history}
+                location={props.location}
+              />
+            )}
+          />
           <Route path="/api-test" component={ApiTest} />
         </Switch>
       )}
