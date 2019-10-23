@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeDayObj } from '../../Tool';
 import WhetherIcon from '../../img/whether_icon.png';
 import TempIcon from '../../img/temp_icon.png';
 import StarIcon from '../../img/star_icon.png';
 
 const Day = ({ dayId, scheduleDetail }) => {
-  const [isSchedule, setIsSchedule] = useState(false);
-
+  let isSchedule = false;
   const dayObj = makeDayObj(dayId);
   const today = new Date();
   const gap = today.getTime() - dayObj.getTime();
   const result = Math.floor(gap / (1000 * 60 * 60 * 24));
 
   if (scheduleDetail) {
-    setIsSchedule(true);
+    isSchedule = true;
   }
 
   console.log(isSchedule);
