@@ -13,11 +13,13 @@ public class ClosetInfo {
 
     private String remark = "fail";
 
-    private List<Lookitem> clothes_array;
+    private List<LookitemInfo> clothes_array;
 
     public void setClothesList(List<Lookitem> clothes_array){
         remark = "success";
-        this.clothes_array = clothes_array;
+        for(Lookitem lookitem : clothes_array){
+            this.clothes_array.add(new LookitemInfo(lookitem));
+        }
     }
 
 }
