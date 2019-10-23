@@ -99,6 +99,4 @@ public class LookitemController {
         return closetInfo;
     }
 
-
-
 }
