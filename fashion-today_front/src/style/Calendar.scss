@@ -7,7 +7,7 @@
   .CalendarSection {
     display: grid;
     grid-template-columns: 7.5fr 4.5fr;
-    padding-bottom: 5vh;
+    padding-bottom: 6vh;
     border-bottom: 2px solid $v-black;
     .Calendar {
       text-align: center;
@@ -33,7 +33,7 @@
         display: grid;
         color: $gray5;
         grid-template-columns: repeat(7, 1fr);
-        grid-gap: 2vw;
+        grid-gap: 2.5vw;
         font-size: 15px;
         user-select: none;
         .DateName {
@@ -85,6 +85,7 @@
     display: grid;
     grid-template-columns: repeat($grid-repeat, 1fr);
     width: $width;
+    margin-top: 5vh;
     padding: $padding;
     grid-gap: $grid-gap;
     .LookImage {
