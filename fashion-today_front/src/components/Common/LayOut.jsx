@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MainBar from './MainBar';
 import { UserContext } from '../../Context';
 import { useFetch } from '../../Tool';
+import '../../style/Layout.scss';
 
 const LayOut = ({ children, token }) => {
   const [userContext, setUserContext] = useState({

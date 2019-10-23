@@ -7,7 +7,7 @@
   grid-gap: 7vw;
   width: 100vw;
   height: 100vh;
-  background-image: url('../img/index_background.jpg');
+  background-image: url('../img/background/index_background.jpg');
   background-size: cover;
   .TitleView {
     justify-self: end;
@@ -54,6 +54,7 @@
     }
     .KakaoLogin,
     .NaverLogin {
+      position: relative;
       width: 14vw;
       max-width: 160px;
       height: 28px;
@@ -64,9 +65,16 @@
       color: $v-black;
       padding: 0px 20px;
       margin-bottom: 15px;
+      .icon {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 5px;
+        top: 4px;
+      }
     }
     .KakaoLogin {
-      background-color: $y-orange;
+      background-color: $yellow;
     }
     .NaverLogin {
       color: $white;

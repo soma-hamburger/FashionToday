@@ -7,12 +7,16 @@ import {
   RequestorCloset,
   getDailyLookList,
   LookListInfo,
+  UserScheduleDetail,
+  UserScheduleList,
 } from './defaultAPI';
 
 const findDefaultAPI = url => {
   if (url === 'closet') return { data: UserCloset };
   if (url === 'user/info') return { data: UserInfo };
   if (url === 'user/dailylook') return { data: getDailyLookList };
+  if (url === 'user/schedule/list') return { data: UserScheduleList };
+  if (url === 'user/schedule/detail') return { data: UserScheduleDetail };
   if (url === 'requestor/list') return { data: LookRequestorList };
   if (url === 'requestor/closet') return { data: RequestorCloset };
   if (url === 'look') return { data: LookListInfo };
@@ -75,6 +79,7 @@ export const useFetch = (method, url, token, body) => {
       const response = await UserGet(url, token, body);
       setRes(response);
     };
+
     if (method === 'post') {
       postRes();
     } else {
@@ -98,4 +103,23 @@ export const useCanvas = (draw, context = '2d') => {
   });
 
   return canvasRef;
+};
+
+export const makeDayId = dateObj => {
+  const mm = dateObj.getMonth() + 1; // getMonth() is zero-based
+  const dd = dateObj.getDate();
+
+  return [
+    dateObj.getFullYear(),
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd,
+  ].join('');
+};
+
+export const makeDayObj = dayId => {
+  const year = dayId.substring(0, 4);
+  const month = dayId.substring(4, 6);
+  const date = dayId.substring(6, 8);
+
+  return new Date(year, month - 1, date);
 };
