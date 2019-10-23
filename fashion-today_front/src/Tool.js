@@ -116,13 +116,10 @@ export const makeDayId = dateObj => {
   ].join('');
 };
 
-export const makeDateObj = dateObj => {
-  const mm = dateObj.getMonth() + 1; // getMonth() is zero-based
-  const dd = dateObj.getDate();
+export const makeDayObj = dayId => {
+  const year = dayId.substring(0, 4);
+  const month = dayId.substring(4, 6);
+  const date = dayId.substring(6, 8);
 
-  return [
-    dateObj.getFullYear(),
-    (mm > 9 ? '' : '0') + mm,
-    (dd > 9 ? '' : '0') + dd,
-  ].join('');
+  return new Date(year, month - 1, date);
 };
