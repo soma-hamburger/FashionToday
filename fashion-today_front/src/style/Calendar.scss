@@ -1,0 +1,118 @@
+@import './utils.scss';
+
+.CalendarPage {
+  margin-top: calc(12vh + 60px);
+  width: $width-padding;
+  @include center-margin($width-padding, 0);
+  .CalendarSection {
+    display: grid;
+    grid-template-columns: 7.5fr 4.5fr;
+    padding-bottom: 5vh;
+    border-bottom: 2px solid $v-black;
+    .Calendar {
+      text-align: center;
+      font-family: $noto-sans;
+      .CalendarNav {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin-bottom: 6vh;
+        .CalendarTitle {
+          align-self: center;
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0 3vw;
+          margin-bottom: 3px;
+        }
+        img {
+          align-self: center;
+          width: 15px;
+        }
+      }
+      .CalendarTable {
+        display: grid;
+        color: $gray5;
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: 2vw;
+        font-size: 15px;
+        user-select: none;
+        .DateName {
+          color: $v-black;
+          margin-bottom: 3vw;
+          font-size: 13px;
+        }
+        .Day,
+        .pDay,
+        .Today {
+          padding: 1.2vw 0 1.2vw 0;
+          border: 0.2vh solid $white;
+          display: grid;
+          .schedule,
+          .scheduleIcon {
+            width: 0.9vw;
+            height: 0.9vw;
+            border-radius: 0.45vw;
+            margin-top: 1vw;
+            justify-self: center;
+          }
+          .scheduleIcon {
+            background-color: $y-orange;
+          }
+        }
+        .Today {
+          border: 0.2vh solid $violet2;
+          border-radius: 8px;
+          background-color: $gray1;
+        }
+        .pDay {
+          padding: 1.2vw 0 3.1vw 0;
+          color: $white;
+        }
+        .sun {
+          color: $r-orange;
+          .DateName,
+          .Day {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+  .LookList {
+    $grid-gap: 2vw;
+    $grid-repeat: 4;
+    $items-width: ($width - $grid-gap * ($grid-repeat - 1)) / $grid-repeat;
+    display: grid;
+    grid-template-columns: repeat($grid-repeat, 1fr);
+    width: $width;
+    padding: $padding;
+    grid-gap: $grid-gap;
+    .LookImage {
+      width: $items-width;
+      height: $items-width * $image-ratio;
+      border: 0px;
+      border-radius: 7px;
+      background-color: $gray2;
+    }
+    .LookPreview {
+      .UserInfo {
+        width: $items-width;
+        display: grid;
+        grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
+        align-items: center;
+        justify-items: start;
+        margin-top: 10px;
+        .LikeIcon {
+          display: block;
+          width: $items-width * (2/25);
+        }
+        .ProfileImage {
+          display: block;
+          width: $items-width * (3.5/25);
+          height: auto;
+          justify-self: center;
+        }
+      }
+    }
+  }
+}

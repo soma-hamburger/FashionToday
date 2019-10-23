@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
+import PropTypes from 'prop-types';
 import { Request } from '../Tool';
 
 const getCode = search => new URLSearchParams(search).get('code');
@@ -38,6 +39,7 @@ const LogIn = ({ setToken, history, location }) => {
 };
 
 LogIn.propTypes = {
+  setToken: PropTypes.func.isRequired,
   history: ReactRouterPropTypes.history.isRequired,
   location: ReactRouterPropTypes.location.isRequired,
 };

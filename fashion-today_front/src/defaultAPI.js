@@ -129,18 +129,15 @@ export const UserScheduleList = {
   schedule_num: 3,
   schedule_array: [
     {
-      date: 20190810,
-      state: 'past',
+      date: 20191010,
       star_num: 3,
     },
     {
-      date: 20190812,
-      state: 'present',
+      date: 20191012,
       star_num: 2,
     },
     {
-      date: 20190816,
-      state: 'future',
+      date: 20191016,
       star_num: 5,
     },
   ],
@@ -151,7 +148,7 @@ export const UserScheduleList = {
 export const UserScheduleDetail = {
   remark: 'success',
   user_id: 10000001,
-  date: 20190810,
+  date: 20191010,
   state: 'past',
   star_num: 5,
   schedule_title: '면접',

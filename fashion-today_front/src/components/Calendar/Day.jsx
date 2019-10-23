@@ -1,20 +1,14 @@
 import React from 'react';
 // import { UserScheduleDetail } from '../../defaultAPI';
 // import DayLook from './DayLook';
-import { DayGrid, Schedule } from '../../styled/calendar';
 
-const Day = ({ match }) => {
-  return (
-    <>
-      <DayGrid>
-        <Schedule>
-          Day : {match.params.dayid}
-          <p>일정</p>
-        </Schedule>
-        {/* <DayLook item={UserScheduleDetail} /> */}
-      </DayGrid>
-    </>
-  );
-};
+const Day = ({ dayId }) => (
+  <div className="Day">
+    {dayId}
+    <div className="Schedule">
+      <p>일정</p>
+    </div>
+  </div>
+);
 
 export default Day;

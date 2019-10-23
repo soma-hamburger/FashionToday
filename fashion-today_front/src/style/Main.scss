@@ -41,7 +41,7 @@
     height: $items-width * $image-ratio;
     border: 0px;
     border-radius: 7px;
-    background-color: $gray3;
+    background-color: $gray2;
   }
   .ProfileImage {
     display: block;
@@ -100,10 +100,12 @@
     margin: 0 (100vw - $width) * 0.5;
     .LookPreview {
       .UserInfo {
+        width: $items-width;
         display: grid;
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
         justify-items: start;
+        margin-top: 10px;
         .LikeIcon {
           display: block;
           width: $items-width * (2/25);
