@@ -9,7 +9,7 @@ const Day = ({ dayId, scheduleDetail }) => {
   const dayObj = makeDayObj(dayId);
   const today = new Date();
   const gap = today.getTime() - dayObj.getTime();
-  const result = Math.floor(gap / (1000 * 60 * 60 * 24));
+  const dday = Math.floor(gap / (1000 * 60 * 60 * 24));
 
   if (scheduleDetail) {
     isSchedule = true;
@@ -18,7 +18,7 @@ const Day = ({ dayId, scheduleDetail }) => {
   console.log(isSchedule);
   return (
     <div className="DayComponent">
-      <div className="DDay">D{result >= 0 ? `+${result}` : result}</div>
+      <div className="DDay">D{dday >= 0 ? `+${dday}` : dday}</div>
       <div className="DayTitle">
         {dayObj.getFullYear()}년 {dayObj.getMonth() + 1}월 {dayObj.getDate()}일
       </div>

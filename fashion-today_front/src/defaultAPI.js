@@ -262,9 +262,10 @@ export const LookRequestorList = {
       id: 10000001,
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
+      grade: 100,
       profile_image: 'https://imageurl/profile/:id',
       schedule: {
-        date: 20190810,
+        date: 20191024,
         star_num: 5,
         look_num: 3,
         schedule_title: '면접',
@@ -275,6 +276,7 @@ export const LookRequestorList = {
       id: 10000002,
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
+      grade: 100,
       profile_image: 'https://imageurl/profile/:id',
       schedule: {
         date: 20190810,
@@ -288,6 +290,7 @@ export const LookRequestorList = {
       id: 10000003,
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
+      grade: 100,
       profile_image: 'https://imageurl/profile/:id',
       schedule: {
         date: 20190810,
@@ -301,6 +304,7 @@ export const LookRequestorList = {
       id: 10000004,
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
+      grade: 100,
       profile_image: 'https://imageurl/profile/:id',
       schedule: {
         date: 20190810,
@@ -314,6 +318,7 @@ export const LookRequestorList = {
       id: 10000005,
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
+      grade: 100,
       profile_image: 'https://imageurl/profile/:id',
       schedule: {
         date: 20190810,
@@ -346,7 +351,7 @@ export const RequestorCloset = {
       color: 'red',
       category: 'tee',
       clothes_image:
-        'http://www.pngmart.com/files/8/Dress-Shirt-PNG-Image-HD.png',
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
     {
       clothes_id: 20000003,
