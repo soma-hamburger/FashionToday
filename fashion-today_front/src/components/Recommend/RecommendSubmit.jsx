@@ -16,6 +16,7 @@ import Requestor from './Requestor';
 import { ClickImg } from '../Common/Components';
 import PlusIcon from '../../img/plus_icon.png';
 import MinusIcon from '../../img/minus_icon.png';
+import PinIcon from '../../img/pin_icon.png';
 
 const CanvasImage = ({
   src,
@@ -78,8 +79,8 @@ const RecommendSubmit = ({ match }) => {
           src: action.src,
           x: state.currentX,
           y: state.currentY,
-          width: 100,
-          height: 100,
+          width: 75,
+          height: 96,
         };
 
         const newImages = currentImages.concat([newImage]);
@@ -232,7 +233,7 @@ const RecommendSubmit = ({ match }) => {
               dispatchLookImageData({ type: 'add', src: e.target.src });
             }}
           />
-          <div className="LookForm">
+          <form className="LookForm">
             <div className="LookImages" ref={LookImagesWindow}>
               <Stage width={stageWidth} height={stageHeight}>
                 <Layer>{LookImages}</Layer>
@@ -248,8 +249,26 @@ const RecommendSubmit = ({ match }) => {
                 onClick={() => dispatchLookImageData({ type: 'smaller' })}
               />
             </div>
-            <div className="LookInfo" />
-          </div>
+            <div className="LookInfo">
+              <div className="LookTitle">
+                <img src={PinIcon} alt="PinIcon" />
+                <input
+                  id="Title"
+                  name="title"
+                  type="text"
+                  placeholder="룩 제목"
+                />
+              </div>
+              <textarea
+                id="Description"
+                name="Description"
+                type="text"
+                rows="6"
+                placeholder="룩 설명을 써주세요."
+              />
+              <button type="submit">추천 완료</button>
+            </div>
+          </form>
         </div>
       )}
     </div>

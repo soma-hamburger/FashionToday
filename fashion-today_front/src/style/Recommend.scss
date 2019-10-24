@@ -144,7 +144,47 @@
         }
       }
       .LookInfo {
+        border-radius: 0px 7px 7px 0px;
         background-color: $w-violet3;
+        padding: 3vw;
+        position: relative;
+        .LookTitle {
+          display: flex;
+          align-items: center;
+          img {
+            width: 1.5vw;
+            margin-right: 2vw;
+          }
+          input {
+            color: $v-black;
+            font-size: 2.8vw;
+            background-color: inherit;
+            border: 0;
+          }
+        }
+        textarea {
+          margin-top: 3vh;
+          background-color: inherit;
+          display: block;
+          line-height: 150%;
+          border: 0px;
+          width: 100%;
+          resize: none;
+          box-sizing: border-box;
+          color: $v-black;
+          font-size: 1.5vw;
+        }
+        button {
+          position: absolute;
+          bottom: 3vw;
+          right: 3vw;
+          font-size: 15px;
+          padding: 0.5vw 1.5vw;
+          background-color: $violet2;
+          color: $white;
+          border: 0;
+          border-radius: 5px;
+        }
       }
     }
   }

@@ -12,6 +12,7 @@
   $dropdown-width: 50px;
   position: fixed;
   top: 4vh;
+  z-index: 100000;
   margin: 0 $margin;
   width: $width;
   height: $height;
