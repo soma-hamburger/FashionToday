@@ -52,14 +52,6 @@ public class Schedule {
     @Column(name = "dmonth")
     private String dMonth;
 
-    // 0 꽉 참
-    // 1 부족함
-    // 2 많이 부족함
-    // 3 퍼플 스타 꽉 참
-    // 4 퍼플 스타 부족함
-    @Column(name = "dStatus")
-    private int dStatus;
-
     public Schedule(int mId, String ddate, String dTitle, String dIntroduce, int dStar) {
         this.mId = mId;
         this.ddate = ddate;

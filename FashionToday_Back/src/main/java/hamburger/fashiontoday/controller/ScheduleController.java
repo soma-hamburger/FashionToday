@@ -4,6 +4,8 @@ package hamburger.fashiontoday.controller;
 import hamburger.fashiontoday.domain.schedule.Schedule;
 import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
+import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
+import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,19 +32,29 @@ public class ScheduleController {
     @Autowired
     private JwtService jwtService;
 
+    // 스캐줄 레파지토리
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    @PostMapping(value = "")
-    public ScheduleInfo getSchedule(@RequestHeader(value = "Authorization") String token,@RequestBody Map<String, Object> param) {
+    // 스캐줄상태 레파지토리
+    @Autowired
+    ScheduleStatusRepository scheduleStatusRepository;
 
+    // 일정 등록
+    // 306 번 api
+    @PostMapping(value = "")
+    public ScheduleInfo postSchedule(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+
+        // 값
         int loginMemberId = 0;
         String title = new String();
         String introduce = new String();
         String date = new String();
         int star = 0;
+        int purple = 0;
         Schedule uploadSchdule;
-        ScheduleInfo scheduleInfo = new ScheduleInfo();
+        ScheduleStatus scheduleStatus;
+        ScheduleInfo scheduleInfo;
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
@@ -50,7 +62,7 @@ public class ScheduleController {
             System.out.println("유저 아이디 : " + loginMemberId);
 
         } else {
-            return scheduleInfo;
+            return new ScheduleInfo("error_login");
         }
 
         // 파라미터 파싱
@@ -59,15 +71,40 @@ public class ScheduleController {
             introduce = param.get("introduce").toString();
             star = Integer.parseInt(param.get("star").toString());
             date = param.get("date").toString();
+            purple = Integer.parseInt(param.get("purple").toString());
         } catch (Exception e) {
-            return scheduleInfo;
+            return new ScheduleInfo("error_param");
         }
 
-        uploadSchdule = new Schedule(loginMemberId,date,title,introduce,star);
-        scheduleInfo.getSchedule(scheduleRepository.save(uploadSchdule));
+        // 스캐줄 저장 할 값 세팅
+        uploadSchdule = new Schedule(loginMemberId, date, title, introduce, star);
+        scheduleStatus = new ScheduleStatus(uploadSchdule.getMId(), uploadSchdule.getDdate(), uploadSchdule.getDStar());
+
+        // 유료인지 무료인지 세팅
+        // 유료 일떄
+        if (purple == 1) {
+            scheduleStatus.purple();
+        }
+        // 무료 일때
+        if (purple == 2) {
+            scheduleStatus.normal();
+        }
+        if(purple != 1 || purple != 2) {
+            return new ScheduleInfo("error_purple");
+        }
+
+        //저장하는 곳
+        try {
+            scheduleInfo = new ScheduleInfo(scheduleRepository.save(uploadSchdule));
+            scheduleStatusRepository.save(scheduleStatus);
+        } catch (Exception e) {
+            return new ScheduleInfo("error_save");
+        }
 
         return scheduleInfo;
     }
+
+
 
 
 }

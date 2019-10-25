@@ -18,7 +18,11 @@ public class ScheduleInfo {
     private String introduce;
     private int star;
 
-    public void getSchedule(Schedule schedule) {
+    public ScheduleInfo(String error){
+        this.remark = error;
+    }
+
+    public ScheduleInfo(Schedule schedule) {
         remark = "success";
         this.mId = schedule.getMId();
         this.date = schedule.getDdate();
