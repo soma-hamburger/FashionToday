@@ -8,23 +8,25 @@ import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
 /**
  * @author : 심기성
- * @version : 0.6
- * @프로그램ID : HAM-PB-1006-J
- * @프로그램명 : ScheduleController.java
- * @date : 2019.10.15
+ * @version : 0.5
+ * @프로그램ID : HAM-PB-1007-J
+ * @프로그램명 : LookitemController.java
+ * @date : 2019.10.25
  */
 @RestController
-@RequestMapping(value = "/schedule")
-public class ScheduleController {
+public class RecommandController {
 
     // 로그를 찍기 위한 Logger
-    private static Logger logger = LogManager.getLogger(ScheduleController.class);
+    private static Logger logger = LogManager.getLogger(RecommandController.class);
 
     //토큰 서비스
     @Autowired
@@ -34,7 +36,7 @@ public class ScheduleController {
     ScheduleRepository scheduleRepository;
 
     @PostMapping(value = "")
-    public ScheduleInfo getSchedule(@RequestHeader(value = "Authorization") String token,@RequestBody Map<String, Object> param) {
+    public ScheduleInfo getFiveSchedule(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int loginMemberId = 0;
         String title = new String();
@@ -68,6 +70,5 @@ public class ScheduleController {
 
         return scheduleInfo;
     }
-
 
 }

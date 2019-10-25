@@ -2,6 +2,8 @@ package hamburger.fashiontoday.domain.schedule;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * @프로그램ID : HAM-PB-2019-J
  * @프로그램명 : ScheduleRepository.java
@@ -11,4 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface ScheduleRepository extends CrudRepository<Schedule,ScheduleId> {
+    List<Schedule> findSchedulesByDStatusIn();
 }
