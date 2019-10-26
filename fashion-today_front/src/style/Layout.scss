@@ -122,7 +122,9 @@
     }
   }
 }
-
+.children {
+  min-height: 100vh;
+}
 .Footer {
   width: 100vw;
   height: 15vh;

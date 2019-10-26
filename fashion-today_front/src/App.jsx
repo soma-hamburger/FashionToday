@@ -8,6 +8,7 @@ import Closet from './pages/Closet';
 import Recommend from './pages/Recommend';
 import LayOut from './components/Common/LayOut';
 import Calendar, { RedirectCalendar } from './pages/Calendar';
+import MyPage from './pages/MyPage';
 
 const getToken = () => {
   const token = localStorage.getItem('token');
@@ -31,6 +32,7 @@ function App() {
             <Route exact path="/calendar" component={RedirectCalendar} />
             <Route path="/calendar/:dayid" component={Calendar} />
             <Route path="/recommend" component={Recommend} />
+            <Route path="/mypage" component={MyPage} />
             <Route path="/api-test" component={ApiTest} />
           </Switch>
         </LayOut>

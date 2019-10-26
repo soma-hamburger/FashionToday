@@ -1,0 +1,21 @@
+@import './utils.scss';
+
+.MyPage {
+  .ProfileInterface {
+    width: 100%;
+    padding-top: calc(15vh + 60px);
+    padding-bottom: 10vh;
+    text-align: center;
+    background-color: $w-violet2;
+    img {
+      margin: 0 auto;
+      width: 10vw;
+      display: block;
+    }
+    .Name {
+      margin-top: 2vh;
+      font-size: 3vw;
+      color: $v-black;
+    }
+  }
+}
