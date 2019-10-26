@@ -3,7 +3,6 @@ package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.schedule.Schedule;
 import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
-import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import hamburger.fashiontoday.service.JwtService;
@@ -57,6 +56,9 @@ public class RecommandController {
         return new TmpLook();
     }
 
+
+    //
+
     @GetMapping(value = "/list")
     public ScheduleInfo scheduleList(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
@@ -76,7 +78,6 @@ public class RecommandController {
         } else {
             return scheduleInfo;
         }
-
 
 
 

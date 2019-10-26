@@ -59,6 +59,10 @@ public class Member {
     @ColumnDefault("0")
     private int mEditor;
 
+    @Column(name = "mgrade")
+    @ColumnDefault("0")
+    private int mGrade;
+
     @Column(name = "mprofileurl")
     private String mProfileUrl;
 
