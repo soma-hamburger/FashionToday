@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ImageView
+            android:layout_width="280dp"
+            android:layout_height="280dp" app:srcCompat="@mipmap/ic_launcher" android:id="@+id/clothesImg"
+            android:layout_marginLeft="70dp" android:layout_marginTop="50dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content" android:id="@+id/nameText"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="276dp"
+            android:layout_height="wrap_content" android:id="@+id/colorText"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="276dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp" android:id="@+id/categoryText"/>
+</LinearLayout>
