@@ -15,28 +15,31 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".Page.Recommend"
+                android:name=".Page.RecommendDetail"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+                android:name=".Page.Recommend"
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".Page.DailyLookDetail"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".Page.DailyLook"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".Page.PashionDetail"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".Page.Closet"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".Page.CalendarActivity"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".Page.Pashion"
                 android:label="@string/title_activity_pashion"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Login.RegisterActivity"></activity>
+                android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Login.RegisterActivity" />
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

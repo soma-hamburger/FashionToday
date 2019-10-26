@@ -179,7 +179,7 @@ class DailyLookDetail : AppCompatActivity() ,NavigationView.OnNavigationItemSele
 
     inner class NetworkThread : Thread(){
         override fun run() {
-            var site="http://172.16.101.126:8085/MobileServer/daily_look_list_detail.jsp"
+            var site="http://172.16.100.158:8085/MobileServer/daily_look_list_detail.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()

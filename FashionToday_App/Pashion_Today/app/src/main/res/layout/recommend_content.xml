@@ -8,7 +8,7 @@
         android:id="@+id/container"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/recommend_app_bar"
-        tools:context=".Page.Pashion" android:orientation="vertical">
+        tools:context=".Page.Recommend" android:orientation="vertical">
 
     <TextView
             android:id="@+id/textView12"
@@ -18,7 +18,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <ListView
-            android:id="@+id/recomend_view"
+            android:id="@+id/recommend_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 </LinearLayout>

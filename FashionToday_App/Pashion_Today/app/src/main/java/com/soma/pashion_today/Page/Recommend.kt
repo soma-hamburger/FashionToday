@@ -5,24 +5,22 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.soma.pashion_today.R
+import kotlinx.android.synthetic.main.recommend.*
 import kotlinx.android.synthetic.main.recommend_content.*
 import org.json.JSONArray
 import org.json.JSONObject
-import org.w3c.dom.Text
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -45,8 +43,14 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        var header_view=nav_view.getHeaderView(0)
+        header_view.setOnClickListener { view->
+            var intent=Intent(this,Pashion::class.java)
+            startActivity(intent)
+        }
+
         var recommend_adapter=ListAdapter()
-        recomend_view.adapter=recommend_adapter
+        recommend_view.adapter=recommend_adapter
 
 
         var getDatathread=NetworkThread()
@@ -77,8 +81,15 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             recommed_list.add(map)
         }
 
+        runOnUiThread{
+            var recommed_adapter=recommend_view.adapter as ListAdapter
+            recommed_adapter.notifyDataSetChanged()
+        }
 
+        Log.d("msg","댓다")
 
+        var listener=ListViewListener()
+        recommend_view.setOnItemClickListener(listener)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -212,16 +223,16 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         }
     }
 
-    inner class ListListener : AdapterView.OnItemClickListener{
+    inner class ListViewListener : AdapterView.OnItemClickListener{
         override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            var view=recommed_list.get(position)
-
+            var recommend_detail_intent=Intent(applicationContext,RecommendDetail::class.java)
+            startActivity(recommend_detail_intent)
         }
     }
 
     inner class NetworkThread : Thread(){
         override fun run() {
-            var site="http://172.16.101.126:8085/MobileServer/recommed_list.jsp"
+            var site="http://172.16.101.14:8085/MobileServer/recommed_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()
@@ -244,6 +255,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         }
     }
 
+
     inner class imgNetworkThread(var site : String?): Thread(){
         override fun run() {
             var url=URL(site)
@@ -253,7 +265,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
             profile_list.put(site!!,bitmap)
             runOnUiThread{
-                var recommend_adapter=recomend_view.adapter as ListAdapter
+                var recommend_adapter=recommend_view.adapter as ListAdapter
                 recommend_adapter.notifyDataSetChanged()
             }
         }
