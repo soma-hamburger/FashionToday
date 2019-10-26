@@ -230,6 +230,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var view=look_list.get(p2)
             var detail_intent=Intent(applicationContext,PashionDetail::class.java)
 
+            Log.d("msg","오케이")
             detail_intent.putExtra("user_name",view.get("user_name") as String)
             detail_intent.putExtra("user_icon",view.get("user_icon") as String)
             detail_intent.putExtra("user_pashion",view.get("user_pashion") as String)
@@ -241,7 +242,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
      // 서버에서 JSONarray 받는 클래스
      inner class NetworkThread:Thread(){
         override fun run() {
-            var site="http://172.16.101.126:8085/MobileServer/Look_list.jsp"
+            var site="http://172.16.101.14:8085/MobileServer/Look_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()

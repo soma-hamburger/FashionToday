@@ -24,16 +24,10 @@ android {
     sourceSets {
         main {
             res.srcDirs =
-            [
-                    'src/main/res/closet',
-                    'src/main/res/calendar',
-                    'src/main/res/daily_look',
-                    'src/main/res/daily_look_detail',
-                    'src/main/res/pashion',
-                    'src/main/res/pashion_detail',
-                    'src/main/res/recommend',
-                    'src/main/res'
-            ]
+                    [
+
+                            'src/main/res'
+                    ]
 
         }
     }
