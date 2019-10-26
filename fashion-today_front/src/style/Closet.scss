@@ -1,0 +1,82 @@
+@import './utils.scss';
+
+.TitleBar {
+  width: $width;
+  padding: 0 $padding;
+  color: $v-black;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 5vh;
+  padding-bottom: 1vh;
+  @include center-margin($width, $padding);
+  border-bottom: 2px solid $v-black;
+  .describe {
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 3vw;
+  }
+}
+.ClosetNavigation {
+  margin-top: 3vh;
+  width: $width;
+  @include center-margin($width, 0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  select {
+    margin-right: 20px;
+    font-size: 15px;
+    padding: 2px 5px;
+  }
+  .NavButton {
+    border: 0;
+    border-radius: 7px;
+    font-size: 15px;
+    padding: 4px 18px;
+    color: $white;
+    background-color: $violet2;
+  }
+}
+.ClosetTable {
+  $grid-gap: 2vw;
+  $grid-repeat: 4;
+  $items-width: ($width - $grid-gap * ($grid-repeat - 1)) / $grid-repeat;
+  display: grid;
+  width: $width;
+  @include center-margin($width, 0);
+  grid-template-columns: repeat($grid-repeat, 1fr);
+  grid-gap: $grid-gap;
+  margin-top: 3vh;
+  .Clothes {
+    width: $items-width;
+    .Image {
+      border: 1px solid black;
+      width: 100%;
+      height: $items-width * $image-ratio;
+      border: 0px;
+      border-radius: 5px;
+      background-color: $gray2;
+    }
+    .Account {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $v-black;
+      margin-top: 0.5em;
+      height: 20px;
+      .categoryIcon {
+        height: 20px;
+        width: 20px;
+        border: 0.5px solid $v-black;
+        border-radius: 10px;
+        margin-right: 3px;
+        img {
+          display: block;
+          width: 14px;
+          height: 14px;
+          margin: 3px 3px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,215 @@
+@import './utils.scss';
+
+.CalendarPage {
+  margin-top: calc(12vh + 60px);
+  width: $width-padding;
+  font-family: $noto-sans;
+  @include center-margin($width-padding, 0);
+  .CalendarSection {
+    display: grid;
+    grid-template-columns: 7.5fr 4.5fr;
+    grid-gap: 1vw;
+    padding-bottom: 6vh;
+    border-bottom: 2px solid $v-black;
+    .Calendar {
+      text-align: center;
+      .CalendarNav {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        margin-bottom: 7vh;
+        .CalendarTitle {
+          align-self: center;
+          font-size: 22px;
+          font-weight: bold;
+          margin: 0 3vw;
+          margin-bottom: 3px;
+        }
+        img {
+          align-self: center;
+          width: 15px;
+        }
+      }
+      .CalendarTable {
+        display: grid;
+        color: $gray5;
+        grid-template-columns: repeat(7, 1fr);
+        grid-gap: 2vw;
+        font-size: 15px;
+        user-select: none;
+        .DateName {
+          color: $v-black;
+          margin-bottom: 3vw;
+          font-size: 13px;
+        }
+        .Day,
+        .pDay,
+        .Today {
+          padding: 1.2vw 0 1.2vw 0;
+          border: 0.2vh solid $white;
+          display: grid;
+          .schedule,
+          .scheduleIcon {
+            width: 0.9vw;
+            height: 0.9vw;
+            border-radius: 0.45vw;
+            margin-top: 1vw;
+            justify-self: center;
+          }
+          .scheduleIcon {
+            background-color: $y-orange;
+          }
+        }
+        .Today {
+          border: 0.2vh solid $violet2;
+          border-radius: 8px;
+          background-color: $gray1;
+        }
+        .pDay {
+          padding: 1.2vw 0 3.1vw 0;
+          color: $white;
+        }
+        .sun {
+          color: $r-orange;
+          .DateName,
+          .Day {
+            color: inherit;
+          }
+        }
+      }
+    }
+    .DayComponent {
+      padding-top: 2vh;
+      padding-left: 5vw;
+      text-align: center;
+      .DDay {
+        margin: 0 auto;
+        font-size: 15px;
+        padding-top: 18px;
+        width: 40px;
+        height: 22px;
+        background-image: url('../img/dday_icon.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: $violet2;
+      }
+      .DayTitle {
+        margin: 2vh 0;
+        color: $v-black;
+        font-size: 2.5vw;
+      }
+      .Whether {
+        display: grid;
+        padding: 3px 2vw;
+        grid-template-columns: 1fr 2.5fr 1fr 2fr;
+        height: 40px;
+        background-color: $gray2;
+        border-radius: 10px;
+        justify-content: center;
+        align-content: center;
+        div {
+          font-size: 17px;
+          color: $gray5;
+          align-self: center;
+        }
+        .tempicon {
+          justify-self: end;
+          width: 50%;
+        }
+      }
+      .ScheduleForm {
+        color: $v-black;
+        margin-top: 3vh;
+        textarea {
+          margin-top: 1vh;
+          display: block;
+          line-height: 150%;
+          border: 0px;
+          width: 100%;
+          border: 1px solid $gray2;
+          resize: none;
+          box-sizing: border-box;
+          color: $v-black;
+          font-size: 15px;
+        }
+        #Title {
+          display: block;
+          border: 0px;
+          border-bottom: 1px solid $gray2;
+          width: 100%;
+          color: $v-black;
+          font-size: 20px;
+          width: 85%;
+        }
+        .SubmitBar {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          margin-top: 5vw;
+          .StarNum {
+            display: flex;
+            align-content: center;
+            img {
+              align-self: center;
+              width: 20px;
+              height: 20px;
+            }
+            input {
+              margin-left: 5px;
+              width: 30px;
+              font-size: 13px;
+              color: $v-black;
+              text-align: center;
+            }
+          }
+          button {
+            font-size: 13px;
+            padding: 3px 3vw;
+            background-color: $violet2;
+            color: $white;
+            border: 0;
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .LookList {
+    $grid-gap: 2vw;
+    $grid-repeat: 4;
+    $items-width: ($width - $grid-gap * ($grid-repeat - 1)) / $grid-repeat;
+    display: grid;
+    grid-template-columns: repeat($grid-repeat, 1fr);
+    width: $width;
+    margin-top: 5vh;
+    padding: $padding;
+    grid-gap: $grid-gap;
+    .LookImage {
+      width: $items-width;
+      height: $items-width * $image-ratio;
+      border: 0px;
+      border-radius: 7px;
+      background-color: $gray2;
+    }
+    .LookPreview {
+      .UserInfo {
+        width: $items-width;
+        display: grid;
+        grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
+        align-items: center;
+        justify-items: start;
+        margin-top: 10px;
+        .LikeIcon {
+          display: block;
+          width: $items-width * (2/25);
+        }
+        .ProfileImage {
+          display: block;
+          width: $items-width * (3.5/25);
+          height: auto;
+          justify-self: center;
+        }
+      }
+    }
+  }
+}

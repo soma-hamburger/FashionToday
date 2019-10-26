@@ -1,46 +1,92 @@
-import React from 'react';
-import { Bar, BarInterface, Navigation, NavButton, MainIcon } from '../../styled';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ClickDiv, ClickImg, LinkImg, LinkDiv } from './Components';
+import AlarmIcon from '../../img/alarm_icon.png';
+import ProfileIcon from '../../img/profile_icon.png';
+import StarIcon from '../../img/star_icon.png';
+import MainLogo from '../../img/logo/logo-width-white.png';
 
-const makeButton = (pathname) => {
-  const buttons = [{
-    "location": "/calendar",
-    "name": "Calendar"
-  },
-  {
-    "location": "/closet",
-    "name": "Closet"
-  },
-  {
-    "location": "/daily",
-    "name": "Daily Look"
-  },
-  {
-    "location": "/recommend",
-    "name": "Recomend"
-  }];
+const logout = () => {
+  localStorage.removeItem('token');
+  window.location.replace('/');
+};
 
-  return buttons.map((info, index) => {
-    if(pathname.indexOf(info.location) === 0) {
-      return(<NavButton to={info.location} key={index} iscurrent="true">{info.name}</NavButton>)
-    }
-    return (<NavButton to={info.location} key={index}>{info.name}</NavButton>);
-  });
-}
+const ProfilePopUp = ({ userInfo }) => (
+  <div className="PopUpProfile">
+    <div className="ProfileBody">
+      <div className="StarNum">
+        <img src={StarIcon} className="StarIcon" alt="StarIcon" />
+        <div className="StarNumber">{userInfo.star}</div>
+      </div>
+      <LinkDiv to="/mypage" className="MyPageLink">
+        <>My Page</>
+      </LinkDiv>
+      <ClickDiv onClick={logout} className="LogOutLink">
+        <>Log Out</>
+      </ClickDiv>
+    </div>
+  </div>
+);
 
-const MainBar = ({location}) => {
-  const buttons = makeButton(location.pathname);
+const AlarmPopUp = () => (
+  <div className="PopUpAlarm">
+    <div className="AlarmBody">Alarm</div>
+  </div>
+);
+
+const MainBar = ({ userInfo }) => {
+  const [PopUp, setPopUp] = useState('none');
+
+  const PopUpClose = () => {
+    setPopUp('none');
+  };
+
+  const AlarmOpen = e => {
+    e.stopPropagation();
+    if (PopUp === 'alarm') setPopUp('none');
+    else setPopUp('alarm');
+  };
+
+  const ProfileOpen = e => {
+    e.stopPropagation();
+    if (PopUp === 'profile') setPopUp('none');
+    else setPopUp('profile');
+  };
 
   return (
-    <Bar>
-      <BarInterface>
-        <MainIcon to = "/" color="white" >오늘의 패션(ICON)</MainIcon>
-        <Navigation>
-          {buttons}
-        </Navigation>
-        <NavButton to="/mypage" linenum={2}>My Page <br/>or Login</NavButton>
-      </BarInterface>
-    </Bar>
+    <ClickDiv onClick={PopUpClose} className="MainBar">
+      <div className="flexButtons">
+        <div className="ghost">ghost</div>
+        <LinkImg className="MainLogo" to="/" src={MainLogo} />
+        <div className="pageLink">
+          <Link to="/calendar">Calendar</Link>
+          <Link to="/closet">Closet</Link>
+          <Link to="/recommend">Recommend</Link>
+        </div>
+        <div className="Icons">
+          <div className="dropdown">
+            <ClickImg
+              onClick={AlarmOpen}
+              className="AlarmIcon"
+              alt="alarm"
+              src={AlarmIcon}
+            />
+            {PopUp === 'alarm' && <AlarmPopUp />}
+          </div>
+          <div className="dropdown">
+            <ClickImg
+              onClick={ProfileOpen}
+              className="ProfileIcon"
+              alt="profile"
+              src={ProfileIcon}
+            />
+            {PopUp === 'profile' && <ProfilePopUp userInfo={userInfo} />}
+          </div>
+        </div>
+        <div className="ghost">ghost</div>
+      </div>
+    </ClickDiv>
   );
-}
+};
 
 export default MainBar;

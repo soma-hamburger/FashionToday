@@ -1,19 +1,22 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { SLink } from '../styled';
-import Settings from '../components/MyPage/Setting';
-import MyPageMain from '../components/MyPage/MyPageMain';
+import React, { useContext } from 'react';
+import { UserContext } from '../Context';
+import ProfileIcon from '../img/default_profile.png';
+import '../style/MyPage.scss';
 
-const MyPage = ({match}) => {
+const MyPage = () => {
+  const userContext = useContext(UserContext);
+  console.log(userContext.UserInfo);
+
   return (
-    <>
-      <SLink to={match.url}>My Page</SLink>
-      <Switch>
-        <Route path={`${match.url}/settings`} component={Settings}/>
-        <Route path={match.url} component={MyPageMain}/>
-      </Switch>
-    </>
+    <div className="MyPage">
+      {userContext.UserInfo && (
+        <div className="ProfileInterface">
+          <img src={ProfileIcon} alt="ProfileIcon" />
+          <div className="Name">{userContext.UserInfo.name} 님</div>
+        </div>
+      )}
+    </div>
   );
-}
+};
 
 export default MyPage;

@@ -1,0 +1,197 @@
+@import './utils.scss';
+
+.Recommend,
+.RecommendSubmit {
+  margin-top: calc(10vh + 60px);
+  color: $v-black;
+  .Requestor {
+    font-family: $noto-sans;
+    width: $width;
+    padding: $padding;
+    @include center-margin($width, $padding);
+    border: 1px solid $gray3;
+    border-radius: 10px;
+    margin-bottom: 5vh;
+    display: grid;
+    grid-template-columns: 25fr 57fr 50fr;
+    .Profile {
+      background-color: $gray3;
+      border-radius: 8px;
+      .ProfileImg {
+        background-color: $gray2;
+        border-radius: 8px 8px 0px 0px;
+        padding: 1.5vw 2.5vw;
+      }
+      .ProfileInfo {
+        height: 5vw;
+        text-align: center;
+        font-size: 2.2vw;
+        font-weight: lighter;
+        padding: 1vw;
+        .Grade {
+          display: flex;
+          font-size: 1.5vw;
+          align-items: center;
+          justify-content: center;
+          margin-top: 0.8vw;
+          font-weight: normal;
+          img {
+            width: 1.3vw;
+            margin-right: 3px;
+          }
+        }
+      }
+    }
+    .UserInterface {
+      padding: 3vw;
+      border-right: 7px solid $gray2;
+      border-radius: 4;
+      line-height: 1.5;
+      font-size: 15px;
+      .ClosetViewButton {
+        line-height: normal;
+        margin-top: 3vh;
+        background-color: $violet2;
+        width: max-content;
+        font-size: 11px;
+        border-radius: 10px;
+        padding: 4px 1.4vw;
+        color: $white;
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        img {
+          width: 14px;
+          margin-right: 10px;
+        }
+      }
+    }
+    .ScheduleInterface {
+      padding: 0 2.5vw 0 4vw;
+      .Date {
+        font-size: 2.2vw;
+        text-align: center;
+      }
+      .DayBar {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        margin-top: 1vw;
+        grid-gap: 1vw;
+        .DDay {
+          font-size: 11px;
+          padding-top: 1vw;
+          padding-left: 0.3vw;
+          padding-right: 0.3vw;
+          width: max-content;
+          background-image: url('../img/dday_icon.png');
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          color: $violet2;
+        }
+        .Whether {
+          display: grid;
+          grid-template-columns: 1fr 2.5fr 1fr 2fr;
+          font-size: 12px;
+          align-self: center;
+          justify-items: center;
+          align-items: center;
+          border-radius: 30px;
+          background-color: $gray2;
+          padding: 5px 2vw;
+          .tempicon {
+            width: 50%;
+          }
+        }
+      }
+      .Title {
+        font-size: 1.8vw;
+        color: $gray5;
+        margin: 2vh 0;
+      }
+      .Introduction {
+        font-size: 14px;
+        color: $gray5;
+      }
+    }
+  }
+  .RequestorCloset {
+    margin-top: 0vh;
+    padding-top: 0vh;
+    .LookForm {
+      margin-top: 5vh;
+      background-color: $gray3;
+      border-radius: 10px;
+      width: $width;
+      padding: $padding;
+      @include center-margin($width, $padding);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      .LookImages {
+        background-color: $gray1;
+        width: 25vw;
+        height: 32vw;
+        border-radius: 7px 0px 0px 7px;
+        position: relative;
+        .plusicon,
+        .minusicon {
+          position: absolute;
+          width: 18px;
+          bottom: 5px;
+          left: 10px;
+        }
+        .minusicon {
+          left: 35px;
+        }
+      }
+      .LookInfo {
+        border-radius: 0px 7px 7px 0px;
+        background-color: $w-violet3;
+        padding: 3vw;
+        position: relative;
+        .LookTitle {
+          display: flex;
+          align-items: center;
+          img {
+            width: 1.5vw;
+            margin-right: 2vw;
+          }
+          input {
+            color: $v-black;
+            font-size: 2.8vw;
+            background-color: inherit;
+            border: 0;
+          }
+        }
+        textarea {
+          margin-top: 3vh;
+          background-color: inherit;
+          display: block;
+          line-height: 150%;
+          border: 0px;
+          width: 100%;
+          resize: none;
+          box-sizing: border-box;
+          color: $v-black;
+          font-size: 1.5vw;
+        }
+        button {
+          position: absolute;
+          bottom: 3vw;
+          right: 3vw;
+          font-size: 15px;
+          padding: 0.5vw 1.5vw;
+          background-color: $violet2;
+          color: $white;
+          border: 0;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}
+
+.RecommendSubmit {
+  .Requestor {
+    margin-bottom: 0vh;
+  }
+}
