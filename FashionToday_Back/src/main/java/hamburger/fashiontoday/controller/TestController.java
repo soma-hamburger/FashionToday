@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
+@RequestMapping(value = "/test")
 public class TestController {
 
     //
@@ -36,11 +38,11 @@ public class TestController {
     @Autowired
     LookStructureRepository lookStructureRepository;
 
-    @GetMapping("/lookitem")
-    public Lookitem saveLookItem(){
-        Lookitem testLookitem = new Lookitem(2,4,"http://pashiontoday.com","하늘하늘한 블라우스","http://pashiontoday.com");
-        return lookItemRepository.save(testLookitem);
-    }
+//    @GetMapping("/lookitem")
+//    public Lookitem saveLookItem(){
+//        //Lookitem testLookitem = new Lookitem(2,4,"http://pashiontoday.com","하늘하늘한 블라우스","http://pashiontoday.com");
+//       // return lookItemRepository.save(testLookitem);
+//    }
 
     @GetMapping("/lookitemclass")
     public LookitemClass saveLookItemClass(){

@@ -37,17 +37,29 @@ public class Schedule {
     @Column(name = "kid")
     private int kId;
 
-    @Column(name = "dcontents")
-    private String dContents;
+    @Column(name = "dtitle")
+    private String dTitle;
 
-    @Column(name = "daycol")
-    private String dayCol;
-
-    @Column(name = "dcomment")
-    private String dComment;
+    @Column(name = "dintorduce")
+    private String dIntroduce;
 
     @Column(name = "dstar")
-
     private int dStar;
+
+    @Column(name = "dyear")
+    private String dYear;
+
+    @Column(name = "dmonth")
+    private String dMonth;
+
+    public Schedule(int mId, String ddate, String dTitle, String dIntroduce, int dStar) {
+        this.mId = mId;
+        this.ddate = ddate;
+        this.dTitle = dTitle;
+        this.dIntroduce = dIntroduce;
+        this.dStar = dStar;
+    }
+
+
 
 }

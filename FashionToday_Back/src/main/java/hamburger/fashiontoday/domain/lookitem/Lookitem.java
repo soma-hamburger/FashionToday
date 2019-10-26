@@ -9,12 +9,11 @@ import javax.persistence.*;
 
 
 /**
+ * @author : 심기성
+ * @version : 0.5
  * @프로그램ID : HAM-PB-2007-J
  * @프로그램명 : Lookitem.java
- * @author : 심기성
  * @date : 2019.09.01
- * @version : 0.5
- *
  */
 @Entity
 @Getter
@@ -34,25 +33,24 @@ public class Lookitem {
     @Column(name = "kmid")
     private int kmId;
 
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitem_kcid"))
-    @Column(name = "kcid")
-    private int kcId;
+    @Column(name = "color")
+    private String color;
 
     @Column(name = "kitempicture")
     private String kItemPicture;
 
-    @Column(name = "lookItemCol")
-    private String lookItemCol;
+    @Column(name = "lookItemCat")
+    private String lookItemCat;
 
     @Column(name = "kItemColSumPicture")
     private String kItemColSumPicture;
 
 
-    public Lookitem(int mId, int kcId, String kItemPicture, String lookItemCol, String kItemColSumPicture) {
+    public Lookitem(int mId, String kItemPicture, String color, String lookItemCat, String kItemColSumPicture) {
         this.mId = mId;
-        this.kcId = kcId;
+        this.color = color;
         this.kItemPicture = kItemPicture;
-        this.lookItemCol = lookItemCol;
+        this.lookItemCat = lookItemCat;
         this.kItemColSumPicture = kItemColSumPicture;
     }
 

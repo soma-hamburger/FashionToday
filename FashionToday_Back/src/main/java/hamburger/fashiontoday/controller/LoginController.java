@@ -2,16 +2,18 @@ package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
-import hamburger.fashiontoday.dto.LoginInfo;
+import hamburger.fashiontoday.domain.member.LoginInfo;
 import hamburger.fashiontoday.service.JwtService;
 import hamburger.fashiontoday.service.KakaoAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ import java.util.Map;
  *
  */
 @RestController
+@RequestMapping(value = "/login")
 public class LoginController {
 
     // 로그를 찍기 위한 Logger
@@ -44,8 +47,8 @@ public class LoginController {
 
     // 로그인 요청을 담당하는 메소드
     // 로그인 이후 사용자 코드를 받아 토큰을 반환함
-    @PostMapping(value = "/login/kakao")
-    public LoginInfo kakaoLogin(@RequestBody Map<String, Object> param, HttpServletResponse response) {
+    @PostMapping(value = "/kakao")
+    public LoginInfo kakaoLogin(@RequestBody Map<String, Object> param) {
 
         String code = param.get("code").toString();
 
@@ -80,7 +83,7 @@ public class LoginController {
         return new LoginInfo("fail");
     }
 
-    @PostMapping(value = "/login/kakaotest")
+    @PostMapping(value = "/kakaotest")
     public LoginInfo kakaoTest(HttpServletResponse response) {
 
         System.out.println("시작");

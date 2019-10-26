@@ -12,7 +12,7 @@ import java.util.Map;
 public interface JwtService {
     <T> String create(String key, T data, String subject);
     Map<String, Object> get(String key,String jwt);
-    Map<String, Object> getMember(String Authorization);
+    int getMember(String Authorization);
     boolean isUsable(String jwt);
 
 }
