@@ -24,6 +24,11 @@ public class ScheduleStatus {
     @Column(name = "ddate")
     private String ddate;
 
+    @Id
+    @Column(name = "ssid")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int ssid;
+
     // 1 -> 퍼플 스타
     // 2 -> 일반 스타
     @Column(name = "sPurple")

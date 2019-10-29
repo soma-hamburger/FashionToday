@@ -30,12 +30,13 @@ public class TmpLook {
     @Column(name = "tlid")
     private int tLId;
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_tmpLook_kid"))
     @Column(name = "kid")
     private int kId;
 
-
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_tmpLook_recommandMId"))
+    @Column(name = "recommandMId")
+    private int recommandMId;
 
 
 }

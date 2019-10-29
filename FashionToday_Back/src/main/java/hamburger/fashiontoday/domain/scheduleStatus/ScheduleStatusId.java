@@ -19,5 +19,8 @@ public class ScheduleStatusId implements Serializable {
     @EqualsAndHashCode.Include
     private String ddate;
 
+    @Id
+    @EqualsAndHashCode.Include
+    private int ssid;
 
 }
