@@ -83,25 +83,5 @@ public class LoginController {
         return new LoginInfo("fail");
     }
 
-    @PostMapping(value = "/kakaotest")
-    public LoginInfo kakaoTest(HttpServletResponse response) {
-
-        System.out.println("시작");
-
-        int userId = 3;
-        Member loginMember = new Member();
-        loginMember = memberRepository.findByMId(userId);
-
-        try {
-            String token = jwtService.create("member", loginMember, "user");
-           // response.setHeader("Authorization", token);
-            return new LoginInfo(token);
-
-        }catch (Exception e){
-
-            return new LoginInfo("fail");
-
-        }
-    }
 
 }

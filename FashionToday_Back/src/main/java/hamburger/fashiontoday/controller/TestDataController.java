@@ -4,17 +4,19 @@ package hamburger.fashiontoday.controller;
 import hamburger.fashiontoday.domain.lookitem.Lookitem;
 import hamburger.fashiontoday.domain.lookitem.LookitemInfo;
 import hamburger.fashiontoday.domain.lookitem.LookitemRepository;
+import hamburger.fashiontoday.domain.member.LoginInfo;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberInfo;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
+import hamburger.fashiontoday.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static java.lang.Thread.sleep;
+
 
 @RestController
 @RequestMapping(value = "/testdata")
@@ -32,6 +34,9 @@ public class TestDataController {
 
     @Autowired
     ScheduleStatusRepository scheduleStatusRepository;
+
+    @Autowired
+    JwtService jwtService;
 
 
     @PostMapping(value = "/member")
@@ -81,9 +86,26 @@ public class TestDataController {
         }
 
         return new LookitemInfo();
-}
+    }
 
+    @PostMapping(value = "/token")
+    public LoginInfo kakaoTest() {
 
+        System.out.println("시작");
 
+        int userId = 1;
+        Member loginMember;
+        loginMember = memberRepository.findByMId(userId);
+
+        try {
+            String token = jwtService.create("member", loginMember, "user");
+            return new LoginInfo(token);
+
+        }catch (Exception e){
+
+            return new LoginInfo("fail");
+
+        }
+    }
 
 }
