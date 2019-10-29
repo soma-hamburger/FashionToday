@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static java.lang.Thread.sleep;
+
 @RestController
 @RequestMapping(value = "/testdata")
 public class TestDataController {
@@ -73,9 +75,10 @@ public class TestDataController {
 
         for (int i = 0; i < 10; i++) {
 
-            lookitemRepository.save(lookitem[0][1]);
-
-    }
+            lookitemRepository.save(lookitem[0][i]);
+            System.out.println(lookitem[0][i].getKmId());
+            System.out.println(lookitem[0][i].getLookItemCat());
+        }
 
         return new LookitemInfo();
 }

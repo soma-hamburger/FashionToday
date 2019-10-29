@@ -12,6 +12,6 @@ import java.util.List;
  * @version : 0.5
  *
  */
-public interface LookitemRepository extends CrudRepository<Lookitem, LookitemId> {
+public interface LookitemRepository extends CrudRepository<Lookitem, Integer> {
     List<Lookitem> findLookitemsByMId(int MId);
 }

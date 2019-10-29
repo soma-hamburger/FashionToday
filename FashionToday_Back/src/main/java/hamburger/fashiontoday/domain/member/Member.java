@@ -58,11 +58,11 @@ public class Member {
     private int mpStar;
 
     @Column(name = "meditor")
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int mEditor;
 
     @Column(name = "mgrade")
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int mGrade;
 
     @Column(name = "mprofileurl")
