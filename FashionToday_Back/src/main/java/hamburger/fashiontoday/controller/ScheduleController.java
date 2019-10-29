@@ -51,9 +51,8 @@ public class ScheduleController {
         String introduce = new String();
         String date = new String();
         int star = 0;
-        int purple = 0;
         Schedule uploadSchdule;
-        ScheduleStatus scheduleStatus;
+        ScheduleStatus uploadScheduleStatus;
         ScheduleInfo scheduleInfo;
 
         // 로그인 여부 확인
@@ -71,32 +70,18 @@ public class ScheduleController {
             introduce = param.get("introduce").toString();
             star = Integer.parseInt(param.get("star").toString());
             date = param.get("date").toString();
-            purple = Integer.parseInt(param.get("purple").toString());
         } catch (Exception e) {
             return new ScheduleInfo("error_param");
         }
 
         // 스캐줄 저장 할 값 세팅
         uploadSchdule = new Schedule(loginMemberId, date, title, introduce, star);
-        scheduleStatus = new ScheduleStatus(uploadSchdule.getMId(), uploadSchdule.getDdate(), uploadSchdule.getDStar());
-
-        // 유료인지 무료인지 세팅
-        // 유료 일떄
-        if (purple == 1) {
-            scheduleStatus.purple();
-        }
-        // 무료 일때
-        if (purple == 2) {
-            scheduleStatus.normal();
-        }
-        if(purple != 1 || purple != 2) {
-            return new ScheduleInfo("error_purple");
-        }
+        uploadScheduleStatus = new ScheduleStatus(uploadSchdule);
 
         //저장하는 곳
         try {
             scheduleInfo = new ScheduleInfo(scheduleRepository.save(uploadSchdule));
-            scheduleStatusRepository.save(scheduleStatus);
+            scheduleStatusRepository.save(uploadScheduleStatus);
         } catch (Exception e) {
             return new ScheduleInfo("error_save");
         }

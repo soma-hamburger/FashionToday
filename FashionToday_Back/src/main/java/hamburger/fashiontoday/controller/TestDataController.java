@@ -8,7 +8,10 @@ import hamburger.fashiontoday.domain.member.LoginInfo;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberInfo;
 import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.domain.schedule.Schedule;
+import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
+import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +69,7 @@ public class TestDataController {
 
         Lookitem[][] lookitem = new Lookitem[10][10];
 
+        // 1번 유저 옷
         lookitem[0][0] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/coat1.jpeg", "brown", "coat", "");
         lookitem[0][1] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/hood1.jpeg", "black", "hood", "");
         lookitem[0][2] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants1.jpeg", "brown", "pants", "");
@@ -81,15 +85,13 @@ public class TestDataController {
         for (int i = 0; i < 10; i++) {
 
             lookitemRepository.save(lookitem[0][i]);
-            System.out.println(lookitem[0][i].getKmId());
-            System.out.println(lookitem[0][i].getLookItemCat());
         }
 
         return new LookitemInfo();
     }
 
     @PostMapping(value = "/token")
-    public LoginInfo kakaoTest() {
+    public LoginInfo testToken() {
 
         System.out.println("시작");
 
@@ -107,5 +109,30 @@ public class TestDataController {
 
         }
     }
+
+    @PostMapping(value = "/schedule")
+    public ScheduleInfo kakaoTest() {
+
+        Schedule[][] schedule = new Schedule[10][10];
+        ScheduleStatus[][] scheduleStatuses = new ScheduleStatus[10][10];
+
+        // 1번 유저 스케줄
+        schedule[0][0] = new Schedule(1,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
+        schedule[0][1] = new Schedule(1,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
+        schedule[0][2] = new Schedule(1,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
+        schedule[0][3] = new Schedule(1,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
+        schedule[0][4] = new Schedule(1,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
+        schedule[0][5] = new Schedule(1,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
+
+
+
+
+        for (int i = 0; i < 10; i++) {
+            scheduleRepository.save(schedule[0][i]);
+        }
+
+        return new ScheduleInfo();
+    }
+
 
 }

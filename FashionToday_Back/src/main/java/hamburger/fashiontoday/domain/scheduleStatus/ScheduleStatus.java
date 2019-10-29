@@ -1,8 +1,12 @@
 package hamburger.fashiontoday.domain.scheduleStatus;
 
+import hamburger.fashiontoday.domain.schedule.Schedule;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 
@@ -29,7 +33,7 @@ public class ScheduleStatus {
     // 1 -> 퍼플 스타
     // 2 -> 일반 스타
     @Column(name = "sPurple")
-    private int purple;
+    private int purple = 2;
 
     @Column(name = "sleft")
     private int left;
@@ -38,6 +42,16 @@ public class ScheduleStatus {
         this.mId = mId;
         this.ddate = ddate;
         this.left = left;
+    }
+
+    public ScheduleStatus(Schedule schedule){
+        this.mId = schedule.getMId();
+        this.ddate = schedule.getDdate();
+        this.left = schedule.getDStar();
+    }
+
+    public void addTmpLook(){
+        this.left--;
     }
 
     public void purple(){
