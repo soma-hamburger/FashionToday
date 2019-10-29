@@ -11,15 +11,12 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "ScheduleStatus")
-@IdClass(ScheduleStatusId.class)
 public class ScheduleStatus {
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schduleStatus_mid"))
     @Column(name = "mid")
     private int mId;
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schduleStatus_ddate"))
     @Column(name = "ddate")
     private String ddate;

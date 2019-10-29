@@ -22,23 +22,20 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "look")
-@IdClass(LookId.class)
 public class Look {
-
-    @Id
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_mid"))
-    @Column(name = "mid")
-    private int mId;
-
-    @Id
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_ksid"))
-    @Column(name = "ksid")
-    private int ksId;
 
     @Id
     @Column(name = "kid")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int kId;
+
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_mid"))
+    @Column(name = "mid")
+    private int mId;
+
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_ksid"))
+    @Column(name = "ksid")
+    private int ksId;
 
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_createrId"))
     @Column(name = "createrId")

@@ -12,15 +12,12 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Table(name = "TmpLook")
-@IdClass(TmpLookId.class)
 public class TmpLook {
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_tmpLook_mid"))
     @Column(name = "mid")
     private int mId;
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_tmpLook_ddate"))
     @Column(name = "ddate")
     private String ddate;

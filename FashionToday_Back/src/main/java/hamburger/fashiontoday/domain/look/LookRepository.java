@@ -10,5 +10,5 @@ import org.springframework.data.repository.CrudRepository;
  * @version : 0.5
  *
  */
-public interface LookRepository extends CrudRepository<Look,LookId> {
+public interface LookRepository extends CrudRepository<Look,Integer> {
 }

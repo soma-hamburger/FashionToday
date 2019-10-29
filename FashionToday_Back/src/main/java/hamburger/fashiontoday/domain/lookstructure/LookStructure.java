@@ -18,15 +18,12 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "lookstructure")
-@IdClass(LookStructureId.class)
 public class LookStructure {
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitemclass_mid"))
     @Column(name = "mid")
     private int mid;
 
-    @Id
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitemclass_kmid"))
     @Column(name = "kmid")
     private int kmId;
