@@ -95,7 +95,7 @@ public class TestDataController {
 
         System.out.println("시작");
 
-        int userId = 1;
+        int userId = 2;
         Member loginMember;
         loginMember = memberRepository.findByMId(userId);
 
@@ -114,7 +114,6 @@ public class TestDataController {
     public ScheduleInfo kakaoTest() {
 
         Schedule[][] schedule = new Schedule[10][10];
-        ScheduleStatus[][] scheduleStatuses = new ScheduleStatus[10][10];
 
         // 1번 유저 스케줄
         schedule[0][0] = new Schedule(1,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
@@ -127,12 +126,16 @@ public class TestDataController {
 
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             scheduleRepository.save(schedule[0][i]);
+            scheduleStatusRepository.save(new ScheduleStatus(schedule[0][i]));
         }
 
         return new ScheduleInfo();
     }
+
+
+
 
 
 }

@@ -2,6 +2,8 @@ package hamburger.fashiontoday.domain.scheduleStatus;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 /**
  * @프로그램ID : HAM-PB-2019-J
  * @프로그램명 : ScheduleStatusRepository.java
@@ -11,5 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface ScheduleStatusRepository extends CrudRepository<ScheduleStatus,Integer> {
-
+    List<ScheduleStatus> findByMIdNotAndLeftNotOrderByLeftDesc(int mid,int left);
 }

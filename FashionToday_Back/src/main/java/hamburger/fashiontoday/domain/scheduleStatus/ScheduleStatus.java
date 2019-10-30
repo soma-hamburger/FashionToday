@@ -38,12 +38,6 @@ public class ScheduleStatus {
     @Column(name = "sleft")
     private int left;
 
-    public ScheduleStatus(int mId, String ddate, int left) {
-        this.mId = mId;
-        this.ddate = ddate;
-        this.left = left;
-    }
-
     public ScheduleStatus(Schedule schedule){
         this.mId = schedule.getMId();
         this.ddate = schedule.getDdate();

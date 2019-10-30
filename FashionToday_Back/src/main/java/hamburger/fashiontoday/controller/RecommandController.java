@@ -1,16 +1,19 @@
 package hamburger.fashiontoday.controller;
 
 
-import hamburger.fashiontoday.domain.schedule.Schedule;
-import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
+import hamburger.fashiontoday.domain.Recommand.RecommandListInfo;
+import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
+import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,8 +38,13 @@ public class RecommandController {
     @Autowired
     ScheduleStatusRepository scheduleStatusRepository;
 
-    // 저장
+    @Autowired
+    TmpLookRepository tmpLookRepository;
 
+    @Autowired
+    ScheduleRepository scheduleRepository;
+
+    // 저장
     @PostMapping(value = "")
     public TmpLook recommandLook(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
 
@@ -58,17 +66,12 @@ public class RecommandController {
 
 
     //
-
     @GetMapping(value = "/list")
-    public ScheduleInfo scheduleList(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public RecommandListInfo scheduleList(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int loginMemberId = 0;
-        String title = new String();
-        String introduce = new String();
-        String date = new String();
-        int star = 0;
-        Schedule uploadSchdule;
-        ScheduleInfo scheduleInfo = new ScheduleInfo();
+        int scheduleListchecker = 0;
+        RecommandListInfo recommandListInfo = new RecommandListInfo();
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
@@ -76,12 +79,30 @@ public class RecommandController {
             System.out.println("유저 아이디 : " + loginMemberId);
 
         } else {
-            return scheduleInfo;
+            return recommandListInfo;
+        }
+
+        List<TmpLook> tmpLooks = tmpLookRepository.findByrecommandMId(loginMemberId);
+        List<ScheduleStatus> scheduleStatusList = scheduleStatusRepository.findByMIdNotAndLeftNotOrderByLeftDesc(loginMemberId,0);
+
+        while(recommandListInfo.getSize()<5&&scheduleListchecker< scheduleStatusList.size()){
+            ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
+            boolean isRecommand = false;
+            for(int i = 0; i<tmpLooks.size();i++){
+                TmpLook nowTmpLook = tmpLooks.get(i);
+                if(nowTmpLook.getRecommandMId()==loginMemberId){
+                    isRecommand = true;
+                    break;
+                }
+            }
+            if(!isRecommand) {
+                recommandListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()));
+            }
+            scheduleListchecker++;
         }
 
 
-
-        return scheduleInfo;
+        return recommandListInfo;
     }
 
 }
