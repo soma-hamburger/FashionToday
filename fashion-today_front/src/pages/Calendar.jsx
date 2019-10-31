@@ -18,7 +18,7 @@ const Calendar = ({ match }) => {
   const DayId = match.params.dayid;
   const { token } = useContext(UserContext);
   const ScheduleList = useFetch('post', 'user/schedule/list', token);
-  const LookListInfo = useFetch('post', 'look', token);
+  const LookListInfo = useFetch('post', 'looklist', token);
   const ScheduleDetail = useFetch('post', 'user/schedule/detail', token, {
     dayId: DayId,
   });

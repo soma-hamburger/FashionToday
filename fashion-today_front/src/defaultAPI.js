@@ -99,10 +99,11 @@ export const DailyLookDetail = {
   recommender: {
     id: 10000002,
     name: '심기성',
-    profile_image: 'https://imageurl/profile/:id',
+    profile_image: null,
     grade: 30,
   },
-  look_image: 'https://imageurl/looks/:id',
+  look_image:
+    'https://i0.codibook.net/files/thumb/big/1975070913500/efa702b4153a46/1471844906.jpg',
   look_title: '단정한 룩',
   look_introduction: '면접을 위해 단정하게 입기 좋은 룩입니다.',
   clothes_array: [
@@ -110,13 +111,22 @@ export const DailyLookDetail = {
       clothes_id: 20000001,
       color: 'red',
       category: 'jean',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
     {
       clothes_id: 20000002,
       color: 'red',
       category: 'tee',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
+    },
+    {
+      clothes_id: 20000003,
+      color: 'red',
+      category: 'tee',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
   ],
   msec: 10,
@@ -192,6 +202,7 @@ export const LookListInfo = {
       look_id: 30000001,
       user_id: 10000001,
       user_name: '장동훈',
+      is_like: true,
       look_like_num: 4,
       user_profile_image: null,
       look_image:
@@ -201,6 +212,7 @@ export const LookListInfo = {
       look_id: 30000002,
       user_id: 10000002,
       user_name: '심기성',
+      is_like: false,
       look_like_num: 4,
       user_profile_image: null,
       look_image:
@@ -210,6 +222,7 @@ export const LookListInfo = {
       look_id: 30000003,
       user_id: 10000003,
       user_name: '오원석',
+      is_like: false,
       look_like_num: 4,
       user_profile_image: null,
       look_image:
@@ -224,16 +237,18 @@ export const LookDetail = {
   remark: 'success',
   user_id: 10000001,
   user_name: '장동훈',
+  user_image: null,
   look_id: 30000002,
+  is_like: false,
   like_num: 5,
   recommender: {
     id: 10000002,
     name: '심기성',
-    profile_image: 'https://imageurl/profile/:id',
+    profile_image: null,
     grade: 30,
   },
-  look_image: 'https://imageurl/looks/:id',
-  look_subimage: 'https://imageurl/looks/:id',
+  look_image:
+    'https://i0.codibook.net/files/thumb/big/1975070913500/efa702b4153a46/1471844906.jpg',
   look_title: '단정한 룩',
   look_introduction: '면접을 위해 단정하게 입기 좋은 룩입니다.',
   clothes_array: [
@@ -241,13 +256,15 @@ export const LookDetail = {
       clothes_id: 20000001,
       color: 'red',
       category: 'jean',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
     {
       clothes_id: 20000002,
       color: 'red',
       category: 'tee',
-      clothes_image: 'https://imageurl/clothes/:id',
+      clothes_image:
+        'https://cdn.pixabay.com/photo/2013/07/13/14/08/apparel-162192_960_720.png',
     },
   ],
   msec: 10,

@@ -3,7 +3,7 @@ import ProfileIcon from '../../img/default_profile.png';
 import GradeIcon from '../../img/grade_icon.png';
 import { ClickImg } from '../Common/Components';
 
-const makeDailyLookView = LookArray =>
+const makeDailyLookView = (LookArray, onClick = () => {}) =>
   LookArray.map(look => {
     let ProfileImage = ProfileIcon;
 
@@ -15,7 +15,7 @@ const makeDailyLookView = LookArray =>
         <ClickImg
           src={look.look_image}
           alt={String(look.look_id)}
-          onClick={() => {}}
+          onClick={onClick}
           className="LookImage"
         />
         <div className="UserInfo">
@@ -36,8 +36,8 @@ const makeDailyLookView = LookArray =>
     );
   });
 
-const DailyLookList = ({ LookArray }) => {
-  const DailyLookView = makeDailyLookView(LookArray);
+const DailyLookList = ({ LookArray, onClick }) => {
+  const DailyLookView = makeDailyLookView(LookArray, onClick);
 
   return <div className="DailyLookList">{DailyLookView}</div>;
 };

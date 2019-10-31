@@ -9,17 +9,21 @@ import {
   LookListInfo,
   UserScheduleDetail,
   UserScheduleList,
+  DailyLookDetail,
+  LookDetail,
 } from './defaultAPI';
 
 const findDefaultAPI = url => {
   if (url === 'closet') return { data: UserCloset };
   if (url === 'user/info') return { data: UserInfo };
-  if (url === 'user/dailylook') return { data: getDailyLookList };
+  if (url === 'dailylooklist') return { data: getDailyLookList };
   if (url === 'user/schedule/list') return { data: UserScheduleList };
   if (url === 'user/schedule/detail') return { data: UserScheduleDetail };
   if (url === 'requestor/list') return { data: LookRequestorList };
   if (url === 'requestor/closet') return { data: RequestorCloset };
-  if (url === 'look') return { data: LookListInfo };
+  if (url === 'looklist') return { data: LookListInfo };
+  if (url === 'dailylook') return { data: DailyLookDetail };
+  if (url === 'look') return { data: LookDetail };
   return null;
 };
 
@@ -69,6 +73,7 @@ export const UserGet = async (url, token, body) => {
 
 export const useFetch = (method, url, token, body) => {
   const [res, setRes] = useState(null);
+  const input = [url, token];
 
   useEffect(() => {
     const postRes = async () => {
@@ -86,7 +91,7 @@ export const useFetch = (method, url, token, body) => {
       getRes();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, token]);
+  }, input);
 
   return res;
 };

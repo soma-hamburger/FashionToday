@@ -117,6 +117,15 @@
   .RequestorCloset {
     margin-top: 0vh;
     padding-top: 0vh;
+    .Clothes {
+      position: relative;
+      .CheckIcon {
+        position: absolute;
+        top: 0.5vw;
+        left: 0.5vw;
+        width: 2vw;
+      }
+    }
     .LookForm {
       margin-top: 5vh;
       background-color: $gray3;
@@ -187,11 +196,5 @@
         }
       }
     }
-  }
-}
-
-.RecommendSubmit {
-  .Requestor {
-    margin-bottom: 0vh;
   }
 }
