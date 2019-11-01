@@ -4,7 +4,7 @@ import LikedIcon from '../../img/heart_icon.png';
 import UnLikeIcon from '../../img/heart_white.png';
 import { ClickImg, ClickDiv } from '../Common/Components';
 
-const makeLookView = (LookArray, onClick) =>
+const makeLookView = (LookArray, onClick = () => {}) =>
   LookArray.map(look => {
     let ProfileImage = ProfileIcon;
     let LikeIcon = UnLikeIcon;

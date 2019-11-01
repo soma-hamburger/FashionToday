@@ -1,21 +1,19 @@
 import React from 'react';
-import { makeDayObj } from '../../Tool';
+import { makeDayObj, useWeahterAPI } from '../../Tool';
 import WhetherIcon from '../../img/whether_icon.png';
 import TempIcon from '../../img/temp_icon.png';
 import StarIcon from '../../img/star_icon.png';
 
 const Day = ({ dayId, scheduleDetail }) => {
-  let isSchedule = false;
   const dayObj = makeDayObj(dayId);
   const today = new Date();
   const gap = today.getTime() - dayObj.getTime();
   const dday = Math.floor(gap / (1000 * 60 * 60 * 24));
 
-  if (scheduleDetail) {
-    isSchedule = true;
-  }
+  const weather = useWeahterAPI(dayId);
 
-  console.log(isSchedule);
+  console.log(weather);
+  console.log(scheduleDetail);
   return (
     <div className="DayComponent">
       <div className="DDay">D{dday >= 0 ? `+${dday}` : dday}</div>

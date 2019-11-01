@@ -96,6 +96,34 @@ export const useFetch = (method, url, token, body) => {
   return res;
 };
 
+export const useWeahterAPI = date => {
+  const [res, setRes] = useState(null);
+
+  const key =
+    'g9j0VQ1w%2B2FL2%2BirUmwnrqHSJa8Z5NlLn9pwnVa4MAdiy13rX2kf5WPbcWLKDN9S7F4Is5ht9eJKcAniXhZGjw%3D%3D';
+
+  const userInstance = axios.create({
+    baseURL: `http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?ServiceKey=${key}&base_date=${date}&base_time=0200&nx=59&ny=125&_type=json`,
+    timeout: 2000,
+  });
+
+  useEffect(() => {
+    const getRes = async () => {
+      try {
+        const response = await userInstance.get();
+        setRes(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getRes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInstance]);
+
+  return res;
+};
+
 export const useCanvas = (draw, context = '2d') => {
   const canvasRef = useRef(null);
 
