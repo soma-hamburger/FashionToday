@@ -31,6 +31,14 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.nio.Buffer
 
+
+/*****
+ * 프로그램 ID : HAM-PA-600
+ * 프로그램명 : PashionDetail.kt
+ * 작성자명: 오원석
+ * 작성일자 : 2019.11.1
+ * 버전 : v0.6
+ */
 class PashionDetail : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener  {
 
     // user의 상세 룩 정보가 담긴 JSON array
@@ -186,7 +194,7 @@ class PashionDetail : AppCompatActivity() , NavigationView.OnNavigationItemSelec
 
     inner class NetworkThread : Thread(){
         override fun run() {
-            var site="http:172.16.101.14:8085/MobileServer/Look_detail_list.jsp"
+            var site="http:172.20.10.4:8085/MobileServer/Look_detail_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()

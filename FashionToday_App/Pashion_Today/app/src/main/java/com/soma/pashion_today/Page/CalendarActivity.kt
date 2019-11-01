@@ -33,11 +33,11 @@ import kotlin.collections.HashSet
 
 
 /*****
- * 프로그램 ID : HAM-PA-500
+ * 프로그램 ID : HAM-PA-100
  * 프로그램명 : CalendarActivity.kt
  * 작성자명 : 오원석
- * 작성일자 : 2019.09.05
- * 버전 : v0.1
+ * 작성일자 : 2019.11.31
+ * 버전 : v0.6
  */
 class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 

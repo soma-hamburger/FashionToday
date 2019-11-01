@@ -29,10 +29,11 @@ import java.net.URL
 
 
 /*****
- * 프로그램 ID : HAM-PA-301
- * 프로그램명 : Pashion.kt : 오원석
- * 작성일자 : 2019.09.24
- * 버전 : v0.1
+ * 프로그램 ID : HAM-PA-500
+ * 프로그램명 : Pashion.kt
+ * 작성자명 : 오원석
+ * 작성일자 : 2019.11.1
+ * 버전 : v0.6
  */
 class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -242,7 +243,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
      // 서버에서 JSONarray 받는 클래스
      inner class NetworkThread:Thread(){
         override fun run() {
-            var site="http://172.16.101.14:8085/MobileServer/Look_list.jsp"
+            var site="http://172.20.10.4:8085/MobileServer/Look_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()
