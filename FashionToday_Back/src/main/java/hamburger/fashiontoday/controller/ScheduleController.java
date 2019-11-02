@@ -63,6 +63,7 @@ public class ScheduleController {
         List<Schedule> scheduleList = scheduleRepository.findByMId(loginMemberId);
         scheduleListInfo.addScheduleList(scheduleList);
 
+        logger.debug("스케줄"+scheduleList.size());
 
         return new ScheduleListInfo();
     }
