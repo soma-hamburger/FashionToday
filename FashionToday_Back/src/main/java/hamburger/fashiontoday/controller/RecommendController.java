@@ -73,7 +73,8 @@ public class RecommendController {
 
     //
     @GetMapping(value = "/list")
-    public RecommendListInfo scheduleList(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public RecommendListInfo scheduleList(@RequestHeader(value = "Authorization") String token) {
+        System.out.println("추천 컨트롤러");
 
         int loginMemberId = 0;
         int scheduleListchecker = 0;
