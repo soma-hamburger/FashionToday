@@ -14,14 +14,14 @@ import java.util.List;
 @NoArgsConstructor
 public class RecommendListInfo {
 
-    private List<Requestor> request_array = new ArrayList<Requestor>();
+    private List<Requestor> requestor_array = new ArrayList<Requestor>();
 
     public void addSchedule(Schedule schedule, Member member) {
-        request_array.add(new Requestor(schedule, member));
+        requestor_array.add(new Requestor(schedule, member));
     }
 
     public int getSize() {
-        return this.request_array.size();
+        return this.requestor_array.size();
     }
 
 
@@ -54,13 +54,13 @@ class RecommendSchedule {
     int star_num;
     int look_num = 0;
     String schedule_title;
-    String schedule_introduce;
+    String schedule_introduction;
 
     public RecommendSchedule(Schedule schedule) {
         this.date = schedule.getDdate();
         this.star_num = schedule.getDStar();
         this.schedule_title = schedule.getDTitle();
-        this.schedule_introduce = schedule.getDIntroduce();
+        this.schedule_introduction = schedule.getDIntroduce();
     }
 
 }
