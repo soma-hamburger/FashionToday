@@ -1,7 +1,9 @@
 package hamburger.fashiontoday.controller;
 
 
-import hamburger.fashiontoday.domain.Recommand.RecommandListInfo;
+import hamburger.fashiontoday.domain.member.Member;
+import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.domain.recommand.RecommandListInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +36,9 @@ public class RecommandController {
     //토큰 서비스
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     // 스케줄 상태 레파지토리
     @Autowired
@@ -71,6 +77,13 @@ public class RecommandController {
 
         int loginMemberId = 0;
         int scheduleListchecker = 0;
+        String nowDate = new String();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        if(localDateTime.getMonthValue() < 10){
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        }else{
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        }
         RecommandListInfo recommandListInfo = new RecommandListInfo();
 
         // 로그인 여부 확인
@@ -96,7 +109,8 @@ public class RecommandController {
                 }
             }
             if(!isRecommand) {
-                recommandListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()));
+                Member scheduleMember = memberRepository.findByMId(nowScheduleStatus.getMId());
+                recommandListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()),scheduleMember);
             }
             scheduleListchecker++;
         }

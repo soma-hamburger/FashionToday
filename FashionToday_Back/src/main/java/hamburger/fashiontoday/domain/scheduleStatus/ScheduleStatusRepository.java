@@ -13,5 +13,6 @@ import java.util.List;
  *
  */
 public interface ScheduleStatusRepository extends CrudRepository<ScheduleStatus,Integer> {
+    List<ScheduleStatus> findByMIdNotAndDdateGreaterThanAndLeftNotOrderByLeftDesc(int mid,String ddate,int left);
     List<ScheduleStatus> findByMIdNotAndLeftNotOrderByLeftDesc(int mid,int left);
 }
