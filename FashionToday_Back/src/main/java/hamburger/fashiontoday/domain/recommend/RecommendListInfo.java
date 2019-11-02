@@ -1,4 +1,4 @@
-package hamburger.fashiontoday.domain.recommand;
+package hamburger.fashiontoday.domain.recommend;
 
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.schedule.Schedule;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RecommandListInfo {
+public class RecommendListInfo {
 
     private List<Requestor> request_array = new ArrayList<Requestor>();
 
@@ -35,20 +35,20 @@ class Requestor {
     String name;
     String self_introduction;
     String profile_image;
-    RecommandSchedule schedule;
+    RecommendSchedule schedule;
 
     public Requestor(Schedule schedule, Member member) {
         this.id = member.getMId();
         this.name = member.getMName();
         this.self_introduction = member.getMComment();
         this.profile_image = member.getMProfileUrl();
-        this.schedule = new RecommandSchedule(schedule);
+        this.schedule = new RecommendSchedule(schedule);
     }
 }
 
 @Getter
 @Setter
-class RecommandSchedule {
+class RecommendSchedule {
 
     String date;
     int star_num;
@@ -56,7 +56,7 @@ class RecommandSchedule {
     String schedule_title;
     String schedule_introduce;
 
-    public RecommandSchedule(Schedule schedule) {
+    public RecommendSchedule(Schedule schedule) {
         this.date = schedule.getDdate();
         this.star_num = schedule.getDStar();
         this.schedule_title = schedule.getDTitle();

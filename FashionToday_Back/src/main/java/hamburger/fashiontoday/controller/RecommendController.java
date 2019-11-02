@@ -3,7 +3,7 @@ package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
-import hamburger.fashiontoday.domain.recommand.RecommandListInfo;
+import hamburger.fashiontoday.domain.recommend.RecommendListInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
@@ -27,11 +27,11 @@ import java.util.Map;
  * @date : 2019.10.25
  */
 @RestController
-@RequestMapping(value = "/recommand")
-public class RecommandController {
+@RequestMapping(value = "/recommend")
+public class RecommendController {
 
     // 로그를 찍기 위한 Logger
-    private static Logger logger = LogManager.getLogger(RecommandController.class);
+    private static Logger logger = LogManager.getLogger(RecommendController.class);
 
     //토큰 서비스
     @Autowired
@@ -73,7 +73,7 @@ public class RecommandController {
 
     //
     @GetMapping(value = "/list")
-    public RecommandListInfo scheduleList(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public RecommendListInfo scheduleList(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int loginMemberId = 0;
         int scheduleListchecker = 0;
@@ -84,7 +84,7 @@ public class RecommandController {
         }else{
             nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
         }
-        RecommandListInfo recommandListInfo = new RecommandListInfo();
+        RecommendListInfo recommendListInfo = new RecommendListInfo();
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
@@ -92,13 +92,13 @@ public class RecommandController {
             System.out.println("유저 아이디 : " + loginMemberId);
 
         } else {
-            return recommandListInfo;
+            return recommendListInfo;
         }
 
         List<TmpLook> tmpLooks = tmpLookRepository.findByrecommandMId(loginMemberId);
         List<ScheduleStatus> scheduleStatusList = scheduleStatusRepository.findByMIdNotAndLeftNotOrderByLeftDesc(loginMemberId,0);
 
-        while(recommandListInfo.getSize()<5&&scheduleListchecker< scheduleStatusList.size()){
+        while(recommendListInfo.getSize()<5&&scheduleListchecker< scheduleStatusList.size()){
             ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
             boolean isRecommand = false;
             for(int i = 0; i<tmpLooks.size();i++){
@@ -110,13 +110,13 @@ public class RecommandController {
             }
             if(!isRecommand) {
                 Member scheduleMember = memberRepository.findByMId(nowScheduleStatus.getMId());
-                recommandListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()),scheduleMember);
+                recommendListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()),scheduleMember);
             }
             scheduleListchecker++;
         }
 
 
-        return recommandListInfo;
+        return recommendListInfo;
     }
 
 }
