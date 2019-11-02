@@ -21,6 +21,9 @@
         background-color: $gray2;
         border-radius: 8px 8px 0px 0px;
         padding: 1.5vw 2.5vw;
+        img {
+          border-radius: 10vw;
+        }
       }
       .ProfileInfo {
         height: 5vw;

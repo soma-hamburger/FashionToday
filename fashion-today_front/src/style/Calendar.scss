@@ -171,6 +171,32 @@
           }
         }
       }
+      .ScheduleDiv {
+        margin-top: 3vh;
+        .ScheduleTitle {
+          border: 0px;
+          border-bottom: 1px solid $gray3;
+          width: 100%;
+          color: $v-black;
+          font-size: 2.3vw;
+          width: 85%;
+          text-align: start;
+          padding-bottom: 1vh;
+          margin-bottom: 1.5vh;
+        }
+        .ScheduleIntroduction {
+          border: 0px;
+          border-bottom: 1px solid $gray3;
+          width: 100%;
+          color: $v-black;
+          font-size: 1.2vw;
+          width: 85%;
+          text-align: start;
+          padding-bottom: 1vh;
+          margin-bottom: 1.5vh;
+          line-height: 1.5;
+        }
+      }
     }
   }
 

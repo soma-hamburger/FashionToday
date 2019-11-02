@@ -40,6 +40,9 @@ const MakeClothes = (category, color, array, onClick) => {
     filterdArray = filterdArray.filter(clothes => clothes.color === color);
   }
 
+  if (!filterdArray) {
+    return null;
+  }
   return filterdArray.map(clothes => {
     const categoryIcon = getCategoryIcon(clothes.category);
     return (

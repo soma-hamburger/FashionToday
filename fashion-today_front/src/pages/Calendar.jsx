@@ -17,12 +17,13 @@ export const RedirectCalendar = () => {
 const Calendar = ({ match }) => {
   const DayId = match.params.dayid;
   const { token } = useContext(UserContext);
-  const ScheduleList = useFetch('post', 'user/schedule/list', token);
+  const ScheduleList = useFetch('get', 'schedule/list', token);
   const LookListInfo = useFetch('post', 'looklist', token);
   const ScheduleDetail = useFetch('post', 'user/schedule/detail', token, {
     dayId: DayId,
   });
 
+  console.log(ScheduleList);
   return (
     <div className="CalendarPage">
       <div className="CalendarSection">

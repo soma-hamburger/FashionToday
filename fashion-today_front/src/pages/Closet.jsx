@@ -19,6 +19,7 @@ const Closet = () => {
     setCategory,
   };
 
+  console.log(UserCloset);
   return (
     <div className="Closet">
       <img

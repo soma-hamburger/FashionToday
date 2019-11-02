@@ -11,7 +11,14 @@ const MyPage = () => {
     <div className="MyPage">
       {userContext.UserInfo && (
         <div className="ProfileInterface">
-          <img src={ProfileIcon} alt="ProfileIcon" />
+          <img
+            src={
+              userContext.UserInfo.profile_image
+                ? userContext.UserInfo.profile_image
+                : ProfileIcon
+            }
+            alt="ProfileIcon"
+          />
           <div className="Name">{userContext.UserInfo.name} 님</div>
         </div>
       )}

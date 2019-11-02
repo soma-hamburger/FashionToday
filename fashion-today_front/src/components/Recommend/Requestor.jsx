@@ -17,7 +17,12 @@ const Requestor = ({ requestor }) => {
     <div className="Requestor">
       <div className="Profile">
         <div className="ProfileImg">
-          <img src={ProfileIcon} alt="ProfileIcon" />
+          <img
+            src={
+              requestor.profile_image ? requestor.profile_image : ProfileIcon
+            }
+            alt="ProfileIcon"
+          />
         </div>
         <div className="ProfileInfo">
           {requestor.name}

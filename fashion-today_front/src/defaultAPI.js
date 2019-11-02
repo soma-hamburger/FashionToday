@@ -139,16 +139,13 @@ export const UserScheduleList = {
   schedule_num: 3,
   schedule_array: [
     {
-      date: 20191010,
-      star_num: 3,
+      date: '20191010',
     },
     {
-      date: 20191012,
-      star_num: 2,
+      date: '20191012',
     },
     {
-      date: 20191016,
-      star_num: 5,
+      date: '20191016',
     },
   ],
   msec: 10,

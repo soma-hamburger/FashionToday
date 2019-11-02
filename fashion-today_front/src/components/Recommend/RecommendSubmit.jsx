@@ -52,7 +52,7 @@ const RecommendSubmit = ({ match }) => {
     userId,
   });
 
-  const RequestorList = useFetch('post', 'requestor/list', user.token);
+  const RequestorList = useFetch('get', 'recommend/list', user.token);
 
   let RequestorInfo = null;
 
