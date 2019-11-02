@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container"
+        android:background="@drawable/border_back"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/pashion_app_bar"
-        tools:context=".Page.Pashion" android:orientation="vertical">
-    <TextView
-            android:text="사람들의 데일리룩입니다"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/TopicText"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" android:textAllCaps="false"
-    />
+        tools:context=".Page.Pashion"
+        tools:showIn="@layout/pashion_app_bar">
 
     <GridView
             android:id="@+id/Look_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="2" />
-</LinearLayout>
+            android:layout_width="406dp"
+            android:layout_height="625dp"
+            android:numColumns="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

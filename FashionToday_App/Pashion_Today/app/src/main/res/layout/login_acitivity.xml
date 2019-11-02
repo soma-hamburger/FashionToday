@@ -1,29 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Login.LoginActivity" android:orientation="vertical">
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/Login_user_id" android:hint="아이디"/>
-    <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/Login_user_pw" android:hint="비밀번호"/>
+        android:background="@drawable/login"
+        android:orientation="vertical"
+        tools:context=".Login.LoginActivity">
+
     <Button
-            android:text="로그인"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/Login_button"/>
+            android:id="@+id/Kakao_login"
+            android:layout_width="240dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginRight="68dp"
+            android:layout_marginBottom="156dp"
+            android:background="@drawable/kakao_login"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.864"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+            android:id="@+id/textView14"
+            android:layout_width="349dp"
+            android:layout_height="78dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="36dp"
+            android:letterSpacing="0.1"
+            android:text="PASHION"
+            android:textColor="#FFFFFF"
+            android:textSize="65sp"
+            android:textStyle="bold"
+            app:fontFamily="sans-serif"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textView16"
+            android:layout_width="360dp"
+            android:layout_height="78dp"
+            android:layout_marginTop="96dp"
+            android:letterSpacing="0.1"
+            android:text="TODAY"
+            android:textColor="#FFFFFF"
+            android:textSize="65sp"
+            android:textStyle="bold"
+            app:fontFamily="sans-serif"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.784"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textView17"
+            android:layout_width="298dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="176dp"
+            android:text="Daily Fashion Platform"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            app:fontFamily="@font/noto_sans"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textView19"
+            android:layout_width="304dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="224dp"
+            android:text="당신의 옷장 속 옷들로 데일리룩을 코디해드립니다."
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textView20"
+            android:layout_width="304dp"
+            android:layout_height="17dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="244dp"
+            android:text="매일매일 특별한 하루를 맞이하세요"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+            android:id="@+id/view"
+            android:layout_width="325dp"
+            android:layout_height="277dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/login_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.312"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="210dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/logo_height" />
+
     <Button
-            android:text="회원가입"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/Register_button"/>
-</LinearLayout>
+            android:id="@+id/Naver_login"
+            android:layout_width="240dp"
+            android:layout_height="38dp"
+            android:layout_marginBottom="110dp"
+            android:background="@drawable/naver_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="75dp"
+            android:text="자동로그인"
+            android:textColor="#000000"
+            android:textColorHint="#F44336"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
