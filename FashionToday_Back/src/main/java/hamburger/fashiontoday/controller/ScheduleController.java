@@ -44,7 +44,7 @@ public class ScheduleController {
 
 
     @GetMapping(value = "/list")
-    public ScheduleListInfo getMySchedule(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
+    public ScheduleListInfo getMySchedule(@RequestHeader(value = "Authorization") String token){
 
         // 값
         int loginMemberId = 0;
