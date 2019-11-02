@@ -3,6 +3,7 @@ package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.schedule.Schedule;
 import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
+import hamburger.fashiontoday.domain.schedule.ScheduleListInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
@@ -12,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +41,32 @@ public class ScheduleController {
     // 스캐줄상태 레파지토리
     @Autowired
     ScheduleStatusRepository scheduleStatusRepository;
+
+
+    @GetMapping(value = "/list")
+    public ScheduleListInfo getMySchedule(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
+
+        // 값
+        int loginMemberId = 0;
+        ScheduleListInfo scheduleListInfo = new ScheduleListInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+
+        } else {
+            scheduleListInfo.setRemark("login_error");
+            return scheduleListInfo;
+        }
+
+        List<Schedule> scheduleList = scheduleRepository.findByMId(loginMemberId);
+        scheduleListInfo.addScheduleList(scheduleList);
+
+
+        return new ScheduleListInfo();
+    }
+
 
     // 일정 등록
     // 306 번 api

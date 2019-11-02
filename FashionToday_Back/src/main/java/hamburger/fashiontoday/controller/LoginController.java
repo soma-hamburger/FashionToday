@@ -84,5 +84,4 @@ public class LoginController {
         return new LoginInfo("fail");
     }
 
-
 }

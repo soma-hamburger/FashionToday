@@ -39,7 +39,7 @@ public class LookitemController {
     LookitemRepository lookitemRepository;
 
     // 302번 api
-    // 룩을 저장하는 api
+    // 룩 아이템 을 저장하는 api
     @PostMapping(value = "/lookitem")
     public LookitemInfo uploadLookitem(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
