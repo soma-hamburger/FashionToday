@@ -48,9 +48,14 @@ const RecommendSubmit = ({ match }) => {
   console.log('render!!');
   const userId = match.params.userid;
   const user = useContext(UserContext);
-  const RequestorCloset = useFetch('post', 'requestor/closet', user.token, {
-    userId,
-  });
+  const RequestorCloset = useFetch(
+    'post',
+    'requestor/closet',
+    user.token,
+    JSON.stringify({
+      userId,
+    }),
+  );
 
   const RequestorList = useFetch('get', 'recommend/list', user.token);
 

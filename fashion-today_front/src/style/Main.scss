@@ -12,37 +12,37 @@
     margin-top: -30px;
   }
   .Introduce {
-    font-size: 12px;
+    font-size: 1.2vw;
     line-height: 1.5;
     font-family: $noto-sans;
     width: 100vw;
     margin: 5vh 0;
     .PinWhite {
-      width: 25px;
+      width: 2.3vw;
     }
     .Title {
-      margin-top: 15px;
+      margin-top: 1.5vw;
       line-height: 1;
-      font-size: 30px;
+      font-size: 2.7vw;
       font-weight: bolder;
     }
     .SubTitle {
-      margin-top: 15px;
+      margin-top: 1.5vw;
       line-height: 1;
-      font-size: 20px;
+      font-size: 1.8vw;
       font-weight: lighter;
     }
     .SlashIcon {
-      width: 30px;
-      margin-top: 30px;
-      margin-bottom: 15px;
+      width: 2.7vw;
+      margin-top: 2.7vw;
+      margin-bottom: 1.3vw;
     }
   }
   .LookImage {
     width: $items-width;
     height: $items-width * $image-ratio;
     border: 0px;
-    border-radius: 7px;
+    border-radius: 0.4vw;
     background-color: $gray2;
   }
   .ProfileImage {
@@ -66,25 +66,24 @@
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
         justify-items: center;
-        margin-top: 3px;
-        width: $items-width;
+        margin-top: 0.5vw;
         height: $items-width * (6/25);
         vertical-align: center;
         background-color: $w-violet4;
-        border-radius: 7px;
+        border-radius: 0.4vw;
         .GradeIcon {
           display: block;
           width: $items-width * (2/25);
         }
         .Name,
         .Grade {
-          font-size: 15px;
+          font-size: 1.3vw;
           justify-self: start;
         }
         .Grade {
           margin-left: 0.8vw;
           margin-top: 3px;
-          font-size: 13px;
+          font-size: 1.2vw;
         }
       }
     }
@@ -102,14 +101,17 @@
     margin: 0 (100vw - $width) * 0.5;
     .LookPreview {
       .UserInfo {
-        width: $items-width;
         display: grid;
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
         justify-items: center;
-        margin-top: 10px;
+        margin-top: 0.8vw;
         .Name {
+          font-size: 1.3vw;
           justify-self: start;
+        }
+        .Like {
+          font-size: 1.2vw;
         }
         .LikeIcon {
           display: block;

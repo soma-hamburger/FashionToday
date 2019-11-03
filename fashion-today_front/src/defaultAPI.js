@@ -157,9 +157,9 @@ export const UserScheduleDetail = {
   user_id: 10000001,
   date: 20191010,
   state: 'past',
-  star_num: 5,
-  schedule_title: '면접',
-  schedule_introduction: '중요한 면접이 있어 단정하게 입고 싶습니다.',
+  star: 5,
+  title: '면접',
+  introduction: '중요한 면접이 있어 단정하게 입고 싶습니다.',
   look: {
     id: 30000002,
     share: false,

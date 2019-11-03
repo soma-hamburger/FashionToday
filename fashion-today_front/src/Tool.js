@@ -73,15 +73,18 @@ export const UserGet = async (url, token, body) => {
 
 export const useFetch = (method, url, token, body) => {
   const [res, setRes] = useState(null);
-  const input = [url, token];
 
   useEffect(() => {
     const postRes = async () => {
-      const response = await UserPost(url, token, body);
+      let parsedBody = null;
+      if (body) parsedBody = JSON.parse(body);
+      const response = await UserPost(url, token, parsedBody);
       setRes(response);
     };
     const getRes = async () => {
-      const response = await UserGet(url, token, body);
+      let parsedBody = null;
+      if (body) parsedBody = JSON.parse(body);
+      const response = await UserGet(url, token, parsedBody);
       setRes(response);
     };
 
@@ -90,8 +93,7 @@ export const useFetch = (method, url, token, body) => {
     } else {
       getRes();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, input);
+  }, [body, method, token, url]);
 
   return res;
 };
