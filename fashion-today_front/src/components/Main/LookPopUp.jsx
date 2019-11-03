@@ -12,9 +12,14 @@ import UnLikeIcon from '../../img/heart_white.png';
 const LookPopUp = ({ lookId, close, token }) => {
   console.log(lookId);
 
-  const LookDetail = useFetch('post', 'look', token, {
-    look_id: lookId,
-  });
+  const LookDetail = useFetch(
+    'post',
+    'look',
+    token,
+    JSON.stringify({
+      look_id: lookId,
+    }),
+  );
 
   console.log(LookDetail);
   return (

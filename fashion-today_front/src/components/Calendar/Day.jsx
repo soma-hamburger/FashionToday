@@ -5,8 +5,6 @@ import TempIcon from '../../img/temp_icon.png';
 import StarIcon from '../../img/star_icon.png';
 import { UserContext } from '../../Context';
 
-let count = 0;
-
 const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
   if (!scheduleDetail) {
     if (dday >= 0) return null;
@@ -43,8 +41,6 @@ const Day = ({ dayId, isSchedule }) => {
   const [title, setTitle] = useState();
   const [introduce, setIntroduce] = useState();
   const [starNum, setStarNum] = useState(0);
-  console.log(count++);
-  console.log(ScheduleDetail);
 
   const registerSchedule = async () => {
     const res = await UserPost('schedule', UserInfo.token, {

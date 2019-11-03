@@ -5,7 +5,7 @@ export const UserState = {
   user_id: 10000001,
   name: '장동훈',
   star: 8,
-  profile_image: 'https://imageurl/profile/:id',
+  profile_image: null,
   msec: 10,
   apiseq: 200,
 };
@@ -16,7 +16,7 @@ export const UserInfo = {
   name: '심기성',
   birth: 19941105,
   gender: 'male',
-  profile_image: 'https://imageurl/profile/:id',
+  profile_image: null,
   self_introduction: '심퀴입니다 ㅎㅎ',
   star: 10,
   grade: 20,

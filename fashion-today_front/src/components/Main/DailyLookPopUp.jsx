@@ -4,7 +4,7 @@ import CloseIcon from '../../img/close_icon.png';
 import PinIcon from '../../img/pin_icon.png';
 import ProfileIcon from '../../img/default_profile.png';
 import GradeIcon from '../../img/grade_icon.png';
-import { useFetch } from '../../Tool';
+import { useFetch, makeDayId, UserPost } from '../../Tool';
 import { getCategoryIcon } from '../Closet/ClosetTable';
 
 export const Clothes = ({ clothes }) => {
@@ -34,10 +34,25 @@ export const Clothes = ({ clothes }) => {
 
 const DailyLookPopUp = ({ lookId, close, token }) => {
   console.log(lookId);
+  const today = new Date();
+  const date = makeDayId(today);
+  const DailyLookDetail = useFetch(
+    'post',
+    'dailylook',
+    token,
+    JSON.stringify({
+      look_id: lookId,
+    }),
+  );
 
-  const DailyLookDetail = useFetch('post', 'dailylook', token, {
-    look_id: lookId,
-  });
+  const choiceDailyLook = async () => {
+    console.log('choiceDL');
+    const res = await UserPost('look/choice', token, {
+      look_id: lookId,
+      date,
+    });
+    console.log(res);
+  };
 
   console.log(DailyLookDetail);
   return (
@@ -63,7 +78,11 @@ const DailyLookPopUp = ({ lookId, close, token }) => {
                 alt="look_image"
                 className="LookImage"
               />
-              <button onClick={() => {}} type="button" className="ChoiceButton">
+              <button
+                onClick={choiceDailyLook}
+                type="button"
+                className="ChoiceButton"
+              >
                 룩선택
               </button>
               <div className="RecommenderInfo">
