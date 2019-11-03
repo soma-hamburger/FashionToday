@@ -131,5 +131,9 @@ public class Member {
         return userInfo.get(info).toString();
     }
 
+    public void useStar(int token){
+        this.mStar -= token;
+    }
+
 
 }

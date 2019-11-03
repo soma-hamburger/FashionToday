@@ -12,7 +12,7 @@ public class ScheduleInfo {
 
     private String remark = "fail";
 
-    private int mId;
+    private int user_id;
     private String date;
     private String title;
     private String introduce;
@@ -24,7 +24,7 @@ public class ScheduleInfo {
 
     public ScheduleInfo(Schedule schedule) {
         remark = "success";
-        this.mId = schedule.getMId();
+        this.user_id = schedule.getMId();
         this.date = schedule.getDdate();
         this.title = schedule.getDTitle();
         this.introduce = schedule.getDIntroduce();

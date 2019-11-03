@@ -1,12 +1,9 @@
 package hamburger.fashiontoday.domain.scheduleStatus;
 
 import hamburger.fashiontoday.domain.schedule.Schedule;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 

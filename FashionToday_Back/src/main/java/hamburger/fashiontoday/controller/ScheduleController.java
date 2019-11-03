@@ -1,6 +1,8 @@
 package hamburger.fashiontoday.controller;
 
 
+import hamburger.fashiontoday.domain.member.Member;
+import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.schedule.Schedule;
 import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleListInfo;
@@ -34,6 +36,10 @@ public class ScheduleController {
     @Autowired
     private JwtService jwtService;
 
+    //유저 레파지토리
+    @Autowired
+    MemberRepository memberRepository;
+
     // 스캐줄 레파지토리
     @Autowired
     ScheduleRepository scheduleRepository;
@@ -44,7 +50,7 @@ public class ScheduleController {
 
 
     @GetMapping(value = "/list")
-    public ScheduleListInfo getMySchedule(@RequestHeader(value = "Authorization") String token){
+    public ScheduleListInfo getMySchedule(@RequestHeader(value = "Authorization") String token) {
 
         // 값
         int loginMemberId = 0;
@@ -66,6 +72,39 @@ public class ScheduleController {
         return scheduleListInfo;
     }
 
+    @PostMapping(value = "/detail")
+    public ScheduleInfo getScheduleDeatil(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+
+        // 값
+        int loginMemberId = 0;
+        ScheduleInfo scheduleInfo;
+        String date = new String();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+
+        } else {
+            return new ScheduleInfo("error_login");
+        }
+
+        // 파라미터 파싱
+        try {
+            date = param.get("date").toString();
+        } catch (Exception e) {
+            return new ScheduleInfo("error_param");
+        }
+
+        try {
+            scheduleInfo = new ScheduleInfo(scheduleRepository.findByMIdAndDdate(loginMemberId, date));
+        }catch (Exception e){
+            return new ScheduleInfo("no data");
+        }
+
+        return scheduleInfo;
+    }
+
 
     // 일정 등록
     // 306 번 api
@@ -81,11 +120,13 @@ public class ScheduleController {
         Schedule uploadSchdule;
         ScheduleStatus uploadScheduleStatus;
         ScheduleInfo scheduleInfo;
+        Member loginMember = new Member();
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
             loginMemberId = jwtService.getMember(token);
             System.out.println("유저 아이디 : " + loginMemberId);
+            loginMember = memberRepository.findByMId(loginMemberId);
 
         } else {
             return new ScheduleInfo("error_login");
@@ -107,16 +148,16 @@ public class ScheduleController {
 
         //저장하는 곳
         try {
+            loginMember.useStar(star);
             scheduleInfo = new ScheduleInfo(scheduleRepository.save(uploadSchdule));
             scheduleStatusRepository.save(uploadScheduleStatus);
+            memberRepository.save(loginMember);
         } catch (Exception e) {
             return new ScheduleInfo("error_save");
         }
 
         return scheduleInfo;
     }
-
-
 
 
 }
