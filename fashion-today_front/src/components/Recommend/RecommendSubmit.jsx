@@ -10,13 +10,13 @@ import { Image, Stage, Layer } from 'react-konva';
 import useImage from 'use-image';
 import { useFetch, useEventListener } from '../../Tool';
 import { UserContext } from '../../Context';
-import ClosetTable from '../Closet/ClosetTable';
 import ClosetNavigation from '../Closet/ClosetNavigation';
 import Requestor from './Requestor';
 import { ClickImg } from '../Common/Components';
 import PlusIcon from '../../img/plus_icon.png';
 import MinusIcon from '../../img/minus_icon.png';
 import PinIcon from '../../img/pin_icon.png';
+import RecommendCloset from './RecommendCloset';
 
 const CanvasImage = ({
   src,
@@ -48,11 +48,16 @@ const RecommendSubmit = ({ match }) => {
   console.log('render!!');
   const userId = match.params.userid;
   const user = useContext(UserContext);
-  const RequestorCloset = useFetch('post', 'requestor/closet', user.token, {
-    userId,
-  });
+  const RequestorCloset = useFetch(
+    'post',
+    'requestor/closet',
+    user.token,
+    JSON.stringify({
+      userId,
+    }),
+  );
 
-  const RequestorList = useFetch('post', 'requestor/list', user.token);
+  const RequestorList = useFetch('get', 'recommend/list', user.token);
 
   let RequestorInfo = null;
 
@@ -77,36 +82,22 @@ const RecommendSubmit = ({ match }) => {
         const newImage = {
           id: state.lastID,
           src: action.src,
-          x: state.currentX,
-          y: state.currentY,
+          x: 0,
+          y: 0,
           width: 75,
           height: 96,
         };
 
         const newImages = currentImages.concat([newImage]);
-
-        let newX = state.currentX;
-        let newY = state.currentY;
-
-        if (state.currentX < 200) {
-          newX += 100;
-        } else {
-          newX = 0;
-          newY += 100;
-        }
         const nextID = state.lastID + 1;
 
         return {
           currentID: state.lastID,
           lastID: nextID,
-          currentX: newX,
-          currentY: newY,
           images: newImages,
         };
       }
       case 'update': {
-        console.log(state.currentID);
-        console.log(action.id);
         return {
           ...state,
           currentID: action.id,
@@ -158,8 +149,6 @@ const RecommendSubmit = ({ match }) => {
     {
       currentID: 0,
       lastID: 1,
-      currentX: 0,
-      currentY: 0,
       images: [],
     },
   );
@@ -217,6 +206,21 @@ const RecommendSubmit = ({ match }) => {
   useEventListener('click', ResizeStage);
   useEventListener('resize', ResizeStage);
 
+  const handleSelect = e => {
+    e.preventDefault();
+    console.log(e.target);
+    const currentId = LookImageData.currentID;
+    const images = LookImageData.images.slice();
+    const index = LookImageData.images.findIndex(i => i.src === e.target.src);
+
+    if (index < 0) {
+      dispatchLookImageData({ type: 'add', src: e.target.src });
+    } else {
+      images.splice(index, 1);
+      dispatchLookImageData({ type: 'update', images, currentId });
+    }
+  };
+
   console.log(LookImages);
   return (
     <div className="RecommendSubmit">
@@ -224,14 +228,12 @@ const RecommendSubmit = ({ match }) => {
       {RequestorCloset && (
         <div className="RequestorCloset">
           <ClosetNavigation navTool={navTool} />
-          <ClosetTable
+          <RecommendCloset
             category={category}
             color={color}
+            lookData={LookImageData.images}
             array={RequestorCloset.data.clothes_array}
-            onClick={e => {
-              e.preventDefault();
-              dispatchLookImageData({ type: 'add', src: e.target.src });
-            }}
+            onClick={handleSelect}
           />
           <form className="LookForm">
             <div className="LookImages" ref={LookImagesWindow}>

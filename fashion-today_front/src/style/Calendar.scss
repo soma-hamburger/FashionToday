@@ -20,14 +20,13 @@
         margin-bottom: 7vh;
         .CalendarTitle {
           align-self: center;
-          font-size: 22px;
+          font-size: 1.8vw;
           font-weight: bold;
           margin: 0 3vw;
-          margin-bottom: 3px;
         }
         img {
           align-self: center;
-          width: 15px;
+          width: 1.3vw;
         }
       }
       .CalendarTable {
@@ -35,12 +34,12 @@
         color: $gray5;
         grid-template-columns: repeat(7, 1fr);
         grid-gap: 2vw;
-        font-size: 15px;
+        font-size: 1.3vw;
         user-select: none;
         .DateName {
           color: $v-black;
           margin-bottom: 3vw;
-          font-size: 13px;
+          font-size: 1.2vw;
         }
         .Day,
         .pDay,
@@ -100,15 +99,15 @@
       }
       .Whether {
         display: grid;
-        padding: 3px 2vw;
+        padding: 0.2vw 2vw;
         grid-template-columns: 1fr 2.5fr 1fr 2fr;
-        height: 40px;
+        height: 3.5vw;
         background-color: $gray2;
         border-radius: 10px;
         justify-content: center;
         align-content: center;
         div {
-          font-size: 17px;
+          font-size: 1.6vw;
           color: $gray5;
           align-self: center;
         }
@@ -171,6 +170,32 @@
           }
         }
       }
+      .ScheduleDiv {
+        margin-top: 3vh;
+        .ScheduleTitle {
+          border: 0px;
+          border-bottom: 1px solid $gray3;
+          width: 100%;
+          color: $v-black;
+          font-size: 1.9vw;
+          width: 100%;
+          text-align: start;
+          padding-bottom: 1vh;
+          margin-bottom: 1.5vh;
+        }
+        .ScheduleIntroduction {
+          border: 0px;
+          border-bottom: 1px solid $gray3;
+          width: 100%;
+          color: $v-black;
+          font-size: 1.35vw;
+          width: 100%;
+          text-align: start;
+          padding-bottom: 1vh;
+          margin-bottom: 1.5vh;
+          line-height: 1.5;
+        }
+      }
     }
   }
 
@@ -198,7 +223,14 @@
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
         justify-items: start;
-        margin-top: 10px;
+        margin-top: 0.8vw;
+        .Name {
+          font-size: 1.3vw;
+        }
+        .Like {
+          font-size: 1.2vw;
+          margin-left: 0.3vw;
+        }
         .LikeIcon {
           display: block;
           width: $items-width * (2/25);

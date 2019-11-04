@@ -8,7 +8,16 @@ import TempIcon from '../../img/temp_icon.png';
 import { makeDayObj } from '../../Tool';
 
 const Requestor = ({ requestor }) => {
-  const DayObj = makeDayObj(String(requestor.schedule.date));
+  const {
+    schedule,
+    profile_image,
+    grade,
+    name,
+    id,
+    self_introduction,
+  } = requestor;
+
+  const DayObj = makeDayObj(String(schedule.date));
   const today = new Date();
   const gap = today.getTime() - DayObj.getTime();
   const dday = Math.floor(gap / (1000 * 60 * 60 * 24));
@@ -17,22 +26,22 @@ const Requestor = ({ requestor }) => {
     <div className="Requestor">
       <div className="Profile">
         <div className="ProfileImg">
-          <img src={ProfileIcon} alt="ProfileIcon" />
+          <img src={profile_image || ProfileIcon} alt="ProfileIcon" />
         </div>
         <div className="ProfileInfo">
-          {requestor.name}
+          {name}
           <div className="Grade">
             <img src={GradeIcon} alt="GradIcon" />
-            {requestor.grade}
+            {grade}
           </div>
         </div>
       </div>
       <div className="UserInterface">
-        <div>{requestor.self_introduction}</div>
-        <LinkDiv to={`recommend/${requestor.id}`} className="ClosetViewButton">
+        <div>{self_introduction}</div>
+        <LinkDiv to={`recommend/${id}`} className="ClosetViewButton">
           <>
             <img src={ClosetIcon} alt="ClosetIcon" />
-            {requestor.name} 님의 옷장
+            <span className="name">{name} 님의 옷장</span>
           </>
         </LinkDiv>
       </div>
@@ -50,10 +59,8 @@ const Requestor = ({ requestor }) => {
             <div>14도</div>
           </div>
         </div>
-        <div className="Title">{requestor.schedule.schedule_title}</div>
-        <div className="Introduction">
-          {requestor.schedule.schedule_introduction}
-        </div>
+        <div className="Title">{schedule.title}</div>
+        <div className="Introduction">{schedule.introduce}</div>
       </div>
     </div>
   );

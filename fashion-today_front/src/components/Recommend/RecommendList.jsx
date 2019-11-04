@@ -13,7 +13,7 @@ const MakeRequestors = RequestorList => {
 
 const RecommendList = () => {
   const user = useContext(UserContext);
-  const RequestorList = useFetch('post', 'requestor/list', user.token);
+  const RequestorList = useFetch('get', 'recommend/list', user.token);
   console.log(RequestorList);
 
   const Requstors = MakeRequestors(RequestorList);

@@ -12,7 +12,7 @@
   $dropdown-width: 50px;
   position: fixed;
   top: 4vh;
-  z-index: 100000;
+  z-index: 10000;
   margin: 0 $margin;
   width: $width;
   height: $height;
@@ -33,7 +33,7 @@
       padding-left: 3vw;
       justify-self: start;
       a {
-        margin-right: 3vw;
+        margin-right: 3.5vw;
         font-size: 13px;
         font-weight: lighter;
       }
@@ -128,7 +128,7 @@
 .Footer {
   width: 100vw;
   height: 15vh;
-  margin-top: 5vh;
+  margin-top: 10vh;
   background-color: $v-black;
 }
 

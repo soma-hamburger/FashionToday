@@ -9,7 +9,7 @@ import shirtsIcon from '../../img/category/shirts_icon.png';
 import teeIcon from '../../img/category/tee_icon.png';
 import accesoryIcon from '../../img/category/accesory_icon.png';
 
-const getCategoryIcon = category => {
+export const getCategoryIcon = category => {
   let src;
   if (category === 'jean') src = jeanIcon;
   if (category === 'bag') src = bagIcon;
@@ -40,6 +40,9 @@ const MakeClothes = (category, color, array, onClick) => {
     filterdArray = filterdArray.filter(clothes => clothes.color === color);
   }
 
+  if (!filterdArray) {
+    return null;
+  }
   return filterdArray.map(clothes => {
     const categoryIcon = getCategoryIcon(clothes.category);
     return (

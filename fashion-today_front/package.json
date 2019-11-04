@@ -41,7 +41,8 @@
       "arrow-body-style": 1,
       "no-plusplus": 1,
       "react/no-array-index-key": 1,
-      "react/forbid-prop-types": 1
+      "react/forbid-prop-types": 1,
+      "camelcase": 1
     }
   },
   "browserslist": {

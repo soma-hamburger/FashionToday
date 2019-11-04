@@ -9,17 +9,21 @@ import {
   LookListInfo,
   UserScheduleDetail,
   UserScheduleList,
+  DailyLookDetail,
+  LookDetail,
 } from './defaultAPI';
 
 const findDefaultAPI = url => {
   if (url === 'closet') return { data: UserCloset };
   if (url === 'user/info') return { data: UserInfo };
-  if (url === 'user/dailylook') return { data: getDailyLookList };
-  if (url === 'user/schedule/list') return { data: UserScheduleList };
-  if (url === 'user/schedule/detail') return { data: UserScheduleDetail };
-  if (url === 'requestor/list') return { data: LookRequestorList };
+  if (url === 'dailylooklist') return { data: getDailyLookList };
+  if (url === 'schedule/list') return { data: UserScheduleList };
+  if (url === 'schedule/detail') return { data: UserScheduleDetail };
+  if (url === 'recommend/list') return { data: LookRequestorList };
   if (url === 'requestor/closet') return { data: RequestorCloset };
-  if (url === 'look') return { data: LookListInfo };
+  if (url === 'looklist') return { data: LookListInfo };
+  if (url === 'dailylook') return { data: DailyLookDetail };
+  if (url === 'look') return { data: LookDetail };
   return null;
 };
 
@@ -72,11 +76,15 @@ export const useFetch = (method, url, token, body) => {
 
   useEffect(() => {
     const postRes = async () => {
-      const response = await UserPost(url, token, body);
+      let parsedBody = null;
+      if (body) parsedBody = JSON.parse(body);
+      const response = await UserPost(url, token, parsedBody);
       setRes(response);
     };
     const getRes = async () => {
-      const response = await UserGet(url, token, body);
+      let parsedBody = null;
+      if (body) parsedBody = JSON.parse(body);
+      const response = await UserGet(url, token, parsedBody);
       setRes(response);
     };
 
@@ -85,8 +93,35 @@ export const useFetch = (method, url, token, body) => {
     } else {
       getRes();
     }
+  }, [body, method, token, url]);
+
+  return res;
+};
+
+export const useWeahterAPI = date => {
+  const [res, setRes] = useState(null);
+
+  const key =
+    'g9j0VQ1w%2B2FL2%2BirUmwnrqHSJa8Z5NlLn9pwnVa4MAdiy13rX2kf5WPbcWLKDN9S7F4Is5ht9eJKcAniXhZGjw%3D%3D';
+
+  const userInstance = axios.create({
+    baseURL: `http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?ServiceKey=${key}&base_date=${date}&base_time=0200&nx=59&ny=125&_type=json`,
+    timeout: 2000,
+  });
+
+  useEffect(() => {
+    const getRes = async () => {
+      try {
+        const response = await userInstance.get();
+        setRes(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getRes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, token]);
+  }, [userInstance]);
 
   return res;
 };

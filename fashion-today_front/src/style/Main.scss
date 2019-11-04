@@ -1,5 +1,7 @@
 @import './utils.scss';
 
+.dailyLookUp,
+.LookUp,
 .Main {
   $grid-gap: 2vw;
   $grid-repeat: 4;
@@ -10,37 +12,37 @@
     margin-top: -30px;
   }
   .Introduce {
-    font-size: 12px;
+    font-size: 1.2vw;
     line-height: 1.5;
     font-family: $noto-sans;
     width: 100vw;
     margin: 5vh 0;
     .PinWhite {
-      width: 25px;
+      width: 2.3vw;
     }
     .Title {
-      margin-top: 15px;
+      margin-top: 1.5vw;
       line-height: 1;
-      font-size: 30px;
+      font-size: 2.7vw;
       font-weight: bolder;
     }
     .SubTitle {
-      margin-top: 15px;
+      margin-top: 1.5vw;
       line-height: 1;
-      font-size: 20px;
+      font-size: 1.8vw;
       font-weight: lighter;
     }
     .SlashIcon {
-      width: 30px;
-      margin-top: 30px;
-      margin-bottom: 15px;
+      width: 2.7vw;
+      margin-top: 2.7vw;
+      margin-bottom: 1.3vw;
     }
   }
   .LookImage {
     width: $items-width;
     height: $items-width * $image-ratio;
     border: 0px;
-    border-radius: 7px;
+    border-radius: 0.4vw;
     background-color: $gray2;
   }
   .ProfileImage {
@@ -64,25 +66,24 @@
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
         justify-items: center;
-        margin-top: 3px;
-        width: $items-width;
+        margin-top: 0.5vw;
         height: $items-width * (6/25);
         vertical-align: center;
         background-color: $w-violet4;
-        border-radius: 7px;
+        border-radius: 0.4vw;
         .GradeIcon {
           display: block;
           width: $items-width * (2/25);
         }
         .Name,
         .Grade {
-          font-size: 15px;
+          font-size: 1.3vw;
           justify-self: start;
         }
         .Grade {
           margin-left: 0.8vw;
           margin-top: 3px;
-          font-size: 13px;
+          font-size: 1.2vw;
         }
       }
     }
@@ -100,16 +101,230 @@
     margin: 0 (100vw - $width) * 0.5;
     .LookPreview {
       .UserInfo {
-        width: $items-width;
         display: grid;
         grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
         align-items: center;
-        justify-items: start;
-        margin-top: 10px;
+        justify-items: center;
+        margin-top: 0.8vw;
+        .Name {
+          font-size: 1.3vw;
+          justify-self: start;
+        }
+        .Like {
+          font-size: 1.2vw;
+        }
         .LikeIcon {
           display: block;
-          width: $items-width * (2/25);
+          width: $items-width * (2.4/25);
         }
+      }
+    }
+  }
+}
+
+.blurBox {
+  z-index: 20000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: $v-black;
+  opacity: 0.7;
+}
+
+.dailyLookUp,
+.LookUp {
+  filter: blur(5px);
+}
+
+.LookPopUp,
+.DailyLookPopUp {
+  $popup-width: 80vmin;
+  $popup-height: 75vmin;
+  $popup-padding: 5vmin;
+  z-index: 1000000;
+  width: $popup-width;
+  height: $popup-height;
+  top: 50%;
+  left: 50%;
+  margin-top: -$popup-height / 2;
+  margin-left: -$popup-width / 2;
+  position: fixed;
+  border-radius: 2vw;
+  .Head {
+    background-color: $w-violet3;
+    height: 20vmin;
+    padding-left: 5vmin;
+    padding-right: 5vmin;
+    border-radius: 2vmin 2vmin 0 0;
+    position: relative;
+    .PopUpInterface {
+      height: 20vmin;
+      display: grid;
+      justify-items: start;
+      align-items: center;
+      grid-template-columns: 10fr 35fr 45fr;
+      img {
+        width: 1.8vmin;
+        justify-self: center;
+      }
+      .PopUpTitle {
+        font-size: 3.5vmin;
+        color: $v-black;
+      }
+      .Description {
+        color: $v-black;
+        line-height: 1.7;
+        font-size: 2vmin;
+      }
+    }
+    .CloseIcon {
+      width: 3vmin;
+      position: absolute;
+      top: 1vw;
+      right: 1vw;
+      cursor: pointer;
+    }
+  }
+  .Body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: $gray3;
+    padding: 5vmin;
+    height: 45vmin;
+    border-radius: 0 0 2vmin 2vmin;
+    .lookImage {
+      position: relative;
+      padding-right: 5vmin;
+      .ChoiceButton {
+        position: absolute;
+        top: 34vmin;
+        right: 6vmin;
+        width: 6vmin;
+        height: 3vmin;
+        font-size: 0.3vmin;
+        color: $white;
+        border-radius: 0.7vmin;
+        border: 0;
+        background-color: $violet2;
+      }
+      .LookImage {
+        border-radius: 0.5vw;
+        width: 30vmin;
+        height: 30vmin * $image-ratio;
+      }
+      .RecommenderInfo {
+        height: 5vmin;
+        display: grid;
+        grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
+        align-items: center;
+        justify-items: center;
+        margin-top: 1vmin;
+        vertical-align: center;
+        background-color: $w-violet1;
+        border-radius: 0.5vw;
+        .ProfileImage {
+          width: 3vmin;
+        }
+        .GradeIcon {
+          display: block;
+          width: 2vmin;
+        }
+        .Name,
+        .Grade {
+          font-size: 2vmin;
+          justify-self: start;
+        }
+        .Grade {
+          margin-left: 0.8vmin;
+          margin-top: 0.3vmin;
+          font-size: 1.8vmin;
+        }
+      }
+    }
+    .ClothesArray {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2vmin;
+      overflow: scroll;
+      .CItem {
+        margin-bottom: 2vmin;
+        .Image {
+          width: 16.5vmin;
+          height: 16.5vmin * $image-ratio;
+          background-color: $w-violet1;
+          border-radius: 0.5vmin;
+        }
+        .Account {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $v-black;
+          margin-top: 0.5em;
+          height: 2vmin;
+          font-size: 1.8vmin;
+          .categoryIcon {
+            height: 2vmin;
+            width: 2vmin;
+            border: 0.5px solid $v-black;
+            border-radius: 1vmin;
+            margin-right: 0.3vmin;
+            img {
+              display: block;
+              width: 1.4vmin;
+              height: 1.4vmin;
+              margin: 0.3vmin 0.3vmin;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.LookPopUp {
+  .PopUpInterface {
+    grid-template-rows: 2fr 1.5fr;
+    img {
+      align-self: end;
+
+      margin-bottom: 1vmin;
+    }
+    .PopUpTitle {
+      align-self: end;
+      margin-bottom: 1vmin;
+    }
+    .Description {
+      grid-column: 3 / 4;
+      grid-row: 1 / 3;
+    }
+    .UserInfo {
+      grid-column: 1 / 3;
+      align-self: start;
+      display: grid;
+      grid-template-columns: 7fr 10fr 2.5fr 5.5fr;
+      align-items: center;
+      justify-items: center;
+      background-color: $w-violet1;
+      margin-top: 1vmin;
+      margin-left: 2vmin;
+      width: 20vmin;
+      height: 4.5vmin;
+      border-radius: 0.5vmin;
+      font-size: 2vmin;
+      font-weight: lighter;
+      .ProfileImage {
+        margin: 0;
+        align-self: center;
+        width: 3.5vmin;
+      }
+      .Name {
+        justify-self: start;
+      }
+      .LikeIcon {
+        margin: 0;
+        align-self: center;
+        width: 2.5vmin;
+        height: auto;
       }
     }
   }
