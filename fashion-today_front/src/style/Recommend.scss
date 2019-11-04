@@ -10,16 +10,17 @@
     padding: $padding;
     @include center-margin($width, $padding);
     border: 1px solid $gray3;
-    border-radius: 10px;
+    border-radius: 1vw;
     margin-bottom: 5vh;
     display: grid;
     grid-template-columns: 25fr 57fr 50fr;
     .Profile {
       background-color: $gray3;
-      border-radius: 8px;
+      border-radius: 0.8vw;
+      height: 17.5vw;
       .ProfileImg {
         background-color: $gray2;
-        border-radius: 8px 8px 0px 0px;
+        border-radius: 0.8vw 0.8vw 0px 0px;
         padding: 1.5vw 2.5vw;
         img {
           border-radius: 10vw;
@@ -40,7 +41,7 @@
           font-weight: normal;
           img {
             width: 1.3vw;
-            margin-right: 3px;
+            margin-right: 0.3vw;
           }
         }
       }
@@ -48,24 +49,22 @@
     .UserInterface {
       padding: 3vw;
       border-right: 7px solid $gray2;
-      border-radius: 4;
       line-height: 1.5;
-      font-size: 15px;
+      font-size: 1.5vw;
       .ClosetViewButton {
-        line-height: normal;
         margin-top: 3vh;
         background-color: $violet2;
+        font-size: 1vw;
         width: max-content;
-        font-size: 11px;
-        border-radius: 10px;
-        padding: 4px 1.4vw;
+        border-radius: 1vw;
+        padding: 0.4vw 1.4vw;
         color: $white;
         display: flex;
         align-items: center;
         justify-items: center;
         img {
-          width: 14px;
-          margin-right: 10px;
+          width: 1.4vw;
+          margin-right: 1vw;
         }
       }
     }
@@ -81,10 +80,11 @@
         margin-top: 1vw;
         grid-gap: 1vw;
         .DDay {
-          font-size: 11px;
-          padding-top: 1vw;
+          font-size: 1.1vw;
+          padding-top: 1.1vw;
           padding-left: 0.3vw;
           padding-right: 0.3vw;
+          padding-bottom: 0.2vw;
           width: max-content;
           background-image: url('../img/dday_icon.png');
           background-size: 100% 100%;
@@ -94,13 +94,13 @@
         .Whether {
           display: grid;
           grid-template-columns: 1fr 2.5fr 1fr 2fr;
-          font-size: 12px;
+          font-size: 1.2vw;
           align-self: center;
           justify-items: center;
           align-items: center;
-          border-radius: 30px;
+          border-radius: 3vw;
           background-color: $gray2;
-          padding: 5px 2vw;
+          padding: 0.5vw 1vw;
           .tempicon {
             width: 50%;
           }
@@ -112,7 +112,8 @@
         margin: 2vh 0;
       }
       .Introduction {
-        font-size: 14px;
+        font-size: 1.3vw;
+        line-height: 1.5;
         color: $gray5;
       }
     }
@@ -132,7 +133,7 @@
     .LookForm {
       margin-top: 5vh;
       background-color: $gray3;
-      border-radius: 10px;
+      border-radius: 1vw;
       width: $width;
       padding: $padding;
       @include center-margin($width, $padding);
@@ -142,21 +143,21 @@
         background-color: $gray1;
         width: 25vw;
         height: 32vw;
-        border-radius: 7px 0px 0px 7px;
+        border-radius: 0.6vw 0px 0px 0.6vw;
         position: relative;
         .plusicon,
         .minusicon {
           position: absolute;
-          width: 18px;
-          bottom: 5px;
-          left: 10px;
+          width: 1.8vw;
+          bottom: 0.8vw;
+          left: 1vw;
         }
         .minusicon {
-          left: 35px;
+          left: 3.5vw;
         }
       }
       .LookInfo {
-        border-radius: 0px 7px 7px 0px;
+        border-radius: 0px 0.6vw 0.6vw 0px;
         background-color: $w-violet3;
         padding: 3vw;
         position: relative;
@@ -190,7 +191,7 @@
           position: absolute;
           bottom: 3vw;
           right: 3vw;
-          font-size: 15px;
+          font-size: 1.3vw;
           padding: 0.5vw 1.5vw;
           background-color: $violet2;
           color: $white;

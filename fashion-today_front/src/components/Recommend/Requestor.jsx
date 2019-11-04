@@ -37,7 +37,7 @@ const Requestor = ({ requestor }) => {
         <LinkDiv to={`recommend/${requestor.id}`} className="ClosetViewButton">
           <>
             <img src={ClosetIcon} alt="ClosetIcon" />
-            {requestor.name} 님의 옷장
+            <span className="name">{requestor.name} 님의 옷장</span>
           </>
         </LinkDiv>
       </div>

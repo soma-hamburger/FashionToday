@@ -42,7 +42,7 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
           <ClickImg
             onClick={clickLike}
             src={LikeIcon}
-            alt={look.user_id}
+            alt={String(look.user_id)}
             className="LikeIcon"
           />
           <div className="Like">

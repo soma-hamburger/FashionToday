@@ -277,7 +277,7 @@ export const LookRequestorList = {
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
       grade: 100,
-      profile_image: 'https://imageurl/profile/:id',
+      profile_image: null,
       schedule: {
         date: 20191024,
         star_num: 5,
@@ -291,7 +291,7 @@ export const LookRequestorList = {
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
       grade: 100,
-      profile_image: 'https://imageurl/profile/:id',
+      profile_image: null,
       schedule: {
         date: 20190810,
         star_num: 5,
@@ -305,7 +305,7 @@ export const LookRequestorList = {
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
       grade: 100,
-      profile_image: 'https://imageurl/profile/:id',
+      profile_image: null,
       schedule: {
         date: 20190810,
         star_num: 5,
@@ -319,7 +319,7 @@ export const LookRequestorList = {
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
       grade: 100,
-      profile_image: 'https://imageurl/profile/:id',
+      profile_image: null,
       schedule: {
         date: 20190810,
         star_num: 5,
@@ -333,7 +333,7 @@ export const LookRequestorList = {
       name: '장동훈',
       self_introduction: '장동훈입니다 ㅎㅎ',
       grade: 100,
-      profile_image: 'https://imageurl/profile/:id',
+      profile_image: null,
       schedule: {
         date: 20190810,
         star_num: 5,

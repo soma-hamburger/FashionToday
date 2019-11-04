@@ -4,14 +4,14 @@
   width: $width;
   padding: 0 $padding;
   color: $v-black;
-  font-size: 20px;
+  font-size: 2vw;
   font-weight: bold;
   padding-top: 5vh;
   padding-bottom: 1vh;
   @include center-margin($width, $padding);
   border-bottom: 2px solid $v-black;
   .describe {
-    font-size: 12px;
+    font-size: 1.2vw;
     font-weight: normal;
     margin-left: 3vw;
   }
@@ -24,15 +24,15 @@
   justify-content: space-between;
   align-items: center;
   select {
-    margin-right: 20px;
-    font-size: 15px;
-    padding: 2px 5px;
+    margin-right: 2vw;
+    font-size: 1.5vw;
+    padding: 0.2vw 0.5vw;
   }
   .NavButton {
     border: 0;
-    border-radius: 7px;
-    font-size: 15px;
-    padding: 4px 18px;
+    border-radius: 0.7vw;
+    font-size: 1.5vw;
+    padding: 0.4vw 1.8vw;
     color: $white;
     background-color: $violet2;
   }
@@ -54,7 +54,7 @@
       width: 100%;
       height: $items-width * $image-ratio;
       border: 0px;
-      border-radius: 5px;
+      border-radius: 0.5vw;
       background-color: $gray2;
     }
     .Account {
@@ -62,19 +62,20 @@
       justify-content: center;
       align-items: center;
       color: $v-black;
-      margin-top: 0.5em;
-      height: 20px;
+      margin-top: 0.5vw;
+      height: 2vw;
+      font-size: 1.5vw;
       .categoryIcon {
-        height: 20px;
-        width: 20px;
+        height: 1.9vw;
+        width: 1.9vw;
         border: 0.5px solid $v-black;
-        border-radius: 10px;
-        margin-right: 3px;
+        border-radius: 1vw;
+        margin-right: 0.3vw;
         img {
           display: block;
-          width: 14px;
-          height: 14px;
-          margin: 3px 3px;
+          width: 1.35vw;
+          height: 1.35vw;
+          margin: 0.3vw 0.3vw;
         }
       }
     }
