@@ -12,25 +12,112 @@
         tools:showIn="@layout/pashion_app_bar">
 
     <ScrollView
+            android:id="@+id/sv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fillViewport="true"
             android:background="@drawable/border_back">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:background="@drawable/border_back"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:id="@+id/main_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="199dp"
+                    android:background="@drawable/image_box"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/main_background" />
+
+            <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    app:srcCompat="@drawable/pin_white" />
+
+            <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="나만의 데일리룩 추천"
+                    android:textColor="@color/w_black"
+                    android:textSize="25sp"
+                    app:fontFamily="@font/noto_sans_bold" />
+
+            <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="My special dailylook"
+                    android:textColor="@color/w_black" />
+
+            <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@drawable/slash_icon" />
+
+            <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/main_str1"
+                    android:textColor="@color/w_black"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/main_str2"
+                    android:textColor="@color/w_black"
+                    android:textSize="12sp" />
+
+            <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/main_str3"
+                    android:textColor="@color/w_black"
+                    android:textSize="12sp" />
+
+            <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    app:srcCompat="@drawable/separate_line" />
+
+            <com.soma.pashion_today.Page.ExpandableHeightGridView
+                    android:id="@+id/Look_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="527dp"
+                    android:background="@drawable/border_back"
+                    android:isScrollContainer="false"
+                    android:numColumns="2"
+                    android:stretchMode="columnWidth"
+                    tools:layout_editor_absoluteY="166dp">
+
+            </com.soma.pashion_today.Page.ExpandableHeightGridView>
+        </LinearLayout>
     </ScrollView>
 
-    <GridView
-            android:id="@+id/Look_list"
-            android:layout_width="406dp"
-            android:layout_height="414dp"
 
-            android:background="@drawable/border_back"
-            android:numColumns="2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

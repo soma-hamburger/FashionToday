@@ -1,24 +1,20 @@
 package com.soma.pashion_today.Page
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.*
+import android.widget.*
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
-import android.view.MenuItem
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import com.soma.pashion_today.R
 import kotlinx.android.synthetic.main.pashion_content.*
 import org.json.JSONArray
@@ -26,6 +22,7 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
+import kotlin.math.exp
 
 
 /*****
@@ -55,10 +52,17 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
+//        var img=findViewById<ImageView>(R.id.imageView3)
+//        img.setBackgroundResource(R.drawable.border_back)
+//        img.clipToOutline(true)
+
         // 리스트뷰 구성 어댑터객체 생성
         var look_list_adapter=ListAdapter()
         Look_list.adapter=look_list_adapter
+        Look_list.SetExpanded(true)
 
+        // Look_list.setOnTouchListener(LvListener())
         // 데이터 받기 시작 -> 서버에 요청하는 작업으로 변경해야한다
 
         // <임시 데이터 넣는 작업>
@@ -174,7 +178,11 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
+
     // 사진을 서버에서 받아 저장하여 관리하
+
+
+
     inner class ListAdapter:BaseAdapter(){
         override fun getCount(): Int {
             return look_list.size
@@ -245,6 +253,13 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             startActivity(detail_intent)
         }
     }
+//
+//    inner class LvListener : View.OnTouchListener{
+//        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//            sv.requestDisallowInterceptTouchEvent(true)
+//            return false
+//        }
+//    }
 
      // 서버에서 JSONarray 받는 클래스
      inner class NetworkThread:Thread(){
@@ -311,4 +326,35 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 }
 
 
+class ExpandableHeightGridView : GridView{
 
+    var expanded=false
+
+    constructor(context: Context) : this(context,null)
+
+    constructor(context : Context, attrs : AttributeSet?) :super(context,attrs)
+
+    constructor(context : Context, attrs : AttributeSet?, defStyle : Int) : super(context,attrs,defStyle)
+
+    fun isExpanded() : Boolean{
+        return expanded
+    }
+
+    fun SetExpanded( expanded : Boolean){
+        this.expanded=expanded
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        if(isExpanded()){
+            var expandSpec=MeasureSpec.makeMeasureSpec(View.MEASURED_SIZE_MASK,MeasureSpec.AT_MOST)
+            super.onMeasure(widthMeasureSpec, expandSpec)
+
+            var params:ViewGroup.LayoutParams?=null
+            params?.height=measuredHeight
+
+        }
+        else{
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        }
+    }
+}
