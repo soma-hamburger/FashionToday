@@ -191,7 +191,7 @@
     background-color: $gray3;
     padding: 5vmin;
     height: 45vmin;
-    border-radius: 0 0 2vw 2vw;
+    border-radius: 0 0 2vmin 2vmin;
     .lookImage {
       position: relative;
       padding-right: 5vmin;
@@ -231,13 +231,13 @@
         }
         .Name,
         .Grade {
-          font-size: 15px;
+          font-size: 2vmin;
           justify-self: start;
         }
         .Grade {
-          margin-left: 0.8vw;
-          margin-top: 3px;
-          font-size: 13px;
+          margin-left: 0.8vmin;
+          margin-top: 0.3vmin;
+          font-size: 1.8vmin;
         }
       }
     }
@@ -261,6 +261,7 @@
           color: $v-black;
           margin-top: 0.5em;
           height: 2vmin;
+          font-size: 1.8vmin;
           .categoryIcon {
             height: 2vmin;
             width: 2vmin;

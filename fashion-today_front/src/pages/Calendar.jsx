@@ -19,9 +19,7 @@ const Calendar = ({ match }) => {
   const { token } = useContext(UserContext);
   const ScheduleList = useFetch('get', 'schedule/list', token);
   const LookListInfo = useFetch('post', 'looklist', token);
-  console.log(ScheduleList);
   let scheduleIndex = -1;
-
   if (ScheduleList) {
     scheduleIndex = ScheduleList.data.schedule_array.findIndex(
       s => s.date === DayId,

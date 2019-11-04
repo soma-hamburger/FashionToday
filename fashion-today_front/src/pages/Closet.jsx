@@ -18,8 +18,6 @@ const Closet = () => {
     setColor,
     setCategory,
   };
-
-  console.log(UserCloset);
   return (
     <div className="Closet">
       <img

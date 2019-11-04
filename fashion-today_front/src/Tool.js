@@ -18,7 +18,7 @@ const findDefaultAPI = url => {
   if (url === 'user/info') return { data: UserInfo };
   if (url === 'dailylooklist') return { data: getDailyLookList };
   if (url === 'schedule/list') return { data: UserScheduleList };
-  if (url === 'user/schedule/detail') return { data: UserScheduleDetail };
+  if (url === 'schedule/detail') return { data: UserScheduleDetail };
   if (url === 'recommend/list') return { data: LookRequestorList };
   if (url === 'requestor/closet') return { data: RequestorCloset };
   if (url === 'looklist') return { data: LookListInfo };

@@ -12,8 +12,6 @@ import MyPage from './pages/MyPage';
 
 const getToken = () => {
   const token = localStorage.getItem('token');
-
-  console.log(`getToken: ${token}`);
   if (token === null) return false;
   return token;
 };
@@ -42,11 +40,11 @@ function App() {
           <Route exact path="/" component={Index} />
           <Route
             path="/login"
-            render={props => (
+            render={({ history, location }) => (
               <LogIn
                 setToken={setToken}
-                history={props.history}
-                location={props.location}
+                history={history}
+                location={location}
               />
             )}
           />

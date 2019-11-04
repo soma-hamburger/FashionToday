@@ -55,6 +55,7 @@ const DailyLookPopUp = ({ lookId, close, token }) => {
   };
 
   console.log(DailyLookDetail);
+
   return (
     <div className="DailyLookPopUp">
       <div className="Head">
