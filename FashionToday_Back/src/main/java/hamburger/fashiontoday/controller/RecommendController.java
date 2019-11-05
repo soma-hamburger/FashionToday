@@ -1,6 +1,8 @@
 package hamburger.fashiontoday.controller;
 
 
+import hamburger.fashiontoday.domain.lookstructure.LookStructure;
+import hamburger.fashiontoday.domain.lookstructure.LookStructureRepository;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.recommend.RecommendListInfo;
@@ -8,16 +10,18 @@ import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
+import hamburger.fashiontoday.service.S3Uploader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author : 심기성
@@ -38,6 +42,9 @@ public class RecommendController {
     private JwtService jwtService;
 
     @Autowired
+    S3Uploader s3Uploader;
+
+    @Autowired
     MemberRepository memberRepository;
 
     // 스케줄 상태 레파지토리
@@ -50,13 +57,17 @@ public class RecommendController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
+    @Autowired
+    LookStructureRepository lookStructureRepository;
+
     // 저장
     @PostMapping(value = "")
-    public TmpLook recommandLook(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
+    public TmpLookInfo recommendLook(@RequestHeader(value = "Authorization") String token, @RequestParam("requestor_id") int requestorId, @RequestParam("data") String date,@RequestParam("look_img") MultipartFile multipartFile,@RequestParam("clothes_array") List<Integer> clothes,@RequestParam("look_title") String title,@RequestParam("look_introduce") String introduce){
 
         int loginMemberId = 0;
+        String imgUrl = new String();
         TmpLook tmpLook = new TmpLook();
-
+        TmpLookInfo tmpLookInfo = new TmpLookInfo();
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
@@ -64,10 +75,34 @@ public class RecommendController {
             System.out.println("유저 아이디 : " + loginMemberId);
 
         } else {
-            return new TmpLook();
+            tmpLookInfo.setRemark("login error");
+            return tmpLookInfo;
         }
 
-        return new TmpLook();
+        // 멀티 파트 파일 여부 확인
+        if(multipartFile == null){
+            tmpLookInfo.setRemark("no multipartfile");
+            return tmpLookInfo;
+        }
+
+        // 업로드
+        try{
+            imgUrl =  s3Uploader.upload(multipartFile,String.valueOf(loginMemberId));
+        }catch (Exception e){
+            tmpLookInfo.setRemark("upload error");
+            return tmpLookInfo;
+        }
+
+        tmpLook = new TmpLook(requestorId,date,imgUrl,loginMemberId);
+        tmpLookRepository.save(tmpLook);
+        for(int i = 0; i<clothes.size();i++){
+            int nowLookitemId = clothes.get(i);
+            LookStructure nowLookStructure = new LookStructure(requestorId,nowLookitemId,tmpLook.getTLId());
+            lookStructureRepository.save(nowLookStructure);
+        }
+
+
+        return new TmpLookInfo(tmpLook);
     }
 
 

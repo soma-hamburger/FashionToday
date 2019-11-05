@@ -8,10 +8,10 @@ import hamburger.fashiontoday.domain.lookstructure.LookStructureRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 
 /**
@@ -44,7 +44,30 @@ public class TestController {
 //       // return lookItemRepository.save(testLookitem);
 //    }
 
-    @GetMapping("/lookitemclass")
+    @PostMapping(value = "/multipart")
+    public void mulitpartTest(@RequestHeader(value = "Authorization") String token, @RequestParam("id") String id ,@RequestParam("look_img") MultipartFile multipartFile){
+        if(multipartFile==null) {
+            System.out.println("파일 안옴");
+        }else{
+            System.out.println("파일 옴");
+        }
+        if(id == null){
+            System.out.println("리퀘스트 안옴");
+        }else{
+            System.out.println("리퀘스트 옴");
+        }
+    }
+
+    @PostMapping(value = "/justFile")
+    public void justfileTest(@RequestHeader(value = "Authorization") String token, @RequestParam("look_img") MultipartFile multipartFile){
+        if(multipartFile==null) {
+            System.out.println("파일 안옴");
+        }else{
+            System.out.println("파일 옴");
+        }
+    }
+
+    @GetMapping(value = "/lookitemclass")
     public LookitemClass saveLookItemClass(){
         LookitemClass testLookItem = new LookitemClass("c","b","clothes","blouse");
         return lookItemClassRepository.save(testLookItem);

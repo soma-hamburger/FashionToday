@@ -27,13 +27,18 @@ public class TmpLook {
     @Column(name = "tlid")
     private int tLId;
 
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_tmpLook_kid"))
-    @Column(name = "kid")
-    private int kId;
+    @Column(name = "tlUrl")
+    private String tlUrl;
 
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_tmpLook_recommandMId"))
     @Column(name = "recommandMId")
     private int recommandMId;
 
+    public TmpLook(int mId, String ddate, String tlUrl, int recommandMId) {
+        this.mId = mId;
+        this.ddate = ddate;
+        this.tlUrl = tlUrl;
+        this.recommandMId = recommandMId;
+    }
 
 }
