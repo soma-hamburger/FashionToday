@@ -2,6 +2,7 @@ package hamburger.fashiontoday.domain.lookstructure;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "lookstructure")
 @IdClass(LookStructureId.class)
+@NoArgsConstructor
 public class LookStructure {
 
     @Id
