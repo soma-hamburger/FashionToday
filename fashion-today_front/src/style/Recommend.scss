@@ -17,13 +17,15 @@
     .Profile {
       background-color: $gray3;
       border-radius: 0.8vw;
-      height: 17.5vw;
+      height: 18vw;
       .ProfileImg {
         background-color: $gray2;
         border-radius: 0.8vw 0.8vw 0px 0px;
         padding: 1.5vw 2.5vw;
         img {
-          border-radius: 10vw;
+          width: 8vw;
+          height: 8vw;
+          border-radius: 4vw;
         }
       }
       .ProfileInfo {
