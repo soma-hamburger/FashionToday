@@ -93,12 +93,17 @@ public class RecommendController {
             return tmpLookInfo;
         }
 
-        tmpLook = new TmpLook(requestorId,date,imgUrl,loginMemberId);
-        tmpLookRepository.save(tmpLook);
-        for(int i = 0; i<clothes.size();i++){
-            int nowLookitemId = clothes.get(i);
-            LookStructure nowLookStructure = new LookStructure(requestorId,nowLookitemId,tmpLook.getTLId());
-            lookStructureRepository.save(nowLookStructure);
+        if(clothes.size() != 0) {
+            tmpLook = new TmpLook(requestorId,date,imgUrl,loginMemberId);
+            tmpLookRepository.save(tmpLook);
+            for (int i = 0; i < clothes.size(); i++) {
+                int nowLookitemId = clothes.get(i);
+                LookStructure nowLookStructure = new LookStructure(requestorId, nowLookitemId, tmpLook.getTLId());
+                lookStructureRepository.save(nowLookStructure);
+            }
+        }else{
+            tmpLookInfo.setRemark("no Clothes_array");
+            return tmpLookInfo;
         }
 
 
