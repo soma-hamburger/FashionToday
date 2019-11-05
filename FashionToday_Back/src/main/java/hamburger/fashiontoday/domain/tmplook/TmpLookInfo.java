@@ -12,12 +12,8 @@ public class TmpLookInfo {
 
     String remark;
 
-    String
-
     public TmpLookInfo(TmpLook tmpLook){
         this.remark = "success";
-
-
     }
 
 }
