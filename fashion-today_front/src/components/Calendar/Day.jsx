@@ -60,6 +60,7 @@ const Day = ({ dayId, isSchedule }) => {
         name="Title"
         type="text"
         placeholder="일정 제목"
+        autoComplete="off"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />

@@ -83,10 +83,10 @@
       text-align: center;
       .DDay {
         margin: 0 auto;
-        font-size: 15px;
-        padding-top: 18px;
-        width: 40px;
-        height: 22px;
+        font-size: 1.5vw;
+        padding-top: 1.8vw;
+        width: 4.15vw;
+        height: 2.3vw;
         background-image: url('../img/dday_icon.png');
         background-size: cover;
         background-repeat: no-repeat;
@@ -103,7 +103,7 @@
         grid-template-columns: 1fr 2.5fr 1fr 2fr;
         height: 3.5vw;
         background-color: $gray2;
-        border-radius: 10px;
+        border-radius: 1vw;
         justify-content: center;
         align-content: center;
         div {
@@ -129,7 +129,7 @@
           resize: none;
           box-sizing: border-box;
           color: $v-black;
-          font-size: 15px;
+          font-size: 1.5vw;
         }
         #Title {
           display: block;
@@ -137,7 +137,7 @@
           border-bottom: 1px solid $gray2;
           width: 100%;
           color: $v-black;
-          font-size: 20px;
+          font-size: 2vw;
           width: 85%;
         }
         .SubmitBar {
@@ -149,24 +149,24 @@
             align-content: center;
             img {
               align-self: center;
-              width: 20px;
-              height: 20px;
+              width: 2vw;
+              height: 2vw;
             }
             input {
-              margin-left: 5px;
-              width: 30px;
-              font-size: 13px;
+              margin-left: 0.5vw;
+              width: 3vw;
+              font-size: 1.3vw;
               color: $v-black;
               text-align: center;
             }
           }
           button {
-            font-size: 13px;
-            padding: 3px 3vw;
+            font-size: 1.3vw;
+            padding: 0.3vw 3vw;
             background-color: $violet2;
             color: $white;
             border: 0;
-            border-radius: 10px;
+            border-radius: 1vw;
           }
         }
       }

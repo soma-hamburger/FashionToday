@@ -9,7 +9,7 @@
   text-align: center;
   color: $v-black;
   .MainBackground {
-    margin-top: -30px;
+    margin-top: -3vw;
   }
   .Introduce {
     font-size: 1.2vw;
@@ -59,7 +59,7 @@
     @include center-margin($width, $padding);
     grid-gap: 2vw;
     background-color: $w-violet3;
-    border-radius: 10px;
+    border-radius: 1vw;
     .LookPreview {
       .UserInfo {
         display: grid;
@@ -82,7 +82,7 @@
         }
         .Grade {
           margin-left: 0.8vw;
-          margin-top: 3px;
+          margin-top: 0.3vw;
           font-size: 1.2vw;
         }
       }

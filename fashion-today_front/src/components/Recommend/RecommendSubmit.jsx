@@ -8,7 +8,7 @@ import React, {
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Image, Stage, Layer } from 'react-konva';
 import useImage from 'use-image';
-import { useFetch, useEventListener } from '../../Tool';
+import { useFetch, useEventListener, UserPost } from '../../Tool';
 import { UserContext } from '../../Context';
 import ClosetNavigation from '../Closet/ClosetNavigation';
 import Requestor from './Requestor';
@@ -208,7 +208,6 @@ const RecommendSubmit = ({ match }) => {
 
   const handleSelect = e => {
     e.preventDefault();
-    console.log(e.target);
     const currentId = LookImageData.currentID;
     const images = LookImageData.images.slice();
     const index = LookImageData.images.findIndex(i => i.src === e.target.src);
@@ -221,7 +220,21 @@ const RecommendSubmit = ({ match }) => {
     }
   };
 
-  console.log(LookImages);
+  const SendLook = async () => {
+    const canvas = LookImagesWindow.current.children[0].children[0].children[0];
+
+    canvas.toBlob(async blob => {
+      // eslint-disable-next-line prefer-const
+      let data = new FormData();
+      data.append('img', blob);
+      console.log(blob);
+
+      const res = await UserPost('look/upload', user.token, data);
+
+      console.log(res);
+    });
+  };
+
   return (
     <div className="RecommendSubmit">
       {RequestorInfo && <Requestor requestor={RequestorInfo} />}
@@ -259,6 +272,7 @@ const RecommendSubmit = ({ match }) => {
                   name="title"
                   type="text"
                   placeholder="룩 제목"
+                  autoComplete="off"
                 />
               </div>
               <textarea
@@ -268,7 +282,9 @@ const RecommendSubmit = ({ match }) => {
                 rows="6"
                 placeholder="룩 설명을 써주세요."
               />
-              <button type="submit">추천 완료</button>
+              <button type="button" onClick={SendLook}>
+                추천 완료
+              </button>
             </div>
           </form>
         </div>
