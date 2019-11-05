@@ -9,13 +9,11 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/image_box">
+            android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/gray1"
                 android:orientation="vertical">
 
             <TextView
@@ -121,14 +119,26 @@
 
             <com.soma.pashion_today.Page.ExpandableHeightGridView
                     android:id="@+id/Clothes_list"
-                    android:layout_width="410dp"
-                    android:layout_height="377dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="415dp"
                     android:layout_marginTop="30dp"
                     android:background="@color/gray3"
+                    android:isScrollContainer="false"
+                    android:numColumns="2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.454"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/look_introduction" />
+
+            <Button
+                    android:id="@+id/close_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/close_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

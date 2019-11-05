@@ -12,6 +12,8 @@
             android:id="@+id/Kakao_login"
             android:layout_width="240dp"
             android:layout_height="38dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
             android:layout_marginEnd="68dp"
             android:layout_marginRight="68dp"
             android:layout_marginBottom="156dp"

@@ -52,9 +52,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         R.drawable.top3,
         R.drawable.botton,
         R.drawable.button2,
-        R.drawable.button3,
-        R.drawable.shoes,
-        R.drawable.shoes2
+        R.drawable.button3
     )
 
     // 사진, 내부저장소 허가 권한 배열

@@ -12,7 +12,6 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -40,9 +39,6 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     // 서버로부터 받은 JSON array
     var look_JSONAry:JSONArray?=null
 
-    // 서버로부터 받은 JSON object
-    var look_JSONObj : JSONObject?=null
-
     // 리스트뷰를 구성하기 위한 룩 list
     var look_list=ArrayList<HashMap<String,Any>>()
 
@@ -52,9 +48,32 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     // 옷 서버로 받아서 관리하기 위한 list
     var fashion_imglist=HashMap<String,Bitmap>()
 
+    // 서버로부터 받은 JSON object
+    var look_JSONObj : JSONObject?=null
+
+    // 상세 옷들의 정보가 담긴 list
+    var user_clothes_list=ArrayList<HashMap<String,Any>>()
+
+    // 옷 타입 분류 변수
+    var clothes_type= arrayOf("accesory","bag","dress","hat","jean","shirts","shoes","tee")
+
+    // 옷 변수 png list
+    var clothes_list= intArrayOf(
+        R.drawable.accesory_icon,
+        R.drawable.bag_icon,
+        R.drawable.dress_icon,
+        R.drawable.hat_icon,
+        R.drawable.jean_icon,
+        R.drawable.shirts_icon,
+        R.drawable.shoes_icon,
+        R.drawable.tee_icon
+    )
+
+    var look_image:Bitmap?=null
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pashion)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -105,7 +124,6 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var dialog=Dialog(this)
             var dialog_view=layoutInflater.inflate(R.layout.main_dialog,null)
 
-            var user_clothes_list=ArrayList<HashMap<String,Any>>()
 
             var temp_look_title=look_JSONObj?.getString("look_title")
             var temp_look_intro=look_JSONObj?.getString("look_introduction")
@@ -114,6 +132,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var temp_name=temp_JSONObj?.getString("name")
             var temp_likenum=look_JSONObj?.getString("like_num")
             var temp_profile_site=temp_JSONObj?.getString("profile_image")
+
 
             if(temp_profile_site!="null"){
                 var profile_image:Bitmap?=profile_imglist.get(temp_profile_site)
@@ -132,6 +151,26 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             dialog_view.recommender_name.text=temp_name
             dialog_view.look_num.text=temp_likenum
 
+            var grid_adapter=DetailListAdapter()
+            dialog_view.Clothes_list.adapter=grid_adapter
+            dialog_view.Clothes_list.SetExpanded(true)
+
+            user_clothes_list.clear()
+            for(i in 0 until temp_JSONAry?.length()!!){
+                var obj=temp_JSONAry.getJSONObject(i)
+                var clothes_color=obj.getString("color")
+                var clothes_category=obj.getString("category")
+                var clothes_img=obj.getString("clothes_image")
+
+                var map=HashMap<String,Any>()
+                map.put("color",clothes_color)
+                map.put("category",clothes_category)
+                map.put("image",clothes_img)
+
+                user_clothes_list.add(map)
+            }
+
+
             dialog.setContentView(dialog_view)
             dialog.window!!.setBackgroundDrawableResource(R.drawable.image_box)
 
@@ -140,8 +179,11 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             lp.copyFrom(dialog.window!!.attributes)
             lp.width=850
             lp.height=1200
-
             dialog.window!!.attributes=lp
+
+            dialog_view.close_button.setOnClickListener { view->
+                dialog.dismiss()
+            }
             dialog.show()
         }
 
@@ -289,10 +331,59 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
+    inner class DetailListAdapter : BaseAdapter(){
+        override fun getCount(): Int {
+            return user_clothes_list.size
+        }
+
+        override fun getItem(position: Int): Any {
+            return 0
+        }
+
+        override fun getItemId(position: Int): Long {
+            return 0
+        }
+
+        override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+            var convertView=p1
+
+            if(convertView==null){
+                convertView=layoutInflater.inflate(R.layout.pashion_poplook_image,null)
+            }
+
+            var map=user_clothes_list.get(p0)
+
+            var garment_image=convertView?.findViewById<ImageView>(R.id.clothes)
+            var garment_info=convertView?.findViewById<TextView>(R.id.color)
+            var garment_type=convertView?.findViewById<ImageView>(R.id.clothes_type)
+
+            var image=map.get("image") as String
+            var color=map.get("color") as String
+            var category=map.get("category") as String
+
+
+            var image_thread=ClothesImageNetworkThread(image)
+            image_thread.start()
+            image_thread.join()
+
+
+            for(i in 0 until clothes_type.size){
+                if(clothes_type.get(i)==category){
+                    garment_type?.setImageResource(clothes_list.get(i))
+                }
+            }
+
+            garment_image?.setImageBitmap(look_image)
+            garment_info?.text="${color} , ${category}"
+
+            return convertView!!
+        }
+    }
+
      // 서버에서 JSONAry 받는 쓰래드
      inner class NetworkThread:Thread(){
         override fun run() {
-            var site="http://172.30.1.55:8085/MobileServer/Look_list.jsp"
+            var site="http://172.20.10.4:8085/MobileServer/Look_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()
@@ -318,7 +409,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     // 서버에서 Detail Look_Ary 받는 쓰래드
     inner class NetworkDetailThread : Thread(){
         override fun run() {
-            var site="http://172.30.1.55:8085/MobileServer/Look_detail_list.jsp"
+            var site="http://172.20.10.4:8085/MobileServer/Look_detail_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()
@@ -372,6 +463,15 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
                 var look_list_adapter=Look_list.adapter as ListAdapter
                 look_list_adapter.notifyDataSetChanged()
             }
+        }
+    }
+
+    inner class ClothesImageNetworkThread(var site : String) : Thread(){
+        override fun run() {
+            var url=URL(site)
+            var connection=url.openConnection()
+            var stream=connection.getInputStream()
+            look_image=BitmapFactory.decodeStream(stream)
         }
     }
 
