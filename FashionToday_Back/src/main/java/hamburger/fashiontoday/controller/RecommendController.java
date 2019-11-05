@@ -62,7 +62,7 @@ public class RecommendController {
 
     // 저장
     @PostMapping(value = "")
-    public TmpLookInfo recommendLook(@RequestHeader(value = "Authorization") String token, @RequestParam("requestor_id") int requestorId, @RequestParam("data") String date,@RequestParam("look_img") MultipartFile multipartFile,@RequestParam("clothes_array") List<Integer> clothes,@RequestParam("look_title") String title,@RequestParam("look_introduce") String introduce){
+    public TmpLookInfo recommendLook(@RequestHeader(value = "Authorization") String token, @RequestParam("requestor_id") int requestorId, @RequestParam("date") String date,@RequestParam("look_img") MultipartFile multipartFile,@RequestParam("clothes_array") List<Integer> clothes,@RequestParam("look_title") String title,@RequestParam("look_introduce") String introduce){
 
         int loginMemberId = 0;
         String imgUrl = new String();
