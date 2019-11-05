@@ -90,7 +90,7 @@ class PashionDetail : AppCompatActivity() , NavigationView.OnNavigationItemSelec
         }
 
 
-        look_detail_pager.adapter=CustomAdater()
+
 
 
 
@@ -168,33 +168,11 @@ class PashionDetail : AppCompatActivity() , NavigationView.OnNavigationItemSelec
     }
 
 
-    inner class CustomAdater : PagerAdapter(){
-        override fun getCount(): Int {
-            return view_list.size
-        }
-
-        // 현재 객체와 구분지을 객체랑 비교
-        // 안드로이드 os가 페이지를 구성하기 위해 객체를 자동 생성
-        // 안드로이드가 내부적으로 필요해서 만듬
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view==`object`
-        }
-
-        // pager의 객체에 보여질 뷰를 집어 넣는 함수
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            look_detail_pager.addView(view_list[position])
-            return view_list[position]
-        }
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            look_detail_pager.removeView(`object` as View)
-        }
-    }
 
 
     inner class NetworkThread : Thread(){
         override fun run() {
-            var site="http:172.20.10.4:8085/MobileServer/Look_detail_list.jsp"
+            var site="http://172.30.1.55:8085/MobileServer/Look_detail_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()

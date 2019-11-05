@@ -16,6 +16,9 @@
         <item name="windowNoTitle">true</item>
 
     </style>
+    <style name="MypopMenu" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/image_box</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>

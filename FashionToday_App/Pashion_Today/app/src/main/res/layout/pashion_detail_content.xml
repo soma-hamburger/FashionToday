@@ -8,13 +8,4 @@
         android:id="@+id/container"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/pashion_detail_app_bar"
-        tools:context=".Page.PashionDetail" android:orientation="vertical">
-    <TextView
-            android:text="상세 룩 정보입니다"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView6"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-    <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/look_detail_pager"/>
-</LinearLayout>
+        tools:context=".Page.PashionDetail" android:orientation="vertical"/>

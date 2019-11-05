@@ -1,5 +1,6 @@
 package com.soma.pashion_today.Page
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -11,38 +12,45 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.soma.pashion_today.R
+import kotlinx.android.synthetic.main.main_dialog.*
+import kotlinx.android.synthetic.main.main_dialog.view.*
 import kotlinx.android.synthetic.main.pashion_content.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
-import kotlin.math.exp
 
 
 /*****
  * 프로그램 ID : HAM-PA-500
  * 프로그램명 : Pashion.kt
  * 작성자명 : 오원석
- * 작성일자 : 2019.11.1
+ * 작성일자 : 2019.11.4
  * 버전 : v0.6
  */
 class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     // 서버로부터 받은 JSON array
-    var look_JSON_list:JSONArray?=null
+    var look_JSONAry:JSONArray?=null
+
+    // 서버로부터 받은 JSON object
+    var look_JSONObj : JSONObject?=null
 
     // 리스트뷰를 구성하기 위한 룩 list
     var look_list=ArrayList<HashMap<String,Any>>()
 
-    // 사진은 서버로 받아서 관리하기 위한 list
-    var profile_image_list=HashMap<String,Bitmap>()
-    var fashion_image_list=HashMap<String,Bitmap>()
+    // 프로필 서버로 받아서 관리하기 위한 list
+    var profile_imglist=HashMap<String,Bitmap>()
+
+    // 옷 서버로 받아서 관리하기 위한 list
+    var fashion_imglist=HashMap<String,Bitmap>()
 
 
 
@@ -53,37 +61,32 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         setSupportActionBar(toolbar)
 
 
-//        var img=findViewById<ImageView>(R.id.imageView3)
-//        img.setBackgroundResource(R.drawable.border_back)
-//        img.clipToOutline(true)
-
-        // 리스트뷰 구성 어댑터객체 생성
+        // 사용자 그리드 뷰 구성 어댑터객체 생성
         var look_list_adapter=ListAdapter()
         Look_list.adapter=look_list_adapter
+
+        // 사용자 그리드 뷰 확장 높이
         Look_list.SetExpanded(true)
 
-        // Look_list.setOnTouchListener(LvListener())
-        // 데이터 받기 시작 -> 서버에 요청하는 작업으로 변경해야한다
-
         // <임시 데이터 넣는 작업>
-        var network_thread=NetworkThread()
-        network_thread.start()
-        network_thread.join()
+        var temp_Thread=NetworkThread()
+        temp_Thread.start()
+        temp_Thread.join()
 
-        for(i in 0 until look_JSON_list?.length()!!) {
-            var root = look_JSON_list?.getJSONObject(i)
-            var user_name = root?.getString("user_name")
-            var user_icon = root?.getString("user_profile_image")
-            var user_pashion = root?.getString("look_image")
+
+        for(i in 0 until look_JSONAry?.length()!!) {
+            var temp_JSONObj = look_JSONAry?.getJSONObject(i)
+            var user_Name = temp_JSONObj?.getString("user_name")
+            var user_Profile = temp_JSONObj?.getString("user_profile_image")
+            var user_Fashion = temp_JSONObj?.getString("look_image")
 
             var map = HashMap<String, Any>()
-            map.put("user_name", user_name!!)
-            map.put("user_icon", user_icon!!)
-            map.put("user_pashion", user_pashion!!)
+            map.put("name", user_Name!!)
+            map.put("profile", user_Profile!!)
+            map.put("fashion", user_Fashion!!)
 
             look_list.add(map)
         }
-        // <여기까지 임시 데이터 넣는 작업>
 
         // 데이터 추가 받거나 화면 이동하여 다시 액티비티 실행 시 최신화
         runOnUiThread{
@@ -92,9 +95,55 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         }
 
         // 리스트 뷰 클릭 시 실행되는 이벤트
-        var listenr=ListListener()
-        Look_list.setOnItemClickListener(listenr)
+        Look_list.setOnItemClickListener { parent, view, position, id ->
+            Log.d("msg","댓다")
+            // 상세 룩 정보 받기
+            var network_Thread=NetworkDetailThread()
+            network_Thread.start()
+            network_Thread.join()
 
+            var dialog=Dialog(this)
+            var dialog_view=layoutInflater.inflate(R.layout.main_dialog,null)
+
+            var user_clothes_list=ArrayList<HashMap<String,Any>>()
+
+            var temp_look_title=look_JSONObj?.getString("look_title")
+            var temp_look_intro=look_JSONObj?.getString("look_introduction")
+            var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
+            var temp_JSONObj=look_JSONObj?.getJSONObject("recommender")
+            var temp_name=temp_JSONObj?.getString("name")
+            var temp_likenum=look_JSONObj?.getString("like_num")
+            var temp_profile_site=temp_JSONObj?.getString("profile_image")
+
+            if(temp_profile_site!="null"){
+                var profile_image:Bitmap?=profile_imglist.get(temp_profile_site)
+                if(profile_image==null){
+                    var profile_thread=ProfileImageNetworkThread(temp_profile_site!!)
+                    profile_thread?.start()
+                }
+                else{
+                    profile.setImageBitmap(profile_image)
+                }
+
+            }
+
+            dialog_view.look_title.text=temp_look_title
+            dialog_view.look_introduction.text=temp_look_intro
+            dialog_view.recommender_name.text=temp_name
+            dialog_view.look_num.text=temp_likenum
+
+            dialog.setContentView(dialog_view)
+            dialog.window!!.setBackgroundDrawableResource(R.drawable.image_box)
+
+
+            var lp=WindowManager.LayoutParams()
+            lp.copyFrom(dialog.window!!.attributes)
+            lp.width=850
+            lp.height=1200
+
+            dialog.window!!.attributes=lp
+            dialog.show()
+        }
 
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -125,9 +174,10 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.pashion, menu)
+
+        // 커스텀 뷰 사용하기 위한 작업
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
         var actionView=layoutInflater.inflate(R.layout.action_bar,null)
         supportActionBar?.customView=actionView
 
@@ -150,20 +200,20 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
         when (item.itemId) {
             R.id.menu_closet -> {
-                var intent = Intent(this, Closet::class.java)
-                startActivity(intent)
+                var closet_intent = Intent(this, Closet::class.java)
+                startActivity(closet_intent)
             }
             R.id.menu_daily_look -> {
-                var intent=Intent(this,DailyLook::class.java)
-                startActivity(intent)
+                var daily_look_intent=Intent(this,DailyLook::class.java)
+                startActivity(daily_look_intent)
             }
             R.id.menu_calendar -> {
-                var intent = Intent(this, CalendarActivity::class.java)
-                startActivity(intent)
+                var calendar_intent = Intent(this, CalendarActivity::class.java)
+                startActivity(calendar_intent)
             }
             R.id.menu_recommend -> {
-                var intent=Intent(this,Recommend::class.java)
-                startActivity(intent)
+                var recommend_intent=Intent(this,Recommend::class.java)
+                startActivity(recommend_intent)
             }
             R.id.nav_share -> {
 
@@ -180,9 +230,6 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
 
     // 사진을 서버에서 받아 저장하여 관리하
-
-
-
     inner class ListAdapter:BaseAdapter(){
         override fun getCount(): Int {
             return look_list.size
@@ -206,32 +253,35 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
             var map=look_list.get(p0)
 
-            var user=convertView?.findViewById<TextView>(R.id.user_name)
-            var profile_img=convertView?.findViewById<ImageView>(R.id.user_icon)
-            var fashion_img=convertView?.findViewById<ImageView>(R.id.user_pashion)
+            var name_text=convertView?.findViewById<TextView>(R.id.user_name)
+            var profile_img=convertView?.findViewById<ImageView>(R.id.user_profile)
+            var fashion_img=convertView?.findViewById<ImageView>(R.id.user_look)
 
-            var user_name=map.get("user_name") as String
-            var user_profile_image=map.get("user_icon") as String
-            var look_image=map.get("user_pashion") as String
+            var user_name=map.get("name") as String
+            var profile_site=map.get("profile") as String
+            var fashion_site=map.get("fashion") as String
 
-            var profile_image:Bitmap?=profile_image_list.get(user_profile_image)
-            if(profile_image==null){
-                var image_thread=ProfileImageNetworkThread(user_profile_image)
-                image_thread?.start()
+
+            if(profile_site!="null"){
+                var profile_image:Bitmap?=profile_imglist.get(profile_site)
+                if(profile_image==null){
+                    var profile_thread=ProfileImageNetworkThread(profile_site)
+                    profile_thread?.start()
+                }
+                else{
+                    profile_img?.setImageBitmap(profile_image)
+                }
             }
-            else{
-                profile_img?.setImageBitmap(profile_image)
-            }
 
-            var fashion_image:Bitmap?=fashion_image_list.get(look_image)
+            var fashion_image:Bitmap?=fashion_imglist.get(fashion_site)
             if(fashion_image==null){
-                var image_thread=FashionImageNetworkThread(look_image);
+                var image_thread=FashionImageNetworkThread(fashion_site)
                 image_thread.start()
             }
             else{
                 fashion_img?.setImageBitmap(fashion_image)
             }
-            user?.text=user_name
+            name_text?.text=user_name
 
 
 
@@ -239,32 +289,10 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    // 리스트뷰 항목 클릭시 실행되는 이벤트
-    inner class ListListener : AdapterView.OnItemClickListener{
-        override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            var view=look_list.get(p2)
-            var detail_intent=Intent(applicationContext,PashionDetail::class.java)
-
-            Log.d("msg","오케이")
-            detail_intent.putExtra("user_name",view.get("user_name") as String)
-            detail_intent.putExtra("user_icon",view.get("user_icon") as String)
-            detail_intent.putExtra("user_pashion",view.get("user_pashion") as String)
-
-            startActivity(detail_intent)
-        }
-    }
-//
-//    inner class LvListener : View.OnTouchListener{
-//        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-//            sv.requestDisallowInterceptTouchEvent(true)
-//            return false
-//        }
-//    }
-
-     // 서버에서 JSONarray 받는 클래스
+     // 서버에서 JSONAry 받는 쓰래드
      inner class NetworkThread:Thread(){
         override fun run() {
-            var site="http://172.20.10.4:8085/MobileServer/Look_list.jsp"
+            var site="http://172.30.1.55:8085/MobileServer/Look_list.jsp"
             var url=URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()
@@ -282,8 +310,33 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             }while(str!=null)
 
             var obj=JSONObject(buf.toString())
-            look_JSON_list=obj.getJSONArray("look_array")
+            look_JSONAry=obj.getJSONArray("look_array")
 
+        }
+    }
+
+    // 서버에서 Detail Look_Ary 받는 쓰래드
+    inner class NetworkDetailThread : Thread(){
+        override fun run() {
+            var site="http://172.30.1.55:8085/MobileServer/Look_detail_list.jsp"
+            var url=URL(site)
+            var conn=url.openConnection()
+            var input=conn.getInputStream()
+            var isr=InputStreamReader(input)
+            var br=BufferedReader(isr)
+
+            var str:String?=null
+            var buf=StringBuffer()
+
+            do{
+                str=br.readLine()
+                if(str!=null){
+                    buf.append(str)
+                }
+            }while(str!=null)
+
+            var obj=JSONObject(buf.toString())
+            look_JSONObj=obj
         }
     }
 
@@ -296,7 +349,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var stream=connection.getInputStream()
             var bitmap=BitmapFactory.decodeStream(stream)
 
-            profile_image_list.put(site,bitmap)
+            profile_imglist.put(site,bitmap)
 
             runOnUiThread{
                 var look_list_adapter=Look_list.adapter as ListAdapter
@@ -313,7 +366,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var stream=connection.getInputStream()
             var bitmap=BitmapFactory.decodeStream(stream)
 
-            fashion_image_list.put(site,bitmap)
+            fashion_imglist.put(site,bitmap)
 
             runOnUiThread{
                 var look_list_adapter=Look_list.adapter as ListAdapter
@@ -326,6 +379,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 }
 
 
+// 그리드 뷰를 상속받아 높이를 자동 계산하여 알려주는 그리드 뷰
 class ExpandableHeightGridView : GridView{
 
     var expanded=false
