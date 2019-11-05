@@ -38,8 +38,8 @@ const Day = ({ dayId, isSchedule }) => {
     }),
   );
 
-  const [title, setTitle] = useState();
-  const [introduce, setIntroduce] = useState();
+  const [title, setTitle] = useState('');
+  const [introduce, setIntroduce] = useState('');
   const [starNum, setStarNum] = useState(0);
 
   const registerSchedule = async () => {
