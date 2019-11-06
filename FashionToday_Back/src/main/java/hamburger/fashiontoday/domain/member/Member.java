@@ -135,5 +135,8 @@ public class Member {
         this.mStar -= token;
     }
 
+    public void addReward(){
+        this.mStar++;
+    }
 
 }

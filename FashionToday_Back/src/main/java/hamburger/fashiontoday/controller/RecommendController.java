@@ -101,6 +101,9 @@ public class RecommendController {
                 LookStructure nowLookStructure = new LookStructure(requestorId, nowLookitemId, tmpLook.getTLId());
                 lookStructureRepository.save(nowLookStructure);
             }
+            Member loginMember = memberRepository.findByMId(loginMemberId);
+            loginMember.addReward();
+            memberRepository.save(loginMember);
         }else{
             tmpLookInfo.setRemark("no Clothes_array");
             return tmpLookInfo;
