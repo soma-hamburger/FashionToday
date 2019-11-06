@@ -18,7 +18,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.soma.pashion_today.R
-import kotlinx.android.synthetic.main.pashion_detail.*
+import kotlinx.android.synthetic.main.recommend_detail.*
 import kotlinx.android.synthetic.main.recommend_detail_content.*
 import org.json.JSONArray
 import org.json.JSONObject

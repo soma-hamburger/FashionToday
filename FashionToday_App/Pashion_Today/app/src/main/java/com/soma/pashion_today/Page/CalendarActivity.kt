@@ -28,6 +28,11 @@ import kotlinx.android.synthetic.main.calendar_activity.*
 import kotlinx.android.synthetic.main.calendar_content.*
 import kotlinx.android.synthetic.main.calendar_do.view.*
 import kotlinx.android.synthetic.main.daily_look.nav_view
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.URL
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -43,6 +48,8 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     var date_list=ArrayList<CalendarDay>()
 
+    var JSON_Ary:JSONArray?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.calendar_activity)
@@ -55,17 +62,20 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             startActivity(intent)
         }
 
+        var date_thread=NetworkThread()
+        date_thread.start()
+        date_thread.join()
+
+//        for(i in 0 until JSON_Ary?.length()!!){
+//
+//
+//        }
+
         var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
         calendar_view.addDecorators(SundayDecorator(),SaturdayDecorator(),TodayDecorator())
 
         calendar_view.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
-            var idx=0;
-            while(idx<date_list.size){
-                if(date_list[idx].date==date.date){
-                    textView9.text="${date.year}년 ${date.month+1}월 ${date.day}일"
-                }
-                idx++
-            }
+            date_Text.text="${date.year}년 ${date.month+1}월 ${date.day}일"
         })
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -93,6 +103,12 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.calendar_menu, menu)
+
+        // 커스텀 뷰 사용하기 위한 작업
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        var actionView=layoutInflater.inflate(R.layout.action_bar,null)
+        supportActionBar?.customView=actionView
         return true
     }
 
@@ -103,41 +119,39 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return when (item.itemId) {
             R.id.my_page_menu -> true
             R.id.notice_menu -> true
-            R.id.plus_menu->{
-                var dialog=AlertDialog.Builder(this)
-
-                var v1=layoutInflater.inflate(R.layout.calendar_do,null)
-                dialog.setView(v1)
-
-
-                var listener=object:DialogInterface.OnClickListener{
-                    override fun onClick(p0: DialogInterface?, p1: Int) {
-                        when(p1){
-                            DialogInterface.BUTTON_POSITIVE->{
-                                var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
-                                var year=v1.date_picker.year
-                                var month=v1.date_picker.month
-                                var day=v1.date_picker.dayOfMonth
-                                var date=CalendarDay(year,month,day)
-                                date_list.add(date)
-                                calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
-                            }
-                            DialogInterface.BUTTON_NEUTRAL->{
-
-                            }
-                        }
-                    }
-                }
-
-                dialog.setPositiveButton("확인",listener)
-                dialog.setNeutralButton("취소",listener)
-                dialog.show()
-
-
-
-                
-                return true
-            }
+//            R.id.plus_menu->{
+//                var dialog=AlertDialog.Builder(this)
+//
+//                var v1=layoutInflater.inflate(R.layout.calendar_do,null)
+//                dialog.setView(v1)
+//
+//
+//                var listener=object:DialogInterface.OnClickListener{
+//                    override fun onClick(p0: DialogInterface?, p1: Int) {
+//                        when(p1){
+//                            DialogInterface.BUTTON_POSITIVE->{
+//                                var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
+//                                var year=v1.date_picker.year
+//                                var month=v1.date_picker.month
+//                                var day=v1.date_picker.dayOfMonth
+//                                var date=CalendarDay(year,month,day)
+//                                date_list.add(date)
+//                                calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
+//                            }
+//                            DialogInterface.BUTTON_NEUTRAL->{
+//
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                dialog.setPositiveButton("확인",listener)
+//                dialog.setNeutralButton("취소",listener)
+//                dialog.show()
+//
+//
+//                return true
+//            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -171,6 +185,31 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    // 일정 받는 네트워크 쓰레드
+    inner class NetworkThread : Thread(){
+        override fun run() {
+            var site="http://172.20.10.4:8085/MobileServer/date.jsp"
+            var url=URL(site)
+            var conn=url.openConnection()
+            var input=conn.getInputStream()
+            var isr=InputStreamReader(input)
+            var br=BufferedReader(isr)
+
+            var str:String=?=null
+            var buf=StringBuffer()
+
+            do{
+                str=br.readLine()
+                if(str!=null){
+                    buf.append(str)
+                }
+            }while(str!=null)
+
+            var obj= JSONObject(buf.toString())
+            JSON_Ary=obj.getJSONArray("schedule_array")
+        }
     }
 }
 

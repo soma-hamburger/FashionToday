@@ -17,9 +17,9 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
 import com.soma.pashion_today.R
+import kotlinx.android.synthetic.main.calendar_activity.*
 import kotlinx.android.synthetic.main.daily_look_detail_content.*
 import kotlinx.android.synthetic.main.daily_look_detail_image.view.*
-import kotlinx.android.synthetic.main.pashion_detail.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader

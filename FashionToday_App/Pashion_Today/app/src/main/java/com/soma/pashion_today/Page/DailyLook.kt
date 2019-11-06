@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.daily_look_content.*
 import kotlinx.android.synthetic.main.daily_look_image.view.*
 import kotlinx.android.synthetic.main.menu_bar_image.view.*
 import kotlinx.android.synthetic.main.pashion_content.*
-import kotlinx.android.synthetic.main.pashion_detail_content.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader

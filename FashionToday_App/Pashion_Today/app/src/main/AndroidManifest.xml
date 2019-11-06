@@ -27,9 +27,6 @@
                 android:name=".Page.DailyLook"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".Page.PashionDetail"
-                android:theme="@style/AppTheme.NoActionBar" />
-        <activity
                 android:name=".Page.Closet"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
