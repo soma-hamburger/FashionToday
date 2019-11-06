@@ -11,6 +11,7 @@ import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import hamburger.fashiontoday.domain.tmplook.TmpLookInfo;
+import hamburger.fashiontoday.domain.tmplook.TmpLookListInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import hamburger.fashiontoday.service.S3Uploader;
@@ -94,14 +95,14 @@ public class RecommendController {
         }
 
         if(clothes.size() != 0) {
-            tmpLook = new TmpLook(requestorId,date,imgUrl,loginMemberId);
+            Member loginMember = memberRepository.findByMId(loginMemberId);
+            tmpLook = new TmpLook(requestorId,date,imgUrl,loginMemberId,loginMember.getMProfileUrl(),title,introduce);
             tmpLookRepository.save(tmpLook);
             for (int i = 0; i < clothes.size(); i++) {
                 int nowLookitemId = clothes.get(i);
                 LookStructure nowLookStructure = new LookStructure(requestorId, nowLookitemId, tmpLook.getTLId());
                 lookStructureRepository.save(nowLookStructure);
             }
-            Member loginMember = memberRepository.findByMId(loginMemberId);
             loginMember.addReward();
             memberRepository.save(loginMember);
         }else{
@@ -163,4 +164,42 @@ public class RecommendController {
         return recommendListInfo;
     }
 
+    //203
+    @GetMapping(value = "/dailyList")
+    public TmpLookListInfo dailyList(@RequestHeader(value = "Authorization") String token) {
+
+        int loginMemberId = 0;
+
+        String nowDate = new String();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        if(localDateTime.getMonthValue() < 10){
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        }else{
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        }
+        TmpLookListInfo tmpLookListInfo = new TmpLookListInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+
+        } else {
+            tmpLookListInfo.setRemark("login_error");
+            return tmpLookListInfo;
+        }
+
+        List<TmpLook> todayTmpLooks = tmpLookRepository.findByMIdAndDdate(loginMemberId,nowDate);
+        if(todayTmpLooks.size()>0){
+            for(int i = 0; i<todayTmpLooks.size();i++){
+                tmpLookListInfo.addTmpLook(todayTmpLooks.get(i));
+            }
+        }else{
+            tmpLookListInfo.setRemark("no_looks");
+            return tmpLookListInfo;
+        }
+
+
+        return tmpLookListInfo;
+    }
 }
