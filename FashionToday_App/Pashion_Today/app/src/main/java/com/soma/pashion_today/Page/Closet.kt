@@ -31,10 +31,11 @@ import java.io.File
 
 
 /*****
- * 프로그램 ID : HAM-PA-400
- * 프로그램명 : Closet.kt : 오원석
- * 작성일자 : 2019.09.04
- * 버전 : v0.1
+ * 프로그램 ID : HAM-PA-200
+ * 프로그램명 : Closet.kt
+ * 작성자명: 오원석
+ * 작성일자 : 2019.11.1
+ * 버전 : v0.6
  */
 class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,9 +52,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         R.drawable.top3,
         R.drawable.botton,
         R.drawable.button2,
-        R.drawable.button3,
-        R.drawable.shoes,
-        R.drawable.shoes2
+        R.drawable.button3
     )
 
     // 사진, 내부저장소 허가 권한 배열
@@ -102,6 +101,8 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         closet_spinner.adapter = adapter
+
+
 
         // 스피너 클릭 리스너 구현
         closet_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

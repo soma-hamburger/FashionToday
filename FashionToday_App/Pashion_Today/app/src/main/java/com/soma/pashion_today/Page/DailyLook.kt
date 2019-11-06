@@ -21,13 +21,21 @@ import kotlinx.android.synthetic.main.daily_look_content.*
 import kotlinx.android.synthetic.main.daily_look_image.view.*
 import kotlinx.android.synthetic.main.menu_bar_image.view.*
 import kotlinx.android.synthetic.main.pashion_content.*
-import kotlinx.android.synthetic.main.pashion_detail_content.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
 
+
+
+/*****
+ * 프로그램 ID : HAM-PA-300
+ * 프로그램명 : DailyLook.kt
+ * 작성자명: 오원석
+ * 작성일자 : 2019.11.1
+ * 버전 : v0.6
+ */
 class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -183,7 +191,7 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
 
     inner class NetworkThread : Thread(){
         override fun run() {
-            var site="http://172.16.101.14:8085/MobileServer/daily_look_list.jsp"
+            var site="http://172.20.10.4:8085/MobileServer/daily_look_list.jsp"
             var url= URL(site)
             var conn=url.openConnection()
             var input=conn.getInputStream()

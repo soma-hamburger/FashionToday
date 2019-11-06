@@ -15,6 +15,11 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
+    <string name="main_str1">당신의 옷장 속 잠자고 있는 옷들로 특별한 룩을 스타일링 합니다</string>
+    <string name="main_str2">옷을 사도 사도 입을 옷이 없는 고민은 이제 그만!</string>
+    <string name="main_str3">매일 특별한 하루를 맞이해보세요.</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

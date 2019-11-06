@@ -3,7 +3,6 @@ package com.soma.pashion_today.Login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.soma.pashion_today.Page.Pashion
 import com.soma.pashion_today.R
 import kotlinx.android.synthetic.main.login_acitivity.*
@@ -29,14 +28,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_acitivity)
 
 
-        // 회원가입 버튼 메서드
-        Register_button.setOnClickListener { view->
-            var register_intent= Intent(this, RegisterActivity::class.java)
-            startActivity(register_intent)
-        }
+        //var v=layoutInflater.inflate(R.layout.daily_look_detail_image,null)
+        //view.setBackgroundResource(R.layout.daily_look_detail_image)
+
 
         // 로그인 버튼 메서드
-        Login_button.setOnClickListener { view->
+        Kakao_login.setOnClickListener { view->
             /*var thread=getDataThread()
             thread.start()
 
@@ -61,16 +58,20 @@ class LoginActivity : AppCompatActivity() {
                 var t1=Toast.makeText(this,"존재하지 않은 아이디입니다",Toast.LENGTH_SHORT)
                 t1.show()
             }*/
-            if("ppp"==Login_user_id.text.toString()){
-                if("ppp"==Login_user_pw.text.toString()){
-                    var toast_msg= Toast.makeText(this,"로그인 되었습니다", Toast.LENGTH_SHORT)
-                    toast_msg.show()
-                    var pashion_intent=Intent(this, Pashion::class.java)
-                    startActivity(pashion_intent)
-
-                }
-            }
+//            if("ppp"==Login_user_id.text.toString()){
+//                if("ppp"==Login_user_pw.text.toString()){
+//                    var toast_msg= Toast.makeText(this,"로그인 되었습니다", Toast.LENGTH_SHORT)
+//                    toast_msg.show()
+//                    var pashion_intent=Intent(this, Pashion::class.java)
+//                    startActivity(pashion_intent)
+//
+//                }
+//            }
+            var pashion_intent=Intent(this, Pashion::class.java)
+            startActivity(pashion_intent)
         }
+
+
 
     }
 

@@ -27,9 +27,6 @@
                 android:name=".Page.DailyLook"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".Page.PashionDetail"
-                android:theme="@style/AppTheme.NoActionBar" />
-        <activity
                 android:name=".Page.Closet"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -40,12 +37,13 @@
                 android:label="@string/title_activity_pashion"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Login.RegisterActivity" />
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".Login.LoginActivity"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <provider
@@ -57,6 +55,9 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_path" />
         </provider>
+        <meta-data
+                android:name="preloaded_fonts"
+                android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
