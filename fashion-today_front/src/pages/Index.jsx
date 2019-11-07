@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkDiv } from '../components/Common/Components';
 import Logo from '../img/logo/logo-height.png';
-import '../style/index.scss';
+import '../style/Login.scss';
 import KakaoIcon from '../img/kakao_icon.png';
 import NaverIcon from '../img/naver_icon.png';
 

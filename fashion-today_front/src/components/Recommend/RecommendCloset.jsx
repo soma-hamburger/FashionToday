@@ -25,7 +25,7 @@ const MakeClothes = (category, color, array, onClick, lookData) => {
         <ClickImg
           onClick={onClick}
           src={clothes.clothes_image}
-          alt={String(clothes.mId)}
+          alt={String(clothes.clothes_id)}
           className="Image"
         />
         <div className="Account">

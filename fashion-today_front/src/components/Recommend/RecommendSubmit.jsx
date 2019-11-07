@@ -3,7 +3,6 @@ import React, {
   useState,
   useReducer,
   useRef,
-  useCallback,
   useEffect,
 } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
@@ -50,7 +49,7 @@ const updateLookImageData = (state, action) => {
     case 'add': {
       const currentImages = state.images;
       const newImage = {
-        id: state.lastID,
+        id: action.id,
         src: action.src,
         x: 0,
         y: 0,
@@ -59,11 +58,9 @@ const updateLookImageData = (state, action) => {
       };
 
       const newImages = currentImages.concat([newImage]);
-      const nextID = state.lastID + 1;
 
       return {
-        currentID: state.lastID,
-        lastID: nextID,
+        currentID: action.id,
         images: newImages,
       };
     }
@@ -115,7 +112,6 @@ const updateLookImageData = (state, action) => {
 };
 
 const RecommendSubmit = ({ match }) => {
-  console.log('render!!');
   const userId = match.params.userid;
   const user = useContext(UserContext);
 
@@ -125,7 +121,6 @@ const RecommendSubmit = ({ match }) => {
     updateLookImageData,
     {
       currentID: 0,
-      lastID: 1,
       images: [],
     },
   );
@@ -204,12 +199,12 @@ const RecommendSubmit = ({ match }) => {
     />
   ));
 
-  const ResizeStage = useCallback(() => {
+  const ResizeStage = () => {
     const width = LookImagesWindow.current.clientWidth;
     const height = (width * 32) / 25;
     setStageWidth(width);
     setStageHeight(height);
-  }, [setStageWidth, setStageHeight]);
+  };
 
   useEventListener('click', ResizeStage);
   useEventListener('resize', ResizeStage);
@@ -222,7 +217,12 @@ const RecommendSubmit = ({ match }) => {
 
     if (index < 0) {
       const windowWidth = LookImagesWindow.current.clientWidth;
-      dispatchLookImageData({ type: 'add', src: e.target.src, windowWidth });
+      dispatchLookImageData({
+        type: 'add',
+        id: e.target.alt,
+        src: e.target.src,
+        windowWidth,
+      });
     } else {
       images.splice(index, 1);
       dispatchLookImageData({ type: 'update', images, currentId });
@@ -232,18 +232,22 @@ const RecommendSubmit = ({ match }) => {
   const SendLook = async () => {
     const canvas = LookImagesWindow.current.children[0].children[0].children[0];
 
+    const array = LookImageData.images.map(i => parseInt(i.id, 10));
+
+    console.log(array);
+
     canvas.toBlob(async blob => {
       // eslint-disable-next-line prefer-const
       let data = new FormData();
       data.append('requestor_id', userId);
-      data.append('data', RequestorInfo.schedule.date);
+      data.append('date', RequestorInfo.schedule.date);
       data.append('look_img', blob);
-      data.append('clothes_array', LookImageData.images);
+      data.append('clothes_array', array);
       data.append('look_title', title);
       data.append('look_introduce', description);
       console.log(blob);
 
-      const res = await UserPost('look/upload', user.token, data);
+      const res = await UserPost('recommend', user.token, data);
 
       console.log(res);
     });
