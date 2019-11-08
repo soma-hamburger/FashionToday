@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { makeDayObj, UserPost, useFetch } from '../../Tool';
 import WhetherIcon from '../../img/whether_icon.png';
 import TempIcon from '../../img/temp_icon.png';
@@ -10,15 +11,28 @@ const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
     if (dday >= 0) return null;
     return scheduleForm;
   }
-
-  const { title, introduce } = scheduleDetail;
+  const { title, introduce, star } = scheduleDetail;
 
   return (
     <div className="ScheduleDiv">
       <div className="ScheduleTitle">{title}</div>
       <div className="ScheduleIntroduction">: {introduce}</div>
+      <div className="StarNum">
+        <img src={StarIcon} alt="StarIcon" />
+        <div>{star}</div>
+      </div>
     </div>
   );
+};
+
+ScheduleDiv.propTypes = {
+  scheduleDetail: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    introduce: PropTypes.string.isRequired,
+    star: PropTypes.number.isRequired,
+  }).isRequired,
+  dday: PropTypes.number.isRequired,
+  scheduleForm: PropTypes.element.isRequired,
 };
 
 const Day = ({ dayId, isSchedule }) => {
@@ -116,6 +130,11 @@ const Day = ({ dayId, isSchedule }) => {
       />
     </div>
   );
+};
+
+Day.propTypes = {
+  dayId: PropTypes.string.isRequired,
+  isSchedule: PropTypes.bool.isRequired,
 };
 
 export default Day;

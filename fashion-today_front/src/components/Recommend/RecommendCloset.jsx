@@ -1,18 +1,12 @@
 import React, { useMemo } from 'react';
-import { ClickImg } from '../Common/Components';
-import { getCategoryIcon } from '../Closet/ClosetTable';
+import { ClickImg, getCategoryIcon } from '../Common/Components';
 import CheckIcon from '../../img/checkbox_icon.png';
+import { filteringArray } from '../../Tool';
 
-const MakeClothes = (category, color, array, onClick, lookData) => {
-  let filterdArray = array;
-
-  if (category) {
-    filterdArray = array.filter(clothes => clothes.category === category);
+const MakeClothes = (filterdArray, onClick, lookData) => {
+  if (!filterdArray) {
+    return null;
   }
-  if (color) {
-    filterdArray = array.filter(clothes => clothes.color === color);
-  }
-
   return filterdArray.map(clothes => {
     const categoryIcon = getCategoryIcon(clothes.category);
     const index = lookData.findIndex(i => i.src === clothes.clothes_image);
@@ -40,10 +34,10 @@ const MakeClothes = (category, color, array, onClick, lookData) => {
 };
 
 const RecommendCloset = ({ category, color, array, onClick, lookData }) => {
-  const closetTable = useMemo(
-    () => MakeClothes(category, color, array, onClick, lookData),
-    [array, category, color, lookData, onClick],
-  );
+  const closetTable = useMemo(() => {
+    const filterdArray = filteringArray(category, color, array);
+    MakeClothes(filterdArray, onClick, lookData);
+  }, [array, category, color, lookData, onClick]);
 
   return <div className="ClosetTable">{closetTable}</div>;
 };

@@ -13,6 +13,21 @@ import {
   LookDetail,
 } from './defaultAPI';
 
+export const filteringArray = (category, color, array) => {
+  let filterdArray = array;
+
+  if (category) {
+    filterdArray = filterdArray.filter(
+      clothes => clothes.category === category,
+    );
+  }
+  if (color) {
+    filterdArray = filterdArray.filter(clothes => clothes.color === color);
+  }
+
+  return filterdArray;
+};
+
 const findDefaultAPI = url => {
   if (url === 'closet') return { data: UserCloset };
   if (url === 'user/info') return { data: UserInfo };
