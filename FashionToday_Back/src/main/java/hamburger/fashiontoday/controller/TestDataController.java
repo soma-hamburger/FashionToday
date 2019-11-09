@@ -70,20 +70,18 @@ public class TestDataController {
         Lookitem[][] lookitem = new Lookitem[10][10];
 
         // 1번 유저 옷
-        lookitem[0][0] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/coat1.jpeg", "brown", "coat", "");
-        lookitem[0][1] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/hood1.jpeg", "black", "hood", "");
-        lookitem[0][2] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants1.jpeg", "brown", "pants", "");
-        lookitem[0][3] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants2.jpeg", "blue", "pants", "");
-        lookitem[0][4] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants3.jpeg", "yellow", "pants", "");
-        lookitem[0][5] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shirts1.jpeg", "white", "shirts", "");
-        lookitem[0][6] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shoes1.jpeg", "white", "shoes", "");
-        lookitem[0][7] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts1.jpeg", "black", "tshirts", "");
-        lookitem[0][8] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts2.jpeg", "yellow", "tshirts", "");
-        lookitem[0][9] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts3.jpeg", "white", "tshirts", "");
+        lookitem[0][0] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/coat1.jpeg", "brown", "coat", "");
+        lookitem[0][1] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants1.jpeg", "brown", "pants", "");
+        lookitem[0][2] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants2.jpeg", "blue", "pants", "");
+        lookitem[0][3] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants3.jpeg", "yellow", "pants", "");
+        lookitem[0][4] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shirts1.jpeg", "white", "shirts", "");
+        lookitem[0][5] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shoes1.jpeg", "white", "shoes", "");
+        lookitem[0][6] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts1.jpeg", "black", "tshirts", "");
+        lookitem[0][7] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts2.jpeg", "yellow", "tshirts", "");
+        lookitem[0][8] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts3.jpeg", "white", "tshirts", "");
 
 
-        for (int i = 0; i < 10; i++) {
-
+        for (int i = 0; i < 9; i++) {
             lookitemRepository.save(lookitem[0][i]);
         }
 

@@ -81,10 +81,9 @@ public class LookitemController {
     // 202번 api
     // 나만의 옷장을 불러오는 곳
     @PostMapping(value = "/closet")
-    public ClosetInfo getCloset(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public ClosetInfo getCloset(@RequestHeader(value = "Authorization") String token, @RequestParam("user_id")Integer closetOwnerId) {
 
         int loginMemberId = 0;
-        int closetOwnerId = 0;
         ClosetInfo closetInfo = new ClosetInfo();
 
         // 로그인 여부 확인
@@ -92,14 +91,6 @@ public class LookitemController {
             loginMemberId = jwtService.getMember(token);
             System.out.println("유저 아이디 : " + loginMemberId);
         } else {
-            return closetInfo;
-        }
-
-        // 파라미터 파싱
-        try {
-            closetOwnerId = Integer.parseInt(param.get("user_id").toString());
-        } catch (Exception e) {
-            closetInfo.setRemark("param_error");
             return closetInfo;
         }
 
