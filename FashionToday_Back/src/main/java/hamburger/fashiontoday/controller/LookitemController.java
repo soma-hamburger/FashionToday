@@ -103,7 +103,7 @@ public class LookitemController {
             return closetInfo;
         }
 
-        if (closetOwnerId == -1) {
+        if (closetOwnerId == 0) {
             closetInfo.setClothesList(lookitemRepository.findLookitemsByMId(loginMemberId));
         } else {
             closetInfo.setClothesList(lookitemRepository.findLookitemsByMId(closetOwnerId));
