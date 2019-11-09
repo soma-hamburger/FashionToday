@@ -25,6 +25,7 @@ export const filteringArray = (category, color, array) => {
     filterdArray = filterdArray.filter(clothes => clothes.color === color);
   }
 
+  console.log(filterdArray);
   return filterdArray;
 };
 
@@ -133,7 +134,6 @@ export const useWeahterAPI = date => {
         console.log(error);
       }
     };
-
     getRes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInstance]);

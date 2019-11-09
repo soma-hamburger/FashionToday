@@ -36,7 +36,7 @@ const MakeClothes = (filterdArray, onClick, lookData) => {
 const RecommendCloset = ({ category, color, array, onClick, lookData }) => {
   const closetTable = useMemo(() => {
     const filterdArray = filteringArray(category, color, array);
-    MakeClothes(filterdArray, onClick, lookData);
+    return MakeClothes(filterdArray, onClick, lookData);
   }, [array, category, color, lookData, onClick]);
 
   return <div className="ClosetTable">{closetTable}</div>;

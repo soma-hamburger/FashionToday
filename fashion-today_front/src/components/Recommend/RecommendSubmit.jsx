@@ -145,10 +145,10 @@ const RecommendSubmit = ({ match }) => {
 
   const RequestorCloset = useFetch(
     'post',
-    'requestor/closet',
+    'closet',
     user.token,
     JSON.stringify({
-      userId,
+      user_id: userId,
     }),
   );
 
