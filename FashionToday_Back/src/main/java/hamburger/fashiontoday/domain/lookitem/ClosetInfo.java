@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -13,7 +14,7 @@ public class ClosetInfo {
 
     private String remark = "fail";
 
-    private List<ClosetItemInfo> clothes_array;
+    private List<ClosetItemInfo> clothes_array = new ArrayList<ClosetItemInfo>();
 
     public void setClothesList(List<Lookitem> clothes_array) {
         remark = "success";
@@ -22,29 +23,32 @@ public class ClosetInfo {
         }
     }
 
-    private class ClosetItemInfo {
+}
 
-        private String remark = "fail";
+@NoArgsConstructor
+@Getter
+@Setter
+class ClosetItemInfo {
 
-        private int mid;
+    private String remark = "fail";
 
-        private int kmid;
+    private int mid;
 
-        private String kitemPicture;
+    private int kmid;
 
-        private String lookItemCat;
+    private String kitemPicture;
 
-        private String kItemColSumPicture;
+    private String lookItemCat;
 
-        public ClosetItemInfo(Lookitem lookitem) {
-            remark = "success";
-            mid = lookitem.getMId();
-            kmid = lookitem.getKmId();
-            kitemPicture = lookitem.getKItemPicture();
-            lookItemCat = lookitem.getLookItemCat();
-            kItemColSumPicture = lookitem.getKItemColSumPicture();
-        }
+    private String kItemColSumPicture;
 
+    public ClosetItemInfo(Lookitem lookitem) {
+        remark = "success";
+        mid = lookitem.getMId();
+        kmid = lookitem.getKmId();
+        kitemPicture = lookitem.getKItemPicture();
+        lookItemCat = lookitem.getLookItemCat();
+        kItemColSumPicture = lookitem.getKItemColSumPicture();
     }
 
 }
