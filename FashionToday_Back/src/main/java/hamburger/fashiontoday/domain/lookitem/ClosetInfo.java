@@ -14,6 +14,8 @@ public class ClosetInfo {
 
     private String remark = "fail";
 
+    private int user_id;
+
     private List<ClosetItemInfo> clothes_array = new ArrayList<ClosetItemInfo>();
 
     public void setClothesList(List<Lookitem> clothes_array) {
@@ -30,25 +32,19 @@ public class ClosetInfo {
 @Setter
 class ClosetItemInfo {
 
-    private String remark = "fail";
+    private int clothes_id;
 
-    private int mid;
+    private String clothes_image;
 
-    private int kmid;
+    private String category;
 
-    private String kitemPicture;
-
-    private String lookItemCat;
-
-    private String kItemColSumPicture;
+    private String color;
 
     public ClosetItemInfo(Lookitem lookitem) {
-        remark = "success";
-        mid = lookitem.getMId();
-        kmid = lookitem.getKmId();
-        kitemPicture = lookitem.getKItemPicture();
-        lookItemCat = lookitem.getLookItemCat();
-        kItemColSumPicture = lookitem.getKItemColSumPicture();
+        clothes_id = lookitem.getKmId();
+        clothes_image = lookitem.getKItemPicture();
+        category = lookitem.getLookItemCat();
+        color = lookitem.getColor();
     }
 
 }
