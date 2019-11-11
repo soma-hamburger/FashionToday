@@ -9,10 +9,9 @@
             android:id="@+id/clothes"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginLeft="23dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/image_box"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher" />
@@ -41,7 +40,7 @@
             app:srcCompat="@drawable/accesory_icon" />
 
     <TextView
-            android:id="@+id/color"
+            android:id="@+id/info"
             android:layout_width="100dp"
             android:layout_height="20dp"
             android:layout_marginStart="8dp"

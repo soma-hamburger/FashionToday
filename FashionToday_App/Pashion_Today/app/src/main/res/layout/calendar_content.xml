@@ -193,7 +193,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
             <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/detail_button"
                     android:layout_width="90dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="25dp"
@@ -203,6 +203,16 @@
                     android:textColor="@color/white1"
                     app:layout_constraintEnd_toStartOf="@+id/day_button"
                     app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            <TextView
+                    android:id="@+id/dday_Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="D-333"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView9"
+                    app:layout_constraintStart_toStartOf="@+id/imageView9"
+                    app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

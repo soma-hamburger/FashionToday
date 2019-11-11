@@ -354,7 +354,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var map=user_clothes_list.get(p0)
 
             var garment_image=convertView?.findViewById<ImageView>(R.id.clothes)
-            var garment_info=convertView?.findViewById<TextView>(R.id.color)
+            var garment_info=convertView?.findViewById<TextView>(R.id.info)
             var garment_type=convertView?.findViewById<ImageView>(R.id.clothes_type)
 
             var image=map.get("image") as String
