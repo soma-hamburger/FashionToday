@@ -16,6 +16,7 @@ import android.view.*
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
@@ -31,6 +32,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
 import kotlinx.android.synthetic.main.calendar_content.*
 import kotlinx.android.synthetic.main.calendar_popup.view.*
+import kotlinx.android.synthetic.main.calendar_popup2.view.*
 import kotlinx.android.synthetic.main.daily_look.nav_view
 import org.json.JSONArray
 import org.json.JSONObject
@@ -97,6 +99,13 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         date_thread.start()
         date_thread.join()
 
+        var date_text=findViewById<TextView>(R.id.date_Text)
+        var today_Date=CalendarDay.today()
+        date_text.text="${today_Date.year}년 ${today_Date.month+1}월 ${today_Date.day}일"
+        dday_Text.text="D-day"
+        star_image.visibility=View.GONE
+        star_text.visibility=View.GONE
+
         for(i in 0 until JSON_Ary?.length()!!){
             var obj=JSON_Ary?.getJSONObject(i)
             var date=obj?.getInt("date")!!
@@ -114,16 +123,27 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             Log.d("msg","${calendar_day}")
             date_list.add(calendar_day)
+            if(calendar_day==today_Date){
+                var detail_thread=DetailNetworkThread()
+                detail_thread.start()
+                detail_thread.join()
+
+                var look_JSONObj=JSON_Obj?.getJSONObject("look")
+                var look_title=look_JSONObj?.getString("look_title")
+                var look_intro=look_JSONObj?.getString("look_introduction")
+                var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
+
+                date_title.text=look_title
+                date_intro.text=look_intro
+            }
             calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
 
         }
 
+        // 달력 데코레이션
         var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
         calendar_view.addDecorators(SundayDecorator(),SaturdayDecorator(),TodayDecorator())
 
-        var date_text=findViewById<TextView>(R.id.date_Text)
-        var today_Date=CalendarDay.today()
-        date_text.text="${today_Date.year}년 ${today_Date.month+1}월 ${today_Date.day}일"
 
         calendar_view.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
             date_Text.text="${date.year}년 ${date.month+1}월 ${date.day}일"
@@ -139,7 +159,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             // 디데이 계산
             var dday=(temp_millions-today_millions)/(24*60*60*1000)
 
-            // 미래일정
+            //////////// 미래일정 //////////////
             if(dday>=0){
                 if(dday>0){
                     dday_Text.text="D-${dday}"
@@ -148,7 +168,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     dday_Text.text = "D-day"
                 }
 
-                day_button.setText("일정등록")
+                calendar_button.setText("일정등록")
                 var check=false
                 for(i in 0 until date_list.size){
                     var calendar_day=date_list.get(i)
@@ -157,23 +177,63 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         break
                     }
                 }
-
+                star_image.visibility=View.GONE
+                star_text.visibility=View.GONE
                 if(check){
-                    day_button.setOnClickListener { view->
-                        // 일정이 이미 등록되어있습니다.
+
+                    var detail_thread=DetailNetworkThread()
+                    detail_thread.start()
+                    detail_thread.join()
+
+                    var look_JSONObj=JSON_Obj?.getJSONObject("look")
+                    var look_title=look_JSONObj?.getString("look_title")
+                    var look_intro=look_JSONObj?.getString("look_introduction")
+                    var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
+
+                    date_title.text=look_title
+                    date_intro.text=look_intro
+
+                    calendar_button.setOnClickListener{ view->
+                        var msg=Toast.makeText(this,"이미 일정이 등록되어 있습니다",Toast.LENGTH_SHORT)
+                        msg.show()
                     }
                 }
                 else{
-                    day_button.setOnClickListener{view->
+                    date_title.text=""
+                    date_intro.text="일정이 없습니다"
+                    calendar_button.setOnClickListener { view->
+                        var dialog=Dialog(this)
+                        var dialog_v=layoutInflater.inflate(R.layout.calendar_popup2,null)
 
+                        dialog_v.closet_button.setOnClickListener { view->
+                            dialog.dismiss()
+                        }
+
+                        dialog_v.register_button.setOnClickListener { view->
+                            var year=dialog_v.date_picker.year
+                            var month=dialog_v.date_picker.month
+                            var day=dialog_v.date_picker.dayOfMonth
+                            var date=CalendarDay(year,month,day)
+                            date_list.add(date)
+                            calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
+                            dialog.dismiss()
+                        }
+
+                        dialog.setContentView(dialog_v)
+                        var lp=WindowManager.LayoutParams()
+                        lp.copyFrom(dialog.window!!.attributes)
+                        lp.width=950
+                        lp.height=950
+                        dialog.window!!.attributes=lp
+                        dialog.show()
                     }
                 }
             }
-            // 과거일정
+            /////////// 과거일정 ///////////////
             else{
                 dday*=-1
                 dday_Text.text="D+${dday}"
-                day_button.setText("추천코디")
+                calendar_button.setText("추천코디")
 
                 var check=false
                 for(i in 0 until date_list.size){
@@ -184,13 +244,27 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     }
                 }
 
+                // 추천 코디 받았을 경우
                 if(check){
-                    day_button.setOnClickListener { view->
-                        // 일정이 이미 등록되어있습니다.
-                        Log.d("msg","${temp_Date}")
-                        var detail_thread=DetailNetworkThread()
-                        detail_thread.start()
-                        detail_thread.join()
+
+                    star_image.visibility=View.VISIBLE
+                    star_text.visibility=View.VISIBLE
+                    var detail_thread=DetailNetworkThread()
+                    detail_thread.start()
+                    detail_thread.join()
+
+                    var star_num=JSON_Obj?.getInt("star")
+                    var look_JSONObj=JSON_Obj?.getJSONObject("look")
+                    var look_title=look_JSONObj?.getString("look_title")
+                    var look_intro=look_JSONObj?.getString("look_introduction")
+                    var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
+
+                    star_text.text=star_num.toString()
+                    date_title.text=look_title
+                    date_intro.text=look_intro
+
+
+                    calendar_button.setOnClickListener { view->
 
                         var dialog=Dialog(this)
                         var dialog_v=layoutInflater.inflate(R.layout.calendar_popup,null)
@@ -199,8 +273,9 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         dialog_v.Grid_list.adapter=grid_adapter
                         dialog_v.Grid_list.SetExpanded(true)
 
-                        var look_JSONObj=JSON_Obj?.getJSONObject("look")
-                        var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
+
+                        dialog_v.look_title_text.text=look_title
+                        dialog_v.look_title_text.text=look_intro
 
                         recommend_list.clear()
                         for(i in 0 until temp_JSONAry?.length()!!){
@@ -231,84 +306,18 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         dialog.show()
                     }
                 }
+                // 일정이 없을 경우
                 else{
-                    day_button.setOnClickListener{view->
-
+                    // 버튼 클릭 무효화
+                    star_image.visibility=View.GONE
+                    star_text.visibility=View.GONE
+                    date_title.text=""
+                    date_intro.text="일정이 없습니다"
+                    calendar_button.setOnClickListener{ view->
+                        var msg=Toast.makeText(this,"추천 받은 코디가 없습니다",Toast.LENGTH_SHORT)
+                        msg.show()
                     }
                 }
-            }
-
-
-            var check=false
-            for(i in 0 until date_list.size){
-                var calendar_day=date_list.get(i)
-                if(calendar_day==temp_Date){
-                    check=true
-                    break
-                }
-            }
-            if(check){
-                Log.d("msg","${temp_Date}")
-                var detail_thread=DetailNetworkThread()
-                detail_thread.start()
-                detail_thread.join()
-
-
-                var state=JSON_Obj?.getString("state")
-                if(state=="past"){
-                    detail_button.setOnClickListener { view->
-
-                        var dialog=Dialog(this)
-                        var dialog_v=layoutInflater.inflate(R.layout.calendar_popup,null)
-
-                        var grid_adapter=ListAdapter()
-                        dialog_v.Grid_list.adapter=grid_adapter
-                        dialog_v.Grid_list.SetExpanded(true)
-
-                        var look_JSONObj=JSON_Obj?.getJSONObject("look")
-                        var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
-
-                        recommend_list.clear()
-                        for(i in 0 until temp_JSONAry?.length()!!){
-                            var obj=temp_JSONAry.getJSONObject(i)
-                            var garment_color=obj.getString("color")
-                            var garment_category=obj.getString("category")
-                            var garment_image=obj.getString("clothes_image")
-
-                            var map=HashMap<String,Any>()
-                            map.put("color",garment_color)
-                            map.put("category",garment_category)
-                            map.put("image",garment_image)
-
-                            recommend_list.add(map)
-                        }
-
-                        dialog.setContentView(dialog_v)
-
-                        var lp=WindowManager.LayoutParams()
-                        lp.copyFrom(dialog.window!!.attributes)
-                        lp.width=950
-                        lp.height=1200
-                        dialog.window!!.attributes=lp
-
-                        dialog_v.close_btn.setOnClickListener { view->
-                            dialog.dismiss()
-                        }
-                        dialog.show()
-                    }
-                }
-                else{
-                    detail_button.setOnClickListener { view->
-                        var dialog=AlertDialog.Builder(this)
-                        dialog.setTitle("실패")
-                        dialog.show()
-                    }
-                }
-
-            }
-            else{
-                // 일정 없을 시 아무것도 안뜨게 구현
-                detail_button.setOnClickListener { view-> }
             }
 
         })

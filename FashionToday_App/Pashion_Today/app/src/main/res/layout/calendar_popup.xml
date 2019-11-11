@@ -41,7 +41,7 @@
                     app:srcCompat="@drawable/heart_icon" />
 
             <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/look_intro_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
@@ -53,7 +53,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/view5" />
 
             <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/look_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -112,7 +112,7 @@
                     android:layout_marginTop="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
+                    app:layout_constraintTop_toBottomOf="@+id/look_intro_text" />
 
             <ImageView
                     android:id="@+id/imageView15"
