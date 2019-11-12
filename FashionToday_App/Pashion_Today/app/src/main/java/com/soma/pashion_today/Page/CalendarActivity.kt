@@ -18,7 +18,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -257,12 +256,16 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     var look_JSONObj=JSON_Obj?.getJSONObject("look")
                     var look_title=look_JSONObj?.getString("look_title")
                     var look_intro=look_JSONObj?.getString("look_introduction")
+                    var look_image=look_JSONObj?.getString("look_image")
                     var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
 
                     star_text.text=star_num.toString()
                     date_title.text=look_title
                     date_intro.text=look_intro
 
+                    var image_thread=ImageNetworkThread(look_image!!)
+                    image_thread.start()
+                    image_thread.join()
 
                     calendar_button.setOnClickListener { view->
 
@@ -275,7 +278,8 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
 
                         dialog_v.look_title_text.text=look_title
-                        dialog_v.look_title_text.text=look_intro
+                        dialog_v.look_intro_text.text=look_intro
+                        dialog_v.look_Imageview.setImageBitmap(look_img)
 
                         recommend_list.clear()
                         for(i in 0 until temp_JSONAry?.length()!!){
@@ -346,7 +350,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.calendar_menu, menu)
+        menuInflater.inflate(R.menu.pashion, menu)
 
         // 커스텀 뷰 사용하기 위한 작업
         supportActionBar?.setDisplayShowCustomEnabled(true)
@@ -363,39 +367,6 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return when (item.itemId) {
             R.id.my_page_menu -> true
             R.id.notice_menu -> true
-//            R.id.plus_menu->{
-//                var dialog=AlertDialog.Builder(this)
-//
-//                var v1=layoutInflater.inflate(R.layout.calendar_do,null)
-//                dialog.setView(v1)
-//
-//
-//                var listener=object:DialogInterface.OnClickListener{
-//                    override fun onClick(p0: DialogInterface?, p1: Int) {
-//                        when(p1){
-//                            DialogInterface.BUTTON_POSITIVE->{
-//                                var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
-//                                var year=v1.date_picker.year
-//                                var month=v1.date_picker.month
-//                                var day=v1.date_picker.dayOfMonth
-//                                var date=CalendarDay(year,month,day)
-//                               date_list.add(date)
-//                                calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
-//                            }
-//                            DialogInterface.BUTTON_NEUTRAL->{
-//
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                dialog.setPositiveButton("확인",listener)
-//                dialog.setNeutralButton("취소",listener)
-//                dialog.show()
-//
-//
-//                return true
-//            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -479,6 +450,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+
     inner class ListAdapter : BaseAdapter(){
         override fun getCount(): Int {
             return recommend_list.size
@@ -501,7 +473,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             var map=recommend_list.get(position)
 
-            var name_text=view?.findViewById<TextView>(R.id.info)
+            var name_text=view?.findViewById<TextView>(R.id.clothes_info)
             var cloth_img=view?.findViewById<ImageView>(R.id.clothes)
             var type_img=view?.findViewById<ImageView>(R.id.clothes_type)
 

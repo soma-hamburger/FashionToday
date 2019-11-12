@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="199dp"
                     android:background="@drawable/image_box"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     app:srcCompat="@drawable/main_background" />
 
             <ImageView
