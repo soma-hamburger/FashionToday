@@ -9,11 +9,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/daily_look_app_bar"
         tools:context=".Page.DailyLook" android:orientation="vertical">
-    <TextView
-            android:text="데일리 룩 창입니다"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/textView10"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
     <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/daily_look_pager"/>

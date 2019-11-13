@@ -177,7 +177,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
             var lp=WindowManager.LayoutParams()
             lp.copyFrom(dialog.window!!.attributes)
-            lp.width=850
+            lp.width=950
             lp.height=1200
             dialog.window!!.attributes=lp
 
@@ -354,7 +354,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var map=user_clothes_list.get(p0)
 
             var garment_image=convertView?.findViewById<ImageView>(R.id.clothes)
-            var garment_info=convertView?.findViewById<TextView>(R.id.color)
+            var garment_info=convertView?.findViewById<TextView>(R.id.clothes_info)
             var garment_type=convertView?.findViewById<ImageView>(R.id.clothes_type)
 
             var image=map.get("image") as String

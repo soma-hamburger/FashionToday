@@ -9,11 +9,10 @@
             android:id="@+id/user_look"
             android:layout_width="163dp"
             android:layout_height="207dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/image_box"
             android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />
