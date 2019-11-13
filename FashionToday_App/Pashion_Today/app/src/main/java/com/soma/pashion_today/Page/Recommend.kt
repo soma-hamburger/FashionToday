@@ -30,7 +30,7 @@ import java.net.URL
  * 프로그램 ID : HAM-PA-700
  * 프로그램명 : Recommend.kt
  * 작성자명: 오원석
- * 작성일자 : 2019.11.1
+ * 작성일자 : 2019.11.13
  * 버전 : v0.6
  */
 class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
