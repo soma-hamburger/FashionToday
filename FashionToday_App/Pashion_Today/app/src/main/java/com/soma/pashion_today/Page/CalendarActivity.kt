@@ -110,6 +110,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             var date=obj?.getInt("date")!!
 
             var year=date/10000
+
             date=date%10000
 
             var month=(date/100)-1
@@ -197,7 +198,8 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         msg.show()
                     }
                 }
-                else{
+                // 일정 추가
+               else{
                     date_title.text=""
                     date_intro.text="일정이 없습니다"
                     calendar_button.setOnClickListener { view->
@@ -222,7 +224,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         var lp=WindowManager.LayoutParams()
                         lp.copyFrom(dialog.window!!.attributes)
                         lp.width=950
-                        lp.height=950
+                        lp.height=1100
                         dialog.window!!.attributes=lp
                         dialog.show()
                     }

@@ -16,14 +16,20 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.soma.pashion_today.R
 import kotlinx.android.synthetic.main.recommend.*
 import kotlinx.android.synthetic.main.recommend_content.*
+import kotlinx.android.synthetic.main.recommend_image.*
 import org.json.JSONArray
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 /*****
@@ -42,7 +48,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     // Hashmap으로 구현한 추천리스트 : ListView에 사용
     var recommed_list=ArrayList<HashMap<String,Any>>()
 
-    var profile_list=HashMap<String,Bitmap>()
+    var profile_img:Bitmap?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,31 +63,41 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             startActivity(intent)
         }
 
+
+        // 데이터 받기
+        var Getdata_thread=NetworkThread()
+        Getdata_thread.start()
+        Getdata_thread.join()
+
         var recommend_adapter=ListAdapter()
         recommend_view.adapter=recommend_adapter
 
-
-        var getDatathread=NetworkThread()
-        getDatathread.start()
-        getDatathread.join()
-
         for(i in 0 until recommd_JSONAry?.length()!!){
 
-            var map=HashMap<String,Any>()
-
+            // 사용자 정보
             var user_info=recommd_JSONAry?.getJSONObject(i)
             var user_name=user_info?.getString("name")
             var profile_site=user_info?.getString("profile_image")
-            var schedule_info=user_info?.getJSONObject("schedule")
-            var schedule_date=schedule_info?.getString("date")
-            var schedule_star=schedule_info?.getString("star_num")
-            var schedule_title=schedule_info?.getString("schedule_title")
-            var schedule_intro=schedule_info?.getString("schedule_introduction")
+            var user_intro=user_info?.getString("self_introduction")
+            var user_grade=user_info?.getString("grade")
 
+            // 일정 정보
+            var schedule_info=user_info?.getJSONObject("schedule")
+            var schedule_date=schedule_info?.getInt("date")!!
+            var schedule_star=schedule_info?.getString("star_num")
+            var schedule_title=schedule_info?.getString("title")
+            var schedule_intro=schedule_info?.getString("introduce")
+
+
+
+            var map=HashMap<String,Any>()
 
             map.put("user_name",user_name!!)
             map.put("user_profile",profile_site!!)
-            map.put("schedule_date",schedule_date!!)
+            map.put("user_intro",user_intro!!)
+            map.put("user_grade",user_grade!!)
+
+            map.put("schedule_date",schedule_date)
             map.put("schedule_star",schedule_star!!)
             map.put("schedule_title",schedule_title!!)
             map.put("schedule_intro",schedule_intro!!)
@@ -89,12 +105,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             recommed_list.add(map)
         }
 
-        runOnUiThread{
-            var recommed_adapter=recommend_view.adapter as ListAdapter
-            recommed_adapter.notifyDataSetChanged()
-        }
 
-        Log.d("msg","댓다")
 
         var listener=ListViewListener()
         recommend_view.setOnItemClickListener(listener)
@@ -197,34 +208,69 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
             var map=recommed_list.get(position)
 
-            var profile=v?.findViewById<ImageView>(R.id.profileImg)
-            var name=v?.findViewById<TextView>(R.id.nameText)
-            var title=v?.findViewById<TextView>(R.id.titleText)
-            var date=v?.findViewById<TextView>(R.id.dateText)
-            var intro=v?.findViewById<TextView>(R.id.introText)
-            var star=v?.findViewById<TextView>(R.id.starText)
+            var profile=v?.findViewById<ImageView>(R.id.recommend_userprofile)
+            var name=v?.findViewById<TextView>(R.id.recommend_name)
+            var grade=v?.findViewById<TextView>(R.id.recommend_grade)
+            var intro=v?.findViewById<TextView>(R.id.recommend_intro)
+
+
+            var title=v?.findViewById<TextView>(R.id.recommend_title)
+            var date=v?.findViewById<TextView>(R.id.recommend_date)
+            var look_intro=v?.findViewById<TextView>(R.id.look_intro)
+            var date_dday=v?.findViewById<TextView>(R.id.recommend_dday)
+
 
             var user_name=map.get("user_name") as String
             var profile_site=map.get("user_profile") as String
-            var schedule_date=map.get("schedule_date") as String
-            var schedule_star=map.get("schedule_star") as String
+            var user_grade=map.get("user_grade") as String
+            var user_intro=map.get("user_intro") as String
+
+            var schedule_date=map.get("schedule_date") as Int
             var schedule_title=map.get("schedule_title") as String
             var schedule_intro=map.get("schedule_intro") as String
 
-            var profile_img=profile_list.get(profile_site)
-            if(profile_img==null){
-                var image=imgNetworkThread(profile_site)
-                image.start()
+            var year=schedule_date/10000
+            schedule_date=schedule_date%10000
+
+            var month=(schedule_date/100)-1
+            schedule_date=schedule_date%100
+
+            var day=schedule_date
+
+            var temp_day=Calendar.getInstance()
+            temp_day.set(year,month,day)
+
+            var temp_millions=temp_day.timeInMillis
+
+            var today_millions=Calendar.getInstance().timeInMillis
+
+            var dday=(temp_millions-today_millions)/(24*60*60*1000)
+
+            if(dday>0){
+                date_dday?.text="D-${dday}"
+            }
+            else if(dday<0){
+                dday*=-1
+                date_dday?.text="D+${dday}"
             }
             else{
+                date_dday?.text="D-day"
+            }
+
+            if(profile_site!="null"){
+                var image=imgNetworkThread(profile_site)
+                image.start()
+                image.join()
                 profile?.setImageBitmap(profile_img)
             }
 
             name?.text=user_name
+            grade?.text=user_grade
+            intro?.text=user_intro
+
             title?.text=schedule_title
-            date?.text=schedule_date
-            intro?.text=schedule_intro
-            star?.text=schedule_star
+            date?.text="${year}년 ${month+1}월 ${day}일"
+            look_intro?.text=schedule_intro
 
             return v!!
 
@@ -269,13 +315,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             var url=URL(site)
             var conn=url.openConnection()
             var stream=conn.getInputStream()
-            var bitmap=BitmapFactory.decodeStream(stream)
-
-            profile_list.put(site!!,bitmap)
-            runOnUiThread{
-                var recommend_adapter=recommend_view.adapter as ListAdapter
-                recommend_adapter.notifyDataSetChanged()
-            }
+            profile_img=BitmapFactory.decodeStream(stream)
         }
     }
 

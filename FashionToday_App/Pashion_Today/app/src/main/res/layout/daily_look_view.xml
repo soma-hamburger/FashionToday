@@ -100,7 +100,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/view20"
                     app:layout_constraintStart_toStartOf="@+id/view20"
                     app:layout_constraintTop_toTopOf="@+id/view20"
-                    app:srcCompat="@drawable/dday_icon" />
+                    app:srcCompat="@drawable/calendar_icon" />
 
             <TextView
                     android:id="@+id/daily_date"
