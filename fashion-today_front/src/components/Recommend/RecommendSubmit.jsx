@@ -8,7 +8,12 @@ import React, {
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Image, Stage, Layer } from 'react-konva';
 import useImage from 'use-image';
-import { useFetch, useEventListener, UserPost } from '../../Tool';
+import {
+  useFetch,
+  useEventListener,
+  UserPost,
+  dataURLtoFile,
+} from '../../Tool';
 import { UserContext } from '../../Context';
 import ClosetNavigation from '../Closet/ClosetNavigation';
 import Requestor from './Requestor';
@@ -28,7 +33,7 @@ const CanvasImage = ({
   DragStart,
   DragEnd,
 }) => {
-  const [image] = useImage(src);
+  const [image] = useImage(src, 'anonymous');
   return (
     <Image
       draggable
@@ -116,6 +121,7 @@ const RecommendSubmit = ({ match }) => {
   const user = useContext(UserContext);
 
   const LookImagesWindow = useRef();
+  const LookCanvas = useRef();
 
   const [LookImageData, dispatchLookImageData] = useReducer(
     updateLookImageData,
@@ -136,7 +142,7 @@ const RecommendSubmit = ({ match }) => {
   };
 
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [introduce, setIntroduce] = useState('');
 
   const [stageWidth, setStageWidth] = useState(250);
   const [stageHeight, setStageHeight] = useState(320);
@@ -230,27 +236,22 @@ const RecommendSubmit = ({ match }) => {
   };
 
   const SendLook = async () => {
-    const canvas = LookImagesWindow.current.children[0].children[0].children[0];
-
+    const stage = LookCanvas.current;
     const array = LookImageData.images.map(i => parseInt(i.id, 10));
+    const dataURL = stage.toDataURL();
+    const file = dataURLtoFile(dataURL, 'look.png');
+    const data = new FormData();
 
-    console.log(array);
+    data.append('requestor_id', userId);
+    data.append('date', RequestorInfo.schedule.date);
+    data.append('look_img', file, file.name);
+    data.append('clothes_array', array);
+    data.append('look_title', title);
+    data.append('look_introduce', introduce);
 
-    canvas.toBlob(async blob => {
-      // eslint-disable-next-line prefer-const
-      let data = new FormData();
-      data.append('requestor_id', userId);
-      data.append('date', RequestorInfo.schedule.date);
-      data.append('look_img', blob);
-      data.append('clothes_array', array);
-      data.append('look_title', title);
-      data.append('look_introduce', description);
-      console.log(blob);
+    const res = await UserPost('recommend', user.token, data);
 
-      const res = await UserPost('recommend', user.token, data);
-
-      console.log(res);
-    });
+    console.log(res);
   };
 
   return (
@@ -268,7 +269,7 @@ const RecommendSubmit = ({ match }) => {
           />
           <div className="LookForm">
             <div className="LookImages" ref={LookImagesWindow}>
-              <Stage width={stageWidth} height={stageHeight}>
+              <Stage width={stageWidth} height={stageHeight} ref={LookCanvas}>
                 <Layer>{LookImages}</Layer>
               </Stage>
               <ClickImg
@@ -301,8 +302,8 @@ const RecommendSubmit = ({ match }) => {
                 type="text"
                 rows="6"
                 placeholder="룩 설명을 써주세요."
-                value={description}
-                onChange={e => setDescription(e.target.value)}
+                value={introduce}
+                onChange={e => setIntroduce(e.target.value)}
               />
               <button type="button" onClick={SendLook}>
                 추천 완료

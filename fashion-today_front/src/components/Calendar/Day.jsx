@@ -41,12 +41,12 @@ const Day = ({ dayId, isSchedule }) => {
   const dday = Math.floor(
     (today.getTime() - dayObj.getTime()) / (1000 * 60 * 60 * 24),
   );
-  const UserInfo = useContext(UserContext);
+  const { token } = useContext(UserContext);
 
   const ScheduleDetail = useFetch(
     'post',
     'schedule/detail',
-    UserInfo.token,
+    token,
     JSON.stringify({
       date: dayId,
     }),
@@ -57,7 +57,7 @@ const Day = ({ dayId, isSchedule }) => {
   const [starNum, setStarNum] = useState(0);
 
   const registerSchedule = async () => {
-    const res = await UserPost('schedule', UserInfo.token, {
+    const res = await UserPost('schedule', token, {
       date: dayId,
       title,
       introduce,

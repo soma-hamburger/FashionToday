@@ -14,10 +14,11 @@ const Closet = () => {
     'closet',
     token,
     JSON.stringify({
-      user_id: -1,
+      user_id: 0,
     }),
   );
 
+  console.log(UserCloset);
   const [color, setColor] = useState(null);
   const [category, setCategory] = useState(null);
 

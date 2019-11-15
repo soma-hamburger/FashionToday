@@ -11,17 +11,23 @@ import teeIcon from '../../img/category/tee_icon.png';
 import accesoryIcon from '../../img/category/accesory_icon.png';
 
 export const getCategoryIcon = category => {
-  let src;
-  if (category === 'jean') src = jeanIcon;
-  if (category === 'bag') src = bagIcon;
-  if (category === 'hat') src = hatIcon;
-  if (category === 'dress') src = dressIcon;
-  if (category === 'shirts') src = shirtsIcon;
-  if (category === 'tee') src = teeIcon;
-  if (category === 'accesory') src = accesoryIcon;
-  if (category === 'shoes') src = shoesIcon;
+  const categories = new Map([
+    { jean: jeanIcon },
+    { bag: bagIcon },
+    { hat: hatIcon },
+    { dress: dressIcon },
+    { shirts: shirtsIcon },
+    { tee: teeIcon },
+    { accesory: accesoryIcon },
+    { shoes: shoesIcon },
+  ]);
 
-  if (!src) return null;
+  if (!categories.has(category)) {
+    return null;
+  }
+
+  const src = categories.get(category);
+
   return (
     <div className="categoryIcon">
       <img src={src} alt="categoryIcon" />

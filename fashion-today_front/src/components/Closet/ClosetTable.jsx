@@ -31,7 +31,7 @@ const MakeClothes = filterdArray => {
 const ClosetTable = ({ category, color, array }) => {
   const closetTable = useMemo(() => {
     const filterdArray = filteringArray(category, color, array);
-    MakeClothes(filterdArray);
+    return MakeClothes(filterdArray);
   }, [array, category, color]);
 
   return <div className="ClosetTable">{closetTable}</div>;
