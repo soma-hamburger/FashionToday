@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="@+id/boarder" />
 
     <Button
-            android:id="@+id/button3"
+            android:id="@+id/recommend_button"
             android:layout_width="150dp"
             android:layout_height="25dp"
             android:layout_marginLeft="30dp"

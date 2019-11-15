@@ -138,6 +138,11 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.pashion, menu)
+
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        var actionView=layoutInflater.inflate(R.layout.action_bar,null)
+        supportActionBar?.customView=actionView
         return true
     }
 
@@ -218,7 +223,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             var date=v?.findViewById<TextView>(R.id.recommend_date)
             var look_intro=v?.findViewById<TextView>(R.id.look_intro)
             var date_dday=v?.findViewById<TextView>(R.id.recommend_dday)
-
+            var recommend_btn=v?.findViewById<Button>(R.id.recommend_button)
 
             var user_name=map.get("user_name") as String
             var profile_site=map.get("user_profile") as String
@@ -271,6 +276,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             title?.text=schedule_title
             date?.text="${year}년 ${month+1}월 ${day}일"
             look_intro?.text=schedule_intro
+            recommend_btn?.setText("${user_name} 님의 옷장")
 
             return v!!
 
