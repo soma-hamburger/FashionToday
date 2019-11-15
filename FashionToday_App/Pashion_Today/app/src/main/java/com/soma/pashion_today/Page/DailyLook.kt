@@ -43,6 +43,9 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
     // 서버에서 받은 디테일 데일리 룩 정보
     var Detail_JSONObj : JSONObject?=null
 
+    // 서버에서 받은 날짜
+    var Daily_date : Int?=null
+
     // 서버에서 받은 이미지
     var bitmap:Bitmap?=null
 
@@ -83,21 +86,20 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
         Get_datathread.start()
         Get_datathread.join()
 
+        var year=Daily_date!!/10000
+        Daily_date=Daily_date!!%10000
+
+        var month=Daily_date!!/100
+        Daily_date=Daily_date!!%100
+
+        var day=Daily_date
+
         for(i in 0 until Daily_look_JSONAry?.length()!!){
             var obj=Daily_look_JSONAry?.getJSONObject(i)
-            var date=obj?.getInt("date")!!
             var name=obj?.getString("recommender_name")!!
             var user_image=obj?.getString("recommender_profile_image")
             var grade=obj?.getInt("recommender_grade")
             var look_image=obj?.getString("look_image")
-
-            var year=date/10000
-            date=date%10000
-
-            var month=date/100
-            date=date%100
-
-            var day=date
 
             var view=layoutInflater.inflate(R.layout.daily_look_view,null)
             view.daily_date.text="${year}년 ${month}월 ${day}일"
@@ -330,6 +332,7 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
             }while(str!=null)
 
             var obj= JSONObject(buf.toString())
+            Daily_date=obj.getInt("date")
             Daily_look_JSONAry=obj.getJSONArray("daily_look_array")
 
         }

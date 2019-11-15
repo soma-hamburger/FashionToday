@@ -28,9 +28,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.login_acitivity)
 
 
-        //var v=layoutInflater.inflate(R.layout.daily_look_view,null)
-        //view.setBackgroundResource(R.layout.daily_look_view)
-
 
         // 로그인 버튼 메서드
         Kakao_login.setOnClickListener { view->

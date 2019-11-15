@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar
 import com.soma.pashion_today.R
 import kotlinx.android.synthetic.main.main_dialog.*
 import kotlinx.android.synthetic.main.main_dialog.view.*
+import kotlinx.android.synthetic.main.pashion.*
 import kotlinx.android.synthetic.main.pashion_content.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -79,6 +80,8 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+       var header_view=nav_view.getHeaderView(0)
+       header_view.setBackgroundResource(R.drawable.menu_back)
 
         // 사용자 그리드 뷰 구성 어댑터객체 생성
         var look_list_adapter=ListAdapter()
