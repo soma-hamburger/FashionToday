@@ -7,8 +7,8 @@ const makeDailyLookView = (LookArray, onClick = () => {}) =>
   LookArray.map(look => {
     let ProfileImage = ProfileIcon;
 
-    if (look.recommender_profile_image)
-      ProfileImage = look.recommender_profile_image;
+    if (look.recommender.profile_image)
+      ProfileImage = look.recommender.profile_image;
 
     return (
       <div className="LookPreview" key={look.look_id}>
@@ -21,16 +21,16 @@ const makeDailyLookView = (LookArray, onClick = () => {}) =>
         <div className="UserInfo">
           <img
             src={ProfileImage}
-            alt={look.recommender_id}
+            alt={look.recommender.id}
             className="ProfileImage"
           />
-          <div className="Name">{look.recommender_name}</div>
+          <div className="Name">{look.recommender.name}</div>
           <img
             src={GradeIcon}
-            alt={look.recommender_id}
+            alt={look.recommender.id}
             className="GradeIcon"
           />
-          <div className="Grade">{look.recommender_grade}</div>
+          <div className="Grade">{look.recommender.grade}</div>
         </div>
       </div>
     );

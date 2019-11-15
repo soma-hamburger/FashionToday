@@ -18,7 +18,7 @@ const Main = () => {
     id: null,
   });
 
-  const DailyLookListInfo = useFetch('post', 'dailylooklist', token);
+  const DailyLookListInfo = useFetch('get', 'dailylist', token);
   const LookListInfo = useFetch('post', 'looklist', token);
 
   const setDailyPopUp = e => {

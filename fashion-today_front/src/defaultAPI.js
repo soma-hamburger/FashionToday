@@ -57,36 +57,43 @@ export const UserCloset = {
 
 export const getDailyLookList = {
   remark: 'success',
+  date: 20191123,
   user_id: 10000001,
   look_num: 3,
   star: 3,
   daily_look_array: [
     {
       look_id: 30000001,
-      recommender_id: 10000000,
-      recommender_name: '오원석',
-      recommender_grade: 132,
-      recommender_profile_image: null,
       look_image:
         'https://i0.codibook.net/files/thumb/big/1975070913500/efa702b4153a46/1471844906.jpg',
+      recommender: {
+        id: 10000000,
+        name: '오원석',
+        grade: 132,
+        profile_image: null,
+      },
     },
     {
       look_id: 30000002,
-      recommender_id: 10000002,
-      recommender_name: '심기성',
-      recommender_grade: 132,
-      recommender_profile_image: null,
       look_image:
         'https://i0.codibook.net/files/thumb/big/1975070913500/efa702b4153a46/1471844906.jpg',
+      recommender: {
+        id: 10000001,
+        name: '심기성',
+        grade: 102,
+        profile_image: null,
+      },
     },
     {
       look_id: 30000003,
-      recommender_id: 10000002,
-      recommender_name: '심기성',
-      recommender_grade: 132,
-      recommender_profile_image: null,
       look_image:
         'https://i0.codibook.net/files/thumb/big/1975070913500/efa702b4153a46/1471844906.jpg',
+      recommender: {
+        id: 10000002,
+        name: '오원석',
+        grade: 122,
+        profile_image: null,
+      },
     },
   ],
   msec: 10,

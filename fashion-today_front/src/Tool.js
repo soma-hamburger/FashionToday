@@ -11,6 +11,7 @@ import {
   UserScheduleList,
   DailyLookDetail,
   LookDetail,
+  UserState,
 } from './defaultAPI';
 
 export const filteringArray = (category, color, array) => {
@@ -28,8 +29,9 @@ export const filteringArray = (category, color, array) => {
 
 const findDefaultAPI = url => {
   if (url === 'closet') return { data: UserCloset };
-  if (url === 'user/info') return { data: UserInfo };
-  if (url === 'dailylooklist') return { data: getDailyLookList };
+  if (url === 'user/info') return { data: UserState };
+  if (url === 'user/detail') return { data: UserInfo };
+  if (url === 'dailylist') return { data: getDailyLookList };
   if (url === 'schedule/list') return { data: UserScheduleList };
   if (url === 'schedule/detail') return { data: UserScheduleDetail };
   if (url === 'recommend/list') return { data: LookRequestorList };

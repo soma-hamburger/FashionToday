@@ -18,7 +18,6 @@ const Closet = () => {
     }),
   );
 
-  console.log(UserCloset);
   const [color, setColor] = useState(null);
   const [category, setCategory] = useState(null);
 
