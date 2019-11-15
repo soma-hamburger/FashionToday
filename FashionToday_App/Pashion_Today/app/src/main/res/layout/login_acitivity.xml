@@ -8,22 +8,6 @@
         android:orientation="vertical"
         tools:context=".Login.LoginActivity">
 
-    <Button
-            android:id="@+id/Kakao_login"
-            android:layout_width="240dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginEnd="68dp"
-            android:layout_marginRight="68dp"
-            android:layout_marginBottom="156dp"
-            android:background="@drawable/kakao_login"
-            android:gravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.864"
-            app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
             android:id="@+id/textView14"
             android:layout_width="349dp"
@@ -104,9 +88,7 @@
             android:layout_width="325dp"
             android:layout_height="277dp"
             android:layout_marginStart="35dp"
-            android:layout_marginLeft="35dp"
             android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
             android:layout_marginBottom="60dp"
             android:background="@drawable/login_box"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,31 +102,51 @@
             android:layout_height="100dp"
             android:layout_marginBottom="210dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/view"
             app:srcCompat="@drawable/logo_height" />
 
     <Button
             android:id="@+id/Naver_login"
-            android:layout_width="240dp"
-            android:layout_height="38dp"
-            android:layout_marginBottom="110dp"
-            android:background="@drawable/naver_login"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/login_naver"
+            android:drawableLeft="@drawable/naver_icon"
+            android:drawablePadding="-15dp"
+            android:paddingLeft="10dp"
+            android:text="네이버 계정으로 로그인"
+            android:textColor="@color/white1"
+            app:layout_constraintEnd_toEndOf="@+id/view"
             app:layout_constraintHorizontal_bias="0.521"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/Kakao_login" />
 
     <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="75dp"
+            android:layout_marginTop="5dp"
             android:text="자동로그인"
             android:textColor="#000000"
-            android:textColorHint="#F44336"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textColorHint="@color/puple1"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/Naver_login" />
+
+    <Button
+            android:id="@+id/Kakao_login"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_kakao"
+            android:drawableLeft="@drawable/kakao_icon"
+            android:drawablePadding="-15dp"
+            android:paddingLeft="10dp"
+            android:text="카카오 계정으로 로그인"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

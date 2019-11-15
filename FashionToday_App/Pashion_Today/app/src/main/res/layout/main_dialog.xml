@@ -119,7 +119,7 @@
 
             <com.soma.pashion_today.Page.ExpandableHeightGridView
                     android:id="@+id/Clothes_list"
-                    android:layout_width="match_parent"
+                    android:layout_width="370dp"
                     android:layout_height="415dp"
                     android:layout_marginTop="30dp"
                     android:background="@color/gray3"

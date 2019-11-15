@@ -337,6 +337,12 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.pashion, menu)
+
+        // 커스텀 뷰 사용하기 위한 작업
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        var actionView=layoutInflater.inflate(R.layout.action_bar,null)
+        supportActionBar?.customView=actionView
         return true
     }
 
@@ -505,8 +511,9 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                 var lp= WindowManager.LayoutParams()
                 lp.copyFrom(dialog.window!!.attributes)
                 lp.width=900
-                lp.height=1300
+                lp.height=1100
                 dialog.window!!.attributes=lp
+                dialog.window!!.setBackgroundDrawableResource(R.drawable.white_border)
 
                 dialog_view.Close_btn.setOnClickListener { view->
                     dialog.dismiss()
