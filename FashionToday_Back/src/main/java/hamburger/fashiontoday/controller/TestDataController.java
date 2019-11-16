@@ -99,7 +99,7 @@ public class TestDataController {
 
         System.out.println("시작");
 
-        int userId = 2;
+        int userId = 1;
         Member loginMember;
         loginMember = memberRepository.findByMId(userId);
 

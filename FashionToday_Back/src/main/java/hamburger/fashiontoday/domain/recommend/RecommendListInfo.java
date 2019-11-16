@@ -53,14 +53,14 @@ class RecommendSchedule {
     String date;
     int star_num;
     int look_num = 0;
-    String schedule_title;
-    String schedule_introduction;
+    String title;
+    String introduce;
 
     public RecommendSchedule(Schedule schedule) {
         this.date = schedule.getDdate();
         this.star_num = schedule.getDStar();
-        this.schedule_title = schedule.getDTitle();
-        this.schedule_introduction = schedule.getDIntroduce();
+        this.title = schedule.getDTitle();
+        this.introduce = schedule.getDIntroduce();
     }
 
 }
