@@ -84,7 +84,9 @@ public class Member {
     @Column(name = "mcondatetime")
     private String mConDateTime;
 
-
+    @Column(name = "mSelectdate")
+    @ColumnDefault("19941105")
+    private String mSelectdate;
 
     public Member(HashMap<String, Object> userInfo) {
 

@@ -1,10 +1,8 @@
 package hamburger.fashiontoday.domain.look;
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -61,5 +59,9 @@ public class Look {
 
     @Column(name = "ktime")
     private String kTime;
+
+    @Column(name = "kshare")
+    @ColumnDefault("0")
+    private int kShare;
 
 }

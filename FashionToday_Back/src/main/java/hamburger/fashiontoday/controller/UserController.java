@@ -3,11 +3,17 @@ package hamburger.fashiontoday.controller;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.member.MemberInfo;
+import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 /**
@@ -37,6 +43,9 @@ public class UserController {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    TmpLookRepository tmpLookRepository;
+
     /**
      *
      * @return
@@ -50,6 +59,23 @@ public class UserController {
             System.out.println("유저 아이디 : "+jwtService.getMember(authorization));
             Member member = memberRepository.findByMId(jwtService.getMember(authorization));
             MemberInfo memberInfo = new MemberInfo(member.getMId(),member.getMName(),member.getMStar(),member.getMProfileUrl(),10,"200");
+
+            String nowDate = new String();
+            LocalDateTime localDateTime = LocalDateTime.now();
+            if (localDateTime.getMonthValue() < 10) {
+                nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            } else {
+                nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            }
+
+            // 오늘 선택이 되지 않았을 경우
+            if(Integer.parseInt(member.getMSelectdate())< Integer.parseInt(nowDate)){
+                List<TmpLook> tmpLookList = tmpLookRepository.findByMIdAndDdate(member.getMId(),nowDate);
+                if(tmpLookList.size()>0){
+                       memberInfo.unSelect();
+                }
+            }
+
             logger.debug(programId + " : memberInfo - success : memberId = "+member.getMId());
             return memberInfo;
         }
