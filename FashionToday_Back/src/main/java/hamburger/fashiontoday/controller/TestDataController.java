@@ -8,17 +8,20 @@ import hamburger.fashiontoday.domain.member.LoginInfo;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberInfo;
 import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.domain.recommend.RecommendListInfo;
 import hamburger.fashiontoday.domain.schedule.Schedule;
 import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
 import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
+import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @RestController
@@ -40,6 +43,9 @@ public class TestDataController {
 
     @Autowired
     JwtService jwtService;
+
+    @Autowired
+    TmpLookRepository tmpLookRepository;
 
 
     @PostMapping(value = "/member")
@@ -70,15 +76,15 @@ public class TestDataController {
         Lookitem[][] lookitem = new Lookitem[10][10];
 
         // 1번 유저 옷
-        lookitem[0][0] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/coat1.jpeg", "brown", "coat", "");
-        lookitem[0][1] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants1.jpeg", "brown", "pants", "");
-        lookitem[0][2] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants2.jpeg", "blue", "pants", "");
-        lookitem[0][3] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants3.jpeg", "yellow", "pants", "");
-        lookitem[0][4] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shirts1.jpeg", "white", "shirts", "");
-        lookitem[0][5] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shoes1.jpeg", "white", "shoes", "");
-        lookitem[0][6] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts1.jpeg", "black", "tshirts", "");
-        lookitem[0][7] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts2.jpeg", "yellow", "tshirts", "");
-        lookitem[0][8] = new Lookitem(1158775578, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts3.jpeg", "white", "tshirts", "");
+        lookitem[0][0] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/coat1.jpeg", "brown", "coat", "");
+        lookitem[0][1] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants1.jpeg", "brown", "pants", "");
+        lookitem[0][2] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants2.jpeg", "blue", "pants", "");
+        lookitem[0][3] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/pants3.jpeg", "yellow", "pants", "");
+        lookitem[0][4] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shirts1.jpeg", "white", "shirts", "");
+        lookitem[0][5] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/shoes1.jpeg", "white", "shoes", "");
+        lookitem[0][6] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts1.jpeg", "black", "tshirts", "");
+        lookitem[0][7] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts2.jpeg", "yellow", "tshirts", "");
+        lookitem[0][8] = new Lookitem(1, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/sample/lookitem/tshirts3.jpeg", "white", "tshirts", "");
 
 
         for (int i = 0; i < 9; i++) {
@@ -185,6 +191,61 @@ public class TestDataController {
     }
 
 
+
+    //
+    @GetMapping(value = "/recommendList")
+    public RecommendListInfo scheduleList() {
+        System.out.println("추천 컨트롤러");
+
+        int loginMemberId = 0;
+        int scheduleListchecker = 0;
+        String nowDate = new String();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        if (localDateTime.getMonthValue() < 10) {
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        } else {
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        }
+        RecommendListInfo recommendListInfo = new RecommendListInfo();
+
+//        // 로그인 여부 확인
+//        if (jwtService.isUsable(token)) {
+//            loginMemberId = jwtService.getMember(token);
+//            System.out.println("유저 아이디 : " + loginMemberId);
+//
+//        } else {
+//            return recommendListInfo;
+//        }
+
+        // 동훈이로 로그
+        loginMemberId = 1158775578;
+
+        List<TmpLook> tmpLooks = tmpLookRepository.findByrecommandMId(loginMemberId);
+        List<ScheduleStatus> scheduleStatusList = scheduleStatusRepository.findByMIdNotAndLeftNotOrderByLeftDesc(loginMemberId, 0);
+
+        while (recommendListInfo.getSize() < 5 && scheduleListchecker < scheduleStatusList.size()) {
+            System.out.println(scheduleListchecker+" : 번째 돕니다.");
+            ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
+            boolean isRecommand = false;
+            for (int i = 0; i < tmpLooks.size(); i++) {
+                TmpLook nowTmpLook = tmpLooks.get(i);
+                if (nowTmpLook.getDdate().equals(nowScheduleStatus.getDdate())&&nowTmpLook.getMId()==nowScheduleStatus.getMId()) {
+                    if(nowTmpLook.getRecommandMId()==loginMemberId) {
+                        isRecommand = true;
+                        break;
+                    }
+                }
+            }
+            if (!isRecommand) {
+                Member scheduleMember = memberRepository.findByMId(nowScheduleStatus.getMId());
+                recommendListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()), scheduleMember);
+            }
+            scheduleListchecker++;
+        }
+
+
+        return recommendListInfo;
+    }
 
 
 

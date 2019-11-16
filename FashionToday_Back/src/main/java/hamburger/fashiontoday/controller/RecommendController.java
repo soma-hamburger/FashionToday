@@ -63,7 +63,7 @@ public class RecommendController {
 
     // 저장
     @PostMapping(value = "")
-    public TmpLookInfo recommendLook(@RequestHeader(value = "Authorization") String token, @RequestParam("requestor_id") int requestorId, @RequestParam("date") String date,@RequestParam("look_img") MultipartFile multipartFile,@RequestParam("clothes_array") List<Integer> clothes,@RequestParam("look_title") String title,@RequestParam("look_introduce") String introduce){
+    public TmpLookInfo recommendLook(@RequestHeader(value = "Authorization") String token, @RequestParam("requestor_id") int requestorId, @RequestParam("date") String date, @RequestParam("look_img") MultipartFile multipartFile, @RequestParam("clothes_array") List<Integer> clothes, @RequestParam("look_title") String title, @RequestParam("look_introduce") String introduce) {
 
         int loginMemberId = 0;
         String imgUrl = new String();
@@ -81,22 +81,22 @@ public class RecommendController {
         }
 
         // 멀티 파트 파일 여부 확인
-        if(multipartFile == null){
+        if (multipartFile == null) {
             tmpLookInfo.setRemark("no multipartfile");
             return tmpLookInfo;
         }
 
         // 업로드
-        try{
-            imgUrl =  s3Uploader.upload(multipartFile,String.valueOf(loginMemberId));
-        }catch (Exception e){
+        try {
+            imgUrl = s3Uploader.upload(multipartFile, String.valueOf(loginMemberId));
+        } catch (Exception e) {
             tmpLookInfo.setRemark("upload error");
             return tmpLookInfo;
         }
 
-        if(clothes.size() != 0) {
+        if (clothes.size() != 0) {
             Member loginMember = memberRepository.findByMId(loginMemberId);
-            tmpLook = new TmpLook(requestorId,date,imgUrl,loginMemberId,loginMember.getMProfileUrl(),title,introduce);
+            tmpLook = new TmpLook(requestorId, date, imgUrl, loginMemberId, loginMember.getMProfileUrl(), title, introduce);
             tmpLookRepository.save(tmpLook);
             for (int i = 0; i < clothes.size(); i++) {
                 int nowLookitemId = clothes.get(i);
@@ -105,7 +105,7 @@ public class RecommendController {
             }
             loginMember.addReward();
             memberRepository.save(loginMember);
-        }else{
+        } else {
             tmpLookInfo.setRemark("no Clothes_array");
             return tmpLookInfo;
         }
@@ -124,9 +124,9 @@ public class RecommendController {
         int scheduleListchecker = 0;
         String nowDate = new String();
         LocalDateTime localDateTime = LocalDateTime.now();
-        if(localDateTime.getMonthValue() < 10){
+        if (localDateTime.getMonthValue() < 10) {
             nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
-        }else{
+        } else {
             nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
         }
         RecommendListInfo recommendListInfo = new RecommendListInfo();
@@ -141,21 +141,23 @@ public class RecommendController {
         }
 
         List<TmpLook> tmpLooks = tmpLookRepository.findByrecommandMId(loginMemberId);
-        List<ScheduleStatus> scheduleStatusList = scheduleStatusRepository.findByMIdNotAndLeftNotOrderByLeftDesc(loginMemberId,0);
+        List<ScheduleStatus> scheduleStatusList = scheduleStatusRepository.findByMIdNotAndLeftNotOrderByLeftDesc(loginMemberId, 0);
 
-        while(recommendListInfo.getSize()<5&&scheduleListchecker< scheduleStatusList.size()){
+        while (recommendListInfo.getSize() < 5 && scheduleListchecker < scheduleStatusList.size()) {
             ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
             boolean isRecommand = false;
-            for(int i = 0; i<tmpLooks.size();i++){
+            for (int i = 0; i < tmpLooks.size(); i++) {
                 TmpLook nowTmpLook = tmpLooks.get(i);
-                if(nowTmpLook.getRecommandMId()==loginMemberId){
-                    isRecommand = true;
-                    break;
+                if (nowTmpLook.getDdate().equals(nowScheduleStatus.getDdate())&&nowTmpLook.getMId()==nowScheduleStatus.getMId()) {
+                    if(nowTmpLook.getRecommandMId()==loginMemberId) {
+                        isRecommand = true;
+                        break;
+                    }
                 }
             }
-            if(!isRecommand) {
+            if (!isRecommand) {
                 Member scheduleMember = memberRepository.findByMId(nowScheduleStatus.getMId());
-                recommendListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()),scheduleMember);
+                recommendListInfo.addSchedule(scheduleRepository.findByMIdAndDdate(nowScheduleStatus.getMId(), nowScheduleStatus.getDdate()), scheduleMember);
             }
             scheduleListchecker++;
         }
@@ -172,9 +174,9 @@ public class RecommendController {
 
         String nowDate = new String();
         LocalDateTime localDateTime = LocalDateTime.now();
-        if(localDateTime.getMonthValue() < 10){
+        if (localDateTime.getMonthValue() < 10) {
             nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
-        }else{
+        } else {
             nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
         }
         TmpLookListInfo tmpLookListInfo = new TmpLookListInfo();
@@ -189,12 +191,12 @@ public class RecommendController {
             return tmpLookListInfo;
         }
 
-        List<TmpLook> todayTmpLooks = tmpLookRepository.findByMIdAndDdate(loginMemberId,nowDate);
-        if(todayTmpLooks.size()>0){
-            for(int i = 0; i<todayTmpLooks.size();i++){
+        List<TmpLook> todayTmpLooks = tmpLookRepository.findByMIdAndDdate(loginMemberId, nowDate);
+        if (todayTmpLooks.size() > 0) {
+            for (int i = 0; i < todayTmpLooks.size(); i++) {
                 tmpLookListInfo.addTmpLook(todayTmpLooks.get(i));
             }
-        }else{
+        } else {
             tmpLookListInfo.setRemark("no_looks");
             return tmpLookListInfo;
         }
