@@ -19,11 +19,15 @@ const Calendar = ({ match }) => {
   const { token } = useContext(UserContext);
   const ScheduleList = useFetch('get', 'schedule/list', token);
   const LookListInfo = useFetch('post', 'looklist', token);
-  let scheduleIndex = -1;
+
+  let isSchedule = false;
+
   if (ScheduleList) {
-    scheduleIndex = ScheduleList.data.schedule_array.findIndex(
+    const scheduleIndex = ScheduleList.data.schedule_array.findIndex(
       s => s.date === DayId,
     );
+
+    isSchedule = scheduleIndex >= 0;
   }
 
   return (
@@ -33,7 +37,7 @@ const Calendar = ({ match }) => {
           dayId={DayId}
           scheduleList={ScheduleList ? ScheduleList.data : null}
         />
-        <Day dayId={DayId} isSchedule={scheduleIndex >= 0} />
+        <Day dayId={DayId} isSchedule={isSchedule} />
       </div>
       {LookListInfo && <LookList LookArray={LookListInfo.data.look_array} />}
     </div>

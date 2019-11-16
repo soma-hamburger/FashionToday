@@ -25,6 +25,7 @@ const Closet = () => {
     setColor,
     setCategory,
   };
+
   return (
     <div className="Closet">
       <img

@@ -6,6 +6,7 @@
   font-family: $noto-sans;
   @include center-margin($width-padding, 0);
   .CalendarSection {
+    position: relative;
     display: grid;
     grid-template-columns: 7.5fr 4.5fr;
     grid-gap: 1vw;
@@ -45,7 +46,7 @@
         .pDay,
         .Today {
           padding: 1.2vw 0 1.2vw 0;
-          border: 0.2vmin solid $white;
+          border: 0.2vw solid $white;
           display: grid;
           .schedule,
           .scheduleIcon {
@@ -196,15 +197,28 @@
           margin-bottom: 1.5vmin;
           line-height: 1.5;
         }
-        .StarNum {
+        .Bar {
           display: flex;
-          align-items: center;
-          font-size: 1.5vw;
-          color: $violet2;
-          img {
-            width: 2vw;
-            margin-right: 1vw;
+          justify-content: space-between;
+          .StarNum {
+            display: flex;
+            align-items: center;
+            font-size: 1.5vw;
+            color: $violet2;
+            img {
+              width: 2vw;
+              margin-right: 1vw;
+            }
           }
+          button {
+            color: $white;
+            border-radius: 0.5vw;
+            border: 0;
+            background-color: $violet2;
+          }
+        }
+        .CalLook {
+          box-shadow: 0 0 5px 2px $gray5;
         }
       }
     }

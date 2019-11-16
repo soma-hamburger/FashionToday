@@ -5,27 +5,40 @@ import WhetherIcon from '../../img/whether_icon.png';
 import TempIcon from '../../img/temp_icon.png';
 import StarIcon from '../../img/star_icon.png';
 import { UserContext } from '../../Context';
+import CalLook from './CalLook';
 
 const getDayMark = dday => {
   if (dday === 0) return 'D-day';
   if (dday > 0) return `D+${dday}`;
   return `D${dday}`;
 };
+
 const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
+  const [lookOpen, setLookOpen] = useState(false);
   if (!scheduleDetail) {
     if (dday >= 0) return null;
     return scheduleForm;
   }
-  const { title, introduce, star } = scheduleDetail;
+  const { title, introduce, star, look } = scheduleDetail;
 
   return (
     <div className="ScheduleDiv">
       <div className="ScheduleTitle">{title}</div>
       <div className="ScheduleIntroduction">: {introduce}</div>
-      <div className="StarNum">
-        <img src={StarIcon} alt="StarIcon" />
-        <div>{star}</div>
+      <div className="Bar">
+        <div className="StarNum">
+          <img src={StarIcon} alt="StarIcon" />
+          <div>{star}</div>
+        </div>
+        {look && (
+          <button type="button" onClick={() => setLookOpen(!lookOpen)}>
+            룩 보기
+          </button>
+        )}
       </div>
+      {look && lookOpen && (
+        <CalLook look={look} close={() => setLookOpen(false)} />
+      )}
     </div>
   );
 };
@@ -35,6 +48,7 @@ ScheduleDiv.propTypes = {
     title: PropTypes.string.isRequired,
     introduce: PropTypes.string.isRequired,
     star: PropTypes.number.isRequired,
+    look: PropTypes.object.isRequired,
   }).isRequired,
   dday: PropTypes.number.isRequired,
   scheduleForm: PropTypes.element.isRequired,

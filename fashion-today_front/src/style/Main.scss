@@ -312,6 +312,7 @@
   filter: blur(5px);
 }
 
+.CalLook,
 .LookPopUp,
 .DailyLookPopUp {
   $popup-width: 80vmin;
@@ -456,7 +457,7 @@
     }
   }
 }
-
+.CalLook,
 .LookPopUp {
   .PopUpInterface {
     grid-template-rows: 2fr 1.5fr;
