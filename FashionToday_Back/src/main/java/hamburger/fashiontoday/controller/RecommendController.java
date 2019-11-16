@@ -166,42 +166,5 @@ public class RecommendController {
         return recommendListInfo;
     }
 
-    //203
-    @GetMapping(value = "/dailyList")
-    public TmpLookListInfo dailyList(@RequestHeader(value = "Authorization") String token) {
 
-        int loginMemberId = 0;
-
-        String nowDate = new String();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        if (localDateTime.getMonthValue() < 10) {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
-        } else {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
-        }
-        TmpLookListInfo tmpLookListInfo = new TmpLookListInfo();
-
-        // 로그인 여부 확인
-        if (jwtService.isUsable(token)) {
-            loginMemberId = jwtService.getMember(token);
-            System.out.println("유저 아이디 : " + loginMemberId);
-
-        } else {
-            tmpLookListInfo.setRemark("login_error");
-            return tmpLookListInfo;
-        }
-
-        List<TmpLook> todayTmpLooks = tmpLookRepository.findByMIdAndDdate(loginMemberId, nowDate);
-        if (todayTmpLooks.size() > 0) {
-            for (int i = 0; i < todayTmpLooks.size(); i++) {
-                tmpLookListInfo.addTmpLook(todayTmpLooks.get(i));
-            }
-        } else {
-            tmpLookListInfo.setRemark("no_looks");
-            return tmpLookListInfo;
-        }
-
-
-        return tmpLookListInfo;
-    }
 }
