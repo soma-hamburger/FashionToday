@@ -32,7 +32,7 @@ public class MemberInfo {
 
     private String apiseq;
 
-    private boolean is_select = true;
+    private boolean select = true;
 
 
     public MemberInfo(int user_id, String name, int star, String profile_image, int msec, String apiseq) {
@@ -46,7 +46,7 @@ public class MemberInfo {
     }
 
     public void unSelect(){
-        this.is_select = false;
+        this.select = false;
     }
 
 }
