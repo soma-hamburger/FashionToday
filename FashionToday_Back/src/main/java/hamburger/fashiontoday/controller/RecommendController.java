@@ -125,9 +125,9 @@ public class RecommendController {
         String nowDate = new String();
         LocalDateTime localDateTime = LocalDateTime.now();
         if (localDateTime.getMonthValue() < 10) {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) +"0"+ String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         } else {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         }
         RecommendListInfo recommendListInfo = new RecommendListInfo();
 
