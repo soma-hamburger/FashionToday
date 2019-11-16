@@ -58,8 +58,6 @@ public class LookController {
             tmpLookListInfo.setRemark("no_looks");
             return tmpLookListInfo;
         }
-
-
         return tmpLookListInfo;
     }
 

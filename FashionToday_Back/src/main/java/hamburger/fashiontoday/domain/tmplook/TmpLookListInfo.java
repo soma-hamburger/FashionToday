@@ -36,9 +36,7 @@ class CandidateLook{
 
     private int look_id;
 
-    private int recommender_id;
-
-    private String recommender_profile_image;
+    private Recommender recommender = new Recommender();
 
     private String look_image;
 
@@ -49,10 +47,28 @@ class CandidateLook{
 
     public CandidateLook(TmpLook tmpLook) {
         this.look_id = tmpLook.getTLId();
-        this.recommender_id = tmpLook.getRecommandMId();
-        this.recommender_profile_image = tmpLook.getRecommanderImg();
+        this.recommender.setId(tmpLook.getRecommandMId());
+        this.recommender.setProfile_image(tmpLook.getRecommanderImg());
+        this.recommender.setGrade(tmpLook.getRecommanderGrade());
+        this.recommender.setName(tmpLook.getRecommanderName());
         this.look_image = tmpLook.getTlUrl();
         this.title = tmpLook.getTTitle();
         this.introduction = tmpLook.getTIntroduce();
     }
+
+}
+
+@Getter
+@Setter
+@NoArgsConstructor
+class Recommender{
+
+    private int id;
+
+    private String name;
+
+    private int grade;
+
+    private String profile_image;
+
 }
