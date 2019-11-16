@@ -1,7 +1,7 @@
 /* eslint-disable */
 export const UserState = {
   remark: 'success',
-  is_select: false,
+  select: false,
   user_id: 10000001,
   name: '장동훈',
   star: 8,

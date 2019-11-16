@@ -116,7 +116,7 @@ const updateLookImageData = (state, action) => {
   }
 };
 
-const RecommendSubmit = ({ match }) => {
+const RecommendSubmit = ({ match, history }) => {
   const userId = match.params.userid;
   const user = useContext(UserContext);
 
@@ -250,8 +250,12 @@ const RecommendSubmit = ({ match }) => {
     data.append('look_introduce', introduce);
 
     const res = await UserPost('recommend', user.token, data);
-
     console.log(res);
+    if (res.data.remark === 'success') {
+      history.push('/recommend');
+    } else if (res.data.remark === 'no Clothes_array') {
+      alert('옷을 선택해주세요!');
+    }
   };
 
   return (
@@ -318,6 +322,7 @@ const RecommendSubmit = ({ match }) => {
 
 RecommendSubmit.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default RecommendSubmit;

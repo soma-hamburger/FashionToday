@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import ProfileIcon from '../../img/default_profile.png';
 import GradeIcon from '../../img/grade_icon.png';
 import { ClickImg } from '../Common/Components';
+import { useFetch } from '../../Tool';
+import { UserContext } from '../../Context';
 
 const makeDailyLookView = (LookArray, onClick = () => {}) =>
   LookArray.map(look => {
@@ -36,8 +38,15 @@ const makeDailyLookView = (LookArray, onClick = () => {}) =>
     );
   });
 
-const DailyLookList = ({ LookArray, onClick }) => {
-  const DailyLookView = makeDailyLookView(LookArray, onClick);
+const DailyLookList = ({ onClick }) => {
+  const { token } = useContext(UserContext);
+  const DailyLookListInfo = useFetch('get', 'dailylist', token);
+  console.log(DailyLookListInfo);
+
+  const DailyLookView = useMemo(() => {
+    if (!DailyLookListInfo) return null;
+    return makeDailyLookView(DailyLookListInfo.data.daily_look_array, onClick);
+  }, [DailyLookListInfo, onClick]);
 
   return <div className="DailyLookList">{DailyLookView}</div>;
 };

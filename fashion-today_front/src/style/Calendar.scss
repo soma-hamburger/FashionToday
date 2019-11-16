@@ -505,14 +505,16 @@
             margin-bottom: 1.5vmin;
             line-height: 1.5;
           }
-          .StarNum {
-            display: flex;
-            align-items: center;
-            font-size: 1.5 * 10px;
-            color: $violet2;
-            img {
-              width: 2 * 10px;
-              margin-right: 1 * 10px;
+          .Bar {
+            .StarNum {
+              font-size: 15px;
+              img {
+                width: 20px;
+                margin-right: 10px;
+              }
+            }
+            button {
+              border-radius: 5px;
             }
           }
         }

@@ -43,9 +43,14 @@ const RecommendCloset = ({ category, color, array, onClick, lookData }) => {
   return <div className="ClosetTable">{closetTable}</div>;
 };
 
+RecommendCloset.defaultProps = {
+  category: null,
+  color: null,
+};
+
 RecommendCloset.propTypes = {
-  category: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  category: PropTypes.string,
+  color: PropTypes.string,
   array: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   lookData: PropTypes.array.isRequired,

@@ -227,6 +227,15 @@
   .MainBar {
     width: 1024 * 0.85px;
     margin: 0 calc((100vw - 1024 * 0.85px) / 2);
+    .pageLink {
+      padding-left: 30px;
+      justify-self: start;
+      a {
+        margin-right: 35px;
+        font-size: 13px;
+        font-weight: lighter;
+      }
+    }
   }
 }
 
