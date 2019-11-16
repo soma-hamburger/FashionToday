@@ -96,7 +96,7 @@ public class RecommendController {
 
         if (clothes.size() != 0) {
             Member loginMember = memberRepository.findByMId(loginMemberId);
-            tmpLook = new TmpLook(requestorId, date, imgUrl, loginMemberId, loginMember.getMProfileUrl(), title, introduce);
+            tmpLook = new TmpLook(requestorId, date, imgUrl, title, introduce,loginMember);
             tmpLookRepository.save(tmpLook);
             for (int i = 0; i < clothes.size(); i++) {
                 int nowLookitemId = clothes.get(i);
