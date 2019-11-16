@@ -25,7 +25,7 @@ public class LookController {
     TmpLookRepository tmpLookRepository;
 
     //203
-    @GetMapping(value = "/dailyList")
+    @GetMapping(value = "/dailylist")
     public TmpLookListInfo dailyList(@RequestHeader(value = "Authorization") String token) {
 
         int loginMemberId = 0;
