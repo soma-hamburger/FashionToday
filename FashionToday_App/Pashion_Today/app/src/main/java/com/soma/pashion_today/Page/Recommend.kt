@@ -58,6 +58,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         setSupportActionBar(toolbar)
 
         var header_view=nav_view.getHeaderView(0)
+        header_view.setBackgroundResource(R.drawable.menu_back)
         header_view.setOnClickListener { view->
             var intent=Intent(this,Pashion::class.java)
             startActivity(intent)
@@ -104,11 +105,6 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
             recommed_list.add(map)
         }
-
-
-
-        var listener=ListViewListener()
-        recommend_view.setOnItemClickListener(listener)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -234,32 +230,32 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             var schedule_title=map.get("schedule_title") as String
             var schedule_intro=map.get("schedule_intro") as String
 
+            // date 계산 과정
             var year=schedule_date/10000
             schedule_date=schedule_date%10000
-
             var month=(schedule_date/100)-1
             schedule_date=schedule_date%100
-
             var day=schedule_date
-
             var temp_day=Calendar.getInstance()
             temp_day.set(year,month,day)
-
             var temp_millions=temp_day.timeInMillis
-
             var today_millions=Calendar.getInstance().timeInMillis
-
             var dday=(temp_millions-today_millions)/(24*60*60*1000)
+
+            var recommend_dday : String?=null
 
             if(dday>0){
                 date_dday?.text="D-${dday}"
+                recommend_dday="D-${dday}"
             }
             else if(dday<0){
                 dday*=-1
                 date_dday?.text="D+${dday}"
+                recommend_dday="D+${dday}"
             }
             else{
                 date_dday?.text="D-day"
+                recommend_dday="D-day"
             }
 
             if(profile_site!="null"){
@@ -278,17 +274,26 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             look_intro?.text=schedule_intro
             recommend_btn?.setText("${user_name} 님의 옷장")
 
+            var recommend_date : String="${year}년 ${month+1}월 ${day}일"
+
+            recommend_btn?.setOnClickListener { view->
+                var intent=Intent(applicationContext,RecommendDetail::class.java)
+                intent.putExtra("profile_site",profile_site)
+                intent.putExtra("user_name",user_name)
+                intent.putExtra("user_grade",user_grade)
+                intent.putExtra("user_intro",user_intro)
+                intent.putExtra("schedule_date",recommend_date)
+                intent.putExtra("schedule_dday",recommend_dday)
+                intent.putExtra("schedule_title",schedule_title)
+                intent.putExtra("schedule_intro",schedule_intro)
+                startActivity(intent)
+            }
+
             return v!!
 
         }
     }
 
-    inner class ListViewListener : AdapterView.OnItemClickListener{
-        override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            var recommend_detail_intent=Intent(applicationContext,RecommendDetail::class.java)
-            startActivity(recommend_detail_intent)
-        }
-    }
 
     inner class NetworkThread : Thread(){
         override fun run() {

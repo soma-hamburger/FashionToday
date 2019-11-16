@@ -107,6 +107,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
 
         var header_view=nav_view.getHeaderView(0)
+        header_view.setBackgroundResource(R.drawable.menu_back)
         header_view.setOnClickListener {
             var intent=Intent(this,Pashion::class.java)
             startActivity(intent)
@@ -210,21 +211,8 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             map.put("category",category!!)
             map.put("image",bitmap!!)
 
+            closet_list.add(map)
             look_list.add(map)
-        }
-
-        for(i in 0 until look_list.size){
-            var map=look_list.get(i)
-            var color=map.get("color") as String
-            var category=map.get("category") as String
-            var image=map.get("image") as Bitmap
-
-            var tempmap=HashMap<String,Any>()
-            tempmap.put("color",color)
-            tempmap.put("category",category)
-            tempmap.put("image",image)
-
-            closet_list.add(tempmap)
         }
 
         // 스피너로 보기

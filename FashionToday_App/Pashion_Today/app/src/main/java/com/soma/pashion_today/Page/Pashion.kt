@@ -175,7 +175,6 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
 
             dialog.setContentView(dialog_view)
-            dialog.window!!.setBackgroundDrawableResource(R.drawable.image_box)
 
 
             var lp=WindowManager.LayoutParams()
@@ -183,6 +182,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             lp.width=950
             lp.height=1200
             dialog.window!!.attributes=lp
+            dialog.window!!.setBackgroundDrawableResource(R.drawable.white_border)
 
             dialog_view.close_button.setOnClickListener { view->
                 dialog.dismiss()

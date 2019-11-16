@@ -77,6 +77,7 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
         setSupportActionBar(toolbar)
 
         var header_view= nav_view.getHeaderView(0)
+        header_view.setBackgroundResource(R.drawable.menu_back)
         header_view.setOnClickListener {
             var intent=Intent(this,Pashion::class.java)
             startActivity(intent)

@@ -223,9 +223,10 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         dialog.setContentView(dialog_v)
                         var lp=WindowManager.LayoutParams()
                         lp.copyFrom(dialog.window!!.attributes)
-                        lp.width=950
-                        lp.height=1100
+                        lp.width=850
+                        lp.height=1000
                         dialog.window!!.attributes=lp
+                        dialog.window!!.setBackgroundDrawableResource(R.drawable.white_border)
                         dialog.show()
                     }
                 }
@@ -305,6 +306,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         lp.width=950
                         lp.height=1200
                         dialog.window!!.attributes=lp
+                        dialog.window!!.setBackgroundDrawableResource(R.drawable.white_border)
 
                         dialog_v.close_btn.setOnClickListener { view->
                             dialog.dismiss()
