@@ -7,7 +7,7 @@
   font-family: $noto-sans;
   grid-gap: 7vw;
   width: 100vw;
-  height: 100vh;
+  height: 100vmin;
   background-image: url('../img/background/index_background.jpg');
   background-size: cover;
   .TitleView {
@@ -115,7 +115,7 @@
     }
     .Interface {
       width: 100%;
-      margin-top: 5vh;
+      margin-top: 5vmin;
       height: 48vw;
       padding: 0;
       border-radius: 1vw;

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { ClickImg, getCategoryIcon } from '../Common/Components';
 import CheckIcon from '../../img/checkbox_icon.png';
 import { filteringArray } from '../../Tool';
@@ -40,6 +41,14 @@ const RecommendCloset = ({ category, color, array, onClick, lookData }) => {
   }, [array, category, color, lookData, onClick]);
 
   return <div className="ClosetTable">{closetTable}</div>;
+};
+
+RecommendCloset.propTypes = {
+  category: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  array: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  lookData: PropTypes.array.isRequired,
 };
 
 export default RecommendCloset;

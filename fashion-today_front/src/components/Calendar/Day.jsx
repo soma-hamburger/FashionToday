@@ -6,6 +6,11 @@ import TempIcon from '../../img/temp_icon.png';
 import StarIcon from '../../img/star_icon.png';
 import { UserContext } from '../../Context';
 
+const getDayMark = dday => {
+  if (dday === 0) return 'D-day';
+  if (dday > 0) return `D+${dday}`;
+  return `D${dday}`;
+};
 const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
   if (!scheduleDetail) {
     if (dday >= 0) return null;
@@ -41,6 +46,9 @@ const Day = ({ dayId, isSchedule }) => {
   const dday = Math.floor(
     (today.getTime() - dayObj.getTime()) / (1000 * 60 * 60 * 24),
   );
+
+  const dayMark = getDayMark(dday);
+
   const { token } = useContext(UserContext);
 
   const ScheduleDetail = useFetch(
@@ -111,7 +119,7 @@ const Day = ({ dayId, isSchedule }) => {
 
   return (
     <div className="DayComponent">
-      <div className="DDay">D{dday >= 0 ? `+${dday}` : dday}</div>
+      <div className="DDay">{dayMark}</div>
       <div className="DayTitle">
         {dayObj.getFullYear()}년 {dayObj.getMonth() + 1}월 {dayObj.getDate()}일
       </div>

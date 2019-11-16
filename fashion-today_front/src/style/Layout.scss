@@ -11,7 +11,7 @@
   $popup-width: 90px;
   $dropdown-width: 50px;
   position: fixed;
-  top: 4vh;
+  top: 4vmin;
   z-index: 10000;
   margin: 0 $margin;
   width: $width;
@@ -138,7 +138,7 @@
         align-self: center;
         a {
           margin-right: 3.5vw;
-          font-size: 11px;
+          font-size: 10px;
           font-weight: lighter;
         }
       }
@@ -222,13 +222,24 @@
     }
   }
 }
-.children {
-  min-height: 100vh;
+
+@include respond(wide-screen) {
+  .MainBar {
+    width: 1024 * 0.85px;
+    margin: 0 calc((100vw - 1024 * 0.85px) / 2);
+  }
 }
+
+.children {
+  min-height: 100vmin;
+}
+
 .Footer {
+  margin: 0 auto;
+  max-width: 1024px;
   width: 100vw;
-  height: 15vh;
-  margin-top: 10vh;
+  height: 15vmin;
+  margin-top: 10vmin;
   background-color: $v-black;
 }
 

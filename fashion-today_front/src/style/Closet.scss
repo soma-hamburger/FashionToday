@@ -1,13 +1,19 @@
 @import './utils.scss';
 
+.ClosetBackground {
+  max-width: 1024px;
+  @include respond(wide-screen) {
+    margin: 0 calc((100vw - 1024px) * 0.5);
+  }
+}
 .TitleBar {
   width: $width;
   padding: 0 $padding;
   color: $v-black;
   font-size: 2vw;
   font-weight: bold;
-  padding-top: 5vh;
-  padding-bottom: 1vh;
+  padding-top: 5vmin;
+  padding-bottom: 1vmin;
   @include center-margin($width, $padding);
   border-bottom: 2px solid $v-black;
   .describe {
@@ -17,7 +23,7 @@
   }
 }
 .ClosetNavigation {
-  margin-top: 3vh;
+  margin-top: 3vmin;
   width: $width;
   @include center-margin($width, 0);
   display: flex;
@@ -46,7 +52,7 @@
   @include center-margin($width, 0);
   grid-template-columns: repeat($grid-repeat, 1fr);
   grid-gap: $grid-gap;
-  margin-top: 3vh;
+  margin-top: 3vmin;
   .Clothes {
     width: $items-width;
     .Image {
@@ -76,6 +82,123 @@
           width: 1.35vw;
           height: 1.35vw;
           margin: 0.3vw 0.3vw;
+        }
+      }
+    }
+  }
+}
+
+@include respond(small-screen) {
+  $width: 85vw;
+  $padding: 2.5vw;
+  .TitleBar {
+    width: $width;
+    padding: 0 $padding;
+    padding-top: 5vmin;
+    padding-bottom: 1vmin;
+    @include center-margin($width, $padding);
+  }
+  .ClosetNavigation {
+    margin-top: 3vmin;
+    width: $width;
+    @include center-margin($width, 0);
+  }
+  .ClosetTable {
+    $grid-gap: 2vw;
+    $grid-repeat: 4;
+    $items-width: ($width - $grid-gap * ($grid-repeat - 1)) / $grid-repeat;
+    width: $width;
+    @include center-margin($width, 0);
+    margin-top: 3vmin;
+    .Clothes {
+      width: $items-width;
+      .Image {
+        height: $items-width * $image-ratio;
+      }
+    }
+  }
+}
+
+@include respond(wide-screen) {
+  $width: 1024 * 0.65px;
+  $padding: 1024 * 0.025px;
+  .TitleBar {
+    margin: 0 auto;
+    width: $width;
+    padding: 0 $padding;
+    color: $v-black;
+    font-size: 2 * 10px;
+    font-weight: bold;
+    padding-top: 5vmin;
+    padding-bottom: 1vmin;
+    border-bottom: 2px solid $v-black;
+    .describe {
+      font-size: 1.2 * 10px;
+      font-weight: normal;
+      margin-left: 3 * 10px;
+    }
+  }
+  .ClosetNavigation {
+    margin: 0 auto;
+    margin-top: 3vmin;
+    width: $width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    select {
+      margin-right: 2 * 10px;
+      font-size: 1.5 * 10px;
+      padding: 0.2 * 10px 0.5 * 10px;
+    }
+    .NavButton {
+      border: 0;
+      border-radius: 0.7 * 10px;
+      font-size: 1.5 * 10px;
+      padding: 0.4 * 10px 1.8 * 10px;
+      color: $white;
+      background-color: $violet2;
+    }
+  }
+  .ClosetTable {
+    $grid-gap: 20px;
+    $grid-repeat: 4;
+    $items-width: ($width - $grid-gap * ($grid-repeat - 1)) / $grid-repeat;
+    display: grid;
+    width: $width;
+    margin: 0 auto;
+    grid-template-columns: repeat($grid-repeat, 1fr);
+    grid-gap: $grid-gap;
+    margin-top: 3vmin;
+    .Clothes {
+      width: $items-width;
+      .Image {
+        border: 1px solid black;
+        width: 100%;
+        height: $items-width * $image-ratio;
+        border: 0px;
+        border-radius: 0.5 * 10px;
+        background-color: $gray2;
+      }
+      .Account {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $v-black;
+        margin-top: 0.5 * 10px;
+        height: 2 * 10px;
+        font-size: 1.5 * 10px;
+        .categoryIcon {
+          height: 1.9 * 10px;
+          width: 1.9 * 10px;
+          border: 0.5px solid $v-black;
+          border-radius: 1 * 10px;
+          margin-right: 0.3 * 10px;
+          img {
+            display: block;
+            width: 1.35 * 10px;
+            height: 1.35 * 10px;
+            margin: 0.3 * 10px 0.3 * 10px;
+          }
         }
       }
     }
