@@ -28,6 +28,10 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.closet.*
 import kotlinx.android.synthetic.main.closet_camera.view.*
 import kotlinx.android.synthetic.main.closet_content.*
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -97,6 +101,8 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
     // 파일 전체경로
     var pic_path: String? = null
+
+    var remove_bg : String?=null
 
     // 액티비티 create 메서드
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -411,6 +417,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
         var fileName = "temp_${System.currentTimeMillis()}.jpg"
         var picPath = "${dirPath}/${fileName}"
+        pic_path="${dirPath}/${fileName}"
 
         var file2 = File(picPath);
 
@@ -494,7 +501,15 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
                 var capture = BitmapFactory.decodeFile(contentUri?.path)
                 dialog_view.capture_img.setImageBitmap(capture)
+
+                var upload_thread=UploadThread()
+                upload_thread.start()
+                upload_thread.join()
+
+                dialog_view.capture_img.setImageBitmap(bitmap)
                 dialog.setContentView(dialog_view)
+
+
 
                 var lp= WindowManager.LayoutParams()
                 lp.copyFrom(dialog.window!!.attributes)
@@ -598,6 +613,39 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var conn=url.openConnection()
             var input=conn.getInputStream()
             bitmap=BitmapFactory.decodeStream(input)
+        }
+    }
+
+    inner class UploadThread : Thread(){
+        override fun run() {
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.remove.bg/v1.0/removebg")
+
+            url.addHeader("X-Api-Key","")
+
+
+            var multipart_builder=MultipartBody.Builder()
+            multipart_builder.setType(MultipartBody.FORM)
+
+            var file=File(pic_path)
+
+            multipart_builder.addFormDataPart("image_file",file.name, RequestBody.Companion.create(MultipartBody.FORM,file))
+            multipart_builder.addFormDataPart("size","auto")
+            var body=multipart_builder.build()
+
+            var post=url.post(body)
+
+            var request=post.build()
+
+            var req=client.newCall(request).execute()
+
+            var str=req.body?.bytes()
+
+            bitmap=BitmapFactory.decodeByteArray(str,0,str!!.size)
+
+
+
         }
     }
 }

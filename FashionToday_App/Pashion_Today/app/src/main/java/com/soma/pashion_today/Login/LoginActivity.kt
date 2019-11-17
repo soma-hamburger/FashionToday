@@ -27,43 +27,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_acitivity)
 
-
-
         // 로그인 버튼 메서드
         Kakao_login.setOnClickListener { view->
-            /*var thread=getDataThread()
-            thread.start()
-
-            var flag:Boolean=false
-
-            for(i in 0 until listData.size){
-                var map=listData[i]
-                var user_id=map.get("user_id")
-                var user_password=map.get("user_password")
-
-                if(user_id==IdText.text.toString()){
-                    if(user_password==PasswordText.text.toString()){
-                        flag=true
-                        var t1=Toast.makeText(this,"로그인 되었습니다",Toast.LENGTH_SHORT)
-                        t1.show()
-                        var intent=Intent(this,Pashion::class.java)
-                        startActivity(intent)
-                    }
-                }
-            }
-            if(flag==false){
-                var t1=Toast.makeText(this,"존재하지 않은 아이디입니다",Toast.LENGTH_SHORT)
-                t1.show()
-            }*/
-//            if("ppp"==Login_user_id.text.toString()){
-//                if("ppp"==Login_user_pw.text.toString()){
-//                    var toast_msg= Toast.makeText(this,"로그인 되었습니다", Toast.LENGTH_SHORT)
-//                    toast_msg.show()
-//                    var pashion_intent=Intent(this, Pashion::class.java)
-//                    startActivity(pashion_intent)
-//
-//                }
-//            }
             var pashion_intent=Intent(this, Pashion::class.java)
             startActivity(pashion_intent)
         }

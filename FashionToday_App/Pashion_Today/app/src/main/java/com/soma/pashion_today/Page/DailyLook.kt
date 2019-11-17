@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.BaseAdapter
 import android.widget.ImageView
@@ -19,6 +20,8 @@ import com.soma.pashion_today.R
 import kotlinx.android.synthetic.main.daily_look.*
 import kotlinx.android.synthetic.main.daily_look_content.*
 import kotlinx.android.synthetic.main.daily_look_view.view.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -82,6 +85,11 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
             var intent=Intent(this,Pashion::class.java)
             startActivity(intent)
         }
+
+        var thread=UploadThread()
+        thread.start()
+        thread.join()
+
 
         var Get_datathread=NetworkThread()
         Get_datathread.start()
@@ -368,6 +376,22 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
             var conn = url.openConnection()
             var stream = conn.getInputStream()
             bitmap = BitmapFactory.decodeStream(stream)
+        }
+    }
+
+    inner class UploadThread : Thread(){
+        override fun run() {
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczOTA4MDkxMjA4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjpudWxsLCJtY0RhdGUiOm51bGwsIm1jVGltZSI6bnVsbCwibWlkIjoxLCJtcHJvZmlsZVVybCI6Imh0dHBzOi8vc2VhcmNoLnBzdGF0aWMubmV0L2NvbW1vbj90eXBlPWEmc2l6ZT0xMjB4MTUwJnF1YWxpdHk9OTUmZGlyZWN0PXRydWUmc3JjPWh0dHAlM0ElMkYlMkZzc3RhdGljLm5hdmVyLm5ldCUyRnBlb3BsZSUyRnBvcnRyYWl0JTJGMjAxOTAxJTJGMjAxOTAxMDcxMDUzMjI3MTkuanBnIiwibW5hbWUiOiLsi6zquLDshLEiLCJtc3RhciI6MTAwLCJtc2VsZWN0ZGF0ZSI6IjE5OTQxMTA1IiwibW1haWwiOiJ0b3Rva2lzdW5nQG5hdmVyLmNvbSIsIm1iaXJ0aGRheSI6IjE5OTQxMDAzIiwibXNvY2lhbEtpbmQiOiJrYWthbyIsIm1oYXNoVmFsIjoiMTIzNDU2NzgiLCJtc29jaWFsSWQiOm51bGwsIm1lZGl0b3IiOjIsIm1ncmFkZSI6MTAsIm1jb21tZW50Ijoi7IKs656R6rO8IOygleugrOydhCDqt7jrjIDsl5DqsowiLCJtY29uRGF0ZVRpbWUiOm51bGx9fQ.-Ie0Rqr0Y0Z2Vt6jJVhVBmCwxcaT6phnFifxaySt3LU")
+            url.addHeader("Content-Type","application/json")
+
+            var request=request_builder.build()
+            var response=client.newCall(request).execute()
+
+            var result=response.body!!.string()
+            Log.d("msg","${result}")
         }
     }
 

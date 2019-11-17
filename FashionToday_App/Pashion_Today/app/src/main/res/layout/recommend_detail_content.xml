@@ -230,7 +230,7 @@
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView35" />
 
@@ -239,15 +239,15 @@
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintStart_toEndOf="@+id/rd_typespinner"
                     app:layout_constraintTop_toBottomOf="@+id/imageView35" />
 
             <Button
                     android:id="@+id/rd_select"
                     android:layout_width="65dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="35dp"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/calendar_button"
                     android:text="보기"
@@ -259,7 +259,6 @@
                     android:id="@+id/rd_gridview"
                     android:layout_width="360dp"
                     android:layout_height="350dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="50dp"
                     android:numColumns="2"
                     app:layout_constraintBottom_toBottomOf="parent"

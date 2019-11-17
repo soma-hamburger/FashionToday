@@ -123,6 +123,7 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
         rd_dday.text=detail_dday
         rd_title.text=detail_title
         rd_intro.text=detail_intro
+        rd_button.setText("${detail_name} 님의 옷장")
 
         if(detail_site!="null"){
             var image_thread=ImageThread(detail_site)
@@ -205,7 +206,7 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
             closet_look.add(map)
         }
 
-        rd_button.setOnClickListener { view->
+        rd_select.setOnClickListener { view->
             Log.d("msg","${spinner_category}, ${spinner_color}")
             if(spinner_category=="Category"){
                 if(spinner_color=="Color"){
@@ -314,6 +315,12 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.pashion, menu)
+
+        // 커스텀 뷰 사용하기 위한 작업
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        var actionView=layoutInflater.inflate(R.layout.action_bar,null)
+        supportActionBar?.customView=actionView
         return true
     }
 
@@ -479,8 +486,6 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
             bitmap=BitmapFactory.decodeStream(stream)
         }
     }
-
-
 
 
 

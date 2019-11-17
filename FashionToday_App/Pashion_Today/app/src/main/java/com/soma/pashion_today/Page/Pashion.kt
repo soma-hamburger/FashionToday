@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.main_dialog.*
 import kotlinx.android.synthetic.main.main_dialog.view.*
 import kotlinx.android.synthetic.main.pashion.*
 import kotlinx.android.synthetic.main.pashion_content.*
+import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -89,6 +90,10 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
         // 사용자 그리드 뷰 확장 높이
         Look_list.SetExpanded(true)
+
+       var thread=UploadThread()
+       thread.start()
+       thread.join()
 
         // <임시 데이터 넣는 작업>
         var temp_Thread=NetworkThread()
@@ -475,6 +480,26 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var connection=url.openConnection()
             var stream=connection.getInputStream()
             look_image=BitmapFactory.decodeStream(stream)
+        }
+    }
+
+    inner class UploadThread : Thread(){
+        override fun run() {
+            var client= OkHttpClient()
+            var request_builder= Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/user/info")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+            url.addHeader("Content-Type","application/json")
+
+
+            var formBody=FormBody.Builder().build()
+
+            var post=url.post(formBody)
+            var request=post.build()
+            var response=client.newCall(request).execute()
+
+            var body=response.body!!.string()
+            Log.d("msg","${body}")
         }
     }
 
