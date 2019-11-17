@@ -7,10 +7,12 @@ import hamburger.fashiontoday.domain.lookitem.LookitemRepository;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
 import hamburger.fashiontoday.service.JwtService;
+import hamburger.fashiontoday.service.S3Uploader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -32,6 +34,10 @@ public class LookitemController {
     @Autowired
     JwtService jwtService;
 
+    //S3 업로더
+    @Autowired
+    S3Uploader s3Uploader;
+
     // Member객체를 관리하는 memberrepository입니다.
     @Autowired
     MemberRepository memberRepository;
@@ -42,12 +48,10 @@ public class LookitemController {
     // 302번 api
     // 룩 아이템 을 저장하는 api
     @PostMapping(value = "/lookitem")
-    public LookitemInfo uploadLookitem(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public LookitemInfo uploadLookitem(@RequestHeader(value = "Authorization") String token, @RequestParam("clothes_img") MultipartFile multipartFile, @RequestParam("color") String color,@RequestParam("category") String category) {
 
         int loginMemberId = 0;
         String clothesImg = new String();
-        String color = new String();
-        String category = new String();
         LookitemInfo lookItemInfo = new LookitemInfo();
 
         // 로그인 여부 확인
@@ -60,15 +64,18 @@ public class LookitemController {
 
         }
 
-        // 파라미터 파싱
-        try {
-            clothesImg = param.get("clothes_img").toString();
-            color = param.get("color").toString();
-            category = param.get("category").toString();
-
-        } catch (Exception e) {
+        // 멀티 파트 파일 여부 확인
+        if (multipartFile == null) {
+            lookItemInfo.setRemark("no multipartfile");
             return lookItemInfo;
+        }
 
+        // 업로드
+        try {
+            clothesImg = s3Uploader.upload(multipartFile, String.valueOf(loginMemberId));
+        } catch (Exception e) {
+            lookItemInfo.setRemark("upload_error");
+            return lookItemInfo;
         }
 
         Lookitem lookitem2 = new Lookitem(loginMemberId, clothesImg, color, category, clothesImg);

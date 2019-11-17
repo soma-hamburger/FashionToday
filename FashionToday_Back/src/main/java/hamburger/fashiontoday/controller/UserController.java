@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class UserController {
             // 오늘 선택이 되지 않았을 경우
             if(Integer.parseInt(member.getMSelectdate())< Integer.parseInt(nowDate)){
                 List<TmpLook> tmpLookList = tmpLookRepository.findByMIdAndDdate(member.getMId(),nowDate);
-                if(tmpLookList==null || tmpLookList.size()>0){
+                if(tmpLookList.size()>0){
                        memberInfo.unSelect();
                 }
             }
