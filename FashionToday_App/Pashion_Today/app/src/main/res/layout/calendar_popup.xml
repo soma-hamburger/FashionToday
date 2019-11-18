@@ -125,7 +125,7 @@
                     app:layout_constraintTop_toTopOf="@+id/view9"
                     app:srcCompat="@mipmap/ic_launcher" />
 
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/Grid_list"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"

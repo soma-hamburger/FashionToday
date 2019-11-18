@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
     defaultConfig {
-        applicationId "com.soma.pashion_today"
+        applicationId "com.soma.Pashion_Today"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 5
@@ -31,6 +31,9 @@ android {
 
         }
     }
+//    lintOptions{
+//        checkReleaseBuilds false
+//    }
 }
 
 dependencies {

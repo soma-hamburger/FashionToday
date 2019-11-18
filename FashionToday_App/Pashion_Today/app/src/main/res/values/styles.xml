@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="actionBarSize">100dip</item>
+        <item name="actionBarSize">70dip</item>
 
     </style>
     <style name="AppTheme.NoActionBar">

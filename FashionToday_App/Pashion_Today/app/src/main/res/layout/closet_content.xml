@@ -60,7 +60,7 @@
             <ImageView
                     android:id="@+id/imageView19"
                     android:layout_width="310dp"
-                    android:layout_height="3dp"
+                    android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:foreground="@color/black"
                     android:scaleType="fitXY"
@@ -99,11 +99,11 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/color_spinner" />
 
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/closet_gridview"
-                    android:layout_width="360dp"
+                    android:layout_width="320dp"
                     android:layout_height="350dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:numColumns="2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

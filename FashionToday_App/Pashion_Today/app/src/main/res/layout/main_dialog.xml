@@ -4,12 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/image_box"
         android:orientation="vertical">
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -21,9 +21,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="6dp"
                     android:text="단정한 룩"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view3"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
                     app:layout_constraintTop_toTopOf="@+id/view3" />
 
@@ -44,7 +44,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginLeft="45dp"
-                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view3"
                     app:layout_constraintStart_toStartOf="@+id/view3"
                     app:layout_constraintTop_toTopOf="@+id/view3"
                     app:srcCompat="@drawable/pin_icon" />
@@ -67,7 +67,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toStartOf="@+id/view2"
                     app:layout_constraintTop_toTopOf="@+id/view2"
                     app:srcCompat="@drawable/default_profile" />
@@ -78,9 +78,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
                     android:text="오원석"
                     android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toEndOf="@+id/profile"
                     app:layout_constraintTop_toTopOf="@+id/view2" />
 
@@ -88,7 +88,7 @@
                     android:id="@+id/view3"
                     android:layout_width="250dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:foregroundGravity="center_horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
                     android:layout_height="15dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toEndOf="@+id/recommender_name"
                     app:layout_constraintTop_toTopOf="@+id/view2"
                     app:srcCompat="@drawable/heart_icon" />
@@ -111,22 +111,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginTop="5dp"
                     android:text="10"
-                    android:textSize="15sp"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view2"
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/view2" />
 
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/Clothes_list"
                     android:layout_width="match_parent"
                     android:layout_height="415dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="28dp"
                     android:background="@color/gray3"
                     android:isScrollContainer="false"
                     android:numColumns="2"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.454"
+                    app:layout_constraintHorizontal_bias="0.39"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/look_introduction" />
 
@@ -134,8 +134,8 @@
                     android:id="@+id/close_button"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="25dp"
                     android:background="@drawable/close_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

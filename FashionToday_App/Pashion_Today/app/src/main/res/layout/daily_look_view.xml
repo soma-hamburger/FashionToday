@@ -9,7 +9,7 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray3"
+            android:background="@color/violet3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -20,64 +20,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <View
-                    android:id="@+id/view18"
-                    android:layout_width="150dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view17" />
-
-            <ImageView
-                    android:id="@+id/imageView24"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="10dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/view18"
-                    app:layout_constraintStart_toStartOf="@+id/view18"
-                    app:layout_constraintTop_toTopOf="@+id/view18"
-                    app:srcCompat="@drawable/pin_icon" />
-
-            <TextView
-                    android:id="@+id/daily_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="단정한 룩"
-                    android:textColor="@color/w_black"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/view18"
-                    app:layout_constraintEnd_toEndOf="@+id/view18"
-                    app:layout_constraintStart_toEndOf="@+id/imageView24"
-                    app:layout_constraintTop_toTopOf="@+id/view18" />
-
-            <TextView
-                    android:id="@+id/daily_intro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="면접을 위해 단정하게 입기 좋은 룩입니다"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view18" />
-
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/daily_gridview"
                     android:layout_width="350dp"
                     android:layout_height="400dp"
-                    android:background="@color/gray3"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/violet3"
                     android:numColumns="2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/daily_intro" />
+                    app:layout_constraintTop_toBottomOf="@+id/view17" />
 
             <View
                     android:id="@+id/view17"
                     android:layout_width="match_parent"
-                    android:layout_height="370dp"
-                    android:background="@color/gray2"
+                    android:layout_height="250dp"
+                    android:background="@color/white1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,62 +43,63 @@
 
             <View
                     android:id="@+id/view20"
-                    android:layout_width="230dp"
-                    android:layout_height="40dp"
+                    android:layout_width="170dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/daily_img"
                     app:layout_constraintTop_toTopOf="@+id/view17" />
 
             <ImageView
                     android:id="@+id/imageView25"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="15dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/view20"
                     app:layout_constraintStart_toStartOf="@+id/view20"
                     app:layout_constraintTop_toTopOf="@+id/view20"
-                    app:srcCompat="@drawable/dday_icon" />
+                    app:srcCompat="@drawable/calendar_icon" />
 
             <TextView
                     android:id="@+id/daily_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:text="2019년 10월 7일"
                     android:textColor="@color/w_black"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     app:fontFamily="@font/noto_sans"
                     app:layout_constraintBottom_toBottomOf="@+id/view20"
-                    app:layout_constraintEnd_toEndOf="@+id/view20"
                     app:layout_constraintStart_toEndOf="@+id/imageView25"
                     app:layout_constraintTop_toTopOf="@+id/view20" />
 
             <ImageView
                     android:id="@+id/daily_img"
-                    android:layout_width="230dp"
-                    android:layout_height="230dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="178dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
                     android:scaleType="fitXY"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view20"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@mipmap/ic_launcher" />
 
             <View
                     android:id="@+id/view15"
-                    android:layout_width="230dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/main_popup"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="140dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/image_box"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/daily_img" />
 
             <ImageView
                     android:id="@+id/daily_profile"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/view15"
                     app:layout_constraintStart_toStartOf="@+id/view15"
                     app:layout_constraintTop_toTopOf="@+id/view15"
@@ -150,19 +109,19 @@
                     android:id="@+id/daily_recommender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:text="추천자"
                     android:textColor="@color/w_black"
-                    android:textSize="18sp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/view15"
                     app:layout_constraintStart_toEndOf="@+id/daily_profile"
                     app:layout_constraintTop_toTopOf="@+id/view15" />
 
             <ImageView
                     android:id="@+id/imageView26"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginRight="35dp"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginRight="45dp"
                     app:layout_constraintBottom_toBottomOf="@+id/view15"
                     app:layout_constraintEnd_toEndOf="@+id/view15"
                     app:layout_constraintTop_toTopOf="@+id/view15"
@@ -172,13 +131,109 @@
                     android:id="@+id/daily_grade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:text="385"
                     android:textColor="@color/w_black"
-                    android:textSize="18sp"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/view15"
-                    app:layout_constraintEnd_toEndOf="@+id/view15"
                     app:layout_constraintStart_toEndOf="@+id/imageView26"
                     app:layout_constraintTop_toTopOf="@+id/view15" />
+
+            <View
+                    android:id="@+id/view19"
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintStart_toEndOf="@+id/daily_img"
+                    app:layout_constraintTop_toBottomOf="@+id/view18" />
+
+            <ImageView
+                    android:id="@+id/imageView15"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view19"
+                    app:layout_constraintStart_toStartOf="@+id/view19"
+                    app:layout_constraintTop_toTopOf="@+id/view19"
+                    app:srcCompat="@drawable/pin_icon" />
+
+            <TextView
+                    android:id="@+id/daily_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="룩 정보"
+                    android:textColor="@color/w_black"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view19"
+                    app:layout_constraintEnd_toEndOf="@+id/view19"
+                    app:layout_constraintStart_toStartOf="@+id/view19"
+                    app:layout_constraintTop_toTopOf="@+id/view19" />
+
+            <TextView
+                    android:id="@+id/daily_intro"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:maxLines="3"
+                    android:text="면접을 위해 단정하게 입기 좋은 룩입니다"
+                    android:textColor="@color/w_black"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toEndOf="@+id/daily_img"
+                    app:layout_constraintTop_toBottomOf="@+id/view19" />
+
+            <View
+                    android:id="@+id/view18"
+                    android:layout_width="140dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/image_box"
+                    app:layout_constraintStart_toEndOf="@+id/daily_img"
+                    app:layout_constraintTop_toBottomOf="@+id/view20" />
+
+            <ImageView
+                    android:id="@+id/imageView22"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view18"
+                    app:layout_constraintStart_toStartOf="@+id/view18"
+                    app:layout_constraintTop_toTopOf="@+id/view18"
+                    app:srcCompat="@drawable/whether_icon" />
+
+            <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="90%"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view18"
+                    app:layout_constraintStart_toEndOf="@+id/imageView22"
+                    app:layout_constraintTop_toTopOf="@+id/view18" />
+
+            <ImageView
+                    android:id="@+id/imageView24"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginRight="35dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view18"
+                    app:layout_constraintEnd_toEndOf="@+id/view18"
+                    app:layout_constraintTop_toTopOf="@+id/view18"
+                    app:srcCompat="@drawable/temp_icon" />
+
+            <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="20"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view18"
+                    app:layout_constraintStart_toEndOf="@+id/imageView24"
+                    app:layout_constraintTop_toTopOf="@+id/view18" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

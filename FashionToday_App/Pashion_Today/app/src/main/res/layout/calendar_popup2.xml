@@ -46,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view11"
             app:layout_constraintStart_toStartOf="@+id/view11"
             app:layout_constraintTop_toTopOf="@+id/view11"
-            app:srcCompat="@drawable/dday_icon" />
+            app:srcCompat="@drawable/calendar_icon" />
 
     <View
             android:id="@+id/view11"
@@ -59,13 +59,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-            android:id="@+id/date_info"
-            android:layout_width="250dp"
+            android:id="@+id/date_title"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:ems="10"
-            android:hint="일정 상세내용을 입력해주세요"
+            android:hint="일정 제목"
             android:inputType="textPersonName"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/date_picker" />
@@ -83,15 +83,56 @@
     <Button
             android:id="@+id/register_button"
             android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/calendar_button"
             android:text="일정 등록하기"
             android:textColor="@color/white1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/view21"
+            app:layout_constraintEnd_toEndOf="@+id/view21"
+            app:layout_constraintTop_toTopOf="@+id/view21"
+            app:layout_constraintVertical_bias="0.502" />
+
+    <EditText
+            android:id="@+id/date_intro"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="일정 상세내용"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_info" />
+            app:layout_constraintTop_toBottomOf="@+id/date_title" />
+
+    <ImageView
+            android:id="@+id/imageView29"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view21"
+            app:layout_constraintStart_toStartOf="@+id/view21"
+            app:layout_constraintTop_toTopOf="@+id/view21"
+            app:srcCompat="@drawable/star_icon" />
+
+    <View
+            android:id="@+id/view21"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_intro" />
+
+    <EditText
+            android:id="@+id/editText"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:hint="0"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/view21"
+            app:layout_constraintStart_toEndOf="@+id/imageView29"
+            app:layout_constraintTop_toTopOf="@+id/view21" />
 </androidx.constraintlayout.widget.ConstraintLayout>
