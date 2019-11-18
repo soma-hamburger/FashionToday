@@ -628,7 +628,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var request_builder=Request.Builder()
             var url=request_builder.url("https://api.remove.bg/v1.0/removebg")
 
-            url.addHeader("X-Api-Key","Pz2mQzQqH6uNotgLfK1SxZY1")
+            url.addHeader("X-Api-Key","")
 
             var multipart_builder=MultipartBody.Builder()
             multipart_builder.setType(MultipartBody.FORM)
