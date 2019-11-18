@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.soma.pashion_today">
+        package="com.soma.Pashion_Today">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,26 +17,26 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".Page.RecommendDetail"
+                android:name="com.soma.Pashion_Today.Page.RecommendDetail"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".Page.Recommend"
+                android:name="com.soma.Pashion_Today.Page.Recommend"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".Page.DailyLook"
+                android:name="com.soma.Pashion_Today.Page.DailyLook"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".Page.Closet"
+                android:name="com.soma.Pashion_Today.Page.Closet"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".Page.CalendarActivity"
+                android:name="com.soma.Pashion_Today.Page.CalendarActivity"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".Page.Pashion"
+                android:name="com.soma.Pashion_Today.Page.Pashion"
                 android:label="@string/title_activity_pashion"
                 android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Login.RegisterActivity" />
-        <activity android:name=".Login.LoginActivity"
+        <activity android:name="com.soma.Pashion_Today.Login.RegisterActivity" />
+        <activity android:name="com.soma.Pashion_Today.Login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
 
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="com.soma.pashion_today.httpmultipart.file_provider"
+                android:authorities="com.soma.Pashion_Today.httpmultipart.file_provider"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data

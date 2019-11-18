@@ -117,7 +117,7 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="@+id/view2" />
 
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/Clothes_list"
                     android:layout_width="match_parent"
                     android:layout_height="415dp"

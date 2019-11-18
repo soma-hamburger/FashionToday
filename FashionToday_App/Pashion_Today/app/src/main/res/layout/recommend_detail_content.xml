@@ -21,8 +21,8 @@
 
             <View
                     android:id="@+id/view22"
-                    android:layout_width="350dp"
-                    android:layout_height="300dp"
+                    android:layout_width="300dp"
+                    android:layout_height="280dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/border_back"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -32,8 +32,8 @@
 
             <View
                     android:id="@+id/view23"
-                    android:layout_width="350dp"
-                    android:layout_height="130dp"
+                    android:layout_width="300dp"
+                    android:layout_height="120dp"
                     android:background="@drawable/border_top"
                     app:layout_constraintEnd_toEndOf="@+id/view22"
                     app:layout_constraintStart_toStartOf="@+id/view22"
@@ -92,7 +92,7 @@
 
             <TextView
                     android:id="@+id/rd_userintro"
-                    android:layout_width="200dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:maxLines="3"
@@ -106,8 +106,8 @@
                     android:id="@+id/rd_button"
                     android:layout_width="150dp"
                     android:layout_height="25dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/calendar_button"
                     android:drawableLeft="@drawable/closet_icon"
                     android:drawablePadding="-15dp"
@@ -255,9 +255,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView35" />
 
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/rd_gridview"
-                    android:layout_width="360dp"
+                    android:layout_width="300dp"
                     android:layout_height="350dp"
                     android:layout_marginBottom="50dp"
                     android:numColumns="2"
@@ -268,9 +268,9 @@
 
             <ImageView
                     android:id="@+id/imageView35"
-                    android:layout_width="350dp"
+                    android:layout_width="320dp"
                     android:layout_height="1dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

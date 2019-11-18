@@ -8,8 +8,8 @@
 
     <View
             android:id="@+id/boarder"
-            android:layout_width="350dp"
-            android:layout_height="300dp"
+            android:layout_width="300dp"
+            android:layout_height="280dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_back"
@@ -22,8 +22,8 @@
 
     <View
             android:id="@+id/boarder_top"
-            android:layout_width="350dp"
-            android:layout_height="130dp"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
             android:background="@drawable/border_top"
             app:layout_constraintStart_toStartOf="@+id/boarder"
             app:layout_constraintTop_toTopOf="@+id/boarder" />
@@ -83,7 +83,7 @@
 
     <TextView
             android:id="@+id/recommend_intro"
-            android:layout_width="200dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:maxLines="3"
@@ -97,8 +97,8 @@
             android:id="@+id/recommend_button"
             android:layout_width="150dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/calendar_button"
             android:drawableStart="@drawable/closet_icon"
             android:drawablePadding="-15dp"

@@ -103,7 +103,7 @@
                     android:layout_marginTop="20dp"
                     app:srcCompat="@drawable/separate_line" />
 
-            <com.soma.pashion_today.Page.ExpandableHeightGridView
+            <com.soma.Pashion_Today.Page.ExpandableHeightGridView
                     android:id="@+id/Look_list"
                     android:layout_width="365dp"
                     android:layout_height="527dp"
@@ -114,7 +114,7 @@
                     android:stretchMode="columnWidth"
                     tools:layout_editor_absoluteY="166dp">
 
-            </com.soma.pashion_today.Page.ExpandableHeightGridView>
+            </com.soma.Pashion_Today.Page.ExpandableHeightGridView>
         </LinearLayout>
     </ScrollView>
 
