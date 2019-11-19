@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -87,10 +88,19 @@ public class UserController {
     }
 
     @GetMapping(value = "/detail")
-    public MemberDetailInfo detailInfo(@RequestParam("user_id")int userId){
+    public MemberDetailInfo detailInfo(@RequestBody Map<String, Object> param){
 
+        int userId = 0;
         MemberDetailInfo memberInfo = new MemberDetailInfo();
         Member member = new Member();
+
+        try {
+            userId = Integer.parseInt(param.get("user_id").toString());
+        } catch (Exception e) {
+            memberInfo.setRemark("param_error");
+            return memberInfo;
+        }
+
         try{
             member = memberRepository.findByMId(userId);
         }catch (Exception e){
