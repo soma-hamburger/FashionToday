@@ -132,8 +132,9 @@ public class LookController {
 
     // 204번
     @PostMapping(value = "/dailylook")
-    public LookDetailInfo lookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestParam("look_id") int lookId,@RequestParam("date") String date) {
+    public LookDetailInfo lookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
+        int lookId = 0;
         int loginMemberId = 0;
         LookDetailInfo lookDetailInfo = new LookDetailInfo();
 
@@ -145,6 +146,14 @@ public class LookController {
             lookDetailInfo.setRemark("login_error");
             return lookDetailInfo;
         }
+
+        try{
+            lookId = Integer.parseInt(param.get("look_id").toString());
+        }catch(NullPointerException e){
+            lookDetailInfo.setRemark("param_error");
+            return lookDetailInfo;
+        }
+
 
         Look dailyLook = lookRepository.findByKId(lookId);
         TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
@@ -176,8 +185,6 @@ public class LookController {
 
         return lookListInfo;
     }
-
-
 
 
 }
