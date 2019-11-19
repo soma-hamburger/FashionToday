@@ -74,7 +74,7 @@ public class LookitemController {
 
         // 업로드
         try {
-            clothesImg = s3Uploader.upload(multipartFile, String.valueOf(loginMemberId),lookitemRepository.count());
+            clothesImg = s3Uploader.upload(multipartFile, String.valueOf(loginMemberId));
         } catch (Exception e) {
             lookItemInfo.setRemark("upload_error");
             return lookItemInfo;
