@@ -93,7 +93,7 @@ public class S3Uploader {
             }
         }
 
-        fixImageUrl = "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/"+uploadImageUrl.substring(46);
+        fixImageUrl = "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/"+uploadImageUrl.substring(47);
         return fixImageUrl;
 
     }
