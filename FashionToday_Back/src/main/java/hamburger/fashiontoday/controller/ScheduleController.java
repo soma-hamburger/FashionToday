@@ -1,20 +1,29 @@
 package hamburger.fashiontoday.controller;
 
 
+import hamburger.fashiontoday.domain.look.Look;
+import hamburger.fashiontoday.domain.look.LookDetailInfo;
+import hamburger.fashiontoday.domain.look.LookRepository;
+import hamburger.fashiontoday.domain.lookitem.Lookitem;
+import hamburger.fashiontoday.domain.lookitem.LookitemRepository;
+import hamburger.fashiontoday.domain.lookstructure.LookStructure;
+import hamburger.fashiontoday.domain.lookstructure.LookStructureRepository;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
-import hamburger.fashiontoday.domain.schedule.Schedule;
-import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
-import hamburger.fashiontoday.domain.schedule.ScheduleListInfo;
-import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
+import hamburger.fashiontoday.domain.schedule.*;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
+import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +57,18 @@ public class ScheduleController {
     @Autowired
     ScheduleStatusRepository scheduleStatusRepository;
 
+    @Autowired
+    TmpLookRepository tmpLookRepository;
+
+    @Autowired
+    LookRepository lookRepository;
+
+    @Autowired
+    LookStructureRepository lookStructureRepository;
+
+    @Autowired
+    LookitemRepository lookitemRepository;
+
 
     @GetMapping(value = "/list")
     public ScheduleListInfo getMySchedule(@RequestHeader(value = "Authorization") String token) {
@@ -73,12 +94,21 @@ public class ScheduleController {
     }
 
     @PostMapping(value = "/detail")
-    public ScheduleInfo getScheduleDeatil(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public ScheduleDetailInfo getScheduleDeatil(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         // 값
         int loginMemberId = 0;
-        ScheduleInfo scheduleInfo;
+        int userId = 0;
+        ScheduleDetailInfo scheduleDetailInfo = new ScheduleDetailInfo();
         String date = new String();
+
+        String nowDate = new String();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        if (localDateTime.getMonthValue() < 10) {
+            nowDate = String.valueOf(localDateTime.getYear()) +"0"+ String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
+        } else {
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
+        }
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
@@ -86,23 +116,47 @@ public class ScheduleController {
             System.out.println("유저 아이디 : " + loginMemberId);
 
         } else {
-            return new ScheduleInfo("error_login");
+            scheduleDetailInfo.setRemark("error_login");
+            return scheduleDetailInfo;
         }
 
         // 파라미터 파싱
         try {
             date = param.get("date").toString();
+            userId = Integer.parseInt(param.get("user_id").toString());
         } catch (Exception e) {
-            return new ScheduleInfo("error_param");
+            scheduleDetailInfo.setRemark("error_param");
+            return scheduleDetailInfo;
         }
 
         try {
-            scheduleInfo = new ScheduleInfo(scheduleRepository.findByMIdAndDdate(loginMemberId, date));
+            Schedule schedule = scheduleRepository.findByMIdAndDdate(userId,date);
+
+            // 과거의 상태
+            if(Integer.parseInt(schedule.getDdate())< Integer.parseInt(nowDate)){
+                scheduleDetailInfo.setPast(schedule);
+                return scheduleDetailInfo;
+            }
+            // 옷 선택
+            else if(schedule.getSelect()>1){
+                scheduleDetailInfo.unSelect(schedule);
+                return scheduleDetailInfo;
+            }else {
+                Look dailyLook = lookRepository.findByKId(schedule.getKId());
+                TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
+                List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
+                List<Lookitem> lookitems = new ArrayList<>();
+                for (Lookitem lookitem : lookitems) {
+                    lookitems.add(lookitemRepository.findByKmId(lookitem.getKmId()));
+                }
+                scheduleDetailInfo = new ScheduleDetailInfo(schedule,dailyLook,tmpLook,lookitems);
+            }
         }catch (Exception e){
-            return new ScheduleInfo("no data");
+            scheduleDetailInfo.setRemark("error_data");
+            return scheduleDetailInfo;
         }
 
-        return scheduleInfo;
+        return scheduleDetailInfo;
     }
 
 

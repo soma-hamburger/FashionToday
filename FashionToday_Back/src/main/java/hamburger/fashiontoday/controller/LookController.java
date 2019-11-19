@@ -34,13 +34,13 @@ public class LookController {
     JwtService jwtService;
 
     @Autowired
+    MemberRepository memberRepository;
+
+    @Autowired
     TmpLookRepository tmpLookRepository;
 
     @Autowired
     LookRepository lookRepository;
-
-    @Autowired
-    MemberRepository memberRepository;
 
     @Autowired
     LookStructureRepository lookStructureRepository;
