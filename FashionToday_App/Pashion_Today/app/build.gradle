@@ -31,9 +31,9 @@ android {
 
         }
     }
-//    lintOptions{
-//        checkReleaseBuilds false
-//    }
+    lintOptions{
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
@@ -50,4 +50,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.0.1")
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

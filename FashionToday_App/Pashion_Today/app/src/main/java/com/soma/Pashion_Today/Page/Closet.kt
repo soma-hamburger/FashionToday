@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -25,10 +26,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.closet.*
 import kotlinx.android.synthetic.main.closet_camera.view.*
 import kotlinx.android.synthetic.main.closet_content.*
-import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -498,21 +496,24 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
 
                 ///// 배경 지운 사진 저장 //////
-
-
-                var upload_thread=UploadThread()
-                upload_thread.start()
-                upload_thread.join()
+                var removebg_thread=RemoveBgThread()
+                removebg_thread.start()
+                removebg_thread.join()
 
                 dialog_view.capture_img.setImageBitmap(remove_image)
 
                 ////// 배경 제거된 이미지 내부저장소 저장 //////
-                var rd_file=File(dirPath,"${System.currentTimeMillis()}_rd.jpg")
+                var filename="${System.currentTimeMillis()}_rd.jpg"
+                var rd_file=File(dirPath,filename)
                 rd_file.createNewFile()
 
                 var out=FileOutputStream(rd_file)
-                remove_image!!.compress(Bitmap.CompressFormat.PNG,100,out)
+                remove_image?.compress(Bitmap.CompressFormat.PNG,100,out)
                 out.close()
+
+                var rb_path="${dirPath}/${filename}"
+                var upload_thread=UploadThread(rb_path,select_category,select_color)
+                upload_thread.start()
                 ///////////////////////////////////////
 
                 dialog.setContentView(dialog_view)
@@ -622,13 +623,13 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         }
     }
 
-    inner class UploadThread : Thread(){
+    inner class RemoveBgThread : Thread(){
         override fun run() {
             var client=OkHttpClient()
             var request_builder=Request.Builder()
             var url=request_builder.url("https://api.remove.bg/v1.0/removebg")
 
-            url.addHeader("X-Api-Key","")
+            url.addHeader("X-Api-Key","Pz2mQzQqH6uNotgLfK1SxZY1")
 
             var multipart_builder=MultipartBody.Builder()
             multipart_builder.setType(MultipartBody.FORM)
@@ -646,8 +647,28 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var str=req.body?.bytes()
 
             remove_image=BitmapFactory.decodeByteArray(str,0,str!!.size)
+        }
+    }
+
+    inner class UploadThread(var path : String,var category : String, var color : String) : Thread(){
+        override fun run() {
+            var client= OkHttpClient()
+            var request_builder= Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/lookitem")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+            url.addHeader("Content-Type","multipart/form-data")
 
 
+            var remove_file=File(path)
+            var multipart_builder=MultipartBody.Builder()
+            multipart_builder.addFormDataPart("clothes_img",remove_file.name,RequestBody.create(MultipartBody.FORM,remove_file))
+            multipart_builder.addFormDataPart("category",category)
+            multipart_builder.addFormDataPart("color",color)
+            var body=multipart_builder.build()
+
+            var post=url.post(body)
+            var request=post.build()
+            client.newCall(request).execute()
         }
     }
 

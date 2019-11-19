@@ -16,7 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.util.rangeTo
 import com.soma.Pashion_Today.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_dialog.*
 import kotlinx.android.synthetic.main.main_dialog.view.*
 import kotlinx.android.synthetic.main.pashion.*
@@ -33,22 +35,16 @@ import java.net.URL
  * 프로그램 ID : HAM-PA-500
  * 프로그램명 : Pashion.kt
  * 작성자명 : 오원석
- * 작성일자 : 2019.11.4
- * 버전 : v0.6
+ * 작성일자 : 2019.11.19
+ * 버전 : v0.9
  */
 class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     // 서버로부터 받은 JSON array
     var look_JSONAry:JSONArray?=null
 
-    // 리스트뷰를 구성하기 위한 룩 list
+    // 메인 리스트뷰를 구성하기 위한 룩 list
     var look_list=ArrayList<HashMap<String,Any>>()
-
-    // 프로필 서버로 받아서 관리하기 위한 list
-    var profile_imglist=HashMap<String,Bitmap>()
-
-    // 옷 서버로 받아서 관리하기 위한 list
-    var fashion_imglist=HashMap<String,Bitmap>()
 
     // 서버로부터 받은 JSON object
     var look_JSONObj : JSONObject?=null
@@ -56,24 +52,17 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     // 상세 옷들의 정보가 담긴 list
     var user_clothes_list=ArrayList<HashMap<String,Any>>()
 
-    // 옷 타입 분류 변수
-    var clothes_type= arrayOf("accesory","bag","dress","hat","jean","shirts","shoes","tee")
-
-    // 옷 변수 png list
-    var clothes_list= intArrayOf(
-        R.drawable.accesory_icon,
-        R.drawable.bag_icon,
-        R.drawable.dress_icon,
-        R.drawable.hat_icon,
-        R.drawable.jean_icon,
-        R.drawable.shirts_icon,
-        R.drawable.shoes_icon,
-        R.drawable.tee_icon
+    // 옷
+    var clothes_list= mapOf<String,Int>(
+        "accesory" to R.drawable.accesory_icon,
+        "bag" to R.drawable.bag_icon,
+        "dress" to R.drawable.dress_icon,
+        "hat" to R.drawable.hat_icon,
+        "jean" to R.drawable.jean_icon,
+        "shirts" to R.drawable.shirts_icon,
+        "shoes" to R.drawable.shoes_icon,
+        "tee" to R.drawable.tee_icon
     )
-
-    var look_image:Bitmap?=null
-
-
 
    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,13 +76,9 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         // 사용자 그리드 뷰 구성 어댑터객체 생성
         var look_list_adapter=ListAdapter()
         Look_list.adapter=look_list_adapter
-
         // 사용자 그리드 뷰 확장 높이
         Look_list.SetExpanded(true)
 
-       var thread=UploadThread()
-       thread.start()
-       thread.join()
 
         // <임시 데이터 넣는 작업>
         var temp_Thread=NetworkThread()
@@ -142,17 +127,9 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var temp_profile_site=temp_JSONObj?.getString("profile_image")
 
 
-            if(temp_profile_site!="null"){
-                var profile_image:Bitmap?=profile_imglist.get(temp_profile_site)
-                if(profile_image==null){
-                    var profile_thread=ProfileImageNetworkThread(temp_profile_site!!)
-                    profile_thread?.start()
-                }
-                else{
-                    profile.setImageBitmap(profile_image)
-                }
-
-            }
+            var profile_view=dialog_view.findViewById<ImageView>(R.id.profile)
+            // Picasso 라이브러리를 이용하여 이미지 등록
+            Picasso.with(this).load(temp_profile_site).into(profile_view)
 
             dialog_view.look_title.text=temp_look_title
             dialog_view.look_introduction.text=temp_look_intro
@@ -181,7 +158,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
             dialog.setContentView(dialog_view)
 
-
+            // 다이얼로그 크기 조절
             var lp=WindowManager.LayoutParams()
             lp.copyFrom(dialog.window!!.attributes)
             lp.width=950
@@ -279,7 +256,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
 
-    // 사진을 서버에서 받아 저장하여 관리하
+    // 사진을 서버에서 받아 저장하여 관리하는 리스트 어뎁터
     inner class ListAdapter:BaseAdapter(){
         override fun getCount(): Int {
             return look_list.size
@@ -313,28 +290,10 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
 
             if(profile_site!="null"){
-                var profile_image:Bitmap?=profile_imglist.get(profile_site)
-                if(profile_image==null){
-                    var profile_thread=ProfileImageNetworkThread(profile_site)
-                    profile_thread?.start()
-                }
-                else{
-                    profile_img?.setImageBitmap(profile_image)
-                }
+                Picasso.with(applicationContext).load(profile_site).into(profile_img)
             }
-
-            var fashion_image:Bitmap?=fashion_imglist.get(fashion_site)
-            if(fashion_image==null){
-                var image_thread=FashionImageNetworkThread(fashion_site)
-                image_thread.start()
-            }
-            else{
-                fashion_img?.setImageBitmap(fashion_image)
-            }
+            Picasso.with(applicationContext).load(fashion_site).into(fashion_img)
             name_text?.text=user_name
-
-
-
             return convertView!!
         }
     }
@@ -369,19 +328,9 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var color=map.get("color") as String
             var category=map.get("category") as String
 
+            Picasso.with(applicationContext).load(image).into(garment_image)
 
-            var image_thread=ClothesImageNetworkThread(image)
-            image_thread.start()
-            image_thread.join()
-
-
-            for(i in 0 until clothes_type.size){
-                if(clothes_type.get(i)==category){
-                    garment_type?.setImageResource(clothes_list.get(i))
-                }
-            }
-
-            garment_image?.setImageBitmap(look_image)
+            garment_type?.setImageResource(clothes_list.get(category)!!)
             garment_info?.text="${color} , ${category}"
 
             return convertView!!
@@ -436,50 +385,6 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
             var obj=JSONObject(buf.toString())
             look_JSONObj=obj
-        }
-    }
-
-
-    // 서버에서 프로필 이미지 받는 클래스
-    inner class ProfileImageNetworkThread(var site:String):Thread(){
-        override fun run() {
-            var url=URL(site)
-            var connection=url.openConnection()
-            var stream=connection.getInputStream()
-            var bitmap=BitmapFactory.decodeStream(stream)
-
-            profile_imglist.put(site,bitmap)
-
-            runOnUiThread{
-                var look_list_adapter=Look_list.adapter as ListAdapter
-                look_list_adapter.notifyDataSetChanged()
-            }
-        }
-    }
-
-    // 서버에서 코디 이미지 받는 클래스
-    inner class FashionImageNetworkThread(var site:String):Thread(){
-        override fun run() {
-            var url=URL(site)
-            var connection=url.openConnection()
-            var stream=connection.getInputStream()
-            var bitmap=BitmapFactory.decodeStream(stream)
-
-            fashion_imglist.put(site,bitmap)
-
-            runOnUiThread{
-                var look_list_adapter=Look_list.adapter as ListAdapter
-                look_list_adapter.notifyDataSetChanged()
-            }
-        }
-    }
-
-    inner class ClothesImageNetworkThread(var site : String) : Thread(){
-        override fun run() {
-            var url=URL(site)
-            var connection=url.openConnection()
-            var stream=connection.getInputStream()
-            look_image=BitmapFactory.decodeStream(stream)
         }
     }
 

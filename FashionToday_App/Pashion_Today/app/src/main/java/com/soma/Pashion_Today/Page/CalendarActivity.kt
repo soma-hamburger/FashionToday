@@ -382,6 +382,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         when (item.itemId) {
             R.id.menu_closet -> {
                 var intent = Intent(this, Closet::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_daily_look -> {
