@@ -37,6 +37,23 @@ public class S3Uploader {
     private String bucket;
 
     /**
+     * 멀티파트 파일 이름 바꿔 업로드 실행
+     *
+     * @param multipartParamFile
+     * @param s3DirParamName     : S3 저장소 Path
+     * @return
+     * @throws IOException
+     */
+    public String upload(MultipartFile multipartParamFile, String s3DirParamName,long count) throws Exception {
+        System.out.println(programId + " : upload1 : s3DirParamName = " + s3DirParamName);
+        File uploadFile = convert(multipartParamFile)
+                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
+        File renameFile = new File(String.valueOf(count)+uploadFile.getName());
+        uploadFile.renameTo(renameFile);
+        return upload(uploadFile, s3DirParamName);
+    }
+
+    /**
      * 멀티파트 파일 업로드 실행
      *
      * @param multipartParamFile

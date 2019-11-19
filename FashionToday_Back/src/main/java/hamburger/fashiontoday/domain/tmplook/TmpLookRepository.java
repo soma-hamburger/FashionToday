@@ -8,4 +8,5 @@ public interface TmpLookRepository extends CrudRepository<TmpLook,Integer> {
     List<TmpLook> findByrecommandMId(int recommandMid);
     List<TmpLook> findByMIdAndDdate(int mid, String ddate);
     TmpLook findByTLId(int tlid);
+
 }
