@@ -22,6 +22,6 @@ public class LookStructureId implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private int ksId;
+    private int tlId;
 
 }

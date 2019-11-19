@@ -36,12 +36,12 @@ public class LookStructure {
     @Id
     @Column(name = "tlid")
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitemclass_tlid"))
-    private int ksId;
+    private int tlId;
 
 
-    public LookStructure(int mid, int kmId, int ksId) {
+    public LookStructure(int mid, int kmId, int tlId) {
         this.mid = mid;
         this.kmId = kmId;
-        this.ksId = ksId;
+        this.tlId = tlId;
     }
 }

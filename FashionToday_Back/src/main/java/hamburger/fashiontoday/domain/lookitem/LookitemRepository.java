@@ -14,4 +14,9 @@ import java.util.List;
  */
 public interface LookitemRepository extends CrudRepository<Lookitem, Integer> {
     List<Lookitem> findLookitemsByMId(int MId);
+
+    Lookitem findByKmId(int kmid);
+
+
+
 }

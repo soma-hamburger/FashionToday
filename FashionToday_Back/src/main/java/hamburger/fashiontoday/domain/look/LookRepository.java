@@ -11,4 +11,9 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface LookRepository extends CrudRepository<Look,Integer> {
+
+    Look findByKId(int kid);
+
+
+
 }

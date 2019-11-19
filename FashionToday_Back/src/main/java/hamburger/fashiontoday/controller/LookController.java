@@ -1,18 +1,30 @@
 package hamburger.fashiontoday.controller;
 
 
+import hamburger.fashiontoday.domain.look.Look;
+import hamburger.fashiontoday.domain.look.LookDetailInfo;
+import hamburger.fashiontoday.domain.look.LookListInfo;
+import hamburger.fashiontoday.domain.look.LookRepository;
+import hamburger.fashiontoday.domain.lookitem.Lookitem;
+import hamburger.fashiontoday.domain.lookitem.LookitemRepository;
+import hamburger.fashiontoday.domain.lookstructure.LookStructure;
+import hamburger.fashiontoday.domain.lookstructure.LookStructureRepository;
+import hamburger.fashiontoday.domain.member.Member;
+import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLookListInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "")
@@ -23,6 +35,18 @@ public class LookController {
 
     @Autowired
     TmpLookRepository tmpLookRepository;
+
+    @Autowired
+    LookRepository lookRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
+
+    @Autowired
+    LookStructureRepository lookStructureRepository;
+
+    @Autowired
+    LookitemRepository lookitemRepository;
 
     //203
     @GetMapping(value = "/dailylist")
@@ -60,5 +84,100 @@ public class LookController {
         }
         return tmpLookListInfo;
     }
+
+    // 303 번
+    @PostMapping(value = "/look/choice")
+    public TmpLookInfo choiceLook(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
+
+        Member loginMember = new Member();
+        int loginMemberId = 0;
+        int lookId = 0;
+        String nowDate = new String();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        if (localDateTime.getMonthValue() < 10) {
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        } else {
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+        }
+        TmpLookInfo tmpLookInfo = new TmpLookInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            loginMember = memberRepository.findByMId(loginMemberId);
+            System.out.println("유저 아이디 : " + loginMemberId);
+        } else {
+            tmpLookInfo.setRemark("login_error");
+            return tmpLookInfo;
+        }
+
+
+        try{
+            lookId = Integer.parseInt(param.get("look_id").toString());
+        }catch(NullPointerException e){
+            tmpLookInfo.setRemark("param_error");
+            return tmpLookInfo;
+        }
+
+        TmpLook choiceTmpLook = tmpLookRepository.findByTLId(lookId);
+        Look choiceLook = new Look(choiceTmpLook);
+        lookRepository.save(choiceLook);
+        loginMember.setMSelectdate(nowDate);
+        memberRepository.save(loginMember);
+        tmpLookInfo.setRemark("success");
+
+        return tmpLookInfo;
+    }
+
+
+    // 204번
+    @PostMapping(value = "/dailylook")
+    public LookDetailInfo lookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestParam("look_id") int lookId,@RequestParam("date") String date) {
+
+        int loginMemberId = 0;
+        LookDetailInfo lookDetailInfo = new LookDetailInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+        } else {
+            lookDetailInfo.setRemark("login_error");
+            return lookDetailInfo;
+        }
+
+        Look dailyLook = lookRepository.findByKId(lookId);
+        TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
+        List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
+        List<Lookitem> lookitems = new ArrayList<>();
+        for(Lookitem lookitem : lookitems){
+            lookitems.add(lookitemRepository.findByKmId(lookitem.getKmId()));
+        }
+        lookDetailInfo = new LookDetailInfo(dailyLook,tmpLook,lookitems);
+
+        return lookDetailInfo;
+    }
+
+
+    //207번
+    @GetMapping(value = "/looklist")
+    public LookListInfo lookListInfo() {
+
+        LookListInfo lookListInfo = new LookListInfo();
+
+        Iterable<Look> lookList = lookRepository.findAll();
+        Iterator<Look> lookIterator = lookList.iterator();
+        while(lookIterator.hasNext()){
+            Look nowLook = lookIterator.next();
+            TmpLook tmpLook = tmpLookRepository.findByTLId(nowLook.getTlid());
+            Member lookMember = memberRepository.findByMId(tmpLook.getMId());
+            lookListInfo.addLook(nowLook.getKId(),lookMember.getMName(),tmpLook);
+        }
+
+        return lookListInfo;
+    }
+
+
+
 
 }

@@ -1,6 +1,7 @@
 package hamburger.fashiontoday.domain.look;
 
 
+import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -31,19 +32,9 @@ public class Look {
     @Column(name = "mid")
     private int mId;
 
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_ksid"))
-    @Column(name = "ksid")
-    private int ksId;
-
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_createrId"))
-    @Column(name = "createrId")
-    private int createrId;
-
-    @Column(name = "lookTitle")
-    private String lookTitle;
-
-    @Column(name = "lookDesc")
-    private String lookDesc;
+    @Column(name = "tlid")
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_look_tlid"))
+    private int tlid;
 
     @Column(name = "lookTemperature")
     private String kTemperature;
@@ -51,17 +42,17 @@ public class Look {
     @Column(name = "kweather")
     private String kWeather;
 
-    @Column(name = "kdatetime")
-    private String kDateTime;
-
-    @Column(name = "kdate")
-    private String kDate;
-
-    @Column(name = "ktime")
-    private String kTime;
-
     @Column(name = "kshare")
     @ColumnDefault("0")
     private int kShare;
+
+
+    public Look(TmpLook tmpLook) {
+        this.mId = tmpLook.getMId();
+        this.tlid = tmpLook.getTLId();
+        this.kTemperature = "17";
+        this.kWeather = "맑음";
+    }
+
 
 }
