@@ -23,6 +23,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.soma.Pashion_Today.R
 import com.google.android.material.navigation.NavigationView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.closet.*
 import kotlinx.android.synthetic.main.closet_camera.view.*
 import kotlinx.android.synthetic.main.closet_content.*
@@ -34,6 +35,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.net.URL
+import java.text.Normalizer
 
 
 /*****
@@ -51,17 +53,17 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
     var clothes_type = arrayOf("Category","Pants","Jean","Shirts","Tee","Dress","Shoes","Bag","Hat","Accessory")
 
     // 옷 타입 분류 이미지
-    var clothes_typeimg= intArrayOf(
-        R.drawable.jean_icon,
-        R.drawable.jean_icon,
-        R.drawable.jean_icon,
-        R.drawable.shirts_icon,
-        R.drawable.tee_icon,
-        R.drawable.dress_icon,
-        R.drawable.shoes_icon,
-        R.drawable.bag_icon,
-        R.drawable.hat_icon,
-        R.drawable.accesory_icon
+    var clothes_typeimg= mapOf<String,Int>(
+        "Category" to R.drawable.jean_icon,
+        "Pants" to R.drawable.jean_icon,
+        "Jean" to R.drawable.jean_icon,
+        "Shirts" to R.drawable.shirts_icon,
+        "Tee" to R.drawable.tee_icon,
+        "Dress" to R.drawable.dress_icon,
+        "Shoes" to R.drawable.shoes_icon,
+        "Bag" to R.drawable.bag_icon,
+        "Hat" to R.drawable.hat_icon,
+        "Accessory" to R.drawable.accesory_icon
     )
 
     // 옷 색상 분류 변수arrayOf("Category","Pants","Jean","Shirts","Tee","Dress","Shoes","Bag","Hat","Accessory")
@@ -85,9 +87,6 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
-
-    // 임시 이미지 변수
-    var bitmap : Bitmap?=null
 
     // 폴더경로
     var dirPath: String? = null
@@ -131,7 +130,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         var type_str:String="Category"
         var color_str:String="Color"
 
-        var Get_datathread=NetworkThread()
+        var Get_datathread=GetdataThread()
         Get_datathread.start()
         Get_datathread.join()
 
@@ -205,14 +204,11 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var category=obj?.getString("category")
             var image=obj?.getString("clothes_image")
 
-            var image_thread=ImageNetworkThread(image!!)
-            image_thread.start()
-            image_thread.join()
 
             var map=HashMap<String,Any>()
             map.put("color",color!!)
             map.put("category",category!!)
-            map.put("image",bitmap!!)
+            map.put("image",image!!)
 
             closet_list.add(map)
             look_list.add(map)
@@ -229,7 +225,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                         var map=look_list.get(i)
                         var color=map.get("color") as String
                         var category=map.get("category") as String
-                        var image=map.get("image") as Bitmap
+                        var image=map.get("image") as String
 
                         var tempmap=HashMap<String,Any>()
                         tempmap.put("color",color)
@@ -247,7 +243,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                         var map=look_list.get(i)
                         var color=map.get("color") as String
                         var category=map.get("category") as String
-                        var image=map.get("image") as Bitmap
+                        var image=map.get("image") as String
 
                         if(color==color_str){
                             var tempmap=HashMap<String,Any>()
@@ -269,7 +265,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                         var map=look_list.get(i)
                         var color=map.get("color") as String
                         var category=map.get("category") as String
-                        var image=map.get("image") as Bitmap
+                        var image=map.get("image") as String
 
                         if(category==type_str){
                             var tempmap=HashMap<String,Any>()
@@ -289,7 +285,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                         var map=look_list.get(i)
                         var color=map.get("color") as String
                         var category=map.get("category") as String
-                        var image=map.get("image") as Bitmap
+                        var image=map.get("image") as String
 
                         if(color==color_str && category==type_str){
                             var tempmap=HashMap<String,Any>()
@@ -499,29 +495,14 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                 var removebg_thread=RemoveBgThread()
                 removebg_thread.start()
                 removebg_thread.join()
-
                 dialog_view.capture_img.setImageBitmap(remove_image)
-
-                ////// 배경 제거된 이미지 내부저장소 저장 //////
-                var filename="${System.currentTimeMillis()}_rd.jpg"
-                var rd_file=File(dirPath,filename)
-                rd_file.createNewFile()
-
-                var out=FileOutputStream(rd_file)
-                remove_image?.compress(Bitmap.CompressFormat.PNG,100,out)
-                out.close()
-
-                var rb_path="${dirPath}/${filename}"
-                var upload_thread=UploadThread(rb_path,select_category,select_color)
-                upload_thread.start()
-                ///////////////////////////////////////
-
                 dialog.setContentView(dialog_view)
+
 
                 var lp= WindowManager.LayoutParams()
                 lp.copyFrom(dialog.window!!.attributes)
                 lp.width=900
-                lp.height=1200
+                lp.height=1250
                 dialog.window!!.attributes=lp
                 dialog.window!!.setBackgroundDrawableResource(R.drawable.white_border)
 
@@ -529,6 +510,22 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                     dialog.dismiss()
                 }
                 dialog_view.Select_btn.setOnClickListener { view->
+
+                    ////// 배경 제거된 이미지 내부저장소 저장 //////
+                    var filename="${System.currentTimeMillis()}_rd.jpg"
+                    var rd_file=File(dirPath,filename)
+                    rd_file.createNewFile()
+
+                    var out=FileOutputStream(rd_file)
+                    remove_image?.compress(Bitmap.CompressFormat.PNG,100,out)
+                    out.close()
+
+                    Log.d("msg","${select_category}, ${select_color}")
+                    var rb_path="${dirPath}/${filename}"
+                    var upload_thread=UploadThread(rb_path,select_category,select_color)
+                    upload_thread.start()
+                    ///////////////////////////////////////
+
                     var map=HashMap<String,Any>()
                     map.put("color",select_color)
                     map.put("category",select_category)
@@ -570,28 +567,23 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
             var map=closet_list.get(position)
 
-            var image=map.get("image") as Bitmap
+            var image=map.get("image") as String
             var color=map.get("color") as String
             var category=map.get("category") as String
 
 
-            closet_img?.setImageBitmap(image)
-
-            for(i in 0 until clothes_type.size){
-                if(category==clothes_type.get(i)){
-                    closet_type?.setImageResource(clothes_typeimg.get(i))
-                    break
-                }
-            }
-
+            Picasso.with(applicationContext).load(image).into(closet_img)
+            closet_type?.setImageResource(clothes_typeimg.get(category)!!)
             closet_info?.text="${category}, ${color}"
 
             return v!!
         }
     }
 
-    inner class NetworkThread : Thread(){
+
+    inner class GetdataThread : Thread(){
         override fun run() {
+
             var site="http://172.20.10.4:8085/MobileServer/closet.jsp"
             var url=URL(site)
             var conn=url.openConnection()
@@ -611,17 +603,28 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
             closet_JSONObj= JSONObject(buf.toString())
             closet_JSONAry=closet_JSONObj?.getJSONArray("clothes_array")
+
+
+//            var client=OkHttpClient()
+//            var request_builder=Request.Builder()
+//            var url=request_builder.url("https://api.pashiontoday.com/closet")
+//            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+//            url.addHeader("Content-Type","application/json")
+//
+//            var formBody=FormBody.Builder().
+//                add("user_id",0).build()
+//
+//            var post=url.post(formBody)
+//            var request=post.build()
+//            var response=client.newCall(request).execute()
+//
+//            var result=response.body!!.string()
+//
+//            Log.d("msg","결과 : ${response}")
+//            Log.d("msg","${result}")
         }
     }
 
-    inner class ImageNetworkThread(var site : String) : Thread(){
-        override fun run() {
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            bitmap=BitmapFactory.decodeStream(input)
-        }
-    }
 
     inner class RemoveBgThread : Thread(){
         override fun run() {
@@ -629,7 +632,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var request_builder=Request.Builder()
             var url=request_builder.url("https://api.remove.bg/v1.0/removebg")
 
-            url.addHeader("X-Api-Key","Pz2mQzQqH6uNotgLfK1SxZY1")
+            url.addHeader("X-Api-Key","")
 
             var multipart_builder=MultipartBody.Builder()
             multipart_builder.setType(MultipartBody.FORM)

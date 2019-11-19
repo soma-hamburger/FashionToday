@@ -80,6 +80,9 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         Look_list.SetExpanded(true)
 
 
+        var upload_thread=UploadThread()
+        upload_thread.start()
+        upload_thread.join()
         // <임시 데이터 넣는 작업>
         var temp_Thread=NetworkThread()
         temp_Thread.start()
