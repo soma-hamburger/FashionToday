@@ -66,6 +66,9 @@ public class S3Uploader {
         // S3에 올려지고 난 이후 이미지 url 경로
         String uploadImageUrl = new String();
 
+        // S3에 올린 이미지 주소 수정
+        String fixImageUrl;
+
         try {
 
             // S3에 올릴 파일 이름 가져오기
@@ -90,7 +93,8 @@ public class S3Uploader {
             }
         }
 
-        return uploadImageUrl;
+        fixImageUrl = "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/"+uploadImageUrl.substring(46);
+        return fixImageUrl;
 
     }
 
