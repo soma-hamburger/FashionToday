@@ -42,8 +42,8 @@ import java.text.Normalizer
  * 프로그램 ID : HAM-PA-200
  * 프로그램명 : Closet.kt
  * 작성자명: 오원석
-// * 작성일자 : 2019.11.11
- * 버전 : v0.6
+ * 작성일자 : 2019.11.19
+ * 버전 : v0.9
  */
 class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -111,6 +111,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         header_view.setBackgroundResource(R.drawable.menu_back)
         header_view.setOnClickListener {
             var intent=Intent(this,Pashion::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -369,14 +370,18 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             }
             R.id.menu_daily_look -> {
                 var intent=Intent(this,DailyLook::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_calendar -> {
                 var intent = Intent(this, CalendarActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
-
+                var intent=Intent(this,Recommend::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 

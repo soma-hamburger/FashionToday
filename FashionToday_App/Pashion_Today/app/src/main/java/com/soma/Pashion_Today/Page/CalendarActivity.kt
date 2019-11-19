@@ -91,6 +91,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         var header_view= nav_view.getHeaderView(0)
         header_view.setOnClickListener {
             var intent=Intent(this,Pashion::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -387,6 +388,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             }
             R.id.menu_daily_look -> {
                 var intent=Intent(this,DailyLook::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_calendar -> {
@@ -394,7 +396,9 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
-
+                var intent=Intent(this,Recommend::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 

@@ -17,6 +17,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.soma.Pashion_Today.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recommend_detail.*
 import kotlinx.android.synthetic.main.recommend_detail_content.*
 import org.json.JSONArray
@@ -30,8 +31,8 @@ import java.net.URL
  * 프로그램 ID : HAM-PA-800
  * 프로그램명 : RecommendDetail.kt
  * 작성자명: 오원석
- * 작성일자 : 2019.11.1
- * 버전 : v0.6
+ * 작성일자 : 2019.11.19
+ * 버전 : v0.9
  */
 class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,19 +43,6 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
     var closet_color=arrayOf("Color","Red","Blue","Green")
 
     // 옷 분류 이미지
-    var closet_imglist= intArrayOf(
-        R.drawable.jean_icon,
-        R.drawable.jean_icon,
-        R.drawable.jean_icon,
-        R.drawable.shirts_icon,
-        R.drawable.tee_icon,
-        R.drawable.dress_icon,
-        R.drawable.shoes_icon,
-        R.drawable.bag_icon,
-        R.drawable.hat_icon,
-        R.drawable.accesory_icon
-    )
-
     var closet_map= mapOf<String,Int>(
         "Category" to R.drawable.jean_icon,
         "Pants" to R.drawable.jean_icon,
@@ -77,12 +65,6 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
     // 스피너로 분류된 옷 리스트
     var look_list=ArrayList<HashMap<String,Any>>()
 
-    // 이미지 리스트
-    var image_list=HashMap<String,Bitmap>()
-
-    // 이미지
-    var bitmap : Bitmap?=null
-
     var spinner_category :String="Category"
 
     var spinner_color : String="Color"
@@ -100,6 +82,7 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
         var header_view=nav_view.getHeaderView(0)
         header_view.setOnClickListener {
             var intent= Intent(this,Pashion::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -123,10 +106,8 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
         rd_button.setText("${detail_name} 님의 옷장")
 
         if(detail_site!="null"){
-            var image_thread=ImageThread(detail_site)
-            image_thread.start()
-            image_thread.join()
-            rd_profile.setImageBitmap(bitmap)
+            var rd_view=findViewById<ImageView>(R.id.rd_profile)
+            Picasso.with(this).load(detail_site).into(rd_view)
         }
 
         var data_get_thread=NetworkThread()
@@ -286,6 +267,9 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
             var adapter=rd_gridview.adapter as ListAdapter
             adapter.notifyDataSetChanged()
         }
+        var listener=ListListener()
+        rd_gridview.setOnItemClickListener(listener)
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
@@ -338,18 +322,23 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
         when (item.itemId) {
             R.id.menu_closet -> {
                 var intent = Intent(this, Closet::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_daily_look -> {
                 var intent= Intent(this,DailyLook::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_calendar -> {
                 var intent = Intent(this, CalendarActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
-
+                var recommend=Intent(this,Recommend::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 
@@ -370,9 +359,12 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
             var category=map.get("category") as String
             var color=map.get("color") as String
             var site=map.get("image") as String
-            var img=image_list.get(site)
+
+
 
             var view=p1
+            var img=view?.findViewById<ImageView>(R.id.clothes_view)
+            Picasso.with(applicationContext).load(site).into(img)
             var chk=view?.findViewById<CheckBox>(R.id.colorcheck)
             chk?.toggle()
             if(chk?.isChecked==true){
@@ -416,16 +408,7 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
             var color=map.get("color") as String
 
 
-            var img:Bitmap?=image_list.get(site)
-            if(img==null){
-                var image_thread=ImageNetworkThread(site)
-                image_thread.start()
-                image_thread.join()
-            }
-            else{
-                clothes_view?.setImageBitmap(img)
-            }
-
+            Picasso.with(applicationContext).load(site).into(clothes_view)
             type_view?.setImageResource(closet_map.get(category)!!)
             info_view?.text="${category}, ${color}"
 
@@ -459,30 +442,6 @@ class RecommendDetail : AppCompatActivity(),  NavigationView.OnNavigationItemSel
         }
     }
 
-    inner class ImageNetworkThread(var site : String?) : Thread() {
-        override fun run() {
-            var url=URL(site)
-            var conn=url.openConnection()
-            var stream=conn.getInputStream()
-            var bitmap=BitmapFactory.decodeStream(stream)
-
-            image_list.put(site!!,bitmap)
-            runOnUiThread {
-                var adapter=rd_gridview.adapter as ListAdapter
-                adapter.notifyDataSetChanged()
-            }
-
-        }
-    }
-
-    inner class ImageThread(var site : String?) : Thread(){
-        override fun run() {
-            var url=URL(site)
-            var conn=url.openConnection()
-            var stream=conn.getInputStream()
-            bitmap=BitmapFactory.decodeStream(stream)
-        }
-    }
 
 
 

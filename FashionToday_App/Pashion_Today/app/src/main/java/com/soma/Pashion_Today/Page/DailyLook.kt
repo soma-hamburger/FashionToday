@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.PagerAdapter
 import com.google.android.material.navigation.NavigationView
 import com.soma.Pashion_Today.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.daily_look.*
 import kotlinx.android.synthetic.main.daily_look_content.*
 import kotlinx.android.synthetic.main.daily_look_view.view.*
@@ -34,8 +35,8 @@ import java.net.URL
  * 프로그램 ID : HAM-PA-300
  * 프로그램명 : DailyLook.kt
  * 작성자명: 오원석
- * 작성일자 : 2019.11.12
- * 버전 : v0.6
+ * 작성일자 : 2019.11.19
+ * 버전 : v0.9
  */
 class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,28 +50,22 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
     // 서버에서 받은 날짜
     var Daily_date : Int?=null
 
-    // 서버에서 받은 이미지
-    var bitmap:Bitmap?=null
-
     // 추천 상세 룩 리스트
     var clothes_array=ArrayList<HashMap<String,Any>>()
 
     // ViewPager에 들어갈 뷰들의 집합
     var view_list=ArrayList<View>()
 
-    // 옷 타입 분류 변수
-    var type_list= arrayOf("accesory","bag","dress","hat","jean","shirts","shoes","tee")
-
     // 옷 변수 png list
-    var type_imglist= intArrayOf(
-        R.drawable.accesory_icon,
-        R.drawable.bag_icon,
-        R.drawable.dress_icon,
-        R.drawable.hat_icon,
-        R.drawable.jean_icon,
-        R.drawable.shirts_icon,
-        R.drawable.shoes_icon,
-        R.drawable.tee_icon
+    var type_imglist= mapOf<String,Int>(
+        "Accesory" to R.drawable.accesory_icon,
+        "Bag" to R.drawable.bag_icon,
+        "Dress" to R.drawable.dress_icon,
+        "Hat" to R.drawable.hat_icon,
+        "Jean" to R.drawable.jean_icon,
+        "Shirts" to R.drawable.shirts_icon,
+        "Shoes" to R.drawable.shoes_icon,
+        "Tee" to R.drawable.tee_icon
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +78,7 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
         header_view.setBackgroundResource(R.drawable.menu_back)
         header_view.setOnClickListener {
             var intent=Intent(this,Pashion::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -115,20 +111,15 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
             view.daily_recommender.text=name
             view.daily_grade.text="${grade}"
 
-            // 추천자 이미지 받는 쓰레드
+            // 추천자 이미지 받기
             if(user_image!="null"){
-                var user_imagethread=ImageNetworkThead(user_image)
-                user_imagethread.start()
-                user_imagethread.join()
-                view.daily_profile.setImageBitmap(bitmap)
+                var profile_view=view.findViewById<ImageView>(R.id.daily_profile)
+                Picasso.with(this).load(user_image).into(profile_view)
             }
 
-            // 데일리 룩 이미지 받는 쓰레
-            var look_imagethread=ImageNetworkThead(look_image)
-            look_imagethread.start()
-            look_imagethread.join()
-            view.daily_img.setImageBitmap(bitmap)
-
+            // 데일리 룩 이미지 받기
+            var look_view=view.findViewById<ImageView>(R.id.daily_img)
+            Picasso.with(this).load(look_image).into(look_view)
 
             /////////데일리 룩 상세 표시 ////////////
             var detail_thread=DetailNetworkThread()
@@ -153,14 +144,10 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
                 var category=obj.getString("category")
                 var img_site=obj.getString("clothes_image")
 
-                var image_thread=ImageNetworkThead(img_site)
-                image_thread.start()
-                image_thread.join()
-
                 var map=HashMap<String,Any>()
                 map.put("color",color)
                 map.put("category",category)
-                map.put("image",bitmap!!)
+                map.put("image",img_site)
 
                 clothes_array.add(map)
             }
@@ -226,6 +213,7 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
         when (item.itemId) {
             R.id.menu_closet -> {
                 var intent = Intent(this, Closet::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_daily_look -> {
@@ -234,10 +222,13 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
             }
             R.id.menu_calendar -> {
                 var intent = Intent(this, CalendarActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
-
+                var intent=Intent(this,Recommend::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 
@@ -303,17 +294,12 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
 
             var color=map.get("color") as String
             var category=map.get("category") as String
-            var image=map.get("image") as Bitmap
+            var image=map.get("image") as String
 
-            look_img?.setImageBitmap(image)
+            Picasso.with(applicationContext).load(image).into(look_img)
             look_info?.text="${category}, ${color}"
+            look_type?.setImageResource(type_imglist.get(category)!!)
 
-            for(i in 0 until type_list.size){
-                if(category==type_list.get(i)){
-                    look_type?.setImageResource(type_imglist.get(i))
-                    break;
-                }
-            }
 
             return v!!
 
@@ -370,14 +356,6 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
         }
     }
 
-    inner class ImageNetworkThead(var site :String?): Thread(){
-        override fun run() {
-            var url = URL(site)
-            var conn = url.openConnection()
-            var stream = conn.getInputStream()
-            bitmap = BitmapFactory.decodeStream(stream)
-        }
-    }
 
     inner class UploadThread : Thread(){
         override fun run() {

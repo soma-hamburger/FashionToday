@@ -16,6 +16,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.soma.Pashion_Today.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recommend.*
 import kotlinx.android.synthetic.main.recommend_content.*
 import org.json.JSONArray
@@ -32,8 +33,8 @@ import kotlin.collections.HashMap
  * 프로그램 ID : HAM-PA-700
  * 프로그램명 : Recommend.kt
  * 작성자명: 오원석
- * 작성일자 : 2019.11.13
- * 버전 : v0.6
+ * 작성일자 : 2019.11.19
+ * 버전 : v0.9
  */
 class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -43,9 +44,6 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
     // Hashmap으로 구현한 추천리스트 : ListView에 사용
     var recommed_list=ArrayList<HashMap<String,Any>>()
-
-    var profile_img:Bitmap?=null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +55,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         header_view.setBackgroundResource(R.drawable.menu_back)
         header_view.setOnClickListener { view->
             var intent=Intent(this,Pashion::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -155,14 +154,17 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         when (item.itemId) {
             R.id.menu_closet -> {
                 var intent = Intent(this, Closet::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_daily_look -> {
                 var intent=Intent(this,DailyLook::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_calendar -> {
                 var intent = Intent(this, CalendarActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
@@ -255,10 +257,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             }
 
             if(profile_site!="null"){
-                var image=imgNetworkThread(profile_site)
-                image.start()
-                image.join()
-                profile?.setImageBitmap(profile_img)
+                Picasso.with(applicationContext).load(profile_site).into(profile)
             }
 
             name?.text=user_name
@@ -316,14 +315,5 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
         }
     }
 
-
-    inner class imgNetworkThread(var site : String?): Thread(){
-        override fun run() {
-            var url=URL(site)
-            var conn=url.openConnection()
-            var stream=conn.getInputStream()
-            profile_img=BitmapFactory.decodeStream(stream)
-        }
-    }
 
 }
