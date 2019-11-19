@@ -64,6 +64,8 @@ public class LookitemController {
 
         }
 
+        System.out.println("lookitem : "+category+" : "+" : "+color);
+
         // 멀티 파트 파일 여부 확인
         if (multipartFile == null) {
             lookItemInfo.setRemark("no multipartfile");
