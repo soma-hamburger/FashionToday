@@ -1,6 +1,7 @@
 package hamburger.fashiontoday.controller;
 
 import hamburger.fashiontoday.domain.member.Member;
+import hamburger.fashiontoday.domain.member.MemberDetailInfo;
 import hamburger.fashiontoday.domain.member.MemberRepository;
 import hamburger.fashiontoday.domain.member.MemberInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
@@ -85,6 +86,21 @@ public class UserController {
         return new MemberInfo();
     }
 
+    @GetMapping(value = "/detail")
+    public MemberDetailInfo detailInfo(@RequestParam("user_id")int userId){
+
+        MemberDetailInfo memberInfo = new MemberDetailInfo();
+        Member member = new Member();
+        try{
+            member = memberRepository.findByMId(userId);
+        }catch (Exception e){
+            memberInfo.setRemark("no_user");
+        }
+
+        memberInfo.setMember(member);
+
+        return memberInfo;
+    }
 
 
 }
