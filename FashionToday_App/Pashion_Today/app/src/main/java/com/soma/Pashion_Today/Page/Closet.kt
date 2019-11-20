@@ -36,7 +36,7 @@ import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.net.URL
 import java.text.Normalizer
-
+import okhttp3.MediaType.Companion.toMediaType
 
 /*****
  * 프로그램 ID : HAM-PA-200
@@ -98,6 +98,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
     var pic_path: String? = null
 
     var remove_image : Bitmap?=null
+
 
     // 액티비티 create 메서드
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -578,7 +579,9 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
 
             Picasso.with(applicationContext).load(image).into(closet_img)
-            closet_type?.setImageResource(clothes_typeimg.get(category)!!)
+            if(clothes_typeimg.get(category)!=null){
+                closet_type?.setImageResource(clothes_typeimg.get(category)!!)
+            }
             closet_info?.text="${category}, ${color}"
 
             return v!!
@@ -589,44 +592,47 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
     inner class GetdataThread : Thread(){
         override fun run() {
 
-            var site="http://172.20.10.4:8085/MobileServer/closet.jsp"
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            var isr=InputStreamReader(input)
-            var br=BufferedReader(isr)
+//            var site="http://172.20.10.4:8085/MobileServer/closet.jsp"
+//            var url=URL(site)
+//            var conn=url.openConnection()
+//            var input=conn.getInputStream()
+//            var isr=InputStreamReader(input)
+//            var br=BufferedReader(isr)
+//
+//            var buf=StringBuffer()
+//            var str:String?=null
+//
+//            do{
+//                str=br.readLine()
+//                if(str!=null){
+//                    buf.append(str)
+//                }
+//            }while(str!=null)
+//
+//            closet_JSONObj= JSONObject(buf.toString())
+//            closet_JSONAry=closet_JSONObj?.getJSONArray("clothes_array")
 
-            var buf=StringBuffer()
-            var str:String?=null
 
-            do{
-                str=br.readLine()
-                if(str!=null){
-                    buf.append(str)
-                }
-            }while(str!=null)
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/closet")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+            url.addHeader("Content-Type","application/json")
 
-            closet_JSONObj= JSONObject(buf.toString())
+
+            var json_form=JSONObject()
+            json_form.put("user_id",0)
+
+            var body=RequestBody.create("application/json".toMediaType(),json_form.toString())
+
+            var post=url.post(body)
+            var request=post.build()
+            var response=client.newCall(request).execute()
+
+            var result=response.body!!.string()
+            closet_JSONObj= JSONObject(result)
             closet_JSONAry=closet_JSONObj?.getJSONArray("clothes_array")
-
-
-//            var client=OkHttpClient()
-//            var request_builder=Request.Builder()
-//            var url=request_builder.url("https://api.pashiontoday.com/closet")
-//            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
-//            url.addHeader("Content-Type","application/json")
-//
-//            var formBody=FormBody.Builder().
-//                add("user_id",0).build()
-//
-//            var post=url.post(formBody)
-//            var request=post.build()
-//            var response=client.newCall(request).execute()
-//
-//            var result=response.body!!.string()
-//
-//            Log.d("msg","결과 : ${response}")
-//            Log.d("msg","${result}")
+            Log.d("msg","${result}")
         }
     }
 
