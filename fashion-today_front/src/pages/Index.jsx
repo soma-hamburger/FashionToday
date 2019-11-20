@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkDiv } from '../components/Common/Components';
 import Logo from '../img/logo/logo-height.png';
-import '../style/index.scss';
+import '../style/Login.scss';
 import KakaoIcon from '../img/kakao_icon.png';
 import NaverIcon from '../img/naver_icon.png';
 
@@ -32,7 +32,7 @@ const Index = () => (
         </>
       </LinkDiv>
       <LinkDiv
-        href="https://kauth.kakao.com/oauth/authorize?client_id=ac9e9659b36eef40d08466896116a84a&redirect_uri=http://localhost:3000/login&response_type=code"
+        href={`https://kauth.kakao.com/oauth/authorize?client_id=ac9e9659b36eef40d08466896116a84a&redirect_uri=${window.location.href}login&response_type=code`}
         className="NaverLogin"
       >
         <>

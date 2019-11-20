@@ -1,0 +1,161 @@
+@import './utils.scss';
+
+.Index {
+  display: grid;
+  align-content: center;
+  grid-template-columns: 3fr 2fr;
+  font-family: $noto-sans;
+  grid-gap: 7vw;
+  width: 100vw;
+  height: 100vmin;
+  background-image: url('../img/background/index_background.jpg');
+  background-size: cover;
+  .TitleView {
+    justify-self: end;
+    color: $white;
+    .Title {
+      font-family: $noto-sans;
+      font-weight: bolder;
+      font-size: 10vw;
+      letter-spacing: 0.8vw;
+      line-height: 1.1;
+      margin-top: -2vw;
+    }
+    .Subtitle {
+      margin-top: 1vw;
+      padding-left: 5px;
+      font-family: $apple-gothic;
+      font-size: 3vw;
+      letter-spacing: 0.3vw;
+      word-spacing: 0.4vw;
+      line-height: 1.8;
+    }
+    .Describe {
+      padding-left: 0.5vw;
+      font-size: 1.5vw;
+      line-height: 1.5;
+    }
+  }
+  .Interface {
+    width: 25vw;
+    height: 25vw;
+    padding: 2vw;
+    border-radius: 1vw;
+    background-color: transparentize($gray2, 0.1);
+    text-align: center;
+    .Logo {
+      width: 13vw;
+      height: auto;
+      margin: 0 auto;
+      margin-top: 2vw;
+      margin-bottom: 3.5vw;
+    }
+    .KakaoLogin,
+    .NaverLogin {
+      position: relative;
+      width: 14vw;
+      height: 2.8vw;
+      line-height: 2.8vw;
+      font-size: 1.1vw;
+      border-radius: 1.5vw;
+      margin: 0 auto;
+      color: $v-black;
+      padding: 0px 2vw;
+      margin-bottom: 1.5vw;
+      padding-left: 2vw;
+      .icon {
+        position: absolute;
+        width: 2vw;
+        height: 2vw;
+        left: 0.5vw;
+        top: 0.4vw;
+      }
+    }
+    .KakaoLogin {
+      background-color: $yellow;
+    }
+    .NaverLogin {
+      color: $white;
+      background-color: $green2;
+    }
+  }
+}
+
+@include respond(small-screen) {
+  .Index {
+    display: block;
+    width: 80vw;
+    padding: 10vw;
+    margin: 0 auto;
+    .TitleView {
+      justify-self: start;
+      color: $white;
+      .Title {
+        font-family: $noto-sans;
+        font-weight: bolder;
+        font-size: 13vw;
+        letter-spacing: 1vw;
+        line-height: 1.1;
+        margin-top: -2vw;
+      }
+      .Subtitle {
+        margin-top: 1.5vw;
+        padding-left: 0.5vw;
+        font-family: $apple-gothic;
+        font-size: 4vw;
+        letter-spacing: 0.3vw;
+        word-spacing: 0.4vw;
+        line-height: 1.8;
+      }
+      .Describe {
+        padding-left: 0.5vw;
+        font-size: 2vw;
+        line-height: 1.5;
+      }
+    }
+    .Interface {
+      width: 100%;
+      margin-top: 5vmin;
+      height: 48vw;
+      padding: 0;
+      border-radius: 1vw;
+      background-color: transparentize($gray2, 0.1);
+      text-align: center;
+      .Logo {
+        width: 26vw;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 5vw;
+        margin-bottom: 5vw;
+      }
+      .KakaoLogin,
+      .NaverLogin {
+        position: relative;
+        width: 40vw;
+        height: 5vw;
+        line-height: 5vw;
+        font-size: 2vw;
+        border-radius: 2.5vw;
+        margin: 0 auto;
+        color: $v-black;
+        padding: 0px 2vw;
+        margin-bottom: 2vw;
+        padding-left: 5vw;
+        .icon {
+          position: absolute;
+          width: 4vw;
+          height: 4vw;
+          left: 1vw;
+          top: 0.4vw;
+        }
+      }
+      .KakaoLogin {
+        background-color: $yellow;
+      }
+      .NaverLogin {
+        color: $white;
+        background-color: $green2;
+      }
+    }
+  }
+}

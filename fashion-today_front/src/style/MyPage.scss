@@ -2,18 +2,21 @@
 
 .MyPage {
   .ProfileInterface {
+    max-width: 1024px;
+    margin: 0 auto;
     width: 100%;
-    padding-top: calc(15vh + 60px);
-    padding-bottom: 10vh;
+    padding-top: calc(15vmin + 60px);
+    padding-bottom: 10vmin;
     text-align: center;
     background-color: $w-violet2;
     img {
       margin: 0 auto;
       width: 10vw;
+      height: 10vw;
       display: block;
     }
     .Name {
-      margin-top: 2vh;
+      margin-top: 2vmin;
       font-size: 3vw;
       color: $v-black;
     }

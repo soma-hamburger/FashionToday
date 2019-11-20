@@ -1,11 +1,10 @@
 import React from 'react';
-import { ClickImg } from '../Common/Components';
+import { ClickImg, getCategoryIcon } from '../Common/Components';
 import CloseIcon from '../../img/close_icon.png';
 import PinIcon from '../../img/pin_icon.png';
 import ProfileIcon from '../../img/default_profile.png';
 import GradeIcon from '../../img/grade_icon.png';
 import { useFetch, makeDayId, UserPost } from '../../Tool';
-import { getCategoryIcon } from '../Closet/ClosetTable';
 
 export const Clothes = ({ clothes }) => {
   const ClothesArray = clothes.map(c => {
@@ -46,7 +45,6 @@ const DailyLookPopUp = ({ lookId, close, token }) => {
   );
 
   const choiceDailyLook = async () => {
-    console.log('choiceDL');
     const res = await UserPost('look/choice', token, {
       look_id: lookId,
       date,

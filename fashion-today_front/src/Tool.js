@@ -11,12 +11,27 @@ import {
   UserScheduleList,
   DailyLookDetail,
   LookDetail,
+  UserState,
 } from './defaultAPI';
+
+export const filteringArray = (category, color, array) => {
+  let filterdArray = array;
+  if (category) {
+    filterdArray = filterdArray.filter(
+      clothes => clothes.category === category,
+    );
+  }
+  if (color) {
+    filterdArray = filterdArray.filter(clothes => clothes.color === color);
+  }
+  return filterdArray;
+};
 
 const findDefaultAPI = url => {
   if (url === 'closet') return { data: UserCloset };
-  if (url === 'user/info') return { data: UserInfo };
-  if (url === 'dailylooklist') return { data: getDailyLookList };
+  if (url === 'user/info') return { data: UserState };
+  if (url === 'user/detail') return { data: UserInfo };
+  if (url === 'dailylist') return { data: getDailyLookList };
   if (url === 'schedule/list') return { data: UserScheduleList };
   if (url === 'schedule/detail') return { data: UserScheduleDetail };
   if (url === 'recommend/list') return { data: LookRequestorList };
@@ -118,7 +133,6 @@ export const useWeahterAPI = date => {
         console.log(error);
       }
     };
-
     getRes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInstance]);
@@ -174,4 +188,17 @@ export const makeDayObj = dayId => {
   const date = dayId.substring(6, 8);
 
   return new Date(year, month - 1, date);
+};
+
+export const dataURLtoFile = (dataurl, filename) => {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n) {
+    u8arr[n - 1] = bstr.charCodeAt(n - 1);
+    n -= 1; // to make eslint happy
+  }
+  return new File([u8arr], filename, { type: mime });
 };

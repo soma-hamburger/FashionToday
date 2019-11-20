@@ -11,7 +11,7 @@
   $popup-width: 90px;
   $dropdown-width: 50px;
   position: fixed;
-  top: 4vh;
+  top: 4vmin;
   z-index: 10000;
   margin: 0 $margin;
   width: $width;
@@ -122,13 +122,133 @@
     }
   }
 }
-.children {
-  min-height: 100vh;
+@include respond(small-screen) {
+  .MainBar {
+    width: 100vw;
+    height: 50px;
+    top: 0;
+    border-radius: 0;
+    margin: 0;
+    .flexButtons {
+      height: 50px;
+      .MainLogo {
+        width: 110px;
+      }
+      .pageLink {
+        align-self: center;
+        a {
+          margin-right: 3.5vw;
+          font-size: 10px;
+          font-weight: lighter;
+        }
+      }
+      .Icons {
+        .AlarmIcon,
+        .ProfileIcon {
+          width: 20px;
+          margin: 0 5px;
+        }
+        .ProfileIcon {
+          width: 18px;
+          margin: 0 6px;
+        }
+        .dropdown {
+          align-items: center;
+          width: 30px;
+          position: relative;
+        }
+      }
+    }
+    .PopUpProfile,
+    .PopUpAlarm {
+      $popup-width: 60px;
+      text-align: start;
+      position: absolute;
+      top: 45px;
+      left: -30px;
+      color: black;
+      width: $popup-width;
+      height: 65px;
+      box-shadow: 0 0 3px 0.6px $gray5;
+      background-color: white;
+      border-radius: 5px;
+      &:after {
+        content: ' ';
+        position: absolute;
+        border-bottom: 5px solid white;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+        top: -5px;
+        left: $popup-width/2 + 10px;
+      }
+      &:before {
+        content: ' ';
+        position: absolute;
+        border-bottom: 5px solid $gray4;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+        top: -6px;
+        left: $popup-width/2 + 10px;
+      }
+      .ProfileBody {
+        font-size: 10px;
+        padding: 5px 5px 0px 5px;
+        .StarNum {
+          display: flex;
+          align-items: center;
+          justify-items: center;
+          .StarIcon {
+            width: 14px;
+            margin-right: 5px;
+          }
+          .StarNumber {
+            height: 10px;
+            padding-top: 4px;
+          }
+          color: $violet3;
+          margin-bottom: 10px;
+        }
+        .LogOutLink,
+        .MyPageLink {
+          margin-bottom: 7px;
+          padding-left: 2px;
+          cursor: pointer;
+        }
+      }
+      .AlarmBody {
+        font-size: 10px;
+        padding: 5px 5px 0px 5px;
+      }
+    }
+  }
 }
+
+@include respond(wide-screen) {
+  .MainBar {
+    width: 1024 * 0.85px;
+    margin: 0 calc((100vw - 1024 * 0.85px) / 2);
+    .pageLink {
+      padding-left: 30px;
+      justify-self: start;
+      a {
+        margin-right: 35px;
+        font-size: 13px;
+        font-weight: lighter;
+      }
+    }
+  }
+}
+
+.children {
+  min-height: 100vmin;
+}
+
 .Footer {
+  margin: 0 auto;
+  max-width: 1024px;
   width: 100vw;
-  height: 15vh;
-  margin-top: 10vh;
+  height: 15vmin;
+  margin-top: 10vmin;
   background-color: $v-black;
 }
 

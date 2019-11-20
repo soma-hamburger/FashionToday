@@ -3,12 +3,17 @@ import React, {
   useState,
   useReducer,
   useRef,
-  useCallback,
+  useEffect,
 } from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { Image, Stage, Layer } from 'react-konva';
 import useImage from 'use-image';
-import { useFetch, useEventListener } from '../../Tool';
+import {
+  useFetch,
+  useEventListener,
+  UserPost,
+  dataURLtoFile,
+} from '../../Tool';
 import { UserContext } from '../../Context';
 import ClosetNavigation from '../Closet/ClosetNavigation';
 import Requestor from './Requestor';
@@ -28,7 +33,7 @@ const CanvasImage = ({
   DragStart,
   DragEnd,
 }) => {
-  const [image] = useImage(src);
+  const [image] = useImage(src, 'anonymous');
   return (
     <Image
       draggable
@@ -44,28 +49,89 @@ const CanvasImage = ({
   );
 };
 
-const RecommendSubmit = ({ match }) => {
-  console.log('render!!');
+const updateLookImageData = (state, action) => {
+  switch (action.type) {
+    case 'add': {
+      const currentImages = state.images;
+      const newImage = {
+        id: action.id,
+        src: action.src,
+        x: 0,
+        y: 0,
+        width: action.windowWidth / 3,
+        height: (action.windowWidth / 3) * (32 / 25),
+      };
+
+      const newImages = currentImages.concat([newImage]);
+
+      return {
+        currentID: action.id,
+        images: newImages,
+      };
+    }
+    case 'update': {
+      return {
+        ...state,
+        currentID: action.id,
+        images: action.images,
+      };
+    }
+    case 'bigger': {
+      const images = state.images.slice();
+      const image = images.find(i => i.id === state.currentID);
+      const index = images.indexOf(image);
+      if (!image) {
+        return state;
+      }
+      images[index] = {
+        ...image,
+        width: image.width * 1.1,
+        height: image.height * 1.1,
+      };
+      return {
+        ...state,
+        images,
+      };
+    }
+    case 'smaller': {
+      const images = state.images.slice();
+      const image = images.find(i => i.id === state.currentID);
+      const index = images.indexOf(image);
+      if (!image) {
+        return state;
+      }
+      images[index] = {
+        ...image,
+        width: image.width * 0.9,
+        height: image.height * 0.9,
+      };
+      return {
+        ...state,
+        images,
+      };
+    }
+    default: {
+      throw new Error(`unexpected action.type: ${action.type}`);
+    }
+  }
+};
+
+const RecommendSubmit = ({ match, history }) => {
   const userId = match.params.userid;
   const user = useContext(UserContext);
-  const RequestorCloset = useFetch(
-    'post',
-    'requestor/closet',
-    user.token,
-    JSON.stringify({
-      userId,
-    }),
+
+  const LookImagesWindow = useRef();
+  const LookCanvas = useRef();
+
+  const [LookImageData, dispatchLookImageData] = useReducer(
+    updateLookImageData,
+    {
+      currentID: 0,
+      images: [],
+    },
   );
 
-  const RequestorList = useFetch('get', 'recommend/list', user.token);
-
-  let RequestorInfo = null;
-
-  if (RequestorList) {
-    RequestorInfo = RequestorList.data.requestor_array.find(
-      r => String(r.id) === userId,
-    );
-  }
+  const [RequestorInfo, setRequestorInfo] = useState(null);
 
   const [category, setCategory] = useState(null);
   const [color, setColor] = useState(null);
@@ -75,83 +141,30 @@ const RecommendSubmit = ({ match }) => {
     setColor,
   };
 
-  const updateLookImageData = (state, action) => {
-    switch (action.type) {
-      case 'add': {
-        const currentImages = state.images;
-        const newImage = {
-          id: state.lastID,
-          src: action.src,
-          x: 0,
-          y: 0,
-          width: 75,
-          height: 96,
-        };
+  const [title, setTitle] = useState('');
+  const [introduce, setIntroduce] = useState('');
 
-        const newImages = currentImages.concat([newImage]);
-        const nextID = state.lastID + 1;
+  const [stageWidth, setStageWidth] = useState(250);
+  const [stageHeight, setStageHeight] = useState(320);
 
-        return {
-          currentID: state.lastID,
-          lastID: nextID,
-          images: newImages,
-        };
-      }
-      case 'update': {
-        return {
-          ...state,
-          currentID: action.id,
-          images: action.images,
-        };
-      }
-      case 'bigger': {
-        const images = state.images.slice();
-        const image = images.find(i => i.id === state.currentID);
-        const index = images.indexOf(image);
-        if (!image) {
-          return state;
-        }
-        images[index] = {
-          ...image,
-          width: image.width * 1.1,
-          height: image.height * 1.1,
-        };
-        return {
-          ...state,
-          images,
-        };
-      }
-      case 'smaller': {
-        const images = state.images.slice();
-        const image = images.find(i => i.id === state.currentID);
-        const index = images.indexOf(image);
-        if (!image) {
-          return state;
-        }
-        images[index] = {
-          ...image,
-          width: image.width * 0.9,
-          height: image.height * 0.9,
-        };
-        return {
-          ...state,
-          images,
-        };
-      }
-      default: {
-        throw new Error(`unexpected action.type: ${action.type}`);
-      }
-    }
-  };
+  const RequestorList = useFetch('get', 'recommend/list', user.token);
 
-  const [LookImageData, dispatchLookImageData] = useReducer(
-    updateLookImageData,
-    {
-      currentID: 0,
-      lastID: 1,
-      images: [],
-    },
+  const RequestorCloset = useFetch(
+    'post',
+    'closet',
+    user.token,
+    JSON.stringify({
+      user_id: userId,
+    }),
   );
+
+  useEffect(() => {
+    if (RequestorList) {
+      setRequestorInfo(
+        RequestorList.data.requestor_array.find(r => String(r.id) === userId),
+      );
+    }
+  }, [RequestorList, userId]);
 
   const DragStart = e => {
     const id = e.target.id();
@@ -192,36 +205,59 @@ const RecommendSubmit = ({ match }) => {
     />
   ));
 
-  const LookImagesWindow = useRef();
-  const [stageWidth, setStageWidth] = useState(250);
-  const [stageHeight, setStageHeight] = useState(320);
-
-  const ResizeStage = useCallback(() => {
+  const ResizeStage = () => {
     const width = LookImagesWindow.current.clientWidth;
     const height = (width * 32) / 25;
     setStageWidth(width);
     setStageHeight(height);
-  }, [setStageWidth, setStageHeight]);
+  };
 
   useEventListener('click', ResizeStage);
   useEventListener('resize', ResizeStage);
 
   const handleSelect = e => {
     e.preventDefault();
-    console.log(e.target);
     const currentId = LookImageData.currentID;
     const images = LookImageData.images.slice();
     const index = LookImageData.images.findIndex(i => i.src === e.target.src);
 
     if (index < 0) {
-      dispatchLookImageData({ type: 'add', src: e.target.src });
+      const windowWidth = LookImagesWindow.current.clientWidth;
+      dispatchLookImageData({
+        type: 'add',
+        id: e.target.alt,
+        src: e.target.src,
+        windowWidth,
+      });
     } else {
       images.splice(index, 1);
       dispatchLookImageData({ type: 'update', images, currentId });
     }
   };
 
-  console.log(LookImages);
+  const SendLook = async () => {
+    const stage = LookCanvas.current;
+    const array = LookImageData.images.map(i => parseInt(i.id, 10));
+    const dataURL = stage.toDataURL();
+    const file = dataURLtoFile(dataURL, 'look.png');
+    const data = new FormData();
+
+    data.append('requestor_id', userId);
+    data.append('date', RequestorInfo.schedule.date);
+    data.append('look_img', file, file.name);
+    data.append('clothes_array', array);
+    data.append('look_title', title);
+    data.append('look_introduce', introduce);
+
+    const res = await UserPost('recommend', user.token, data);
+    console.log(res);
+    if (res.data.remark === 'success') {
+      history.push('/recommend');
+    } else if (res.data.remark === 'no Clothes_array') {
+      alert('옷을 선택해주세요!');
+    }
+  };
+
   return (
     <div className="RecommendSubmit">
       {RequestorInfo && <Requestor requestor={RequestorInfo} />}
@@ -235,9 +271,9 @@ const RecommendSubmit = ({ match }) => {
             array={RequestorCloset.data.clothes_array}
             onClick={handleSelect}
           />
-          <form className="LookForm">
+          <div className="LookForm">
             <div className="LookImages" ref={LookImagesWindow}>
-              <Stage width={stageWidth} height={stageHeight}>
+              <Stage width={stageWidth} height={stageHeight} ref={LookCanvas}>
                 <Layer>{LookImages}</Layer>
               </Stage>
               <ClickImg
@@ -259,6 +295,9 @@ const RecommendSubmit = ({ match }) => {
                   name="title"
                   type="text"
                   placeholder="룩 제목"
+                  autoComplete="off"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
                 />
               </div>
               <textarea
@@ -267,10 +306,14 @@ const RecommendSubmit = ({ match }) => {
                 type="text"
                 rows="6"
                 placeholder="룩 설명을 써주세요."
+                value={introduce}
+                onChange={e => setIntroduce(e.target.value)}
               />
-              <button type="submit">추천 완료</button>
+              <button type="button" onClick={SendLook}>
+                추천 완료
+              </button>
             </div>
-          </form>
+          </div>
         </div>
       )}
     </div>
@@ -279,6 +322,7 @@ const RecommendSubmit = ({ match }) => {
 
 RecommendSubmit.propTypes = {
   match: ReactRouterPropTypes.match.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default RecommendSubmit;

@@ -12,18 +12,15 @@ import LookList from '../components/Main/LookList';
 import LookPopUp from '../components/Main/LookPopUp';
 
 const Main = () => {
-  const { token } = useContext(UserContext);
+  const { token, UserInfo } = useContext(UserContext);
   const [PopUp, setPopUp] = useState({
     state: 'Main',
     id: null,
   });
 
-  const DailyLookListInfo = useFetch('post', 'dailylooklist', token);
   const LookListInfo = useFetch('post', 'looklist', token);
 
   const setDailyPopUp = e => {
-    console.log(e.target.alt);
-
     setPopUp({
       state: 'dailyLookUp',
       id: e.target.alt,
@@ -31,8 +28,6 @@ const Main = () => {
   };
 
   const setLookPopUp = e => {
-    console.log(e.target.alt);
-
     setPopUp({
       state: 'LookUp',
       id: e.target.alt,
@@ -78,13 +73,16 @@ const Main = () => {
           <br />
           매일 특별한 하루를 맞이해보세요.
         </div>
-        {DailyLookListInfo && (
-          <DailyLookList
-            LookArray={DailyLookListInfo.data.daily_look_array}
-            onClick={setDailyPopUp}
-          />
+        {UserInfo && !UserInfo.select && (
+          <>
+            <DailyLookList onClick={setDailyPopUp} />
+            <img
+              alt="Separate Line"
+              src={SeparateLine}
+              className="SeparateLine"
+            />
+          </>
         )}
-        <img alt="Separate Line" src={SeparateLine} className="SeparateLine" />
         {LookListInfo && (
           <LookList
             LookArray={LookListInfo.data.look_array}

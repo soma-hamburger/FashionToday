@@ -9,7 +9,14 @@ import ClosetBackground from '../img/background/closet_background.jpg';
 
 const Closet = () => {
   const { token } = useContext(UserContext);
-  const UserCloset = useFetch('get', 'closet', token);
+  const UserCloset = useFetch(
+    'post',
+    'closet',
+    token,
+    JSON.stringify({
+      user_id: 0,
+    }),
+  );
 
   const [color, setColor] = useState(null);
   const [category, setCategory] = useState(null);
@@ -18,6 +25,7 @@ const Closet = () => {
     setColor,
     setCategory,
   };
+
   return (
     <div className="Closet">
       <img

@@ -1,24 +1,57 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { makeDayObj, UserPost, useFetch } from '../../Tool';
 import WhetherIcon from '../../img/whether_icon.png';
 import TempIcon from '../../img/temp_icon.png';
 import StarIcon from '../../img/star_icon.png';
 import { UserContext } from '../../Context';
+import CalLook from './CalLook';
+
+const getDayMark = dday => {
+  if (dday === 0) return 'D-day';
+  if (dday > 0) return `D+${dday}`;
+  return `D${dday}`;
+};
 
 const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
+  const [lookOpen, setLookOpen] = useState(false);
   if (!scheduleDetail) {
     if (dday >= 0) return null;
     return scheduleForm;
   }
-
-  const { title, introduce } = scheduleDetail;
+  const { title, introduce, star, look } = scheduleDetail;
 
   return (
     <div className="ScheduleDiv">
       <div className="ScheduleTitle">{title}</div>
       <div className="ScheduleIntroduction">: {introduce}</div>
+      <div className="Bar">
+        <div className="StarNum">
+          <img src={StarIcon} alt="StarIcon" />
+          <div>{star}</div>
+        </div>
+        {look && (
+          <button type="button" onClick={() => setLookOpen(!lookOpen)}>
+            룩 보기
+          </button>
+        )}
+      </div>
+      {look && lookOpen && (
+        <CalLook look={look} close={() => setLookOpen(false)} />
+      )}
     </div>
   );
+};
+
+ScheduleDiv.propTypes = {
+  scheduleDetail: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    introduce: PropTypes.string.isRequired,
+    star: PropTypes.number.isRequired,
+    look: PropTypes.object.isRequired,
+  }).isRequired,
+  dday: PropTypes.number.isRequired,
+  scheduleForm: PropTypes.element.isRequired,
 };
 
 const Day = ({ dayId, isSchedule }) => {
@@ -27,23 +60,26 @@ const Day = ({ dayId, isSchedule }) => {
   const dday = Math.floor(
     (today.getTime() - dayObj.getTime()) / (1000 * 60 * 60 * 24),
   );
-  const UserInfo = useContext(UserContext);
+
+  const dayMark = getDayMark(dday);
+
+  const { token } = useContext(UserContext);
 
   const ScheduleDetail = useFetch(
     'post',
     'schedule/detail',
-    UserInfo.token,
+    token,
     JSON.stringify({
       date: dayId,
     }),
   );
 
-  const [title, setTitle] = useState();
-  const [introduce, setIntroduce] = useState();
+  const [title, setTitle] = useState('');
+  const [introduce, setIntroduce] = useState('');
   const [starNum, setStarNum] = useState(0);
 
   const registerSchedule = async () => {
-    const res = await UserPost('schedule', UserInfo.token, {
+    const res = await UserPost('schedule', token, {
       date: dayId,
       title,
       introduce,
@@ -60,6 +96,7 @@ const Day = ({ dayId, isSchedule }) => {
         name="Title"
         type="text"
         placeholder="일정 제목"
+        autoComplete="off"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
@@ -96,7 +133,7 @@ const Day = ({ dayId, isSchedule }) => {
 
   return (
     <div className="DayComponent">
-      <div className="DDay">D{dday >= 0 ? `+${dday}` : dday}</div>
+      <div className="DDay">{dayMark}</div>
       <div className="DayTitle">
         {dayObj.getFullYear()}년 {dayObj.getMonth() + 1}월 {dayObj.getDate()}일
       </div>
@@ -115,6 +152,11 @@ const Day = ({ dayId, isSchedule }) => {
       />
     </div>
   );
+};
+
+Day.propTypes = {
+  dayId: PropTypes.string.isRequired,
+  isSchedule: PropTypes.bool.isRequired,
 };
 
 export default Day;
