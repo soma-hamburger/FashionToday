@@ -16,7 +16,6 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
     if (look.is_like) LikeIcon = LikedIcon;
 
     const clickLike = async () => {
-      console.log('clickLike');
       const res = await UserPost('look/like', token, {
         look_id: look.look_id,
         is_like: look.is_like,

@@ -45,7 +45,6 @@ const DailyLookPopUp = ({ lookId, close, token }) => {
   );
 
   const choiceDailyLook = async () => {
-    console.log('choiceDL');
     const res = await UserPost('look/choice', token, {
       look_id: lookId,
       date,
