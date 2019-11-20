@@ -148,6 +148,10 @@ public class RecommendController {
 
         while (recommendListInfo.getSize() < 5 && scheduleListchecker < scheduleStatusList.size()) {
             ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
+            if(Integer.parseInt(nowScheduleStatus.getDdate())<=Integer.parseInt(nowDate)){
+                scheduleListchecker++;
+                continue;
+            }
             boolean isRecommand = false;
             for (int i = 0; i < tmpLooks.size(); i++) {
                 TmpLook nowTmpLook = tmpLooks.get(i);
