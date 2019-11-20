@@ -57,9 +57,9 @@ public class LookController {
         String nowDate = new String();
         LocalDateTime localDateTime = LocalDateTime.now();
         if (localDateTime.getMonthValue() < 10) {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         } else {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         }
         TmpLookListInfo tmpLookListInfo = new TmpLookListInfo();
 
@@ -73,6 +73,7 @@ public class LookController {
             return tmpLookListInfo;
         }
 
+        System.out.println(nowDate);
         List<TmpLook> todayTmpLooks = tmpLookRepository.findByMIdAndDdate(loginMemberId, nowDate);
         if (todayTmpLooks.size() > 0) {
             for (int i = 0; i < todayTmpLooks.size(); i++) {
@@ -95,9 +96,9 @@ public class LookController {
         String nowDate = new String();
         LocalDateTime localDateTime = LocalDateTime.now();
         if (localDateTime.getMonthValue() < 10) {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         } else {
-            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         }
         TmpLookInfo tmpLookInfo = new TmpLookInfo();
 
