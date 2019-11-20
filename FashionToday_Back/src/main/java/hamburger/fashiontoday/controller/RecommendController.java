@@ -96,6 +96,7 @@ public class RecommendController {
 
         if (clothes.size() != 0) {
             Member loginMember = memberRepository.findByMId(loginMemberId);
+            ScheduleStatus scheduleStatus = scheduleStatusRepository.findByMIdAndDdate(requestorId,date);
             tmpLook = new TmpLook(requestorId, date, imgUrl, title, introduce,loginMember);
             tmpLookRepository.save(tmpLook);
             for (int i = 0; i < clothes.size(); i++) {
@@ -104,6 +105,8 @@ public class RecommendController {
                 lookStructureRepository.save(nowLookStructure);
             }
             loginMember.addReward();
+            scheduleStatus.addTmpLook();
+            scheduleStatusRepository.save(scheduleStatus);
             memberRepository.save(loginMember);
         } else {
             tmpLookInfo.setRemark("no Clothes_array");
