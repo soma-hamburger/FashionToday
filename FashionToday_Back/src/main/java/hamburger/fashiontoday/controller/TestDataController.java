@@ -15,6 +15,7 @@ import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatus;
 import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
+import hamburger.fashiontoday.domain.tmplook.TmpLookInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,73 +136,37 @@ public class TestDataController {
         Schedule[][] schedule = new Schedule[10][10];
 
         // 1번 유저 스케줄
-        schedule[0][0] = new Schedule(1,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
+        schedule[0][0] = new Schedule(1,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",1);
         schedule[0][1] = new Schedule(1,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[0][2] = new Schedule(1,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[0][3] = new Schedule(1,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[0][4] = new Schedule(1,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[0][5] = new Schedule(1,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
+        schedule[0][2] = new Schedule(1,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",3);
+        schedule[0][3] = new Schedule(1,"20191120","최종 발표","발표용 깔끔한 룩이 필요합니다.",4);
 
 
         //2번 유저 스케줄
-        schedule[1][0] = new Schedule(2,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
-        schedule[1][1] = new Schedule(2,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[1][2] = new Schedule(2,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[1][3] = new Schedule(2,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[1][4] = new Schedule(2,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[1][5] = new Schedule(2,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
+        schedule[1][0] = new Schedule(7,"20191105","파티 입니다.","파티 피플로 거듭나고 싶어요",1);
+        schedule[1][1] = new Schedule(7,"20191113","음악 감상","잔잔한 음악과 함께",2);
+        schedule[1][2] = new Schedule(7,"20191117","가을 분위기","가을은 언제나 외롭죠 외롭지 않게 보이고 싶어요",3);
+        schedule[1][3] = new Schedule(7,"20191108","사랑하는 사람과","제 남자친구에게 잘 보이고 싶어요.",4);
 
         // 3번 유저 스케줄
-        schedule[2][0] = new Schedule(3,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
-        schedule[2][1] = new Schedule(3,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[2][2] = new Schedule(3,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[2][3] = new Schedule(3,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[2][4] = new Schedule(3,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[2][5] = new Schedule(3,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
+        schedule[2][0] = new Schedule(9,"20191105","소개팅 나가는 날","소개팅 나가는 날이에요. 잘보이고 싶어요",1);
+        schedule[2][1] = new Schedule(9,"20191113","가을 나들이","가을인데 나들이 갈까요?.",2);
+        schedule[2][2] = new Schedule(9,"20191117","너무 추워요","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",3);
+        schedule[2][3] = new Schedule(9,"20191118","부모님 보러 가는 날","부모님 만날때 깔끔한 룩이 필요합니다.",4);
 
         // 4번 유저 스케줄
-        schedule[3][0] = new Schedule(4,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
-        schedule[3][1] = new Schedule(4,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[3][2] = new Schedule(4,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[3][3] = new Schedule(4,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[3][4] = new Schedule(4,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[3][5] = new Schedule(4,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
-
-        // 5번 유저 스케줄
-        schedule[4][0] = new Schedule(5,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
-        schedule[4][1] = new Schedule(5,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[4][2] = new Schedule(5,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[4][3] = new Schedule(5,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[4][4] = new Schedule(5,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[4][5] = new Schedule(5,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
-
-        // 6번 유저 스케줄
-        schedule[5][0] = new Schedule(6,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
-        schedule[5][1] = new Schedule(6,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[5][2] = new Schedule(6,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[5][3] = new Schedule(6,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[5][4] = new Schedule(6,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[5][5] = new Schedule(6,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
-
-        
-
-        // 7번 유저 스케줄
-        schedule[6][0] = new Schedule(7,"20191105","생일 입니다.","여자친구와 생일 데이트 하는 룩이 필요해요",5);
-        schedule[6][1] = new Schedule(7,"20191113","동기 모임","오랜만에 만나는 동기들에게 달라진 모습을 보여주고 싶어요.",2);
-        schedule[6][2] = new Schedule(7,"20191117","영상 촬영","영상을 촬영하는 날입니다. 신뢰감을 주고 싶어요",2);
-        schedule[6][3] = new Schedule(7,"20191122","최종 발표","발표용 깔끔한 룩이 필요합니다.",1);
-        schedule[6][4] = new Schedule(7,"20191124","유럽여행 시작","유럽 여행을 떠납니다.",5);
-        schedule[6][5] = new Schedule(7,"20191129","여자친구와 100일","여자친구와 100일입니다. 특별한 룩이 필요합니다.",5);
+        schedule[3][0] = new Schedule(5,"20191105","패션쇼","여자친구와 생일 데이트 하는 룩이 필요해요",1);
+        schedule[3][1] = new Schedule(5,"20191113","과학사 모임","과학자처럼 보이기 싫어요.",2);
+        schedule[3][2] = new Schedule(5,"20191117","종강 파티","우리 파티 하러 갈까요?? 종강?",3);
+        schedule[3][3] = new Schedule(5,"20191110","친구 생일","친구보다 잘나보이고 싶어요",4);
 
 
 
-
-
-        for (int i = 0; i < 6; i++) {
-            scheduleRepository.save(schedule[0][i]);
-            scheduleStatusRepository.save(new ScheduleStatus(schedule[0][i]));
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                scheduleRepository.save(schedule[i][j]);
+            }
         }
-
         return new ScheduleInfo();
     }
 
@@ -262,6 +227,35 @@ public class TestDataController {
         return recommendListInfo;
     }
 
+
+    @PostMapping(value = "/tmpLook")
+    TmpLookInfo saveTmpLook(){
+
+        TmpLook[] tmpLook = new TmpLook[100];
+
+        tmpLook[0] = new TmpLook(1, "20191105", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook1.jpeg", "생일엔 멋스럽게", "생일이라 그 누구보다 빛나는 룩을 추천드렸어요 ㅎㅎ.", memberRepository.findByMId(7));
+        tmpLook[1] = new TmpLook(1, "20191113", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook2.jpeg", "보여줄게 달라진 나", "달라진 나를 보여주세요.", memberRepository.findByMId(1));
+        tmpLook[2] = new TmpLook(1, "20191117", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook3.jpeg", "카메라 앞에 빛이나네", "카메라 앞 셋팅 완료입니다.", memberRepository.findByMId(6));
+        tmpLook[3] = new TmpLook(1, "20191120", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook4.jpeg", "자신감 뿜뿜", "기빗투유 마마마마마~ 눈빛", memberRepository.findByMId(6));
+        tmpLook[4] = new TmpLook(5, "20191105", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook5.jpeg", "하트 뿅뿅", "뿅뿅 날아가는 사랑의 총알 ", memberRepository.findByMId(3));
+        tmpLook[5] = new TmpLook(5, "20191110", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook6.jpeg", "내가 제일 잘나가", "2ne1이 부릅니다.", memberRepository.findByMId(4));
+        tmpLook[6] = new TmpLook(5, "20191113", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook7.jpeg", "문학적 느낌", "더이상의 이과는 없다. 문과의 시대가 도래한다.", memberRepository.findByMId(2));
+        tmpLook[7] = new TmpLook(5, "20191117", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook8.jpeg", "에블바리 셔플린", "레트로 셔플 그 자", memberRepository.findByMId(1));
+        tmpLook[8] = new TmpLook(7, "20191105", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook9.jpeg", "하트뿅뿅 2", "제가 먼저 반할 것 같아", memberRepository.findByMId(8));
+        tmpLook[9] = new TmpLook(7, "20191108", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook10.jpeg", "룩을 듣다", "록유어 바", memberRepository.findByMId(8));
+        tmpLook[10] = new TmpLook(7, "20191113", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook11.jpeg", "겨울이 더 외로워", "그러니 가을은 이렇", memberRepository.findByMId(7));
+        tmpLook[11] = new TmpLook(7, "20191117", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook12.jpeg", "썸 탈거야", "썸타고 싶다. 나두.", memberRepository.findByMId(5));
+        tmpLook[12] = new TmpLook(9, "20191105", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook13.jpeg", "좋은 사람!", "좋은 사람으로 보일거에", memberRepository.findByMId(4));
+        tmpLook[13] = new TmpLook(9, "20191113", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook14.jpeg", "가을 나들이", "그래도 나들이는 봄이 최곱니다.", memberRepository.findByMId(2));
+        tmpLook[14] = new TmpLook(9, "20191117", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook15.jpeg", "신대감 신뢰감", "옛날 신대감이 주었던 신뢰감 그느낌 그대로 주는 ", memberRepository.findByMId(3));
+        tmpLook[15] = new TmpLook(9, "20191118", "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/t_look/tlook16.jpeg", "엄빠 사랑해요~~", "우리가 있자나요~~", memberRepository.findByMId(4));
+
+        for(int i = 0; i<16;i++){
+            tmpLookRepository.save(tmpLook[i]);
+        }
+
+        return new TmpLookInfo();
+    }
 
 
 }

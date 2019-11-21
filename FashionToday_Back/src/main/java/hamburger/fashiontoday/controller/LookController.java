@@ -175,10 +175,8 @@ public class LookController {
 
         LookListInfo lookListInfo = new LookListInfo();
 
-        Iterable<Look> lookList = lookRepository.findAll();
-        Iterator<Look> lookIterator = lookList.iterator();
-        while(lookIterator.hasNext()){
-            Look nowLook = lookIterator.next();
+        List<Look> lookList = lookRepository.findAll();
+        for(Look nowLook : lookList){
             TmpLook tmpLook = tmpLookRepository.findByTLId(nowLook.getTlid());
             Member lookMember = memberRepository.findByMId(tmpLook.getMId());
             lookListInfo.addLook(nowLook.getKId(),lookMember.getMName(),tmpLook);

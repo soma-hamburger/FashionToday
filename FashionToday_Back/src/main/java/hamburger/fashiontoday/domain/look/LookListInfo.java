@@ -26,6 +26,9 @@ public class LookListInfo {
 
 }
 
+@Getter
+@Setter
+@NoArgsConstructor
 class LookListDetail{
 
     private int look_id;
@@ -42,15 +45,14 @@ class LookListDetail{
 
     private String look_image;
 
-    private Random random = new Random();
-
     public LookListDetail(int look_id,String name,TmpLook tmpLook) {
+        Random random = new Random();
         this.look_id = look_id;
         this.user_id = tmpLook.getMId();
         this.user_name = name;
         this.is_like = random.nextBoolean();
         this.look_like_num = random.nextInt(100)+1;
-        this.user_profile_image = user_profile_image;
-        this.look_image = look_image;
+        this.user_profile_image = tmpLook.getRecommanderImg();
+        this.look_image = tmpLook.getTlUrl();
     }
 }
