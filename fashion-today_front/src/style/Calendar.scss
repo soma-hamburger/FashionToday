@@ -262,8 +262,9 @@
         }
         .ProfileImage {
           display: block;
+          border-radius: 10vw;
           width: $items-width * (3.5/25);
-          height: auto;
+          height: $items-width * (3.5/25);
           justify-self: center;
         }
       }
@@ -300,6 +301,7 @@
           }
           .ProfileImage {
             width: $items-width * (3.5/25);
+            height: $items-width * (3.5/25);
           }
         }
       }
@@ -561,7 +563,7 @@
           .ProfileImage {
             display: block;
             width: $items-width * (3.5/25);
-            height: auto;
+            height: $items-width * (3.5/25);
             justify-self: center;
           }
         }

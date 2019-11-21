@@ -48,6 +48,7 @@
   .ProfileImage {
     display: block;
     width: $items-width * (3.5/25);
+    height: $items-width * (3.5/25);
     border-radius: 10vw;
     justify-self: center;
   }
@@ -224,7 +225,7 @@
     .ProfileImage {
       display: block;
       width: $items-width * (3.5/25);
-      height: auto;
+      height: $items-width * (3.5/25);
       justify-self: center;
     }
     .DailyLookList {

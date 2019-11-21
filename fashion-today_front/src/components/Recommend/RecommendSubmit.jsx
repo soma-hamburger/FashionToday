@@ -33,7 +33,7 @@ const CanvasImage = ({
   DragStart,
   DragEnd,
 }) => {
-  const [image] = useImage(src, 'anonymous');
+  const [image] = useImage(src, 'Anonymous');
   return (
     <Image
       draggable
@@ -247,9 +247,10 @@ const RecommendSubmit = ({ match, history }) => {
     data.append('look_img', file, file.name);
     data.append('clothes_array', array);
     data.append('look_title', title);
-    data.append('look_introduce', introduce);
+    data.append('look_introduction', introduce);
 
     const res = await UserPost('recommend', user.token, data);
+
     console.log(res);
     if (res.data.remark === 'success') {
       history.push('/recommend');

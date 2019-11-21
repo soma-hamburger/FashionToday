@@ -20,6 +20,7 @@ const ErrorPage = ({ error }) => (
         홈으로
       </button>
     </div>
+    <div className="Footer" />
   </div>
 );
 export default ErrorPage;
