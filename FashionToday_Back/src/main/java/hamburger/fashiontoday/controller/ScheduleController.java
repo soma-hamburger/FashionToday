@@ -131,31 +131,32 @@ public class ScheduleController {
         try {
             Schedule schedule = scheduleRepository.findByMIdAndDdate(userId,date);
 
-            // 과거의 상태
-            if(Integer.parseInt(schedule.getDdate())< Integer.parseInt(nowDate)){
-                scheduleDetailInfo.setPast(schedule);
-                return scheduleDetailInfo;
-            }
+
             // 옷 선택
-            else if(schedule.getSelect()>1){
+            if(schedule.getSelect()==0){
                 scheduleDetailInfo.unSelect(schedule);
                 return scheduleDetailInfo;
-            }else {
+            }
+            // 과거의 상태
+            else{
+                scheduleDetailInfo.setPast(schedule);
                 Look dailyLook = lookRepository.findByKId(schedule.getKId());
                 TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
                 List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
                 List<Lookitem> lookitems = new ArrayList<>();
-                for (Lookitem lookitem : lookitems) {
-                    lookitems.add(lookitemRepository.findByKmId(lookitem.getKmId()));
+                for (LookStructure lookStructure : lookStructures) {
+                    lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
                 }
-                scheduleDetailInfo = new ScheduleDetailInfo(schedule,dailyLook,tmpLook,lookitems);
+                scheduleDetailInfo = new ScheduleDetailInfo(schedule, dailyLook, tmpLook, lookitems);
+                return scheduleDetailInfo;
             }
+
         }catch (Exception e){
             scheduleDetailInfo.setRemark("error_data");
             return scheduleDetailInfo;
         }
 
-        return scheduleDetailInfo;
+
     }
 
 

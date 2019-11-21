@@ -43,6 +43,15 @@ public class ScheduleDetailInfo {
         this.intorduce = schedule.getDIntroduce();
     }
 
+    public void setFuture(Schedule schedule){
+        this.user_id = schedule.getMId();
+        this.date = schedule.getDdate();
+        this.state = "future";
+        this.star = schedule.getDStar();
+        this.title = schedule.getDTitle();
+        this.intorduce = schedule.getDIntroduce();
+    }
+
     public void unSelect(Schedule schedule){
         this.user_id = schedule.getMId();
         this.date = schedule.getDdate();
