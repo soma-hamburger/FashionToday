@@ -9,6 +9,7 @@ import Recommend from './pages/Recommend';
 import LayOut from './components/Common/LayOut';
 import Calendar, { RedirectCalendar } from './pages/Calendar';
 import MyPage from './pages/MyPage';
+import ErrorPage from './pages/ErrorPage';
 
 const getToken = () => {
   const token = localStorage.getItem('token');
@@ -18,22 +19,27 @@ const getToken = () => {
 
 function App() {
   const [token, setToken] = useState(getToken());
+  const error = localStorage.getItem('error');
+
+  if (error) return <ErrorPage error={error} />;
 
   return (
     <Router>
       {token ? (
         // LogIn State Components
-        <LayOut token={token}>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/closet" component={Closet} />
-            <Route exact path="/calendar" component={RedirectCalendar} />
-            <Route path="/calendar/:dayid" component={Calendar} />
-            <Route path="/recommend" component={Recommend} />
-            <Route path="/mypage" component={MyPage} />
-            <Route path="/api-test" component={ApiTest} />
-          </Switch>
-        </LayOut>
+        <>
+          <LayOut token={token}>
+            <Switch>
+              <Route exact path="/" component={Main} />
+              <Route path="/closet" component={Closet} />
+              <Route exact path="/calendar" component={RedirectCalendar} />
+              <Route path="/calendar/:dayid" component={Calendar} />
+              <Route path="/recommend" component={Recommend} />
+              <Route path="/mypage" component={MyPage} />
+              <Route path="/api-test" component={ApiTest} />
+            </Switch>
+          </LayOut>
+        </>
       ) : (
         // LogOut State Components
         <Switch>

@@ -10,8 +10,6 @@ import LikedIcon from '../../img/heart_icon.png';
 import UnLikeIcon from '../../img/heart_white.png';
 
 const LookPopUp = ({ lookId, close, token }) => {
-  console.log(lookId);
-
   const LookDetail = useFetch(
     'post',
     'look',
@@ -20,8 +18,6 @@ const LookPopUp = ({ lookId, close, token }) => {
       look_id: lookId,
     }),
   );
-
-  console.log(LookDetail);
   return (
     <div className="LookPopUp">
       <div className="Head">

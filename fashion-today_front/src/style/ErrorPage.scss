@@ -1,0 +1,25 @@
+@import './utils.scss';
+
+.ErrorPage {
+  .HandleBar {
+    display: flex;
+    justify-content: space-between;
+    width: $width;
+    padding: 0 $padding;
+    color: $v-black;
+    font-size: 2vw;
+    font-weight: bold;
+    padding-top: 5vmin;
+    padding-bottom: 1vmin;
+    @include center-margin($width, $padding);
+    border-bottom: 2px solid $v-black;
+    button {
+      font-size: 2vw;
+      padding: 0.3vw 2vw;
+      background-color: $violet2;
+      color: $white;
+      border: 0;
+      border-radius: 1vw;
+    }
+  }
+}
