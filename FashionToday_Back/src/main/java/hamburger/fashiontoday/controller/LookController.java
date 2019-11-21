@@ -88,7 +88,7 @@ public class LookController {
 
     // 303 번
     @PostMapping(value = "/look/choice")
-    public TmpLookInfo choiceLook(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
+    public TmpLookInfo choiceLook(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         Member loginMember = new Member();
         int loginMemberId = 0;
@@ -113,9 +113,9 @@ public class LookController {
         }
 
 
-        try{
+        try {
             lookId = Integer.parseInt(param.get("look_id").toString());
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             tmpLookInfo.setRemark("param_error");
             return tmpLookInfo;
         }
@@ -148,24 +148,26 @@ public class LookController {
             return lookDetailInfo;
         }
 
-        try{
+        try {
             lookId = Integer.parseInt(param.get("look_id").toString());
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             lookDetailInfo.setRemark("param_error");
             return lookDetailInfo;
         }
 
+        System.out.println("룩 아이디" + lookId);
 
         TmpLook tmpLook = tmpLookRepository.findByTLId(lookId);
         List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
         List<Lookitem> lookitems = new ArrayList<>();
-        for(LookStructure lookStructure : lookStructures){
+        for (LookStructure lookStructure : lookStructures) {
             lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
         }
-        lookDetailInfo = new LookDetailInfo(tmpLook,lookitems);
+        lookDetailInfo = new LookDetailInfo(tmpLook, lookitems);
 
         return lookDetailInfo;
     }
+
 
     // 204번
     // tmpLook 상새정보
@@ -174,6 +176,7 @@ public class LookController {
 
         int lookId = 0;
         int loginMemberId = 0;
+
         LookDetailInfo lookDetailInfo = new LookDetailInfo();
 
         // 로그인 여부 확인
@@ -185,22 +188,24 @@ public class LookController {
             return lookDetailInfo;
         }
 
-        try{
+        try {
             lookId = Integer.parseInt(param.get("look_id").toString());
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             lookDetailInfo.setRemark("param_error");
             return lookDetailInfo;
         }
 
+        System.out.println("룩 아이디" + lookId);
 
         Look dailyLook = lookRepository.findByKId(lookId);
         TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
         List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
         List<Lookitem> lookitems = new ArrayList<>();
-        for(LookStructure lookStructure : lookStructures){
+        for (LookStructure lookStructure : lookStructures) {
             lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
         }
-        lookDetailInfo = new LookDetailInfo(dailyLook,tmpLook,lookitems);
+        lookDetailInfo = new LookDetailInfo(dailyLook, tmpLook, lookitems);
+
 
         return lookDetailInfo;
     }
@@ -213,10 +218,10 @@ public class LookController {
         LookListInfo lookListInfo = new LookListInfo();
 
         List<Look> lookList = lookRepository.findAll();
-        for(Look nowLook : lookList){
+        for (Look nowLook : lookList) {
             TmpLook tmpLook = tmpLookRepository.findByTLId(nowLook.getTlid());
             Member lookMember = memberRepository.findByMId(tmpLook.getMId());
-            lookListInfo.addLook(nowLook.getKId(),lookMember.getMName(),tmpLook);
+            lookListInfo.addLook(nowLook.getKId(), lookMember.getMName(), tmpLook);
         }
 
         return lookListInfo;
