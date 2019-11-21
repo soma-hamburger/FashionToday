@@ -1,4 +1,5 @@
 import React, { useContext, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import ProfileIcon from '../../img/default_profile.png';
 import GradeIcon from '../../img/grade_icon.png';
 import { ClickImg } from '../Common/Components';
@@ -41,7 +42,6 @@ const makeDailyLookView = (LookArray, onClick = () => {}) =>
 const DailyLookList = ({ onClick }) => {
   const { token } = useContext(UserContext);
   const DailyLookListInfo = useFetch('get', 'dailylist', token);
-  console.log(DailyLookListInfo);
 
   const DailyLookView = useMemo(() => {
     if (!DailyLookListInfo) return null;
@@ -49,6 +49,10 @@ const DailyLookList = ({ onClick }) => {
   }, [DailyLookListInfo, onClick]);
 
   return <div className="DailyLookList">{DailyLookView}</div>;
+};
+
+DailyLookList.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default DailyLookList;

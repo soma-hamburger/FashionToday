@@ -390,6 +390,7 @@
         border-radius: 0.5vw;
         width: 30vmin;
         height: 30vmin * $image-ratio;
+        background-color: $w-violet1;
       }
       .RecommenderInfo {
         height: 5vmin;
@@ -403,6 +404,8 @@
         border-radius: 0.5vw;
         .ProfileImage {
           width: 3vmin;
+          height: 3vmin;
+          border-radius: 10vw;
         }
         .GradeIcon {
           display: block;
@@ -495,6 +498,8 @@
         margin: 0;
         align-self: center;
         width: 3.5vmin;
+        height: 3.5vmin;
+        border-radius: 10vw;
       }
       .Name {
         justify-self: start;

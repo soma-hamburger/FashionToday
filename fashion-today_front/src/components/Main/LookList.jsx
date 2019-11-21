@@ -19,7 +19,7 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
         look_id: look.look_id,
         is_like: look.is_like,
       });
-      console.log(res);
+      return res;
     };
 
     return (
@@ -52,7 +52,6 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
   });
 
 const LookList = ({ LookArray, onClick }) => {
-  console.log(LookArray);
   const UserInfo = useContext(UserContext);
   const DailyLookView = makeLookView(LookArray, onClick, UserInfo.token);
 
