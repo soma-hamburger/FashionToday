@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ClickImg } from '../Common/Components';
 import CloseIcon from '../../img/close_icon.png';
 import PinIcon from '../../img/pin_icon.png';
 import ProfileIcon from '../../img/default_profile.png';
 import GradeIcon from '../../img/grade_icon.png';
 import { Clothes } from '../Main/DailyLookPopUp';
+import { UserPost } from '../../Tool';
+import { UserContext } from '../../Context';
 
-const CalLook = ({ look, close }) => {
+const CalLook = ({ look, date, close }) => {
+  const { token } = useContext(UserContext);
   const {
+    id,
     look_title,
     look_image,
     look_introduction,
@@ -15,6 +19,14 @@ const CalLook = ({ look, close }) => {
     share,
     clothes_array,
   } = look;
+
+  const clickShare = async () => {
+    const res = await UserPost('look/like', token, {
+      look_id: id,
+      date,
+    });
+    return res;
+  };
 
   return (
     <div className="CalLook">
@@ -29,8 +41,8 @@ const CalLook = ({ look, close }) => {
       <div className="Body">
         <div className="lookImage">
           <img src={look_image} alt="look_image" className="LookImage" />
-          {share && (
-            <button onClick={() => {}} type="button" className="ChoiceButton">
+          {!share && (
+            <button onClick={clickShare} type="button" className="ChoiceButton">
               룩 공유
             </button>
           )}

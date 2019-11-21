@@ -19,7 +19,7 @@ export const getCategoryIcon = category => {
     ['dress', dressIcon],
     ['shirts', shirtsIcon],
     ['tee', teeIcon],
-    ['accesory', accesoryIcon],
+    ['accessory', accesoryIcon],
     ['shoes', shoesIcon],
   ]);
 

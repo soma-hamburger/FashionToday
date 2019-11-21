@@ -468,12 +468,12 @@
     grid-template-rows: 2fr 1.5fr;
     img {
       align-self: end;
-
       margin-bottom: 1vmin;
     }
     .PopUpTitle {
       align-self: end;
       margin-bottom: 1vmin;
+      text-align: start;
     }
     .Description {
       grid-column: 3 / 4;
