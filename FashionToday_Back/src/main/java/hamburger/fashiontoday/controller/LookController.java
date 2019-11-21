@@ -221,7 +221,7 @@ public class LookController {
         List<Look> lookList = lookRepository.findAll();
         for (Look nowLook : lookList) {
             TmpLook tmpLook = tmpLookRepository.findByTLId(nowLook.getTlid());
-            Member lookMember = memberRepository.findByMId(tmpLook.getRecommandMId());
+            Member lookMember = memberRepository.findByMId(tmpLook.getMId());
             lookListInfo.addLook(nowLook.getKId(), lookMember, tmpLook);
         }
 
