@@ -130,6 +130,8 @@ public class LookController {
         loginMember.setMSelectdate(nowDate);
         Schedule schedule = scheduleRepository.findByMIdAndDdate(loginMemberId,nowDate);
         schedule.setKId(lookRepository.save(choiceLook).getKId());
+        schedule.setSelect(1);
+        scheduleRepository.save(schedule);
         memberRepository.save(loginMember);
         tmpLookInfo.setRemark("success");
 
