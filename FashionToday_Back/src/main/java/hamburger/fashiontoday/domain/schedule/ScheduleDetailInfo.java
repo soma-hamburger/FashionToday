@@ -30,9 +30,7 @@ public class ScheduleDetailInfo {
 
     private String introduce;
 
-    private LookDetailRecommender recommender = new LookDetailRecommender();
-
-    private List<LookDetailclothes> clothes_array = new ArrayList<>();
+    private ScheduleLook look;
 
     public void setPast(Schedule schedule){
         this.user_id = schedule.getMId();
@@ -68,11 +66,47 @@ public class ScheduleDetailInfo {
         this.star = schedule.getDStar();
         this.title = schedule.getDTitle();
         this.introduce = schedule.getDIntroduce();
+        this.look = new ScheduleLook(look,tmpLook,lookitems);
+    }
+
+}
+
+@Getter
+@Setter
+@NoArgsConstructor
+class ScheduleLook{
+
+    private int id;
+
+    private boolean share;
+
+    private LookDetailRecommender recommender;
+
+    private String look_image;
+
+    private String look_title;
+
+    private String look_introduce;
+
+    private List<LookDetailclothes> clothes_array = new ArrayList<>();
+
+    public ScheduleLook(Look look,TmpLook tmpLook,List<Lookitem> lookitems){
+        this.id = look.getKId();
+        if(look.getKShare()==0) {
+            this.share = false;
+        }
+        else{
+            this.share = true;
+        }
         this.recommender = new LookDetailRecommender(tmpLook);
+        this.look_image = tmpLook.getTlUrl();
+        this.look_title = tmpLook.getTTitle();
+        this.look_introduce = tmpLook.getTIntroduce();
         for(int i = 0; i<lookitems.size();i++){
             clothes_array.add(new LookDetailclothes(lookitems.get(i)));
         }
     }
+
 
 }
 
