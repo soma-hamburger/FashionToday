@@ -88,7 +88,7 @@ public class RecommendController {
 
         // 업로드
         try {
-            imgUrl = s3Uploader.upload(multipartFile, String.valueOf(requestorId));
+            imgUrl = s3Uploader.upload(multipartFile, String.valueOf(requestorId)+"_"+String.valueOf(loginMemberId)+"_"+date);
         } catch (Exception e) {
             tmpLookInfo.setRemark("upload error");
             return tmpLookInfo;
