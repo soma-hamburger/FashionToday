@@ -105,7 +105,7 @@ public class ScheduleController {
         String nowDate = new String();
         LocalDateTime localDateTime = LocalDateTime.now();
         if (localDateTime.getMonthValue() < 10) {
-            nowDate = String.valueOf(localDateTime.getYear()) +"0"+ String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
+            nowDate = String.valueOf(localDateTime.getYear()) + "0" + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         } else {
             nowDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonthValue()) + String.valueOf(localDateTime.getDayOfMonth());
         }
@@ -129,21 +129,21 @@ public class ScheduleController {
         }
 
         try {
-            Schedule schedule = scheduleRepository.findByMIdAndDdate(loginMemberId,date);
+            Schedule schedule = scheduleRepository.findByMIdAndDdate(loginMemberId, date);
 
-            if(schedule == null){
+            if (schedule == null) {
                 scheduleDetailInfo.setState("no_data");
                 return scheduleDetailInfo;
             }
 
             // 옷 선택
-            if(schedule.getSelect()==0){
+            if (schedule.getKId() == 0) {
                 scheduleDetailInfo.unSelect(schedule);
                 return scheduleDetailInfo;
             }
 
             // 과거의 상태
-            else{
+            else {
                 scheduleDetailInfo.setPast(schedule);
                 Look dailyLook = lookRepository.findByKId(schedule.getKId());
                 TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
@@ -157,7 +157,7 @@ public class ScheduleController {
                 return scheduleDetailInfo;
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             scheduleDetailInfo.setRemark("error_data");
             return scheduleDetailInfo;
         }
