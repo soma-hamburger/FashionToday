@@ -132,7 +132,7 @@ public class LookController {
 
 
     // 208번
-    @PostMapping(value = "/look")
+    @PostMapping(value = "/dailylook")
     public LookDetailInfo lookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int lookId = 0;
@@ -171,7 +171,7 @@ public class LookController {
 
     // 204번
     // tmpLook 상새정보
-    @PostMapping(value = "/dailylook")
+    @PostMapping(value = "/look")
     public LookDetailInfo tmplookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int lookId = 0;
