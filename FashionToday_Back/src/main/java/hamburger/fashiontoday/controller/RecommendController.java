@@ -150,6 +150,7 @@ public class RecommendController {
             System.out.println(scheduleListchecker);
             ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
             if(Integer.parseInt(nowScheduleStatus.getDdate())<=Integer.parseInt(nowDate)){
+                scheduleListchecker++;
                 continue;
             }
             boolean isRecommand = false;
