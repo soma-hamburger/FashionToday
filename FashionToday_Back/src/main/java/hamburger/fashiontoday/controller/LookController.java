@@ -11,6 +11,8 @@ import hamburger.fashiontoday.domain.lookstructure.LookStructure;
 import hamburger.fashiontoday.domain.lookstructure.LookStructureRepository;
 import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.domain.schedule.Schedule;
+import hamburger.fashiontoday.domain.schedule.ScheduleRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import hamburger.fashiontoday.domain.tmplook.TmpLookInfo;
 import hamburger.fashiontoday.domain.tmplook.TmpLookListInfo;
@@ -47,6 +49,9 @@ public class LookController {
 
     @Autowired
     LookitemRepository lookitemRepository;
+
+    @Autowired
+    ScheduleRepository scheduleRepository;
 
     //203
     @GetMapping(value = "/dailylist")
@@ -122,8 +127,9 @@ public class LookController {
 
         TmpLook choiceTmpLook = tmpLookRepository.findByTLId(lookId);
         Look choiceLook = new Look(choiceTmpLook);
-        lookRepository.save(choiceLook);
         loginMember.setMSelectdate(nowDate);
+        Schedule schedule = scheduleRepository.findByMIdAndDdate(loginMemberId,nowDate);
+        schedule.setKId(lookRepository.save(choiceLook).getKId());
         memberRepository.save(loginMember);
         tmpLookInfo.setRemark("success");
 
