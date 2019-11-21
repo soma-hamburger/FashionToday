@@ -28,7 +28,7 @@ public class ScheduleDetailInfo {
 
     private String title;
 
-    private String intorduce;
+    private String introduce;
 
     private LookDetailRecommender recommender = new LookDetailRecommender();
 
@@ -40,7 +40,7 @@ public class ScheduleDetailInfo {
         this.state = "past";
         this.star = schedule.getDStar();
         this.title = schedule.getDTitle();
-        this.intorduce = schedule.getDIntroduce();
+        this.introduce = schedule.getDIntroduce();
     }
 
     public void setFuture(Schedule schedule){
@@ -49,7 +49,7 @@ public class ScheduleDetailInfo {
         this.state = "future";
         this.star = schedule.getDStar();
         this.title = schedule.getDTitle();
-        this.intorduce = schedule.getDIntroduce();
+        this.introduce = schedule.getDIntroduce();
     }
 
     public void unSelect(Schedule schedule){
@@ -58,7 +58,7 @@ public class ScheduleDetailInfo {
         this.state = "unselect";
         this.star = schedule.getDStar();
         this.title = schedule.getDTitle();
-        this.intorduce = schedule.getDIntroduce();
+        this.introduce = schedule.getDIntroduce();
     }
 
     public ScheduleDetailInfo(Schedule schedule, Look look, TmpLook tmpLook, List<Lookitem> lookitems){
@@ -67,7 +67,7 @@ public class ScheduleDetailInfo {
         this.state = "select";
         this.star = schedule.getDStar();
         this.title = schedule.getDTitle();
-        this.intorduce = schedule.getDIntroduce();
+        this.introduce = schedule.getDIntroduce();
         this.recommender = new LookDetailRecommender(tmpLook);
         for(int i = 0; i<lookitems.size();i++){
             clothes_array.add(new LookDetailclothes(lookitems.get(i)));
