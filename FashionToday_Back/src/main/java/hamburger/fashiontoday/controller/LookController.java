@@ -199,12 +199,13 @@ public class LookController {
 
         Look dailyLook = lookRepository.findByKId(lookId);
         TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
+        Member targetMember = memberRepository.findByMId(tmpLook.getMId());
         List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
         List<Lookitem> lookitems = new ArrayList<>();
         for (LookStructure lookStructure : lookStructures) {
             lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
         }
-        lookDetailInfo = new LookDetailInfo(dailyLook, tmpLook, lookitems);
+        lookDetailInfo = new LookDetailInfo(dailyLook,targetMember, tmpLook, lookitems);
 
 
         return lookDetailInfo;

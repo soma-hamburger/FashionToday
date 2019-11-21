@@ -1,6 +1,7 @@
 package hamburger.fashiontoday.domain.look;
 
 import hamburger.fashiontoday.domain.lookitem.Lookitem;
+import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,10 @@ public class LookDetailInfo {
 
     private LookDetailRecommender recommender;
 
+    private String user_profile_image;
+
+    private String user_name;
+
     private List<LookDetailclothes> clothes_array = new ArrayList<>();
 
     public LookDetailInfo(TmpLook tmpLook, List<Lookitem> lookitems) {
@@ -40,12 +45,14 @@ public class LookDetailInfo {
         }
     }
 
-    public LookDetailInfo(Look look,TmpLook tmpLook, List<Lookitem> lookitems) {
+    public LookDetailInfo(Look look, Member targetMember, TmpLook tmpLook, List<Lookitem> lookitems) {
         this.recommender = new LookDetailRecommender(tmpLook);
         this.look_id = look.getKId();
         this.look_image = tmpLook.getTlUrl();
         this.look_title = tmpLook.getTTitle();
         this.look_introduction = tmpLook.getTIntroduce();
+        this.user_profile_image = targetMember.getMProfileUrl();
+        this.user_name = targetMember.getMName();
 
         for (Lookitem lookitem : lookitems) {
             clothes_array.add(new LookDetailclothes(lookitem));
