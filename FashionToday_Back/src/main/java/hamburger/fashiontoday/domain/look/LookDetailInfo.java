@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -31,15 +32,21 @@ public class LookDetailInfo {
 
     private String user_name;
 
+    private int like_num;
+
+    private String date;
+
     private List<LookDetailclothes> clothes_array = new ArrayList<>();
 
     public LookDetailInfo(TmpLook tmpLook, List<Lookitem> lookitems) {
+        Random random = new Random();
         this.recommender = new LookDetailRecommender(tmpLook);
         this.look_id = tmpLook.getTLId();
         this.look_image = tmpLook.getTlUrl();
         this.look_title = tmpLook.getTTitle();
         this.look_introduction = tmpLook.getTIntroduce();
-
+        this.like_num = random.nextInt(100)+1;
+        this.date = tmpLook.getDdate();
         for (Lookitem lookitem : lookitems) {
             clothes_array.add(new LookDetailclothes(lookitem));
         }

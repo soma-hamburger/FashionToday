@@ -123,7 +123,6 @@ public class ScheduleController {
         // 파라미터 파싱
         try {
             date = param.get("date").toString();
-            userId = Integer.parseInt(param.get("user_id").toString());
         } catch (Exception e) {
             scheduleDetailInfo.setRemark("error_param");
             return scheduleDetailInfo;

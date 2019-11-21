@@ -115,7 +115,7 @@ public class TestDataController {
 
         System.out.println("시작");
 
-        int userId = 7;
+        int userId = 9;
         Member loginMember;
         loginMember = memberRepository.findByMId(userId);
 
