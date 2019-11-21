@@ -22,7 +22,7 @@ public class LookListInfo {
     private List<LookListDetail> look_array = new ArrayList<>();
 
     public void addLook(int lookId, Member member, TmpLook tmpLook){
-        look_array.add(new LookListDetail(lookId,member.getMName(),tmpLook));
+        look_array.add(new LookListDetail(lookId,member,tmpLook));
     }
 
 }
@@ -46,14 +46,14 @@ class LookListDetail{
 
     private String look_image;
 
-    public LookListDetail(int look_id,String name,TmpLook tmpLook) {
+    public LookListDetail(int look_id,Member member,TmpLook tmpLook) {
         Random random = new Random();
         this.look_id = look_id;
         this.user_id = tmpLook.getMId();
-        this.user_name = name;
+        this.user_name = member.getMName();
         this.is_like = random.nextBoolean();
         this.look_like_num = random.nextInt(100)+1;
-        this.user_profile_image = tmpLook.getRecommanderImg();
+        this.user_profile_image = member.getMProfileUrl();
         this.look_image = tmpLook.getTlUrl();
     }
 }
