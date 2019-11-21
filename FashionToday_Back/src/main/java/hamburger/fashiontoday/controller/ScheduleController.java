@@ -16,6 +16,7 @@ import hamburger.fashiontoday.domain.scheduleStatus.ScheduleStatusRepository;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import hamburger.fashiontoday.domain.tmplook.TmpLookRepository;
 import hamburger.fashiontoday.service.JwtService;
+import jdk.nashorn.internal.runtime.options.Option;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,6 @@ public class ScheduleController {
 
         // 값
         int loginMemberId = 0;
-        int userId = 0;
         ScheduleDetailInfo scheduleDetailInfo = new ScheduleDetailInfo();
         String date = new String();
 
@@ -129,14 +129,19 @@ public class ScheduleController {
         }
 
         try {
-            Schedule schedule = scheduleRepository.findByMIdAndDdate(userId,date);
+            Schedule schedule = scheduleRepository.findByMIdAndDdate(loginMemberId,date);
 
+            if(schedule == null){
+                scheduleDetailInfo.setState("no_data");
+                return scheduleDetailInfo;
+            }
 
             // 옷 선택
             if(schedule.getSelect()==0){
                 scheduleDetailInfo.unSelect(schedule);
                 return scheduleDetailInfo;
             }
+
             // 과거의 상태
             else{
                 scheduleDetailInfo.setPast(schedule);
@@ -147,6 +152,7 @@ public class ScheduleController {
                 for (LookStructure lookStructure : lookStructures) {
                     lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
                 }
+                System.out.println(6);
                 scheduleDetailInfo = new ScheduleDetailInfo(schedule, dailyLook, tmpLook, lookitems);
                 return scheduleDetailInfo;
             }
