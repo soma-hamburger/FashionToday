@@ -11,8 +11,7 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
     let ProfileImage = ProfileIcon;
     let LikeIcon = UnLikeIcon;
 
-    if (look.recommender_profile_image)
-      ProfileImage = look.recommender_profile_image;
+    if (look.user_profile_image) ProfileImage = look.user_profile_image;
     if (look.is_like) LikeIcon = LikedIcon;
 
     const clickLike = async () => {
@@ -53,6 +52,7 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
   });
 
 const LookList = ({ LookArray, onClick }) => {
+  console.log(LookArray);
   const UserInfo = useContext(UserContext);
   const DailyLookView = makeLookView(LookArray, onClick, UserInfo.token);
 

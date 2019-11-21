@@ -48,7 +48,7 @@
   .ProfileImage {
     display: block;
     width: $items-width * (3.5/25);
-    height: auto;
+    border-radius: 10vw;
     justify-self: center;
   }
   .DailyLookList {
@@ -98,6 +98,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: $width;
+    grid-gap: 2vw;
     margin: 0 (100vw - $width) * 0.5;
     .LookPreview {
       .UserInfo {
@@ -274,6 +275,7 @@
       grid-template-columns: repeat(4, 1fr);
       width: $width;
       margin: 0 auto;
+      grid-gap: 2 * 10px;
       .LookPreview {
         .UserInfo {
           display: grid;

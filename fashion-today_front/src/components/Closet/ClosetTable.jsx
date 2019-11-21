@@ -37,9 +37,14 @@ const ClosetTable = ({ category, color, array }) => {
   return <div className="ClosetTable">{closetTable}</div>;
 };
 
+ClosetTable.defaultProps = {
+  category: null,
+  color: null,
+};
+
 ClosetTable.propTypes = {
-  category: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  category: PropTypes.string,
+  color: PropTypes.string,
   array: PropTypes.arrayOf(
     PropTypes.shape({
       category: PropTypes.string.isRequired,
