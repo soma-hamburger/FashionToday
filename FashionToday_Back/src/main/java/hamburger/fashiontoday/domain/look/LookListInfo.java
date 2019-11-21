@@ -1,5 +1,6 @@
 package hamburger.fashiontoday.domain.look;
 
+import hamburger.fashiontoday.domain.member.Member;
 import hamburger.fashiontoday.domain.tmplook.TmpLook;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,8 @@ public class LookListInfo {
 
     private List<LookListDetail> look_array = new ArrayList<>();
 
-    public void addLook(int lookId,String name,TmpLook tmpLook){
-        look_array.add(new LookListDetail(lookId,name,tmpLook));
+    public void addLook(int lookId, Member member, TmpLook tmpLook){
+        look_array.add(new LookListDetail(lookId,member.getMName(),tmpLook));
     }
 
 }
