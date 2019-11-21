@@ -86,7 +86,7 @@ class ScheduleLook{
 
     private String look_title;
 
-    private String look_introduce;
+    private String look_introduction;
 
     private List<LookDetailclothes> clothes_array = new ArrayList<>();
 
@@ -101,7 +101,7 @@ class ScheduleLook{
         this.recommender = new LookDetailRecommender(tmpLook);
         this.look_image = tmpLook.getTlUrl();
         this.look_title = tmpLook.getTTitle();
-        this.look_introduce = tmpLook.getTIntroduce();
+        this.look_introduction = tmpLook.getTIntroduce();
         for(int i = 0; i<lookitems.size();i++){
             clothes_array.add(new LookDetailclothes(lookitems.get(i)));
         }
