@@ -238,4 +238,40 @@ public class LookController {
     }
 
 
+    @PostMapping(value="/look/share")
+    public LookDetailInfo lookShare(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param){
+
+
+        int lookId = 0;
+        String date = "";
+        int loginMemberId = 0;
+
+        LookDetailInfo lookDetailInfo = new LookDetailInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+        } else {
+            lookDetailInfo.setRemark("login_error");
+            return lookDetailInfo;
+        }
+
+        try {
+            lookId = Integer.parseInt(param.get("look_id").toString());
+            date = param.get("date").toString();
+        } catch (NullPointerException e) {
+            lookDetailInfo.setRemark("param_error");
+            return lookDetailInfo;
+        }
+
+        Look look = lookRepository.findByKId(lookId);
+        look.setKShare(1);
+        lookRepository.save(look);
+
+        return new LookDetailInfo();
+    }
+
+
+
 }

@@ -147,9 +147,9 @@ public class RecommendController {
         List<ScheduleStatus> scheduleStatusList = scheduleStatusRepository.findByMIdNotAndLeftNotOrderByLeftDesc(loginMemberId, 0);
 
         while (recommendListInfo.getSize() < 5 && scheduleListchecker < scheduleStatusList.size()) {
+            System.out.println(scheduleListchecker);
             ScheduleStatus nowScheduleStatus = scheduleStatusList.get(scheduleListchecker);
             if(Integer.parseInt(nowScheduleStatus.getDdate())<=Integer.parseInt(nowDate)){
-                scheduleListchecker++;
                 continue;
             }
             boolean isRecommand = false;

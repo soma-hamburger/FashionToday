@@ -76,36 +76,69 @@ public class TestDataController {
 
         Lookitem[][] lookitem = new Lookitem[10][10];
 
+
+
+
         // 아이유 옷
-        lookitem[0][0] = new Lookitem(7, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_1/bag1.png", "green", "bag", "");
-        lookitem[0][1] = new Lookitem(7, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_1/pants1.png", "blue", "pants", "");
-        lookitem[0][2] = new Lookitem(7, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_1/shoes1.png", "black", "shoes", "");
-        lookitem[0][3] = new Lookitem(7, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_1/tee1.png", "green", "tee", "");
-        lookitem[0][4] = new Lookitem(7, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_1/tee2.png", "brown", "tee", "");
+        lookitem[0][0] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/acc1.png", "yellow", "accessory", "");
+        lookitem[0][1] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/acc2.png", "blue", "accessory", "");
+        lookitem[0][2] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/bag1.png", "purple", "bag", "");
+        lookitem[0][3] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/pants1.png", "brown", "pants", "");
+        lookitem[0][4] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/shoes1.png", "brown", "shoes", "");
+        lookitem[0][5] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/tee1.png", "black", "tee", "");
 
         // 나연 옷
-        lookitem[1][0] = new Lookitem(9, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_2/acc1.png", "gole", "accessory", "");
-        lookitem[1][1] = new Lookitem(9, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_2/acc2.png", "gold", "accessory", "");
-        lookitem[1][2] = new Lookitem(9, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_2/acc3.png", "gold", "accessory", "");
-        lookitem[1][3] = new Lookitem(9, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_2/one.png", "green", "dress", "");
-        lookitem[1][4] = new Lookitem(9, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_2/shoes.png", "green", "shoes", "");
+        lookitem[1][0] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/acc1.png", "brown", "accessory", "");
+        lookitem[1][1] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/bag1.png", "black", "bag", "");
+        lookitem[1][2] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/pants1.png", "white", "pants", "");
+        lookitem[1][3] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/shoes1.png", "white", "shoes", "");
+        lookitem[1][4] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/tee1.png", "black", "tee", "");
+
+        // 나연 옷
+        lookitem[2][0] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_1/tee1.png", "green", "shirts", "");
+        lookitem[2][1] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_1/tee2.png", "brown", "tee", "");
+        lookitem[2][2] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_1/shoes1.png", "black", "shoes", "");
+        lookitem[2][3] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_1/pants1.png", "blue", "pants", "");
+        lookitem[2][4] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_1/bag1.png", "green", "bag", "");
+
+        // 나연 옷
+        lookitem[3][0] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_2/acc1.png", "yellow", "accessory", "");
+        lookitem[3][1] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_2/acc2.png", "green", "accessory", "");
+        lookitem[3][2] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_2/acc3.png", "yellow", "accessory", "");
+        lookitem[3][3] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_2/one.png", "green", "dress", "");
+        lookitem[3][4] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_2/shoes.png", "white", "shoes", "");
+
+
 
 
         // 동훈 옷
-        lookitem[2][0] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/coat1.png", "brown", "dress", "");
-        lookitem[2][1] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/hood1.png", "black", "tee", "");
-        lookitem[2][2] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/jeans1.png", "blue", "jean", "");
-        lookitem[2][3] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/pants1.png", "brown", "jena", "");
-        lookitem[2][4] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/pants2.png", "yellow", "jean", "");
-        lookitem[2][5] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/shirts1.png", "white", "shirt", "");
-        lookitem[2][6] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/shoes1.png", "white", "shoes", "");
-        lookitem[2][7] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee1.png", "black", "tee", "");
-        lookitem[2][8] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee2.png", "yellow", "tee", "");
-        lookitem[2][9] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee3.png", "white", "tee", "");
+//        lookitem[2][0] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/coat1.png", "brown", "dress", "");
+//        lookitem[2][1] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/hood1.png", "black", "tee", "");
+//        lookitem[2][2] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/jeans1.png", "blue", "jean", "");
+//        lookitem[2][3] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/pants1.png", "brown", "jena", "");
+//        lookitem[2][4] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/pants2.png", "yellow", "jean", "");
+//        lookitem[2][5] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/shirts1.png", "white", "shirt", "");
+//        lookitem[2][6] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/shoes1.png", "white", "shoes", "");
+//        lookitem[2][7] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee1.png", "black", "tee", "");
+//        lookitem[2][8] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee2.png", "yellow", "tee", "");
+//        lookitem[2][9] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee3.png", "white", "tee", "");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 6; i++) {
+            lookitemRepository.save(lookitem[0][i]);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            lookitemRepository.save(lookitem[1][i]);
+        }
+
+        for (int i = 0; i < 5; i++) {
             lookitemRepository.save(lookitem[2][i]);
         }
+
+        for (int i = 0; i < 5; i++) {
+            lookitemRepository.save(lookitem[3][i]);
+        }
+
 
         return new LookitemInfo();
     }
@@ -115,7 +148,7 @@ public class TestDataController {
 
         System.out.println("시작");
 
-        int userId = 9;
+        int userId = 1207348925;
         Member loginMember;
         loginMember = memberRepository.findByMId(userId);
 
