@@ -36,6 +36,7 @@ class Requestor {
     String self_introduction;
     String profile_image;
     RecommendSchedule schedule;
+    int grade;
 
     public Requestor(Schedule schedule, Member member) {
         this.id = member.getMId();
@@ -43,6 +44,7 @@ class Requestor {
         this.self_introduction = member.getMComment();
         this.profile_image = member.getMProfileUrl();
         this.schedule = new RecommendSchedule(schedule);
+        this.grade = member.getMGrade();
     }
 }
 

@@ -28,7 +28,19 @@ public class LookDetailInfo {
 
     private List<LookDetailclothes> clothes_array = new ArrayList<>();
 
-    public LookDetailInfo(Look look, TmpLook tmpLook, List<Lookitem> lookitems) {
+    public LookDetailInfo(TmpLook tmpLook, List<Lookitem> lookitems) {
+        this.recommender = new LookDetailRecommender(tmpLook);
+        this.look_id = tmpLook.getTLId();
+        this.look_image = tmpLook.getTlUrl();
+        this.look_title = tmpLook.getTTitle();
+        this.look_introduction = tmpLook.getTIntroduce();
+
+        for (Lookitem lookitem : lookitems) {
+            clothes_array.add(new LookDetailclothes(lookitem));
+        }
+    }
+
+    public LookDetailInfo(Look look,TmpLook tmpLook, List<Lookitem> lookitems) {
         this.recommender = new LookDetailRecommender(tmpLook);
         this.look_id = look.getKId();
         this.look_image = tmpLook.getTlUrl();

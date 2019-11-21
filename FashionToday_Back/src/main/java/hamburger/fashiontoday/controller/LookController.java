@@ -131,9 +131,46 @@ public class LookController {
     }
 
 
-    // 204번
-    @PostMapping(value = "/dailylook")
+    // 208번
+    @PostMapping(value = "/look")
     public LookDetailInfo lookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+
+        int lookId = 0;
+        int loginMemberId = 0;
+        LookDetailInfo lookDetailInfo = new LookDetailInfo();
+
+        // 로그인 여부 확인
+        if (jwtService.isUsable(token)) {
+            loginMemberId = jwtService.getMember(token);
+            System.out.println("유저 아이디 : " + loginMemberId);
+        } else {
+            lookDetailInfo.setRemark("login_error");
+            return lookDetailInfo;
+        }
+
+        try{
+            lookId = Integer.parseInt(param.get("look_id").toString());
+        }catch(NullPointerException e){
+            lookDetailInfo.setRemark("param_error");
+            return lookDetailInfo;
+        }
+
+
+        TmpLook tmpLook = tmpLookRepository.findByTLId(lookId);
+        List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
+        List<Lookitem> lookitems = new ArrayList<>();
+        for(LookStructure lookStructure : lookStructures){
+            lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
+        }
+        lookDetailInfo = new LookDetailInfo(tmpLook,lookitems);
+
+        return lookDetailInfo;
+    }
+
+    // 204번
+    // tmpLook 상새정보
+    @PostMapping(value = "/dailylook")
+    public LookDetailInfo tmplookDetailInfo(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int lookId = 0;
         int loginMemberId = 0;
@@ -160,8 +197,8 @@ public class LookController {
         TmpLook tmpLook = tmpLookRepository.findByTLId(dailyLook.getTlid());
         List<LookStructure> lookStructures = lookStructureRepository.findLookStructuresByTlId(tmpLook.getTLId());
         List<Lookitem> lookitems = new ArrayList<>();
-        for(Lookitem lookitem : lookitems){
-            lookitems.add(lookitemRepository.findByKmId(lookitem.getKmId()));
+        for(LookStructure lookStructure : lookStructures){
+            lookitems.add(lookitemRepository.findByKmId(lookStructure.getKmId()));
         }
         lookDetailInfo = new LookDetailInfo(dailyLook,tmpLook,lookitems);
 
