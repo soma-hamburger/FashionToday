@@ -32,7 +32,6 @@ export const Clothes = ({ clothes }) => {
 };
 
 const DailyLookPopUp = ({ lookId, close, token }) => {
-  console.log(lookId);
   const today = new Date();
   const date = makeDayId(today);
   const DailyLookDetail = useFetch(
@@ -49,10 +48,12 @@ const DailyLookPopUp = ({ lookId, close, token }) => {
       look_id: lookId,
       date,
     });
-    console.log(res);
-  };
 
-  console.log(DailyLookDetail);
+    if (res) {
+      window.location.reload();
+    }
+    return res;
+  };
 
   return (
     <div className="DailyLookPopUp">

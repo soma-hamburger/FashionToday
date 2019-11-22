@@ -19,7 +19,7 @@ const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
     if (dday >= 0) return null;
     return scheduleForm;
   }
-  const { title, introduce, star, look } = scheduleDetail;
+  const { title, introduce, star, look, date } = scheduleDetail;
 
   return (
     <div className="ScheduleDiv">
@@ -37,7 +37,7 @@ const ScheduleDiv = ({ scheduleDetail, dday, scheduleForm }) => {
         )}
       </div>
       {look && lookOpen && (
-        <CalLook look={look} close={() => setLookOpen(false)} />
+        <CalLook look={look} date={date} close={() => setLookOpen(false)} />
       )}
     </div>
   );
@@ -73,6 +73,8 @@ const Day = ({ dayId, isSchedule }) => {
       date: dayId,
     }),
   );
+
+  console.log(ScheduleDetail);
 
   const [title, setTitle] = useState('');
   const [introduce, setIntroduce] = useState('');

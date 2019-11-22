@@ -12,14 +12,15 @@ import accesoryIcon from '../../img/category/accesory_icon.png';
 
 export const getCategoryIcon = category => {
   const categories = new Map([
-    { jean: jeanIcon },
-    { bag: bagIcon },
-    { hat: hatIcon },
-    { dress: dressIcon },
-    { shirts: shirtsIcon },
-    { tee: teeIcon },
-    { accesory: accesoryIcon },
-    { shoes: shoesIcon },
+    ['jean', jeanIcon],
+    ['pants', jeanIcon],
+    ['bag', bagIcon],
+    ['hat', hatIcon],
+    ['dress', dressIcon],
+    ['shirts', shirtsIcon],
+    ['tee', teeIcon],
+    ['accessory', accesoryIcon],
+    ['shoes', shoesIcon],
   ]);
 
   if (!categories.has(category)) {

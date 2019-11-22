@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
+/*
 import {
   UserCloset,
   UserInfo,
@@ -13,6 +14,7 @@ import {
   LookDetail,
   UserState,
 } from './defaultAPI';
+*/
 
 export const filteringArray = (category, color, array) => {
   let filterdArray = array;
@@ -27,19 +29,9 @@ export const filteringArray = (category, color, array) => {
   return filterdArray;
 };
 
-const findDefaultAPI = url => {
-  if (url === 'closet') return { data: UserCloset };
-  if (url === 'user/info') return { data: UserState };
-  if (url === 'user/detail') return { data: UserInfo };
-  if (url === 'dailylist') return { data: getDailyLookList };
-  if (url === 'schedule/list') return { data: UserScheduleList };
-  if (url === 'schedule/detail') return { data: UserScheduleDetail };
-  if (url === 'recommend/list') return { data: LookRequestorList };
-  if (url === 'requestor/closet') return { data: RequestorCloset };
-  if (url === 'looklist') return { data: LookListInfo };
-  if (url === 'dailylook') return { data: DailyLookDetail };
-  if (url === 'look') return { data: LookDetail };
-  return null;
+const handleError = error => {
+  localStorage.setItem('error', error);
+  return window.location.reload();
 };
 
 export const Request = async (url, body, header) => {
@@ -66,8 +58,7 @@ export const UserPost = async (url, token, body) => {
   try {
     return await userInstance.post(url, body);
   } catch (error) {
-    console.log(error);
-    return findDefaultAPI(url);
+    return handleError(error);
   }
 };
 
@@ -81,8 +72,7 @@ export const UserGet = async (url, token, body) => {
   try {
     return await userInstance.get(url, body);
   } catch (error) {
-    console.log(error);
-    return findDefaultAPI(url);
+    return handleError(error);
   }
 };
 

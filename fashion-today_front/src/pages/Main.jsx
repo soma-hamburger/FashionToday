@@ -18,7 +18,7 @@ const Main = () => {
     id: null,
   });
 
-  const LookListInfo = useFetch('post', 'looklist', token);
+  const LookListInfo = useFetch('get', 'looklist', token);
 
   const setDailyPopUp = e => {
     setPopUp({
@@ -45,13 +45,13 @@ const Main = () => {
     <>
       {PopUp.state === 'dailyLookUp' && (
         <>
-          <DailyLookPopUp lookId={PopUp.id} close={closePopUp} />
+          <DailyLookPopUp lookId={PopUp.id} close={closePopUp} token={token} />
           <div className="blurBox" />
         </>
       )}
       {PopUp.state === 'LookUp' && (
         <>
-          <LookPopUp lookId={PopUp.id} close={closePopUp} />
+          <LookPopUp lookId={PopUp.id} close={closePopUp} token={token} />
           <div className="blurBox" />
         </>
       )}

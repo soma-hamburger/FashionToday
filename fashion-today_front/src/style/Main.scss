@@ -43,12 +43,13 @@
     height: $items-width * $image-ratio;
     border: 0px;
     border-radius: 0.4vw;
-    background-color: $gray2;
+    // background-color: $gray2;
   }
   .ProfileImage {
     display: block;
     width: $items-width * (3.5/25);
-    height: auto;
+    height: $items-width * (3.5/25);
+    border-radius: 10vw;
     justify-self: center;
   }
   .DailyLookList {
@@ -60,6 +61,9 @@
     grid-gap: 2vw;
     background-color: $w-violet3;
     border-radius: 1vw;
+    .LookImage {
+      background-color: $gray2;
+    }
     .LookPreview {
       .UserInfo {
         display: grid;
@@ -98,6 +102,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: $width;
+    grid-gap: 2vw;
     margin: 0 (100vw - $width) * 0.5;
     .LookPreview {
       .UserInfo {
@@ -218,12 +223,11 @@
       height: $items-width * $image-ratio;
       border: 0px;
       border-radius: 0.4 * 10px;
-      background-color: $gray2;
     }
     .ProfileImage {
       display: block;
       width: $items-width * (3.5/25);
-      height: auto;
+      height: $items-width * (3.5/25);
       justify-self: center;
     }
     .DailyLookList {
@@ -274,6 +278,7 @@
       grid-template-columns: repeat(4, 1fr);
       width: $width;
       margin: 0 auto;
+      grid-gap: 2 * 10px;
       .LookPreview {
         .UserInfo {
           display: grid;
@@ -388,6 +393,7 @@
         border-radius: 0.5vw;
         width: 30vmin;
         height: 30vmin * $image-ratio;
+        background-color: $w-violet1;
       }
       .RecommenderInfo {
         height: 5vmin;
@@ -401,6 +407,8 @@
         border-radius: 0.5vw;
         .ProfileImage {
           width: 3vmin;
+          height: 3vmin;
+          border-radius: 10vw;
         }
         .GradeIcon {
           display: block;
@@ -463,12 +471,12 @@
     grid-template-rows: 2fr 1.5fr;
     img {
       align-self: end;
-
       margin-bottom: 1vmin;
     }
     .PopUpTitle {
       align-self: end;
       margin-bottom: 1vmin;
+      text-align: start;
     }
     .Description {
       grid-column: 3 / 4;
@@ -493,6 +501,8 @@
         margin: 0;
         align-self: center;
         width: 3.5vmin;
+        height: 3.5vmin;
+        border-radius: 10vw;
       }
       .Name {
         justify-self: start;

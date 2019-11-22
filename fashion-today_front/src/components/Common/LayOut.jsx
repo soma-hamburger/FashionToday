@@ -21,12 +21,13 @@ const LayOut = ({ children, token }) => {
     }
   }, [UserInfo, token]);
 
+  console.log(UserInfo);
   return (
     <UserContext.Provider value={userContext}>
       <div className="LayOut">
         {UserInfo && <MainBar userInfo={UserInfo.data} />}
         <div className="children">{children}</div>
-        <div className="Footer">.</div>
+        <div className="Footer" />
       </div>
     </UserContext.Provider>
   );
