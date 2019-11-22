@@ -114,7 +114,7 @@ class DailyLook : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedLi
 
 
                 var view=layoutInflater.inflate(R.layout.daily_look_view,null)
-                view.daily_date.text="${year}년 ${month}월 ${day}일"
+                view.daily_date.text="${year}년 ${month+1}월 ${day}일"
                 view.daily_recommender.text=name
                 view.daily_grade.text="${grade}"
 
