@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import ProfileIcon from '../../img/default_profile.png';
 import LikedIcon from '../../img/heart_icon.png';
 import UnLikeIcon from '../../img/heart_white.png';
@@ -6,8 +6,10 @@ import { ClickImg } from '../Common/Components';
 import { UserContext } from '../../Context';
 import { UserPost } from '../../Tool';
 
-const makeLookView = (LookArray, onClick = () => {}, token) =>
-  LookArray.map(look => {
+const makeLookView = (LookArray, onClick = () => {}, token) => {
+  const reversedArray = LookArray.reverse();
+  console.log(reversedArray);
+  return reversedArray.map(look => {
     let ProfileImage = ProfileIcon;
     let LikeIcon = UnLikeIcon;
 
@@ -50,10 +52,15 @@ const makeLookView = (LookArray, onClick = () => {}, token) =>
       </div>
     );
   });
+};
 
 const LookList = ({ LookArray, onClick }) => {
-  const UserInfo = useContext(UserContext);
-  const DailyLookView = makeLookView(LookArray, onClick, UserInfo.token);
+  const { token } = useContext(UserContext);
+  const DailyLookView = useMemo(() => makeLookView(LookArray, onClick, token), [
+    LookArray,
+    token,
+    onClick,
+  ]);
 
   return <div className="LookList">{DailyLookView}</div>;
 };

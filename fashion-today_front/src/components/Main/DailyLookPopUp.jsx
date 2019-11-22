@@ -48,7 +48,10 @@ const DailyLookPopUp = ({ lookId, close, token }) => {
       look_id: lookId,
       date,
     });
-    console.log(res);
+
+    if (res) {
+      window.location.reload();
+    }
     return res;
   };
 

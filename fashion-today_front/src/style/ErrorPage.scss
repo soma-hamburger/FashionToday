@@ -1,6 +1,8 @@
 @import './utils.scss';
 
 .ErrorPage {
+  position: relative;
+  height: 100vh;
   .HandleBar {
     display: flex;
     justify-content: space-between;
@@ -20,6 +22,14 @@
       color: $white;
       border: 0;
       border-radius: 1vw;
+    }
+  }
+  .Footer {
+    position: absolute;
+    height: 50px;
+    bottom: 0;
+    @include respond(wide-screen) {
+      left: calc(50vw - 512px);
     }
   }
 }

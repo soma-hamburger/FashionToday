@@ -21,10 +21,13 @@ const CalLook = ({ look, date, close }) => {
   } = look;
 
   const clickShare = async () => {
-    const res = await UserPost('look/like', token, {
+    const res = await UserPost('look/share', token, {
       look_id: id,
       date,
     });
+    if (res) {
+      window.location.reload();
+    }
     return res;
   };
 

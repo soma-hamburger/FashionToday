@@ -239,7 +239,7 @@
       height: $items-width * $image-ratio;
       border: 0px;
       border-radius: 7px;
-      background-color: $gray2;
+      // background-color: $gray2;
     }
     .LookPreview {
       .UserInfo {
@@ -539,7 +539,6 @@
         height: $items-width * $image-ratio;
         border: 0px;
         border-radius: 7px;
-        background-color: $gray2;
       }
       .LookPreview {
         .UserInfo {

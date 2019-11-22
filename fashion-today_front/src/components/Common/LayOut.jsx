@@ -21,6 +21,7 @@ const LayOut = ({ children, token }) => {
     }
   }, [UserInfo, token]);
 
+  console.log(UserInfo);
   return (
     <UserContext.Provider value={userContext}>
       <div className="LayOut">

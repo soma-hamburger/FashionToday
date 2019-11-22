@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { LinkDiv } from '../Common/Components';
 import ClosetIcon from '../../img/closet_icon.png';
 import ProfileIcon from '../../img/default_profile.png';
@@ -64,6 +65,17 @@ const Requestor = ({ requestor }) => {
       </div>
     </div>
   );
+};
+
+Requestor.propTypes = {
+  requestor: PropTypes.shape({
+    schedule: PropTypes.object.isRequired,
+    profile_image: PropTypes.string.isRequired,
+    grade: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    self_introduction: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Requestor;

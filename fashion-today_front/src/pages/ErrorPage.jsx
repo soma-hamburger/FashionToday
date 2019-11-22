@@ -1,5 +1,5 @@
 import React from 'react';
-import ClosetBackground from '../img/background/closet_background.jpg';
+import ClosetBackground from '../img/background/main_background.jpg';
 import '../style/ErrorPage.scss';
 
 const refreshError = () => {
