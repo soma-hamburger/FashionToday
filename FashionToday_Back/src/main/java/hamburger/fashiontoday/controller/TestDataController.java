@@ -88,11 +88,11 @@ public class TestDataController {
         lookitem[0][5] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_3/tee1.png", "black", "tee", "");
 
         // 나연 옷
-        lookitem[1][0] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/acc1.png", "brown", "accessory", "");
-        lookitem[1][1] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/bag1.png", "black", "bag", "");
-        lookitem[1][2] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/pants1.png", "white", "pants", "");
-        lookitem[1][3] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/shoes1.png", "white", "shoes", "");
-        lookitem[1][4] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_4/tee1.png", "black", "tee", "");
+        lookitem[1][0] = new Lookitem(1207348925, "https://data.pashiontoday.com/test_data/look_4/acc1.png", "brown", "accessory", "");
+        lookitem[1][1] = new Lookitem(1207348925, "https://data.pashiontoday.com/test_data/look_4/bag1.png", "black", "bag", "");
+        lookitem[1][2] = new Lookitem(1207348925, "https://data.pashiontoday.com/test_data/look_4/pants1.png", "white", "pants", "");
+        lookitem[1][3] = new Lookitem(1207348925, "https://data.pashiontoday.com/test_data/look_4/shoes1.png", "white", "shoes", "");
+        lookitem[1][4] = new Lookitem(1207348925, "https://data.pashiontoday.com/test_data/look_4/tee1.png", "black", "tee", "");
 
         // 나연 옷
         lookitem[2][0] = new Lookitem(1158775578, "https://data.pashiontoday.com/test_data/look_1/tee1.png", "green", "shirts", "");
@@ -123,21 +123,11 @@ public class TestDataController {
 //        lookitem[2][8] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee2.png", "yellow", "tee", "");
 //        lookitem[2][9] = new Lookitem(1156764820, "https://s3.ap-northeast-2.amazonaws.com/data.pashiontoday.com/test_data/look_5/tee3.png", "white", "tee", "");
 
-        for (int i = 0; i < 6; i++) {
-            lookitemRepository.save(lookitem[0][i]);
-        }
 
         for (int i = 0; i < 5; i++) {
             lookitemRepository.save(lookitem[1][i]);
         }
 
-        for (int i = 0; i < 5; i++) {
-            lookitemRepository.save(lookitem[2][i]);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            lookitemRepository.save(lookitem[3][i]);
-        }
 
 
         return new LookitemInfo();
