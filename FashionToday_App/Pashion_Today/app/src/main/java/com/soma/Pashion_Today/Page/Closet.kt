@@ -611,6 +611,8 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             closet_JSONObj= JSONObject(result)
             closet_JSONAry=closet_JSONObj?.getJSONArray("clothes_array")
 
+            look_list.clear()
+            closet_list.clear()
             for(i in 0 until closet_JSONAry?.length()!!){
                 var obj=closet_JSONAry?.getJSONObject(i)
                 var color=obj?.getString("color")
