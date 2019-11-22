@@ -13,5 +13,6 @@ import java.util.List;
  *
  */
 public interface ScheduleRepository extends CrudRepository<Schedule,ScheduleId> {
-    List<Schedule> findSchedulesByDStatusIn();
+    Schedule findByMIdAndDdate(int mid,String ddate);
+    List<Schedule> findByMId(int mid);
 }

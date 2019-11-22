@@ -2,6 +2,7 @@ package hamburger.fashiontoday.domain.lookstructure;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "lookstructure")
 @IdClass(LookStructureId.class)
+@NoArgsConstructor
 public class LookStructure {
 
     @Id
@@ -32,9 +34,14 @@ public class LookStructure {
     private int kmId;
 
     @Id
-    @Column(name = "ksid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int ksId;
+    @Column(name = "tlid")
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitemclass_tlid"))
+    private int tlId;
 
 
+    public LookStructure(int mid, int kmId, int tlId) {
+        this.mid = mid;
+        this.kmId = kmId;
+        this.tlId = tlId;
+    }
 }

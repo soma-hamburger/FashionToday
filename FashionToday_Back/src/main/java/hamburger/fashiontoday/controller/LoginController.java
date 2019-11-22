@@ -53,6 +53,7 @@ public class LoginController {
         String code = param.get("code").toString();
 
         //파라미터 확인
+        logger.debug("유저 코드 \n");
         logger.debug(this.getClass().getName() + " param : " + code);
 
         // 유저 코드로 토큰을 받아오는 작업
@@ -81,27 +82,6 @@ public class LoginController {
         }
 
         return new LoginInfo("fail");
-    }
-
-    @PostMapping(value = "/kakaotest")
-    public LoginInfo kakaoTest(HttpServletResponse response) {
-
-        System.out.println("시작");
-
-        int userId = 3;
-        Member loginMember = new Member();
-        loginMember = memberRepository.findByMId(userId);
-
-        try {
-            String token = jwtService.create("member", loginMember, "user");
-           // response.setHeader("Authorization", token);
-            return new LoginInfo(token);
-
-        }catch (Exception e){
-
-            return new LoginInfo("fail");
-
-        }
     }
 
 }

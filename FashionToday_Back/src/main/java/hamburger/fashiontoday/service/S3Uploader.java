@@ -31,11 +31,27 @@ public class S3Uploader {
     private String programId = "HAM-PB-4002-J";
     private String errorCode = "";
 
-    //AWSCredentials credentials = new BasicAWSCredentials("AKIATUGOHJQ6EOP6Y7VT", "UFYL3/n4oB690/MJE6/vJ8AKpe4TJWg1O2Yg3gDx");
     private final AmazonS3Client amazonS3Client = new AmazonS3Client();
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
+
+    /**
+     * 멀티파트 파일 이름 바꿔 업로드 실행
+     *
+     * @param multipartParamFile
+     * @param s3DirParamName     : S3 저장소 Path
+     * @return
+     * @throws IOException
+     */
+    public String upload(MultipartFile multipartParamFile, String s3DirParamName,long count) throws Exception {
+        System.out.println(programId + " : upload1 : s3DirParamName = " + s3DirParamName);
+        File uploadFile = convert(multipartParamFile)
+                .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
+        File renameFile = new File(String.valueOf(count)+uploadFile.getName());
+        uploadFile.renameTo(renameFile);
+        return upload(uploadFile, s3DirParamName);
+    }
 
     /**
      * 멀티파트 파일 업로드 실행
@@ -67,11 +83,14 @@ public class S3Uploader {
         // S3에 올려지고 난 이후 이미지 url 경로
         String uploadImageUrl = new String();
 
+        // S3에 올린 이미지 주소 수정
+        String fixImageUrl;
+
         try {
 
             // S3에 올릴 파일 이름 가져오기
             fileTmpName = s3DirParamName + "/" + uploadParamFile.getName();
-
+            System.out.println();
             // 업로드 및 업로드 이미지 불러오기
             uploadImageUrl = putS3(uploadParamFile, fileTmpName);
 
@@ -91,7 +110,8 @@ public class S3Uploader {
             }
         }
 
-        return uploadImageUrl;
+        fixImageUrl = "https://data.pashiontoday.com/"+uploadImageUrl.substring(47);
+        return fixImageUrl;
 
     }
 
