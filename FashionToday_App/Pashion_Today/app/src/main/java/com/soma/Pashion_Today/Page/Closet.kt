@@ -54,20 +54,20 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
 
     // 옷 타입 분류 이미지
     var clothes_typeimg= mapOf<String,Int>(
-        "Category" to R.drawable.jean_icon,
-        "Pants" to R.drawable.jean_icon,
-        "Jean" to R.drawable.jean_icon,
-        "Shirts" to R.drawable.shirts_icon,
-        "Tee" to R.drawable.tee_icon,
-        "Dress" to R.drawable.dress_icon,
-        "Shoes" to R.drawable.shoes_icon,
-        "Bag" to R.drawable.bag_icon,
-        "Hat" to R.drawable.hat_icon,
-        "Accessory" to R.drawable.accesory_icon
+        "category" to R.drawable.jean_icon,
+        "pants" to R.drawable.jean_icon,
+        "jean" to R.drawable.jean_icon,
+        "shirts" to R.drawable.shirts_icon,
+        "tee" to R.drawable.tee_icon,
+        "dress" to R.drawable.dress_icon,
+        "shoes" to R.drawable.shoes_icon,
+        "bag" to R.drawable.bag_icon,
+        "hat" to R.drawable.hat_icon,
+        "accessory" to R.drawable.accesory_icon
     )
 
     // 옷 색상 분류 변수arrayOf("Category","Pants","Jean","Shirts","Tee","Dress","Shoes","Bag","Hat","Accessory")
-    var color_type = arrayOf("Color","Red","Blue","Green")
+    var color_type = arrayOf("Color","Red","Blue","Green","Yellow","Brown","Purple","Black","White")
 
     // 서버로 받는 JSON Object
     var closet_JSONObj:JSONObject?=null
@@ -151,16 +151,16 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                 id: Long
             ) {
                 when(position){
-                    0->{ type_str="Category" }
-                    1->{ type_str="Pants" }
-                    2->{ type_str="Jean" }
-                    3->{ type_str="Shirts" }
-                    4->{ type_str="Tee" }
-                    5->{ type_str="Dress" }
-                    6->{ type_str="Shoes" }
-                    7->{ type_str="Bag" }
-                    8->{ type_str="Hat" }
-                    9->{type_str="Accessory"}
+                    0->{ type_str="category" }
+                    1->{ type_str="pants" }
+                    2->{ type_str="jean" }
+                    3->{ type_str="shirts" }
+                    4->{ type_str="tee" }
+                    5->{ type_str="dress" }
+                    6->{ type_str="shoes" }
+                    7->{ type_str="bag" }
+                    8->{ type_str="hat" }
+                    9->{type_str="accessory"}
                 }
             }
 
@@ -183,10 +183,15 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                 id: Long
             ) {
                 when(position){
-                    0->{color_str="Color"}
-                    1->{color_str="Red"}
-                    2->{color_str="Blue"}
-                    3->{color_str="Green"}
+                    0->{color_str="color"}
+                    1->{color_str="red"}
+                    2->{color_str="blue"}
+                    3->{color_str="green"}
+                    4->{color_str="yellow"}
+                    5->{color_str="brown"}
+                    6->{color_str="purple"}
+                    7->{color_str="black"}
+                    8->{color_str="white"}
                 }
             }
 
@@ -200,27 +205,11 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
         closet_gridview.adapter=grid_adapter
         closet_gridview.SetExpanded(true)
 
-        for(i in 0 until closet_JSONAry?.length()!!){
-            var obj=closet_JSONAry?.getJSONObject(i)
-            var color=obj?.getString("color")
-            var category=obj?.getString("category")
-            var image=obj?.getString("clothes_image")
-
-
-            var map=HashMap<String,Any>()
-            map.put("color",color!!)
-            map.put("category",category!!)
-            map.put("image",image!!)
-
-            closet_list.add(map)
-            look_list.add(map)
-        }
-
         // 스피너로 보기
         select_btn.setOnClickListener { view->
-            if(type_str=="Category"){
+            if(type_str=="category"){
                 // 모든 리스트 받기
-                if(color_str=="Color"){
+                if(color_str=="color"){
                     closet_list.clear()
 
                     for(i in 0 until look_list.size){
@@ -260,7 +249,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             }
             // 종류별로 받기
             else{
-                if(color_str=="Color"){
+                if(color_str=="color"){
                     closet_list.clear()
 
                     for(i in 0 until look_list.size){
@@ -453,16 +442,16 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                         id: Long
                     ) {
                         when(position){
-                            0->{select_category="Category"}
-                            1->{select_category="Pants"}
-                            2->{select_category="Jean"}
-                            3->{select_category="Shirts"}
-                            4->{select_category="Tee"}
-                            5->{select_category="Dress"}
-                            6->{select_category="Shoes"}
-                            7->{select_category="Bag"}
-                            8->{select_category="Hat"}
-                            9->{select_category="Accessory"}
+                            0->{select_category="category"}
+                            1->{select_category="pants"}
+                            2->{select_category="jean"}
+                            3->{select_category="shirts"}
+                            4->{select_category="tee"}
+                            5->{select_category="dress"}
+                            6->{select_category="shoes"}
+                            7->{select_category="bag"}
+                            8->{select_category="hat"}
+                            9->{select_category="accessory"}
                         }
                     }
 
@@ -484,10 +473,15 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                         id: Long
                     ) {
                         when(position){
-                            0->{select_color="Color"}
-                            1->{select_color="Red"}
-                            2->{select_color="Blue"}
-                            3->{select_color="Green"}
+                            0->{select_color="color"}
+                            1->{select_color="red"}
+                            2->{select_color="blue"}
+                            3->{select_color="green"}
+                            4->{select_color="yellow"}
+                            5->{select_color="brown"}
+                            6->{select_color="purple"}
+                            7->{select_color="black"}
+                            8->{select_color="white"}
                         }
                     }
 
@@ -517,7 +511,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                 }
                 dialog_view.Select_btn.setOnClickListener { view->
 
-                    ////// 배경 제거된 이미지 내부저장소 저장 //////
+                    ////////// 배경 제거된 이미지 내부저장소 저장 //////
                     var filename="${System.currentTimeMillis()}_rd.jpg"
                     var rd_file=File(dirPath,filename)
                     rd_file.createNewFile()
@@ -530,14 +524,19 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
                     var rb_path="${dirPath}/${filename}"
                     var upload_thread=UploadThread(rb_path,select_category,select_color)
                     upload_thread.start()
-                    ///////////////////////////////////////
+                    upload_thread.join()
+                    ////////////////////////////////////////////
 
-                    var map=HashMap<String,Any>()
-                    map.put("color",select_color)
-                    map.put("category",select_category)
-                    map.put("image",remove_image!!)
 
-                    look_list.add(map)
+                    // 리스트 최신화 시키지
+                    var get_thread=GetdataThread()
+                    get_thread.start()
+                    get_thread.join()
+                    runOnUiThread {
+                        var adapter = closet_gridview.adapter as ListAdapter
+                        adapter.notifyDataSetChanged()
+                    }
+
                     dialog.dismiss()
                 }
                 dialog.show()
@@ -592,31 +591,10 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
     inner class GetdataThread : Thread(){
         override fun run() {
 
-//            var site="http://172.20.10.4:8085/MobileServer/closet.jsp"
-//            var url=URL(site)
-//            var conn=url.openConnection()
-//            var input=conn.getInputStream()
-//            var isr=InputStreamReader(input)
-//            var br=BufferedReader(isr)
-//
-//            var buf=StringBuffer()
-//            var str:String?=null
-//
-//            do{
-//                str=br.readLine()
-//                if(str!=null){
-//                    buf.append(str)
-//                }
-//            }while(str!=null)
-//
-//            closet_JSONObj= JSONObject(buf.toString())
-//            closet_JSONAry=closet_JSONObj?.getJSONArray("clothes_array")
-
-
             var client=OkHttpClient()
             var request_builder=Request.Builder()
             var url=request_builder.url("https://api.pashiontoday.com/closet")
-            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
             url.addHeader("Content-Type","application/json")
 
 
@@ -632,7 +610,23 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var result=response.body!!.string()
             closet_JSONObj= JSONObject(result)
             closet_JSONAry=closet_JSONObj?.getJSONArray("clothes_array")
-            Log.d("msg","${result}")
+
+            for(i in 0 until closet_JSONAry?.length()!!){
+                var obj=closet_JSONAry?.getJSONObject(i)
+                var color=obj?.getString("color")
+                var category=obj?.getString("category")
+                var image=obj?.getString("clothes_image")
+
+
+                var map=HashMap<String,Any>()
+                map.put("color",color!!)
+                map.put("category",category!!)
+                map.put("image",image!!)
+
+                closet_list.add(map)
+                look_list.add(map)
+            }
+
         }
     }
 
@@ -643,7 +637,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var request_builder=Request.Builder()
             var url=request_builder.url("https://api.remove.bg/v1.0/removebg")
 
-            url.addHeader("X-Api-Key","")
+            url.addHeader("X-Api-Key","Pz2mQzQqH6uNotgLfK1SxZY1")
 
             var multipart_builder=MultipartBody.Builder()
             multipart_builder.setType(MultipartBody.FORM)
@@ -669,7 +663,7 @@ class Closet : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListe
             var client= OkHttpClient()
             var request_builder= Request.Builder()
             var url=request_builder.url("https://api.pashiontoday.com/lookitem")
-            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
             url.addHeader("Content-Type","multipart/form-data")
 
 

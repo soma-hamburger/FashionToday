@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,8 +18,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.soma.Pashion_Today.R
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Request
 import kotlinx.android.synthetic.main.recommend.*
 import kotlinx.android.synthetic.main.recommend_content.*
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -72,6 +76,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
             // 사용자 정보
             var user_info=recommd_JSONAry?.getJSONObject(i)
+            var user_id=user_info?.getInt("id")
             var user_name=user_info?.getString("name")
             var profile_site=user_info?.getString("profile_image")
             var user_intro=user_info?.getString("self_introduction")
@@ -88,6 +93,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
             var map=HashMap<String,Any>()
 
+            map.put("user_id",user_id!!)
             map.put("user_name",user_name!!)
             map.put("user_profile",profile_site!!)
             map.put("user_intro",user_intro!!)
@@ -219,6 +225,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
             var date_dday=v?.findViewById<TextView>(R.id.recommend_dday)
             var recommend_btn=v?.findViewById<Button>(R.id.recommend_button)
 
+            var user_id=map.get("user_id") as Int
             var user_name=map.get("user_name") as String
             var profile_site=map.get("user_profile") as String
             var user_grade=map.get("user_grade") as String
@@ -273,6 +280,7 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
             recommend_btn?.setOnClickListener { view->
                 var intent=Intent(applicationContext,RecommendDetail::class.java)
+                intent.putExtra("user_id",user_id)
                 intent.putExtra("profile_site",profile_site)
                 intent.putExtra("user_name",user_name)
                 intent.putExtra("user_grade",user_grade)
@@ -292,24 +300,20 @@ class Recommend : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLi
 
     inner class NetworkThread : Thread(){
         override fun run() {
-            var site="http://172.20.10.4:8085/MobileServer/recommed_list.jsp"
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            var isr=InputStreamReader(input)
-            var br=BufferedReader(isr)
+            var client=OkHttpClient()
+            var request_builder=okhttp3.Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/recommend/list")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
+            url.addHeader("Content-Type","application/json")
 
-            var str:String?=null
-            var buf=StringBuffer()
 
-            do{
-                str=br.readLine()
-                if(str!=null){
-                    buf.append(str)
-                }
-            }while(str!=null)
+            var request=request_builder.build()
+            var response=client.newCall(request).execute()
+            Log.d("msg","${response}")
+            var body=response.body!!.string()
+            Log.d("msg","${body}")
 
-            var obj=JSONObject(buf.toString())
+            var obj=JSONObject(body)
             recommd_JSONAry=obj.getJSONArray("requestor_array")
 
         }

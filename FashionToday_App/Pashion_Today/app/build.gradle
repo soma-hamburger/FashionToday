@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.soma.Pashion_Today"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 5
         versionName "1.5"

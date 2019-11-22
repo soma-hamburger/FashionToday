@@ -92,7 +92,7 @@
                     android:id="@+id/select_btn"
                     android:layout_width="60dp"
                     android:layout_height="25dp"
-                    android:layout_marginRight="50dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/calendar_button"
                     android:text="보기"
                     android:textColor="@color/white1"

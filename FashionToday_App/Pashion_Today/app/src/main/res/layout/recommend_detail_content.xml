@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
             <View
                     android:id="@+id/view22"
@@ -39,23 +39,14 @@
                     app:layout_constraintStart_toStartOf="@+id/view22"
                     app:layout_constraintTop_toTopOf="@+id/view22" />
 
-            <ImageView
-                    android:id="@+id/rd_profile"
-                    android:layout_width="65dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintStart_toStartOf="@+id/view23"
-                    app:layout_constraintTop_toTopOf="@+id/view22"
-                    app:srcCompat="@drawable/default_profile" />
-
             <View
                     android:id="@+id/view25"
                     android:layout_width="65dp"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="30dp"
+                    android:background="@drawable/border_bot"
                     app:layout_constraintStart_toStartOf="@+id/view23"
-                    app:layout_constraintTop_toBottomOf="@+id/rd_profile" />
+                    app:layout_constraintTop_toBottomOf="@+id/view30" />
 
             <TextView
                     android:id="@+id/rd_name"
@@ -99,7 +90,7 @@
                     android:text="추천자소개\n추천\n하이"
                     android:textColor="@color/w_black"
                     app:layout_constraintEnd_toEndOf="@+id/view23"
-                    app:layout_constraintStart_toEndOf="@+id/rd_profile"
+                    app:layout_constraintStart_toEndOf="@+id/view30"
                     app:layout_constraintTop_toTopOf="@+id/view22" />
 
             <Button
@@ -259,9 +250,7 @@
                     android:id="@+id/rd_gridview"
                     android:layout_width="300dp"
                     android:layout_height="350dp"
-                    android:layout_marginBottom="50dp"
                     android:numColumns="2"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rd_colorspinner" />
@@ -276,6 +265,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view22"
                     app:srcCompat="@drawable/slash_icon" />
+
+            <View
+                    android:id="@+id/view30"
+                    android:layout_width="65dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/boarder_boxtop"
+                    app:layout_constraintStart_toStartOf="@+id/view23"
+                    app:layout_constraintTop_toTopOf="@+id/view22" />
+
+            <ImageView
+                    android:id="@+id/rd_profile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/view30"
+                    app:layout_constraintEnd_toEndOf="@+id/view30"
+                    app:layout_constraintStart_toStartOf="@+id/view30"
+                    app:layout_constraintTop_toTopOf="@+id/view30"
+                    app:srcCompat="@drawable/default_profile" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </LinearLayout>

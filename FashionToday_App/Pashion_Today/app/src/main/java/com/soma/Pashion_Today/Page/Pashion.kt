@@ -3,8 +3,8 @@ package com.soma.Pashion_Today.Page
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.util.rangeTo
 import com.soma.Pashion_Today.R
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.main_dialog.*
 import kotlinx.android.synthetic.main.main_dialog.view.*
 import kotlinx.android.synthetic.main.pashion.*
@@ -26,9 +27,8 @@ import kotlinx.android.synthetic.main.pashion_content.*
 import okhttp3.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.URL
+import okhttp3.MediaType.Companion.toMediaType
+import kotlin.math.min
 
 
 /*****
@@ -61,7 +61,8 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
         "jean" to R.drawable.jean_icon,
         "shirts" to R.drawable.shirts_icon,
         "shoes" to R.drawable.shoes_icon,
-        "tee" to R.drawable.tee_icon
+        "tee" to R.drawable.tee_icon,
+        "pants" to R.drawable.jean_icon
     )
 
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,11 +95,15 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var user_Name = temp_JSONObj?.getString("user_name")
             var user_Profile = temp_JSONObj?.getString("user_profile_image")
             var user_Fashion = temp_JSONObj?.getString("look_image")
+            var star_num=temp_JSONObj?.getInt("look_like_num")
+            var look_id=temp_JSONObj?.getInt("look_id")
 
             var map = HashMap<String, Any>()
             map.put("name", user_Name!!)
             map.put("profile", user_Profile!!)
             map.put("fashion", user_Fashion!!)
+            map.put("starnum",star_num!!)
+            map.put("lookid",look_id!!)
 
             look_list.add(map)
         }
@@ -111,9 +116,10 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
 
         // 리스트 뷰 클릭 시 실행되는 이벤트
         Look_list.setOnItemClickListener { parent, view, position, id ->
-            Log.d("msg","댓다")
+            var map=look_list.get(position)
+            var look_id=map.get("lookid") as  Int
             // 상세 룩 정보 받기
-            var network_Thread=NetworkDetailThread()
+            var network_Thread=NetworkDetailThread(look_id)
             network_Thread.start()
             network_Thread.join()
 
@@ -126,18 +132,20 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
             var temp_JSONObj=look_JSONObj?.getJSONObject("recommender")
             var temp_name=temp_JSONObj?.getString("name")
-            var temp_likenum=look_JSONObj?.getString("like_num")
+            var temp_likenum=look_JSONObj?.getInt("like_num")
             var temp_profile_site=temp_JSONObj?.getString("profile_image")
 
 
             var profile_view=dialog_view.findViewById<ImageView>(R.id.profile)
             // Picasso 라이브러리를 이용하여 이미지 등록
             Picasso.with(this).load(temp_profile_site).into(profile_view)
+            profile_view.setBackgroundResource(R.drawable.image_circle)
+            profile_view.clipToOutline=true
 
             dialog_view.look_title.text=temp_look_title
             dialog_view.look_introduction.text=temp_look_intro
             dialog_view.recommender_name.text=temp_name
-            dialog_view.look_num.text=temp_likenum
+            dialog_view.look_num.text="${temp_likenum}"
 
             var grid_adapter=DetailListAdapter()
             dialog_view.Clothes_list.adapter=grid_adapter
@@ -165,7 +173,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var lp=WindowManager.LayoutParams()
             lp.copyFrom(dialog.window!!.attributes)
             lp.width=950
-            lp.height=1200
+            lp.height=1150
             dialog.window!!.attributes=lp
             dialog.window!!.setBackgroundDrawableResource(R.drawable.white_border)
 
@@ -286,17 +294,22 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var name_text=convertView?.findViewById<TextView>(R.id.user_name)
             var profile_img=convertView?.findViewById<ImageView>(R.id.user_profile)
             var fashion_img=convertView?.findViewById<ImageView>(R.id.user_look)
+            var star_text=convertView?.findViewById<TextView>(R.id.starnum)
 
             var user_name=map.get("name") as String
             var profile_site=map.get("profile") as String
             var fashion_site=map.get("fashion") as String
+            var star_num=map.get("starnum") as Int
 
 
             if(profile_site!="null"){
                 Picasso.with(applicationContext).load(profile_site).into(profile_img)
+                profile_img?.setBackgroundResource(R.drawable.image_circle)
+                profile_img?.clipToOutline=true
             }
             Picasso.with(applicationContext).load(fashion_site).into(fashion_img)
             name_text?.text=user_name
+            star_text?.text="${star_num}"
             return convertView!!
         }
     }
@@ -334,7 +347,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             Picasso.with(applicationContext).load(image).into(garment_image)
 
             garment_type?.setImageResource(clothes_list.get(category)!!)
-            garment_info?.text="${color} , ${category}"
+            garment_info?.text="${category} , ${color}"
 
             return convertView!!
         }
@@ -343,51 +356,46 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
      // 서버에서 JSONAry 받는 쓰래드
      inner class NetworkThread:Thread(){
         override fun run() {
-            var site="http://172.20.10.4:8085/MobileServer/Look_list.jsp"
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            var isr=InputStreamReader(input)
-            var br=BufferedReader(isr)
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/looklist")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
+            url.addHeader("Content-Type","application/json")
 
-            var str:String?=null
-            var buf=StringBuffer()
+            var request=request_builder.build()
+            var response=client.newCall(request).execute()
+            var body=response.body!!.string()
 
-            do{
-                str=br.readLine()
-                if(str!=null){
-                    buf.append(str)
-                }
-            }while(str!=null)
-
-            var obj=JSONObject(buf.toString())
+            Log.d("msg","${body}")
+            var obj=JSONObject(body)
             look_JSONAry=obj.getJSONArray("look_array")
 
         }
     }
 
     // 서버에서 Detail Look_Ary 받는 쓰래드
-    inner class NetworkDetailThread : Thread(){
+    inner class NetworkDetailThread(var lookid : Int) : Thread(){
         override fun run() {
-            var site="http://172.20.10.4:8085/MobileServer/Look_detail_list.jsp"
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            var isr=InputStreamReader(input)
-            var br=BufferedReader(isr)
 
-            var str:String?=null
-            var buf=StringBuffer()
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/look")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
+            url.addHeader("Content-Type","application/json")
 
-            do{
-                str=br.readLine()
-                if(str!=null){
-                    buf.append(str)
-                }
-            }while(str!=null)
+            var json_form=JSONObject()
+            json_form.put("look_id",lookid)
 
-            var obj=JSONObject(buf.toString())
-            look_JSONObj=obj
+            var body=RequestBody.create("application/json".toMediaType(),json_form.toString())
+
+            var post=url.post(body)
+            var request=post.build()
+            var response=client.newCall(request).execute()
+
+            var result=response.body!!.string()
+            Log.d("msg","${result}")
+            look_JSONObj=JSONObject(result)
+
         }
     }
 
@@ -396,7 +404,7 @@ class Pashion : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             var client= OkHttpClient()
             var request_builder= Request.Builder()
             var url=request_builder.url("https://api.pashiontoday.com/user/info")
-            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTczODE5Njg2MTM4LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MTAwLCJtY0RhdGVUaW1lIjoiMjAxOS0xMS0wMlQwNzowMzowNy40NzkiLCJtY0RhdGUiOiIyMDE5Tk9WRU1CRVIyIiwibWNUaW1lIjoiNzM3IiwibWlkIjoxMTU4Nzc1NTc4LCJtcHJvZmlsZVVybCI6bnVsbCwibW5hbWUiOiLsnqXrj5ntm4giLCJtc3RhciI6OTEsIm1tYWlsIjoiZGhvb25qYW5nQGdtYWlsLmNvbSIsIm1iaXJ0aGRheSI6IjA4MDMiLCJtc29jaWFsS2luZCI6Imtha2FvIiwibWhhc2hWYWwiOm51bGwsIm1zb2NpYWxJZCI6ImRob29uamFuZ0BnbWFpbC5jb20iLCJtZWRpdG9yIjoyLCJtZ3JhZGUiOjEwMCwibWNvbW1lbnQiOiLtjKjshZjtiKzrjbDsnbQg6rCc67Cc7J6Q7J6F64uI64ukLiIsIm1jb25EYXRlVGltZSI6bnVsbH19.CWn4k20fvRsEoRzrxnklO6DsrtByWyuFDHzQfZVmmy8")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
             url.addHeader("Content-Type","application/json")
 
 
@@ -446,5 +454,39 @@ class ExpandableHeightGridView : GridView{
         else{
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         }
+    }
+}
+
+// 피카소 이용해서 원형
+class CircleTransform : Transformation{
+    override fun transform(source: Bitmap?): Bitmap {
+        var size= min(source!!.width,source!!.height)
+
+        var x = (source!!.width-size)/2
+        var y = (source!!.height-size)/2
+
+        var squaredBitmap : Bitmap = Bitmap.createBitmap(source,x,y,size,size)
+        if(squaredBitmap != source){
+            source.recycle()
+        }
+
+        var bitmap : Bitmap = Bitmap.createBitmap(size,size,source.config)
+
+        var canvas = Canvas(bitmap)
+
+        var paint = Paint()
+        var shader : BitmapShader = BitmapShader(squaredBitmap,Shader.TileMode.CLAMP,Shader.TileMode.CLAMP)
+        paint.setShader(shader)
+        paint.isAntiAlias=true
+
+        var r : Float = size/2f
+        canvas.drawCircle(r,r,r,paint)
+
+        squaredBitmap.recycle()
+        return bitmap
+    }
+
+    override fun key(): String {
+        return "circle"
     }
 }
