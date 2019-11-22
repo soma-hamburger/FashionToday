@@ -3,23 +3,70 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical" android:layout_width="match_parent"
+        android:descendantFocusability="blocksDescendants"
         android:layout_height="match_parent">
 
     <ImageView
             android:id="@+id/clothes_view"
-            android:layout_width="133dp"
-            android:layout_height="130dp"
-            app:srcCompat="@mipmap/ic_launcher"
-            tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="28dp" />
+            android:layout_width="140dp"
+            android:layout_height="166dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
 
     <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/colorcheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="색상"
+            android:clickable="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            tools:layout_editor_absoluteX="49dp"
-            tools:layout_editor_absoluteY="165dp" />
+            app:layout_constraintStart_toStartOf="@+id/clothes_view"
+            app:layout_constraintTop_toTopOf="@+id/clothes_view" />
+
+    <View
+            android:id="@+id/view27"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clothes_view" />
+
+    <View
+            android:id="@+id/view28"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="@+id/view27"
+            app:layout_constraintStart_toStartOf="@+id/view27"
+            app:layout_constraintTop_toTopOf="@+id/view27" />
+
+    <ImageView
+            android:id="@+id/type_view"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view28"
+            app:layout_constraintEnd_toEndOf="@+id/view28"
+            app:layout_constraintStart_toStartOf="@+id/view28"
+            app:layout_constraintTop_toTopOf="@+id/view28"
+            app:srcCompat="@drawable/accesory_icon" />
+
+    <TextView
+            android:id="@+id/info_view"
+            android:layout_width="95dp"
+            android:layout_height="20dp"
+            android:gravity="center_horizontal"
+            android:text="Category, Color"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view27"
+            app:layout_constraintEnd_toEndOf="@+id/view27"
+            app:layout_constraintStart_toEndOf="@+id/view28"
+            app:layout_constraintTop_toTopOf="@+id/view27" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
