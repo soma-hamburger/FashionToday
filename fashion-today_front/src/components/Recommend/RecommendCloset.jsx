@@ -1,18 +1,24 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ClickImg, getCategoryIcon } from '../Common/Components';
+import CheckIcon from '../../img/checkbox_icon.png';
 import { filteringArray } from '../../Tool';
 
-const MakeClothes = filterdArray => {
+const MakeClothes = (filterdArray, onClick, lookData) => {
   if (!filterdArray) {
     return null;
   }
   return filterdArray.map(clothes => {
     const categoryIcon = getCategoryIcon(clothes.category);
+    const index = lookData.findIndex(i => i.src === clothes.clothes_image);
+
     return (
       <div className="Clothes" key={clothes.clothes_id}>
+        {index >= 0 && (
+          <img src={CheckIcon} alt="CheckIcon" className="CheckIcon" />
+        )}
         <ClickImg
-          onClick={() => {}}
+          onClick={onClick}
           src={clothes.clothes_image}
           alt={String(clothes.clothes_id)}
           className="Image"
@@ -28,31 +34,26 @@ const MakeClothes = filterdArray => {
   });
 };
 
-const ClosetTable = ({ category, color, array }) => {
+const RecommendCloset = ({ category, color, array, onClick, lookData }) => {
   const closetTable = useMemo(() => {
     const filterdArray = filteringArray(category, color, array);
-    return MakeClothes(filterdArray);
-  }, [array, category, color]);
+    return MakeClothes(filterdArray, onClick, lookData);
+  }, [array, category, color, lookData, onClick]);
 
   return <div className="ClosetTable">{closetTable}</div>;
 };
 
-ClosetTable.defaultProps = {
+RecommendCloset.defaultProps = {
   category: null,
   color: null,
 };
 
-ClosetTable.propTypes = {
+RecommendCloset.propTypes = {
   category: PropTypes.string,
   color: PropTypes.string,
-  array: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-      clothes_id: PropTypes.number.isRequired,
-      clothes_image: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  array: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  lookData: PropTypes.array.isRequired,
 };
 
-export default ClosetTable;
+export default RecommendCloset;

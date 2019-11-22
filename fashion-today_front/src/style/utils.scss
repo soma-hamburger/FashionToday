@@ -39,4 +39,20 @@ $padding: 2.5vw;
   $items-width: ($width - $gap * ($repeat - 1)) / $repeat;
 }
 
+@mixin respond($media) {
+  @if $media == small-screen {
+    @media only screen and (max-width: 700px) {
+      @content;
+    }
+  } @else if $media == medium-screen {
+    @media only screen and (min-width: 700px) and (max-width: 1024px) {
+      @content;
+    }
+  } @else if $media == wide-screen {
+    @media only screen and (min-width: 1024px) {
+      @content;
+    }
+  }
+}
+
 $image-ratio: 32/25;
