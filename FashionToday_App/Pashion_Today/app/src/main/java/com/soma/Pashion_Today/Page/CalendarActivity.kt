@@ -13,10 +13,7 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.*
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -29,10 +26,14 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.calendar_content.*
 import kotlinx.android.synthetic.main.calendar_popup.view.*
 import kotlinx.android.synthetic.main.calendar_popup2.view.*
 import kotlinx.android.synthetic.main.daily_look.nav_view
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -42,7 +43,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
-
+import okhttp3.MediaType.Companion.toMediaType
 
 /*****
  * 프로그램 ID : HAM-PA-100
@@ -65,22 +66,17 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     // 상세 옷들을 가지고 있는 리스트
     var recommend_list=ArrayList<HashMap<String,Any>>()
 
-    // 옷 타입 분류 변수
-    var clothes_type= arrayOf("accesory","bag","dress","hat","jean","shirts","shoes","tee")
-
     // 옷 변수 png list
-    var clothes_list= intArrayOf(
-        R.drawable.accesory_icon,
-        R.drawable.bag_icon,
-        R.drawable.dress_icon,
-        R.drawable.hat_icon,
-        R.drawable.jean_icon,
-        R.drawable.shirts_icon,
-        R.drawable.shoes_icon,
-        R.drawable.tee_icon
+    var clothes_list= mapOf<String,Int>(
+        "accessory" to R.drawable.accesory_icon,
+        "bag" to R.drawable.bag_icon,
+        "dress" to R.drawable.dress_icon,
+        "hat" to R.drawable.hat_icon,
+        "jean" to R.drawable.jean_icon,
+        "shirts" to R.drawable.shirts_icon,
+        "shoes" to R.drawable.shoes_icon,
+        "tee" to R.drawable.tee_icon
     )
-
-    var look_img:Bitmap?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +87,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         var header_view= nav_view.getHeaderView(0)
         header_view.setOnClickListener {
             var intent=Intent(this,Pashion::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
 
@@ -110,32 +107,15 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             var date=obj?.getInt("date")!!
 
             var year=date/10000
-
             date=date%10000
-
             var month=(date/100)-1
             date=date%100
-
             var day=date
 
             var calendar_view=findViewById<MaterialCalendarView>(R.id.calendarview)
             var calendar_day=CalendarDay(year,month,day)
 
-            Log.d("msg","${calendar_day}")
             date_list.add(calendar_day)
-            if(calendar_day==today_Date){
-                var detail_thread=DetailNetworkThread()
-                detail_thread.start()
-                detail_thread.join()
-
-                var look_JSONObj=JSON_Obj?.getJSONObject("look")
-                var look_title=look_JSONObj?.getString("look_title")
-                var look_intro=look_JSONObj?.getString("look_introduction")
-                var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
-
-                date_title.text=look_title
-                date_intro.text=look_intro
-            }
             calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
 
         }
@@ -159,6 +139,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             // 디데이 계산
             var dday=(temp_millions-today_millions)/(24*60*60*1000)
 
+            var date_int=date.year*10000+(date.month+1)*100+date.day
             //////////// 미래일정 //////////////
             if(dday>=0){
                 if(dday>0){
@@ -177,21 +158,21 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         break
                     }
                 }
-                star_image.visibility=View.GONE
-                star_text.visibility=View.GONE
                 if(check){
+                    star_image.visibility=View.VISIBLE
+                    star_text.visibility=View.VISIBLE
 
-                    var detail_thread=DetailNetworkThread()
+                    var detail_thread=DetailNetworkThread(date_int)
                     detail_thread.start()
                     detail_thread.join()
 
-                    var look_JSONObj=JSON_Obj?.getJSONObject("look")
-                    var look_title=look_JSONObj?.getString("look_title")
-                    var look_intro=look_JSONObj?.getString("look_introduction")
-                    var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
+                    var title=JSON_Obj?.getString("title")
+                    var intro=JSON_Obj?.getString("introduce")
+                    var num =JSON_Obj?.getInt("star")
 
-                    date_title.text=look_title
-                    date_intro.text=look_intro
+                    date_title.text=title
+                    date_intro.text=intro
+                    star_text.text="${num}"
 
                     calendar_button.setOnClickListener{ view->
                         var msg=Toast.makeText(this,"이미 일정이 등록되어 있습니다",Toast.LENGTH_SHORT)
@@ -200,6 +181,9 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 }
                 // 일정 추가
                else{
+                    star_image.visibility=View.GONE
+                    star_text.visibility=View.GONE
+
                     date_title.text=""
                     date_intro.text="일정이 없습니다"
                     calendar_button.setOnClickListener { view->
@@ -210,6 +194,10 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                             dialog.dismiss()
                         }
 
+                        var title=dialog_v.findViewById<EditText>(R.id.date_title)
+                        var intro=dialog_v.findViewById<EditText>(R.id.date_intro)
+                        var star=dialog_v.findViewById<EditText>(R.id.star_edit)
+
                         dialog_v.register_button.setOnClickListener { view->
                             var year=dialog_v.date_picker.year
                             var month=dialog_v.date_picker.month
@@ -217,6 +205,12 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                             var date=CalendarDay(year,month,day)
                             date_list.add(date)
                             calendar_view.addDecorator(EventDecorator(Color.RED,date_list))
+
+                            var date_int=year*10000+(month+1)*100+day
+                            var upload_thread=UploadThread(date_int,title.text.toString(),intro.text.toString(), star.text.toString())
+                            upload_thread.start()
+                            upload_thread.join()
+
                             dialog.dismiss()
                         }
                         dialog_v.closet_button.setOnClickListener { view->
@@ -254,7 +248,7 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
                     star_image.visibility=View.VISIBLE
                     star_text.visibility=View.VISIBLE
-                    var detail_thread=DetailNetworkThread()
+                    var detail_thread=DetailNetworkThread(date_int)
                     detail_thread.start()
                     detail_thread.join()
 
@@ -265,13 +259,9 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     var look_image=look_JSONObj?.getString("look_image")
                     var temp_JSONAry=look_JSONObj?.getJSONArray("clothes_array")
 
-                    star_text.text=star_num.toString()
+                    star_text.text="${star_num}"
                     date_title.text=look_title
                     date_intro.text=look_intro
-
-                    var image_thread=ImageNetworkThread(look_image!!)
-                    image_thread.start()
-                    image_thread.join()
 
                     calendar_button.setOnClickListener { view->
 
@@ -282,10 +272,10 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                         dialog_v.Grid_list.adapter=grid_adapter
                         dialog_v.Grid_list.SetExpanded(true)
 
+                        Picasso.with(this).load(look_image).into(dialog_v.look_Imageview)
 
                         dialog_v.look_title_text.text=look_title
                         dialog_v.look_intro_text.text=look_intro
-                        dialog_v.look_Imageview.setImageBitmap(look_img)
 
                         recommend_list.clear()
                         for(i in 0 until temp_JSONAry?.length()!!){
@@ -382,10 +372,12 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         when (item.itemId) {
             R.id.menu_closet -> {
                 var intent = Intent(this, Closet::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_daily_look -> {
                 var intent=Intent(this,DailyLook::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             R.id.menu_calendar -> {
@@ -393,7 +385,9 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
             }
             R.id.menu_recommend -> {
-
+                var intent=Intent(this,Recommend::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
             R.id.nav_share -> {
 
@@ -407,55 +401,6 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
-    // 일정 받는 네트워크 쓰레드
-    inner class NetworkThread : Thread(){
-        override fun run() {
-            var site="http://172.20.10.4:8085/MobileServer/date.jsp"
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            var isr=InputStreamReader(input)
-            var br=BufferedReader(isr)
-
-            var str:String?=null
-            var buf=StringBuffer()
-
-            do{
-                str=br.readLine()
-                if(str!=null){
-                    buf.append(str)
-                }
-            }while(str!=null)
-
-            var obj= JSONObject(buf.toString())
-            JSON_Ary=obj.getJSONArray("schedule_array")
-        }
-    }
-
-    inner class DetailNetworkThread : Thread(){
-        override fun run() {
-            var site="http://172.20.10.4:8085/MobileServer/date_detail.jsp"
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            var isr=InputStreamReader(input)
-            var br=BufferedReader(isr)
-
-            var str:String?=null
-            var buf=StringBuffer()
-
-            do{
-                str=br.readLine()
-                if(str!=null){
-                    buf.append(str)
-                }
-            }while(str!=null)
-
-            JSON_Obj= JSONObject(buf.toString())
-        }
-    }
-
 
     inner class ListAdapter : BaseAdapter(){
         override fun getCount(): Int {
@@ -489,31 +434,80 @@ class CalendarActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             name_text?.text="${category}, ${color}"
 
-            var image_thread=ImageNetworkThread(image)
-            image_thread.start()
-            image_thread.join()
+            Picasso.with(applicationContext).load(image).into(type_img)
 
-            cloth_img?.setImageBitmap(look_img)
-
-            for(i in 0 until clothes_type.size){
-                if(category==clothes_type.get(i)){
-                    type_img?.setImageResource(clothes_list.get(i))
-                }
-            }
+            type_img?.setImageResource(clothes_list.get(category)!!)
 
             return view!!
 
         }
     }
 
-    inner class ImageNetworkThread(var site : String) : Thread(){
+    // 일정 받는 네트워크 쓰레드
+    inner class NetworkThread : Thread(){
         override fun run() {
-            var url=URL(site)
-            var conn=url.openConnection()
-            var input=conn.getInputStream()
-            look_img=BitmapFactory.decodeStream(input)
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/schedule/list")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
+            url.addHeader("Content-Type","application/json")
+
+            var request=request_builder.build()
+            var response=client.newCall(request).execute()
+
+            var body=response.body!!.string()
+
+            var obj= JSONObject(body)
+            JSON_Ary=obj.getJSONArray("schedule_array")
         }
     }
+
+    inner class DetailNetworkThread(var date : Int) : Thread(){
+        override fun run() {
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/schedule/detail")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
+            url.addHeader("Content-Type","application/json")
+
+            var json_form=JSONObject()
+            json_form.put("date",date)
+
+            var body=RequestBody.create("application/json".toMediaType(),json_form.toString())
+
+            var post=url.post(body)
+            var request=post.build()
+            var response=client.newCall(request).execute()
+
+            var result=response.body!!.string()
+            Log.d("hi","${result}")
+            JSON_Obj= JSONObject(result)
+        }
+    }
+
+    inner class UploadThread(var date : Int, var title : String, var introduce : String, var star : String ) : Thread(){
+        override fun run() {
+            var client=OkHttpClient()
+            var request_builder=Request.Builder()
+            var url=request_builder.url("https://api.pashiontoday.com/schedule")
+            url.addHeader("Authorization","eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTc0MzcwNjQwODcwLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwibWVtYmVyIjp7Im1wU3RhciI6MCwibWNEYXRlVGltZSI6IjIwMTktMTEtMDZUMDY6NDY6MDkuNzc4IiwibWNEYXRlIjoiMjAxOU5PVkVNQkVSNiIsIm1jVGltZSI6IjY0NjkiLCJtbmFtZSI6IuyYpOybkOyEnSIsIm1zdGFyIjoxMDAsIm1wcm9maWxlVXJsIjoiaHR0cHM6Ly9zZWFyY2gucHN0YXRpYy5uZXQvY29tbW9uP3R5cGU9YSZzaXplPTEyMHgxNTAmcXVhbGl0eT05NSZkaXJlY3Q9dHJ1ZSZzcmM9aHR0cCUzQSUyRiUyRnNzdGF0aWMubmF2ZXIubmV0JTJGcGVvcGxlJTJGcG9ydHJhaXQlMkYyMDE5MDQlMkYyMDE5MDQwNTEzNDQ0MTc5MS5qcGciLCJtaWQiOjEyMDczNDg5MjUsIm1zZWxlY3RkYXRlIjoiMTk5NDExMDUiLCJtbWFpbCI6Im9vczMwOTBAbmF2ZXIuY29tIiwibWJpcnRoZGF5IjoiMTAwNyIsIm1zb2NpYWxLaW5kIjoia2FrYW8iLCJtaGFzaFZhbCI6bnVsbCwibXNvY2lhbElkIjoib29zMzA5MEBuYXZlci5jb20iLCJtZWRpdG9yIjowLCJtZ3JhZGUiOjUsIm1jb21tZW50Ijoi7JWI65Oc66Gc7J2065OcIOyVhOydtOyYpOyVhOydtCIsIm1jb25EYXRlVGltZSI6bnVsbH19.0sBpI01JWmROBByBkhzePY8-OollGtrFN93BKWmJp68")
+            url.addHeader("Content-Type","application/json")
+
+            var json_form=JSONObject()
+            json_form.put("date",date)
+            json_form.put("title",title)
+            json_form.put("introduce",introduce)
+            json_form.put("star",star.toInt())
+
+            var body=RequestBody.create("application/json".toMediaType(),json_form.toString())
+
+            var post=url.post(body)
+            var request=post.build()
+            client.newCall(request).execute()
+
+        }
+    }
+
 }
 
 /**

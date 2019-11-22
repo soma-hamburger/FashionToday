@@ -18,24 +18,29 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name="com.soma.Pashion_Today.Page.RecommendDetail"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleTop"></activity>
         <activity
                 android:name="com.soma.Pashion_Today.Page.Recommend"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleTop"/>
         <activity
                 android:name="com.soma.Pashion_Today.Page.DailyLook"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleTop"/>
         <activity
                 android:name="com.soma.Pashion_Today.Page.Closet"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleTop"/>
         <activity
                 android:name="com.soma.Pashion_Today.Page.CalendarActivity"
-                android:theme="@style/AppTheme.NoActionBar" />
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleTop"/>
         <activity
                 android:name="com.soma.Pashion_Today.Page.Pashion"
                 android:label="@string/title_activity_pashion"
-                android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.soma.Pashion_Today.Login.RegisterActivity" />
+                android:theme="@style/AppTheme.NoActionBar"
+                android:launchMode="singleTop"/>
         <activity android:name="com.soma.Pashion_Today.Login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

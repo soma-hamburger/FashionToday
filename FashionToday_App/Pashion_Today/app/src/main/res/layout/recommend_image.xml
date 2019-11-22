@@ -15,10 +15,10 @@
             android:background="@drawable/border_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintHorizontal_bias="0.455"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.498" />
+            app:layout_constraintVertical_bias="0.497" />
 
     <View
             android:id="@+id/boarder_top"
@@ -28,36 +28,26 @@
             app:layout_constraintStart_toStartOf="@+id/boarder"
             app:layout_constraintTop_toTopOf="@+id/boarder" />
 
-    <ImageView
-            android:id="@+id/recommend_userprofile"
-            android:layout_width="65dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintStart_toStartOf="@+id/boarder_top"
-            app:layout_constraintTop_toTopOf="@+id/boarder"
-            app:srcCompat="@drawable/default_profile" />
-
     <View
             android:id="@+id/boader_bot"
             android:layout_width="65dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/border_bot"
             app:layout_constraintStart_toStartOf="@+id/boarder_top"
-            app:layout_constraintTop_toBottomOf="@+id/recommend_userprofile" />
+            app:layout_constraintTop_toTopOf="@+id/boarder" />
 
     <TextView
             android:id="@+id/recommend_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:text="추천자"
             android:textColor="@color/w_black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/boader_bot"
             app:layout_constraintStart_toStartOf="@+id/boader_bot"
-            app:layout_constraintTop_toBottomOf="@+id/recommend_userprofile" />
+            app:layout_constraintTop_toTopOf="@+id/boader_bot" />
 
     <ImageView
             android:id="@+id/imageView20"
@@ -90,14 +80,14 @@
             android:text="추천자 소개\n추천\n 하이"
             android:textColor="@color/w_black"
             app:layout_constraintEnd_toEndOf="@+id/boarder_top"
-            app:layout_constraintStart_toEndOf="@+id/recommend_userprofile"
+            app:layout_constraintStart_toEndOf="@+id/view29"
             app:layout_constraintTop_toTopOf="@+id/boarder" />
 
     <Button
             android:id="@+id/recommend_button"
             android:layout_width="150dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/calendar_button"
             android:drawableStart="@drawable/closet_icon"
@@ -107,7 +97,7 @@
             android:textColor="@color/white1"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/boarder_top"
-            app:layout_constraintStart_toEndOf="@+id/recommend_userprofile" />
+            app:layout_constraintStart_toEndOf="@+id/view29" />
 
     <ImageView
             android:id="@+id/imageView23"
@@ -217,5 +207,26 @@
             app:layout_constraintEnd_toEndOf="@+id/boarder"
             app:layout_constraintStart_toStartOf="@+id/boarder"
             app:layout_constraintTop_toBottomOf="@+id/recommend_title" />
+
+    <View
+            android:id="@+id/view29"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/boarder_boxtop"
+            app:layout_constraintBottom_toTopOf="@+id/boader_bot"
+            app:layout_constraintStart_toStartOf="@+id/boarder_top"
+            app:layout_constraintTop_toTopOf="@+id/boarder" />
+
+    <ImageView
+            android:id="@+id/recommend_userprofile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/boader_bot"
+            app:layout_constraintEnd_toEndOf="@+id/view29"
+            app:layout_constraintStart_toStartOf="@+id/view29"
+            app:layout_constraintTop_toTopOf="@+id/view29"
+            app:srcCompat="@drawable/default_profile" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

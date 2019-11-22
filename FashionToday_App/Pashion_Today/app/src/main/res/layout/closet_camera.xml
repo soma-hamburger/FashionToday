@@ -52,6 +52,7 @@
             android:id="@+id/view12"
             android:layout_width="270dp"
             android:layout_height="30dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
