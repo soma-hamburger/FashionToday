@@ -32,6 +32,8 @@ public class MemberInfo {
 
     private String apiseq;
 
+    private boolean select = true;
+
 
     public MemberInfo(int user_id, String name, int star, String profile_image, int msec, String apiseq) {
         remark = "success";
@@ -41,6 +43,10 @@ public class MemberInfo {
         this.profile_image = profile_image;
         this.msec = msec;
         this.apiseq = apiseq;
+    }
+
+    public void unSelect(){
+        this.select = false;
     }
 
 }

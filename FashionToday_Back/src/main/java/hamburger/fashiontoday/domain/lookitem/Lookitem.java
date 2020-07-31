@@ -19,19 +19,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "lookitem")
-@IdClass(LookitemId.class)
 @NoArgsConstructor
 public class Lookitem {
 
-    @Id
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitem_mid"))
-    @Column(name = "mid")
-    private int mId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "kmid")
     private int kmId;
+
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_lookitem_mid"))
+    @Column(name = "mid")
+    private int mId;
 
     @Column(name = "color")
     private String color;

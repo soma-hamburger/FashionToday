@@ -1,6 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import bagIcon from '../../img/category/bag_icon.png';
+import jeanIcon from '../../img/category/jean_icon.png';
+import hatIcon from '../../img/category/hat_icon.png';
+import dressIcon from '../../img/category/dress_icon.png';
+import shoesIcon from '../../img/category/shoes_icon.png';
+import shirtsIcon from '../../img/category/shirts_icon.png';
+import teeIcon from '../../img/category/tee_icon.png';
+import accesoryIcon from '../../img/category/accesory_icon.png';
+
+export const getCategoryIcon = category => {
+  const categories = new Map([
+    ['jean', jeanIcon],
+    ['pants', jeanIcon],
+    ['bag', bagIcon],
+    ['hat', hatIcon],
+    ['dress', dressIcon],
+    ['shirts', shirtsIcon],
+    ['tee', teeIcon],
+    ['accessory', accesoryIcon],
+    ['shoes', shoesIcon],
+  ]);
+
+  if (!categories.has(category)) {
+    return null;
+  }
+
+  const src = categories.get(category);
+
+  return (
+    <div className="categoryIcon">
+      <img src={src} alt="categoryIcon" />
+    </div>
+  );
+};
 
 export const ClickDiv = ({ children, onClick, className, onKeyPress }) => (
   <div
