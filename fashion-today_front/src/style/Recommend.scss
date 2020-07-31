@@ -2,7 +2,7 @@
 
 .Recommend,
 .RecommendSubmit {
-  margin-top: calc(10vh + 60px);
+  margin-top: calc(10vmin + 60px);
   color: $v-black;
   .Requestor {
     font-family: $noto-sans;
@@ -10,17 +10,23 @@
     padding: $padding;
     @include center-margin($width, $padding);
     border: 1px solid $gray3;
-    border-radius: 10px;
-    margin-bottom: 5vh;
+    border-radius: 1vw;
+    margin-bottom: 5vmin;
     display: grid;
     grid-template-columns: 25fr 57fr 50fr;
     .Profile {
       background-color: $gray3;
-      border-radius: 8px;
+      border-radius: 0.8vw;
+      height: 18vw;
       .ProfileImg {
         background-color: $gray2;
-        border-radius: 8px 8px 0px 0px;
+        border-radius: 0.8vw 0.8vw 0px 0px;
         padding: 1.5vw 2.5vw;
+        img {
+          width: 8vw;
+          height: 8vw;
+          border-radius: 4vw;
+        }
       }
       .ProfileInfo {
         height: 5vw;
@@ -37,7 +43,7 @@
           font-weight: normal;
           img {
             width: 1.3vw;
-            margin-right: 3px;
+            margin-right: 0.3vw;
           }
         }
       }
@@ -45,24 +51,22 @@
     .UserInterface {
       padding: 3vw;
       border-right: 7px solid $gray2;
-      border-radius: 4;
       line-height: 1.5;
-      font-size: 15px;
+      font-size: 1.5vw;
       .ClosetViewButton {
-        line-height: normal;
-        margin-top: 3vh;
+        margin-top: 3vmin;
         background-color: $violet2;
+        font-size: 1vw;
         width: max-content;
-        font-size: 11px;
-        border-radius: 10px;
-        padding: 4px 1.4vw;
+        border-radius: 1vw;
+        padding: 0.4vw 1.4vw;
         color: $white;
         display: flex;
         align-items: center;
         justify-items: center;
         img {
-          width: 14px;
-          margin-right: 10px;
+          width: 1.4vw;
+          margin-right: 1vw;
         }
       }
     }
@@ -78,10 +82,11 @@
         margin-top: 1vw;
         grid-gap: 1vw;
         .DDay {
-          font-size: 11px;
-          padding-top: 1vw;
+          font-size: 1.1vw;
+          padding-top: 1.1vw;
           padding-left: 0.3vw;
           padding-right: 0.3vw;
+          padding-bottom: 0.2vw;
           width: max-content;
           background-image: url('../img/dday_icon.png');
           background-size: 100% 100%;
@@ -91,13 +96,13 @@
         .Whether {
           display: grid;
           grid-template-columns: 1fr 2.5fr 1fr 2fr;
-          font-size: 12px;
+          font-size: 1.2vw;
           align-self: center;
           justify-items: center;
           align-items: center;
-          border-radius: 30px;
+          border-radius: 3vw;
           background-color: $gray2;
-          padding: 5px 2vw;
+          padding: 0.5vw 1vw;
           .tempicon {
             width: 50%;
           }
@@ -106,21 +111,31 @@
       .Title {
         font-size: 1.8vw;
         color: $gray5;
-        margin: 2vh 0;
+        margin: 2vmin 0;
       }
       .Introduction {
-        font-size: 14px;
+        font-size: 1.3vw;
+        line-height: 1.5;
         color: $gray5;
       }
     }
   }
   .RequestorCloset {
-    margin-top: 0vh;
-    padding-top: 0vh;
+    margin-top: 0vmin;
+    padding-top: 0vmin;
+    .Clothes {
+      position: relative;
+      .CheckIcon {
+        position: absolute;
+        top: 0.5vw;
+        left: 0.5vw;
+        width: 2vw;
+      }
+    }
     .LookForm {
-      margin-top: 5vh;
+      margin-top: 5vmin;
       background-color: $gray3;
-      border-radius: 10px;
+      border-radius: 1vw;
       width: $width;
       padding: $padding;
       @include center-margin($width, $padding);
@@ -130,21 +145,21 @@
         background-color: $gray1;
         width: 25vw;
         height: 32vw;
-        border-radius: 7px 0px 0px 7px;
+        border-radius: 0.6vw 0px 0px 0.6vw;
         position: relative;
         .plusicon,
         .minusicon {
           position: absolute;
-          width: 18px;
-          bottom: 5px;
-          left: 10px;
+          width: 1.8vw;
+          bottom: 0.8vw;
+          left: 1vw;
         }
         .minusicon {
-          left: 35px;
+          left: 3.5vw;
         }
       }
       .LookInfo {
-        border-radius: 0px 7px 7px 0px;
+        border-radius: 0px 0.6vw 0.6vw 0px;
         background-color: $w-violet3;
         padding: 3vw;
         position: relative;
@@ -163,7 +178,7 @@
           }
         }
         textarea {
-          margin-top: 3vh;
+          margin-top: 3vmin;
           background-color: inherit;
           display: block;
           line-height: 150%;
@@ -178,7 +193,7 @@
           position: absolute;
           bottom: 3vw;
           right: 3vw;
-          font-size: 15px;
+          font-size: 1.3vw;
           padding: 0.5vw 1.5vw;
           background-color: $violet2;
           color: $white;
@@ -190,8 +205,160 @@
   }
 }
 
-.RecommendSubmit {
-  .Requestor {
-    margin-bottom: 0vh;
+@include respond(small-screen) {
+  $width: 85vw;
+  $padding: 2.5vw;
+  .Recommend,
+  .RecommendSubmit {
+    margin-top: calc(10vmin + 30px);
+    .Requestor {
+      width: $width;
+      padding: $padding;
+      @include center-margin($width, $padding);
+      .ProfileImg {
+        text-align: center;
+      }
+    }
+    .RequestorCloset {
+      .LookForm {
+        margin-top: 5vmin;
+        width: $width;
+        padding: $padding;
+        @include center-margin($width, $padding);
+      }
+    }
+  }
+}
+
+@include respond(wide-screen) {
+  .Recommend,
+  .RecommendSubmit {
+    .Requestor {
+      width: 1024 * 0.65px;
+      padding: 1024 * 0.025px;
+      margin: 0 auto;
+      border-radius: 10px;
+      margin-bottom: 5vmin;
+      .Profile {
+        border-radius: 8px;
+        height: 180px;
+        .ProfileImg {
+          border-radius: 8px 8px 0px 0px;
+          padding: 15px 25px;
+          img {
+            width: 80px;
+            height: 80px;
+            border-radius: 40px;
+          }
+        }
+        .ProfileInfo {
+          height: 50px;
+          font-size: 22px;
+          padding: 10px;
+          .Grade {
+            font-size: 15px;
+            margin-top: 8px;
+            img {
+              width: 13px;
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+      .UserInterface {
+        padding: 30px;
+        border-right: 7px solid $gray2;
+        font-size: 15px;
+        .ClosetViewButton {
+          font-size: 10px;
+          border-radius: 10px;
+          padding: 0.4 * 10px 1.4 * 10px;
+          img {
+            width: 1.4 * 10px;
+            margin-right: 1 * 10px;
+          }
+        }
+      }
+      .ScheduleInterface {
+        padding: 0 2.5 * 10px 0 4 * 10px;
+        .Date {
+          font-size: 2.2 * 10px;
+        }
+        .DayBar {
+          margin-top: 1 * 10px;
+          grid-gap: 1 * 10px;
+          .DDay {
+            font-size: 1.1 * 10px;
+            padding-top: 1.1 * 10px;
+            padding-left: 0.3 * 10px;
+            padding-right: 0.3 * 10px;
+            padding-bottom: 0.2 * 10px;
+          }
+          .Whether {
+            font-size: 1.2 * 10px;
+            border-radius: 3 * 10px;
+            padding: 0.5 * 10px 1 * 10px;
+          }
+        }
+        .Title {
+          font-size: 1.8 * 10px;
+        }
+        .Introduction {
+          font-size: 1.3 * 10px;
+        }
+      }
+    }
+    .RequestorCloset {
+      .Clothes {
+        .CheckIcon {
+          top: 0.5 * 10px;
+          left: 0.5 * 10px;
+          width: 2 * 10px;
+        }
+      }
+      .LookForm {
+        width: 1024 * 0.65px;
+        padding: 1024 * 0.025px;
+        margin: 0 auto;
+        margin-top: 5vmin;
+        border-radius: 1 * 10px;
+        .LookImages {
+          width: 25 * 10px;
+          height: 32 * 10px;
+          border-radius: 0.6 * 10px 0px 0px 0.6 * 10px;
+          .plusicon,
+          .minusicon {
+            width: 1.8 * 10px;
+            bottom: 0.8 * 10px;
+            left: 1 * 10px;
+          }
+          .minusicon {
+            left: 3.5 * 10px;
+          }
+        }
+        .LookInfo {
+          border-radius: 0px 0.6 * 10px 0.6 * 10px 0px;
+          padding: 3 * 10px;
+          .LookTitle {
+            img {
+              width: 1.5 * 10px;
+              margin-right: 2 * 10px;
+            }
+            input {
+              font-size: 2.8 * 10px;
+            }
+          }
+          textarea {
+            font-size: 1.5 * 10px;
+          }
+          button {
+            bottom: 3 * 10px;
+            right: 3 * 10px;
+            font-size: 1.3 * 10px;
+            padding: 0.5 * 10px 1.5 * 10px;
+          }
+        }
+      }
+    }
   }
 }

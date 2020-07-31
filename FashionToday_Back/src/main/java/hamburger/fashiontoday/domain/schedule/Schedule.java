@@ -4,6 +4,7 @@ package hamburger.fashiontoday.domain.schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -51,6 +52,10 @@ public class Schedule {
 
     @Column(name = "dmonth")
     private String dMonth;
+
+    @Column(name = "selcet")
+    @ColumnDefault("0")
+    private int select;
 
     public Schedule(int mId, String ddate, String dTitle, String dIntroduce, int dStar) {
         this.mId = mId;

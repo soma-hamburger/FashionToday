@@ -17,11 +17,18 @@ export const RedirectCalendar = () => {
 const Calendar = ({ match }) => {
   const DayId = match.params.dayid;
   const { token } = useContext(UserContext);
-  const ScheduleList = useFetch('post', 'user/schedule/list', token);
-  const LookListInfo = useFetch('post', 'look', token);
-  const ScheduleDetail = useFetch('post', 'user/schedule/detail', token, {
-    dayId: DayId,
-  });
+  const ScheduleList = useFetch('get', 'schedule/list', token);
+  const LookListInfo = useFetch('get', 'looklist', token);
+
+  let isSchedule = false;
+
+  if (ScheduleList) {
+    const scheduleIndex = ScheduleList.data.schedule_array.findIndex(
+      s => s.date === DayId,
+    );
+
+    isSchedule = scheduleIndex >= 0;
+  }
 
   return (
     <div className="CalendarPage">
@@ -30,10 +37,7 @@ const Calendar = ({ match }) => {
           dayId={DayId}
           scheduleList={ScheduleList ? ScheduleList.data : null}
         />
-        <Day
-          dayId={DayId}
-          scheduleDetail={ScheduleDetail ? ScheduleDetail.data : null}
-        />
+        <Day dayId={DayId} isSchedule={isSchedule} />
       </div>
       {LookListInfo && <LookList LookArray={LookListInfo.data.look_array} />}
     </div>

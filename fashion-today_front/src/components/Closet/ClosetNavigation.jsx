@@ -40,6 +40,9 @@ const ClosetNavigation = ({ navTool }) => {
           <option value="red">Red</option>
           <option value="blue">Blue</option>
           <option value="green">Green</option>
+          <option value="brown">Brown</option>
+          <option value="yellow">Yellow</option>
+          <option value="purple">Purple</option>
         </select>
       </div>
       <button onClick={chooseFilter} type="submit" className="NavButton">

@@ -5,11 +5,14 @@ import hamburger.fashiontoday.domain.lookitem.Lookitem;
 import hamburger.fashiontoday.domain.lookitem.LookitemInfo;
 import hamburger.fashiontoday.domain.lookitem.LookitemRepository;
 import hamburger.fashiontoday.domain.member.MemberRepository;
+import hamburger.fashiontoday.domain.schedule.ScheduleInfo;
 import hamburger.fashiontoday.service.JwtService;
+import hamburger.fashiontoday.service.S3Uploader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -31,6 +34,10 @@ public class LookitemController {
     @Autowired
     JwtService jwtService;
 
+    //S3 업로더
+    @Autowired
+    S3Uploader s3Uploader;
+
     // Member객체를 관리하는 memberrepository입니다.
     @Autowired
     MemberRepository memberRepository;
@@ -39,14 +46,12 @@ public class LookitemController {
     LookitemRepository lookitemRepository;
 
     // 302번 api
-    // 룩을 저장하는 api
+    // 룩 아이템 을 저장하는 api
     @PostMapping(value = "/lookitem")
-    public LookitemInfo uploadLookitem(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
+    public LookitemInfo uploadLookitem(@RequestHeader(value = "Authorization") String token, @RequestParam("clothes_img") MultipartFile multipartFile, @RequestParam("color") String color,@RequestParam("category") String category) {
 
         int loginMemberId = 0;
         String clothesImg = new String();
-        String color = new String();
-        String category = new String();
         LookitemInfo lookItemInfo = new LookitemInfo();
 
         // 로그인 여부 확인
@@ -59,44 +64,63 @@ public class LookitemController {
 
         }
 
-        // 파라미터 파싱
-        try {
-            clothesImg = param.get("clothes_img").toString();
-            color = param.get("color").toString();
-            category = param.get("category").toString();
+        System.out.println("lookitem : "+category+" : "+color);
 
-        } catch (Exception e) {
+        // 멀티 파트 파일 여부 확인
+        if (multipartFile == null) {
+            lookItemInfo.setRemark("no multipartfile");
             return lookItemInfo;
-
         }
 
-        Lookitem lookitem2 = new Lookitem(loginMemberId,clothesImg,color,category,clothesImg);
-        System.out.println( "이거 : "+lookitem2.getMId());
+        // 업로드
+        try {
+            clothesImg = s3Uploader.upload(multipartFile, String.valueOf(loginMemberId));
+        } catch (Exception e) {
+            lookItemInfo.setRemark("upload_error");
+            return lookItemInfo;
+        }
 
-        return new LookitemInfo(lookitemRepository.save(new Lookitem(loginMemberId,clothesImg,color,category,clothesImg)));
+        Lookitem lookitem2 = new Lookitem(loginMemberId, clothesImg, color, category, clothesImg);
+        System.out.println("이거 : " + lookitem2.getMId());
+
+        return new LookitemInfo(lookitemRepository.save(new Lookitem(loginMemberId, clothesImg, color, category, clothesImg)));
     }
 
 
     // 202번 api
     // 나만의 옷장을 불러오는 곳
-    @GetMapping(value = "/closet")
-    public ClosetInfo getCloset(@RequestHeader(value = "Authorization") String token) {
+    @PostMapping(value = "/closet")
+    public ClosetInfo getCloset(@RequestHeader(value = "Authorization") String token, @RequestBody Map<String, Object> param) {
 
         int loginMemberId = 0;
+        int closetOwnerId = 0;
         ClosetInfo closetInfo = new ClosetInfo();
 
         // 로그인 여부 확인
         if (jwtService.isUsable(token)) {
             loginMemberId = jwtService.getMember(token);
             System.out.println("유저 아이디 : " + loginMemberId);
-        }else{
+        } else {
             return closetInfo;
         }
 
-        closetInfo.setClothesList(lookitemRepository.findLookitemsByMId(loginMemberId));
+        // 파라미터 파싱
+        try {
+            closetOwnerId = Integer.parseInt(param.get("user_id").toString());
+        } catch (Exception e) {
+            closetInfo.setRemark("param_error");
+            return closetInfo;
+        }
+
+        if (closetOwnerId == 0) {
+            closetInfo.setClothesList(lookitemRepository.findLookitemsByMId(loginMemberId));
+        } else {
+            closetInfo.setClothesList(lookitemRepository.findLookitemsByMId(closetOwnerId));
+        }
 
 
         return closetInfo;
     }
+
 
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -13,7 +14,9 @@ public class ClosetInfo {
 
     private String remark = "fail";
 
-    private List<ClosetItemInfo> clothes_array;
+    private int user_id;
+
+    private List<ClosetItemInfo> clothes_array = new ArrayList<ClosetItemInfo>();
 
     public void setClothesList(List<Lookitem> clothes_array) {
         remark = "success";
@@ -22,29 +25,26 @@ public class ClosetInfo {
         }
     }
 
-    private class ClosetItemInfo {
+}
 
-        private String remark = "fail";
+@NoArgsConstructor
+@Getter
+@Setter
+class ClosetItemInfo {
 
-        private int mid;
+    private int clothes_id;
 
-        private int kmid;
+    private String clothes_image;
 
-        private String kitemPicture;
+    private String category;
 
-        private String lookItemCat;
+    private String color;
 
-        private String kItemColSumPicture;
-
-        public ClosetItemInfo(Lookitem lookitem) {
-            remark = "success";
-            mid = lookitem.getMId();
-            kmid = lookitem.getKmId();
-            kitemPicture = lookitem.getKItemPicture();
-            lookItemCat = lookitem.getLookItemCat();
-            kItemColSumPicture = lookitem.getKItemColSumPicture();
-        }
-
+    public ClosetItemInfo(Lookitem lookitem) {
+        clothes_id = lookitem.getKmId();
+        clothes_image = lookitem.getKItemPicture();
+        category = lookitem.getLookItemCat();
+        color = lookitem.getColor();
     }
 
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
+/*
 import {
   UserCloset,
   UserInfo,
@@ -9,18 +10,28 @@ import {
   LookListInfo,
   UserScheduleDetail,
   UserScheduleList,
+  DailyLookDetail,
+  LookDetail,
+  UserState,
 } from './defaultAPI';
+*/
 
-const findDefaultAPI = url => {
-  if (url === 'closet') return { data: UserCloset };
-  if (url === 'user/info') return { data: UserInfo };
-  if (url === 'user/dailylook') return { data: getDailyLookList };
-  if (url === 'user/schedule/list') return { data: UserScheduleList };
-  if (url === 'user/schedule/detail') return { data: UserScheduleDetail };
-  if (url === 'requestor/list') return { data: LookRequestorList };
-  if (url === 'requestor/closet') return { data: RequestorCloset };
-  if (url === 'look') return { data: LookListInfo };
-  return null;
+export const filteringArray = (category, color, array) => {
+  let filterdArray = array;
+  if (category) {
+    filterdArray = filterdArray.filter(
+      clothes => clothes.category === category,
+    );
+  }
+  if (color) {
+    filterdArray = filterdArray.filter(clothes => clothes.color === color);
+  }
+  return filterdArray;
+};
+
+const handleError = error => {
+  localStorage.setItem('error', error);
+  return window.location.reload();
 };
 
 export const Request = async (url, body, header) => {
@@ -47,8 +58,7 @@ export const UserPost = async (url, token, body) => {
   try {
     return await userInstance.post(url, body);
   } catch (error) {
-    console.log(error);
-    return findDefaultAPI(url);
+    return handleError(error);
   }
 };
 
@@ -62,8 +72,7 @@ export const UserGet = async (url, token, body) => {
   try {
     return await userInstance.get(url, body);
   } catch (error) {
-    console.log(error);
-    return findDefaultAPI(url);
+    return handleError(error);
   }
 };
 
@@ -72,11 +81,15 @@ export const useFetch = (method, url, token, body) => {
 
   useEffect(() => {
     const postRes = async () => {
-      const response = await UserPost(url, token, body);
+      let parsedBody = null;
+      if (body) parsedBody = JSON.parse(body);
+      const response = await UserPost(url, token, parsedBody);
       setRes(response);
     };
     const getRes = async () => {
-      const response = await UserGet(url, token, body);
+      let parsedBody = null;
+      if (body) parsedBody = JSON.parse(body);
+      const response = await UserGet(url, token, parsedBody);
       setRes(response);
     };
 
@@ -85,8 +98,34 @@ export const useFetch = (method, url, token, body) => {
     } else {
       getRes();
     }
+  }, [body, method, token, url]);
+
+  return res;
+};
+
+export const useWeahterAPI = date => {
+  const [res, setRes] = useState(null);
+
+  const key =
+    'g9j0VQ1w%2B2FL2%2BirUmwnrqHSJa8Z5NlLn9pwnVa4MAdiy13rX2kf5WPbcWLKDN9S7F4Is5ht9eJKcAniXhZGjw%3D%3D';
+
+  const userInstance = axios.create({
+    baseURL: `http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?ServiceKey=${key}&base_date=${date}&base_time=0200&nx=59&ny=125&_type=json`,
+    timeout: 2000,
+  });
+
+  useEffect(() => {
+    const getRes = async () => {
+      try {
+        const response = await userInstance.get();
+        setRes(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, token]);
+  }, [userInstance]);
 
   return res;
 };
@@ -139,4 +178,17 @@ export const makeDayObj = dayId => {
   const date = dayId.substring(6, 8);
 
   return new Date(year, month - 1, date);
+};
+
+export const dataURLtoFile = (dataurl, filename) => {
+  const arr = dataurl.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n) {
+    u8arr[n - 1] = bstr.charCodeAt(n - 1);
+    n -= 1; // to make eslint happy
+  }
+  return new File([u8arr], filename, { type: mime });
 };

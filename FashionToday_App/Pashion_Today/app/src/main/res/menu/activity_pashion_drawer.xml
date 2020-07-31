@@ -3,35 +3,38 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-                android:id="@+id/menu_closet"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="@string/menu_closet"/>
-        <item
-                android:id="@+id/menu_daily_look"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="@string/menu_daily_look"/>
-        <item
-                android:id="@+id/menu_calendar"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="@string/menu_calendar"/>
-        <item
-                android:id="@+id/menu_recommend"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_recommned"/>
-    </group>
+    <item android:title="Pashion Today">
+        <menu>
+            <item
+                    android:id="@+id/menu_closet"
+                    android:icon="@drawable/wardrobe"
+                    android:title="@string/menu_closet"/>
+            <item
+                    android:id="@+id/menu_daily_look"
+                    android:icon="@drawable/clothes"
+                    android:title="@string/menu_daily_look"/>
+            <item
+                    android:id="@+id/menu_calendar"
+                    android:icon="@drawable/dday_icon"
+                    android:title="@string/menu_calendar"/>
+            <item
+                    android:id="@+id/menu_recommend"
+                    android:icon="@drawable/quality"
+                    android:title="@string/menu_recommned"/>
+        </menu>
+    </item>
 
-    <item android:title="Communicate">
+
+    <item android:title="Help">
         <menu>
             <item
                     android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="@string/menu_share"/>
+                    android:icon="@drawable/house"
+                    android:title="My page"/>
             <item
                     android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="@string/menu_send"/>
+                    android:icon="@drawable/alarm_icon"
+                    android:title="Notification"/>
         </menu>
     </item>
 

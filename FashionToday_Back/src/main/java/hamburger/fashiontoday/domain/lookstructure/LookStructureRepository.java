@@ -2,6 +2,8 @@ package hamburger.fashiontoday.domain.lookstructure;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 
 /**
  * @프로그램ID : HAM-PB-2014-J
@@ -12,4 +14,5 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface LookStructureRepository extends CrudRepository<LookStructure,LookStructureId> {
+    List<LookStructure> findLookStructuresByTlId(int tlid);
 }

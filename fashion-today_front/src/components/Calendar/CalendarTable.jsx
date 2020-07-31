@@ -56,7 +56,7 @@ const makeTable = (year, month, dayId, scheduleList) => {
     let schedule = null;
     if (scheduleList) {
       const index = scheduleList.schedule_array.findIndex(
-        s => String(s.date) === newDayId,
+        s => s.date === newDayId,
       );
       schedule = index >= 0;
     }

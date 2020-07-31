@@ -1,6 +1,7 @@
 package hamburger.fashiontoday.domain.member;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -23,6 +24,7 @@ import java.util.HashMap;
 @Getter
 @Setter
 @Table(name = "member")
+@NoArgsConstructor
 public class Member {
 
     @Id
@@ -56,11 +58,11 @@ public class Member {
     private int mpStar;
 
     @Column(name = "meditor")
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int mEditor;
 
     @Column(name = "mgrade")
-    @ColumnDefault("0")
+    @ColumnDefault("1")
     private int mGrade;
 
     @Column(name = "mprofileurl")
@@ -82,9 +84,9 @@ public class Member {
     @Column(name = "mcondatetime")
     private String mConDateTime;
 
-    public Member() {
-
-    }
+    @Column(name = "mSelectdate")
+    @ColumnDefault("19941105")
+    private String mSelectdate;
 
     public Member(HashMap<String, Object> userInfo) {
 
@@ -94,6 +96,22 @@ public class Member {
         this.mcDateTime = localDateTime.toString();
         this.mcDate = String.valueOf(localDateTime.getYear()) + String.valueOf(localDateTime.getMonth()) + String.valueOf(localDateTime.getDayOfMonth());
         this.mcTime = String.valueOf(localDateTime.getHour()) + String.valueOf(localDateTime.getMinute()) + String.valueOf(localDateTime.getSecond());
+    }
+
+    public Member(int mId, String mName, String mMail, String mBirthday, String mSocialKind, String mHashVal, int mStar, int mpStar, int mEditor, int mGrade, String mProfileUrl, String mComment) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mMail = mMail;
+        this.mBirthday = mBirthday;
+        this.mSocialKind = mSocialKind;
+        this.mHashVal = mHashVal;
+        this.mSocialId = mSocialId;
+        this.mStar = mStar;
+        this.mpStar = mpStar;
+        this.mEditor = mEditor;
+        this.mGrade = mGrade;
+        this.mProfileUrl = mProfileUrl;
+        this.mComment = mComment;
     }
 
     public void update(HashMap<String, Object> userInfo) {
@@ -113,6 +131,14 @@ public class Member {
         }
 
         return userInfo.get(info).toString();
+    }
+
+    public void useStar(int token){
+        this.mStar -= token;
+    }
+
+    public void addReward(){
+        this.mStar++;
     }
 
 }
